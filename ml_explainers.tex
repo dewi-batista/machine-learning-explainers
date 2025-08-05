@@ -301,7 +301,7 @@ $$
 $$
 where the sum is taken over the training data $\{(\x_i,y_i)\}_{i=1,\dots,5}$.
 
-As for how well the model performs, its MSE on $\Dtrain$ is $1.26$ and its MSE on $\Dtest$ is $12.24$. In this case, such a difference is fine. To get a visual on how well the model does on the training and testing sets, consider \autoref{lin_reg_example_on_train_and_test}. I should improve these at some point.
+As for how well the model performs, its MSE on $\Dtrain$ is $1.26$ and its MSE on $\Dtest$ is $12.24$. In this case, such a difference is fine. To get a visual on how well the model does on the training and testing sets, consider \autoref{fig:lin_reg_example_on_train_and_test}. I should improve these at some point.
 
 \begin{figure}[ht]
     \centering
@@ -654,22 +654,25 @@ This is entirely problem-dependent but $\eta=0.1$ is a great staple choice. If c
 % deep learning
 \newpage
 \section{Neural Networks}
-It is often the case that what people mean when they state `neural networks' they more precisely mean multi-layer perceptrons (MLPs), perhaps the simplest kind of neural network. Rigorously formulating MLPs is one of those things that's useful to do at least once. Formulating more sophisticated architectures, like CNNs, RNNs, etc., can be done in a much less rigorous manner when all we really want to do with them is solve tasks in an engineery way.
+It's often the case that someone's intended meaning when stating `neural networks' is more precisely multi-layer perceptrons (MLPs), perhaps the simplest kind of neural network. Rigorously formulating MLPs is one of those things that's useful to do at least once. Formulating more sophisticated architectures, like CNNs, RNNs, etc., can be done in a much less rigorous manner if your use-case is solving tasks in an engineery way.\\
+
+\noindent\textbf{Note:} Throughout, the terms `neuron' and `node' are synonymous. I use both without realising it at the time of writing.
 
 % neural networks
 \subsection{Multi-Layer Perceptrons (MLPs)}
 
-Multi-layer perceptrons (MLPs)footnote{\url{https://stats.stackexchange.com/a/159172}} are fully-connected feed-forward networks consisting of an input layer (where data is input), hidden layers and an output layer. An MLP with three hidden layers is illustrated in \autoref{fig:MLP}. Each layer is made up of a number of neurons, each of which has a real-valued activation value.  For any node in a non-input layer, its activation value is the output of a non-linear activation function given, as input, the node's real-valued bias plus a weighted sum of the activation values of the neurons in its preceding layer.
+Multi-layer perceptrons (MLPs) are fully-connected feed-forward networks consisting of an input layer (where data is input), hidden layers and an output layer. An MLP with three hidden layers is illustrated in \autoref{fig:MLP}. Each layer is made up of a number of neurons, each of which has a real-valued activation value.  For any node in a non-input layer, its activation value is the output of a non-linear activation function given, as input, the node's real-valued bias plus a weighted sum of the activation values of the neurons in its preceding layer. Regarding their inspiration from the human brain, consider this footnote\footnote{\url{https://stats.stackexchange.com/a/159172}}.
 
-The application of MLPs to learning functions from data is due to their expressivity and their expressive-efficiency. Their expressivity is known due to a proof of the universal function approximation of MLPs by Cybenko \cite{universal_approx_theorem}. To add to this, their high expressive-efficiency has been demonstrated empirically \cite{exp_eff_of_MLPs} and ensures that the number of model components (hidden layers and neurons) needed to represent arbitrary functions is often far lower than competing methods.
+The application of MLPs to learning functions from data is due to their expressivity, expressive-efficiency and tractability. Their expressivity is known due to a proof of their universal function approximation by Cybenko. To add to this, their high expressive-efficiency has been demonstrated empirically and ensures that the number of model components (hidden layers and neurons) needed to represent arbitrary functions is far lower than competing model classes. As for their tractability, MLPs allow for an evaluation of the approximation of the function of interest with complexity quadratic in the number of nodes of each layer of the MLP (after the heavy simplifcation of assuming a roughly equal number of nodes in each layer).
 
-\begin{figure}[H]
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=1\linewidth]{./figures/neural_net_1.pdf}
+    \includegraphics[width=1\linewidth]{./figures/neural_nets/neural_net_1.pdf}
     \caption{\centering A multi-layer perceptron (MLP) with $k=3$ hidden layers.}
     \label{fig:MLP}
 \end{figure}
-\noindent For ease of notation, given an MLP with $k$ hidden layers, denote the index of the input layer by $0$, the output layer by $k+1$ and by extension the $j^{\text{th}}$ layer by $j\in\{0,\dots,k+1\}$. Additionally, note the following:
+
+For ease of notation, given an MLP with $k$ hidden layers, denote the index of the input layer by $0$, the output layer by $k+1$ and by extension the $j^{\text{th}}$ layer by $j\in\{0,\dots,k+1\}$. Additionally, note the following:
 \begin{itemize}
     \item Let $n_j\in\mathbb{Z}_{\geq1}$ denote the number of neurons in layer $j$.
     \item Let $a_i^{(j)}\in\mathbb{R}$ denote the activation value of neuron $i$ in layer $j$.
@@ -730,7 +733,7 @@ $$
 $$
 where the activation function $\sigma_{j+1}$ is applied element-wise.
 
-If we fix the structure and choice of activation functions of an MLP then all that is left to learn are its weights and biases. This is often done using gradient descent to minimise some loss function in which gradients are computed via back-propagation \cite{backpropagation}. Such a loss function can be a principled measure, e.g. corresponding to maximum likelihood, but this is not always necessary: ad-hoc loss functions are sometimes employed.
+If we fix the structure and choice of activation functions of an MLP then all that is left to learn are its weights and biases. This is often done using gradient descent to minimise some loss function in which gradients are computed via back-propagation. Such a loss function can be a principled measure, e.g. corresponding to maximum likelihood, but this is not always necessary: ad-hoc loss functions are sometimes employed.
 
 \subsubsection{Constructive example - The algebra}
 
@@ -831,9 +834,32 @@ and
 \end{align*}
 To confirm these values against the same neural network set up using TensorFlow, consider \texttt{nn\_constructive\_example.py} found \href{https://gitlab.com/dewibatista/master/-/tree/main/_Done/Personal}{here}.
 
+% universal function approximation theorem
+\subsubsection{Universal function approximation theorem (expressivity)}
+\label{subsubsec:universal_function_approximation_theorem}
+Rough idea\dots
+
+% depth over width
+\subsubsection{Depth $>$ Width}
+\label{subsubsec:deep_MLPs}
+The complexity of a forward pass of an MLP can be expressed in terms of the number of nodes in each layer as
+$$
+\mathcal{O}
+\left(
+\sum_{j=0}^{k+1}n_{j-1}\cdot n_j
+\right).
+$$
+Very crudely supposing $n_0=\dots=n_{k+1}=n$ yields a complexity of
+$$
+\mathcal{O}((k+1)n^2),
+$$
+i.e. complexity grows linearly in the number of layers and quadratically in the number of neurons per layer. So we argue for increasing depth over width. Far more parameter-efficient.
+
 % backprop
 \subsection{Backpropagation}
 \label{subsec:backprop}
+As with formulating MLPs, it's good to rigorously express backpropagation at least once in life, so here it is. It's sort of strange that I haven't done this yet and simply trust that it works while having only an intuitive idea of it up to now (August 2025).
+
 Chain rule/automatic differentiation
 
 % convolutional neural networks
@@ -1032,7 +1058,7 @@ Small fun note, the universal function approximation of MLPs has been proven onl
 \end{center}
 Suppose we have an MLP and a CNN, both trained to perform binary classification on images of cats and dogs. Further, suppose they perform equally. It might not be too surprisnig that the MLP will necessarily consist of a number of parameters that is orders of magnitude greater than for the CNN. Also, it's not so clear if a given MLP is translation invariant while various components of a CNN architecture help alleviate fears of translation-related issues.
 
-On top of this, pixel values are very usually correlated, so why use an MLP in which many nodes are redundant? CNN's take care of this perfectly. They were handcrafted for processing image data and so they are naturally far superior. 
+On top of this, pixel values are very usually correlated, so why use an MLP in which many nodes are redundant?
 
 % generative models
 \newpage
@@ -1189,7 +1215,7 @@ Some questions to challenge one's understanding.
 \subsection{From Bernoulli to Binomial}
 Let's try to generalise the Bernoulli distribution to the binomial distribution. If $X\sim\text{Ber}(p)$ then $\Omega_X=\{0,1\}$ and $\P(X=x)=p^x(1-p)^{1-x}$, so $\P(X=1)=p$ and $\P(X=0)=1-p$.
 
-Taking $n$ independent Bernoulli trials and summing them yields the random variable $\X=\sum_{i=1}^nX_i\sim\text{Bin}(n,p)$ with $\OX=\{0,\dots,n\}$. Let $k$ denote a realisation of $\X$, i.e. $k=x_1+\dots+x_n$. The distribution function of $\X$ is given by
+Taking $n$ independent Bernoulli trials and summing them yields the random variable $\X=\sum_{i=1}^nX_i\sim\text{Bin}(n,p)$ with $\OX=\{0,\dots,n\}$. Let $k$ denote a realisation of $\X$, i.e. $k=x_1+\dots+x_n$. The corresponding mass function is given by
 \begin{align*}
     \P(\X=k)
     &=
@@ -1201,7 +1227,7 @@ Taking $n$ independent Bernoulli trials and summing them yields the random varia
     &=
     Z\cdot p^k(1-p)^{n-k}
 \end{align*}
-where $Z$ is a normalising constant accounting for the number of ways one can permute the tuple of realisations $(x_1,\dots,x_n)$. So $Z$ is just the number of ways of placing $k$-many $1$s among a series of $n>k$ digits, i.e. $Z=\binom{n}{k}$, so
+where $Z$ is a normalising constant accounting for the number of ways one can permute the tuple of realisations $(x_1,\dots,x_n)\in\Omega_{X}^n$. So $Z$ is just the number of ways of placing $k$-many $1$s among a series of $n>k$ digits, i.e. $Z=\binom{n}{k}$, so
 $$
 \P(\X=k)
 =
@@ -1209,18 +1235,17 @@ $$
 $$
 
 \subsection{From Categorical to Multinomial}
-The categorical distribution is a generalisation of the Bernoulli distribution and the multinomial distribution is a generalisation of the binomial distribution. As such, we'd hope to be able to generalise the categorical distribution to the multinomial distribution.
+The categorical distribution is a generalisation of the Bernoulli distribution and the multinomial distribution is a generalisation of the binomial distribution. In line with this, we'd hope to be able to generalise the categorical distribution to the multinomial distribution.
 
-If $X\sim\text{Cat}(p_1,\dots,p_C)$ then realisations of $X$ can be represented by single integers in $\{1,\dots,C\}$ but I prefer to represent them in terms of their $C-$long one-hot encodings. So I denote the presence of the $c^{\text{th}}$ class in a realisation as the unit row vector $\mathbf{e}_c^{\text{T}}$, e.g. $(0,1,0\dots,0)$ denotes a sample in which the second class is present. The distribution function of $X$ is then given by
+If $X\sim\text{Cat}(p_1,\dots,p_C)$ then realisations of $X$ can be represented by single integers in $\{1,\dots,C\}$ but I prefer to represent them in terms of their $C-$long one-hot encodings. So I denote the presence of the $c^{\text{th}}$ class in a realisation as the unit row vector $\mathbf{e}_c^{\text{T}}$, e.g. $(0,1,0\dots,0)$ denotes a sample in which only the second class is present. The corresponding mass function is then given by
 $$
 \P(X=(x_1,\dots,x_C))
 =
 \prod_{j=1}^Cp_j^{x_j}.
 $$
-Note that, in this notation, all but one of these $x_j$ terms are zero, so it really boils down to just a single probability value, e.g. $\P(X=(0,1,\dots,0))=p_2$. The distribution function can also be written using indicator functions but this form is easiest to understand for me.
+Note that, in this notation, all but one of these $x_j$ terms are zero, so it really boils down to just a single probability value, e.g. $\P(X=(0,1,\dots,0))=p_2$. The mass function can also be written using indicator functions but the form offered above is easiest to understand for me.
 
-% this needs some cleaning, the idea is good
-Applying the same idea used to generalise Bernoulli to binomial, consider the random variable $\X=\sum_{i=1}^nX_i$ pertaining to $n$ independent categorical trials. Each realisation of $X_1,\dots,X_n$ can be represented by a $C-$long one-hot encoded vector and so $n$ realisations of $X\sim\text{Cat}(p)$ can be thought of as a matrix $\x\in\{0,1\}^{n\times C}$ whose rows are realisations of a categorical distribution with $C$ classes. As such, letting $k_1,\dots,k_C$ denote the number of $1$s in the columns of $\x$ (so $k_1+\dots+k_C=n$) we see immediately that $(k_1,\dots,k_C)$ is a realisation of $\X$. So what is the distribution function of $\X=\sum_{i=1}^nX_i$ with $X_1,\dots,X_n\sim\text{Cat}(p_1,\dots,p_C)$? Let $x_{ij}$ denote the element in the $i^{\text{th}}$ row and $j^{\text{th}}$ column of $\x$ and let $k_j=x_{1j}+\dots+x_{nj}$ denote the sum of all elements in the $j^{\text{th}}$ column of $\x$. Note that $k_j$ is the number of realisations of $X_1,\dots,X_n$ in which the $j^{\text{th}}$ class is present. We have
+Applying the same idea used to generalise Bernoulli to binomial, consider the random variable $\X=\sum_{i=1}^nX_i$ pertaining to $n$ independent categorical trials. Each realisation of $X_1,\dots,X_n$ can be represented by a $C-$long one-hot encoded vector and so $n$ realisations of $X\sim\text{Cat}(p)$ can be thought of as a matrix $\x\in\{0,1\}^{n\times C}$ whose rows are unit vectors in $\R^C$. As such, letting $k_1,\dots,k_C$ denote the number of $1$s in the columns of $\x$ (so $k_1+\dots+k_C=n$) we see immediately that $(k_1,\dots,k_C)$ is a realisation of $\X$. So what is the corresponding mass function? Let $x_{ij}$ denote the element in the $i^{\text{th}}$ row and $j^{\text{th}}$ column of $\x$ and let $k_j=x_{1j}+\dots+x_{nj}$ denote the sum of all elements in the $j^{\text{th}}$ column of $\x$. Note that $k_j$ is the number of realisations of $X_1,\dots,X_n$ in which the $j^{\text{th}}$ class is present. We have
 \begin{align*}
     \P(\X=(k_1,\dots,k_C))
     &=
@@ -1234,7 +1259,7 @@ Applying the same idea used to generalise Bernoulli to binomial, consider the ra
     &=
     Z\cdot p_1^{k_1}\cdots p_C^{k_C}.
 \end{align*}
-So all that's left to do is derive this normalisation constant $Z$. Note that the realisation $\x$ has $n$ rows of which there are $n!$-many orderings. Additionally note that for each $j\in\{1,\dots,C\}$ we know that there are $k_j$-many $1$s in column $j$ so $k_1$ of these $n$ rows must pertain to the first class for which there are $\binom{n}{k_1}$-many orderings. From here, see that $k_2$ of the $n-k_1$ remaining rows must pertain to the second class for which there are $\binom{n-k_1}{k_2}$-many orderings. Continuing this line of reasoning, we obtain
+So all that's left to do is derive the normalisation constant $Z$. Note that the realisation $\x$ has $n$ rows of which there are $n!$-many orderings. Additionally note that for each $j\in\{1,\dots,C\}$ we know that there are $k_j$-many $1$s in column $j$ so $k_1$ of these $n$ rows must pertain to the first class for which there are $\binom{n}{k_1}$-many orderings. From here, see that $k_2$ of the $n-k_1$ remaining rows must pertain to the second class for which there are $\binom{n-k_1}{k_2}$-many orderings. Continuing this line of reasoning, we obtain
 \begin{align*}
     Z
     &=
@@ -1273,9 +1298,6 @@ $$
 p(1-p)^k.
 $$
 
-\subsection{The Central Limit Theorem (CLT)}
-\dots
-
 \subsection{Entropy}
 The entropy of a random variable can be motivated by the notion of the surprise of (or information learned from) observing assignments of said random variable. Given a discrete random variable $X$, an event $E\in\Omega_X$ and a surprise function $S:\Omega_X\rightarrow[0,\infty)$, the surprise of observing $E$ is $S(E)$. Before we continue, we need to understand what we want out of our surprise function. Following the use of `surprising' in day-to-day communication, we want events with low probability to be highly surprising and events with high probability to be less surprising, with some extra conditions. So if $\P(E)=0.01$ then we want $S(E)$ to be close to relatively high (strictly speaking it doesn't need to be bounded above) and if $\P(E)=0.99$ then we want $S(E)$ to be close to 0.
 
@@ -1299,8 +1321,40 @@ $$
 
 \noindent\textbf{Note:} It's clear from the second condition that this surprise function is actually a function whose domain is the powerset of $\Omega_X$ but addressing this detail isn't worth it - the idea being conveyed is hopefully clear regardless.
 
-\subsubsection{What does the entropy of a random variable tell us?}
-How surprising it is.
+\subsubsection{Example of using entropy}
+Suppose we have the geometric distribution with $p=1/2$ and would like to fit it using a Poisson distribution. That is, we would like to best approximate
+\begin{align*}
+    p:\mathbb{N}\backslash\{0\}&\to[0,1]\\
+    k&\mapsto2^{-k}
+\end{align*}
+by finding a nice $\lambda$ for
+\begin{align*}
+    q:\mathbb{N}\backslash\{0\}&\to[0,1]\\
+    k&\mapsto\frac{e^{-\lambda}\lambda^k}{k!}.
+\end{align*}
+To find a good $\lambda$, it makes sense to first come up with a metric for how good a given value is. For this, we can use the cross-entropy of the distributions $p$ and $q$ given by
+$$
+H(p,q)
+=
+-\E_{K\sim p}\left[\log(q(K))\right]
+=
+-\sum_{k=1}^{\infty}p(k)\log(q(k))
+$$
+which can be seen as the incurred cost of using the model $q$ in place of the true underlying model $p$. There are a bunch of different ways of describing/interpreting this quantity. The most interesting is perhaps the one related to encodings. Anyway, in our case, if we can find a closed form of this expression in terms of $\lambda$ then we can look to compute which value of $\lambda$ it's minimised by. In line with this, we compute
+\begin{align*}
+    H(p,q)
+    &=
+    -\E_{K\sim p}\left[\log(q(K))\right]\\
+    &=
+    -\sum_{k=1}^{\infty}p(k)\log(q(k))\\
+    &=
+    -\sum_{k=1}^{\infty}2^{-k}\left(-\lambda+k\log(\lambda)-\log(k!)\right)\\
+    &=
+    123
+\end{align*}
+
+\subsection{The Central Limit Theorem (CLT)}
+\dots
 
 % statistics things
 \section{Statistics Things}
