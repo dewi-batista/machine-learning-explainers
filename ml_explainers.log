@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.6.18)  6 AUG 2025 14:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.6.18)  6 AUG 2025 14:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -752,12 +752,12 @@ Overfull \hbox (75.44508pt too wide) in paragraph at lines 956--956
  []
 
 [30]
-<./figures/neural_nets/autoencoder.pdf, id=691, 333.59631pt x 232.56184pt>
-File: ./figures/neural_nets/autoencoder.pdf Graphic file (type pdf)
-<use ./figures/neural_nets/autoencoder.pdf>
-Package pdftex.def Info: ./figures/neural_nets/autoencoder.pdf  used on input line 975.
+<./figures/neural_nets/AE_autoencoder.pdf, id=691, 333.59631pt x 232.56184pt>
+File: ./figures/neural_nets/AE_autoencoder.pdf Graphic file (type pdf)
+<use ./figures/neural_nets/AE_autoencoder.pdf>
+Package pdftex.def Info: ./figures/neural_nets/AE_autoencoder.pdf  used on input line 975.
 (pdftex.def)             Requested size: 333.59549pt x 232.56126pt.
- [31 <./figures/neural_nets/autoencoder.pdf>]
+ [31 <./figures/neural_nets/AE_autoencoder.pdf>]
 <./figures/neural_nets/REG_early_stopping.pdf, id=740, 462.52798pt x 346.89601pt>
 File: ./figures/neural_nets/REG_early_stopping.pdf Graphic file (type pdf)
 <use ./figures/neural_nets/REG_early_stopping.pdf>
@@ -775,22 +775,22 @@ File: ./figures/neural_nets/REG_dropout.png Graphic file (type png)
 Package pdftex.def Info: ./figures/neural_nets/REG_dropout.png  used on input line 1023.
 (pdftex.def)             Requested size: 180.0pt x 97.32162pt.
  [33 <./figures/neural_nets/REG_early_stopping.pdf> <./figures/neural_nets/REG_dropout.png>]
-<./figures/neural_nets/xor.png, id=793, 152.57pt x 151.56625pt>
-File: ./figures/neural_nets/xor.png Graphic file (type png)
-<use ./figures/neural_nets/xor.png>
-Package pdftex.def Info: ./figures/neural_nets/xor.png  used on input line 1035.
+<./figures/neural_nets/NLA_xor.png, id=793, 152.57pt x 151.56625pt>
+File: ./figures/neural_nets/NLA_xor.png Graphic file (type png)
+<use ./figures/neural_nets/NLA_xor.png>
+Package pdftex.def Info: ./figures/neural_nets/NLA_xor.png  used on input line 1035.
 (pdftex.def)             Requested size: 143.9978pt x 143.05508pt.
-<./figures/neural_nets/circle.png, id=794, 803.0pt x 803.0pt>
-File: ./figures/neural_nets/circle.png Graphic file (type png)
-<use ./figures/neural_nets/circle.png>
-Package pdftex.def Info: ./figures/neural_nets/circle.png  used on input line 1037.
+<./figures/neural_nets/NLA_circle.png, id=794, 803.0pt x 803.0pt>
+File: ./figures/neural_nets/NLA_circle.png Graphic file (type png)
+<use ./figures/neural_nets/NLA_circle.png>
+Package pdftex.def Info: ./figures/neural_nets/NLA_circle.png  used on input line 1037.
 (pdftex.def)             Requested size: 143.9978pt x 143.99464pt.
-<./figures/neural_nets/non_lin_transform.png, id=796, 809.0225pt x 783.92876pt>
-File: ./figures/neural_nets/non_lin_transform.png Graphic file (type png)
-<use ./figures/neural_nets/non_lin_transform.png>
-Package pdftex.def Info: ./figures/neural_nets/non_lin_transform.png  used on input line 1046.
+<./figures/neural_nets//NLA_non_lin_transform.png, id=796, 809.0225pt x 783.92876pt>
+File: ./figures/neural_nets//NLA_non_lin_transform.png Graphic file (type png)
+<use ./figures/neural_nets//NLA_non_lin_transform.png>
+Package pdftex.def Info: ./figures/neural_nets//NLA_non_lin_transform.png  used on input line 1046.
 (pdftex.def)             Requested size: 143.9978pt x 139.52213pt.
- [34 <./figures/neural_nets/xor.png> <./figures/neural_nets/circle.png> <./figures/neural_nets/non_lin_transform.png>] [35]
+ [34 <./figures/neural_nets/NLA_xor.png> <./figures/neural_nets/NLA_circle.png> <./figures/neural_nets//NLA_non_lin_transform.png>] [35]
 <./figures/generative_models/AEs_gen_1.png, id=812, 1307.88625pt x 943.525pt>
 File: ./figures/generative_models/AEs_gen_1.png Graphic file (type png)
 <use ./figures/generative_models/AEs_gen_1.png>
@@ -837,7 +837,7 @@ Package rerunfilecheck Info: File `ml_explainers.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  23971 strings out of 474116
- 451624 string characters out of 5743682
+ 451736 string characters out of 5743682
  1944187 words of memory out of 5000000
  45792 multiletter control sequences out of 15000+600000
  571354 words of font info for 86 fonts, out of 8000000 for 9000
@@ -880,7 +880,7 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist,
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on ml_explainers.pdf (49 pages, 1804722 bytes).
+Output written on ml_explainers.pdf (49 pages, 1804729 bytes).
 PDF statistics:
  1094 PDF objects out of 1200 (max. 8388607)
  740 compressed objects within 8 object streams
