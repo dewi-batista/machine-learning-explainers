@@ -678,7 +678,7 @@ The application of MLPs to learning functions from data is due to their expressi
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\linewidth]{./figures/neural_nets/neural_net_1.pdf}
+    \includegraphics[width=1\linewidth]{./figures/neural_nets/MLP_1.pdf}
     \caption{\centering A multi-layer perceptron (MLP) with $k=3$ hidden layers.}
     \label{fig:MLP}
 \end{figure}
@@ -752,7 +752,7 @@ If we fix the structure and choice of activation functions of an MLP then all th
 
 \begin{figure}[ht]
     \centering
-    \includegraphics{./figures/neural_nets/neural_net_3.pdf}
+    \includegraphics{./figures/neural_nets/MLP_2.pdf}
     \caption{\centering A neural network with $k=1$ hidden layer.}
     \label{fig:neural_nets_simple_example}
 \end{figure}
@@ -881,7 +881,7 @@ Chain rule/automatic differentiation to learn the parameters from data. Very oft
 
 \textbf{Note:} The terms `kernel' and `filter' are synonymous in this subsection.\\
 
-\noindent Convolutional neural networks (CNNs) are neural networks whose architectures are specially fit to process image data. Illustrated in \autoref{fig:CNN_frog}, their architecture can be described on a high level as consisting of two parts. The first part essentially performs feature extraction. The second part, consisting of a small MLP, uses these extracted feature values to produce the overall model's output. Feature extraction into MLP, pretty intuitive.
+\noindent Convolutional neural networks (CNNs) are neural networks whose architectures are specially fit to process image data. Illustrated in \autoref{fig:CNN_frog}, their architecture can be described on a high level as consisting of two parts. The first part essentially performs feature extraction. The second part is an MLP which uses the extracted feature values to produce the overall model's output. So feature extraction into MLP, pretty intuitive.
 
 \begin{figure}[ht]
     \centering
@@ -907,7 +907,7 @@ where $b_c$ is the kernel's bias in channel $c$. Note that this notation is inte
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\textwidth]{./figures/neural_nets/convolution.png}
+    \includegraphics[width=1\textwidth]{./figures/neural_nets/CNN_convolution.png}
     \caption{\centering Convolution without bias.}
     \label{fig:convolution_operation}
 \end{figure}
@@ -919,7 +919,7 @@ Pooling operations reduce the spatial dimensions of a given feature map by, in s
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\textwidth]{./figures/neural_nets/pooling.pdf}
+    \includegraphics[width=1\textwidth]{./figures/neural_nets/CNN_pooling.pdf}
     \caption{\centering The core flavours of pooling.}
     \label{fig:pooling}
 \end{figure}
@@ -1005,11 +1005,11 @@ Some questions to challenge one's understanding.
 \begin{center}
     \textbf{\textcolor{blue}{Q1:} How does one prevent overfitting in NNs?}
 \end{center}
-\textbf{Early stopping -} Split training into training and validation sets. After each epoch (or every few), compute both training and validation losses. If training loss is decreasing while validation loss is not decreasing then you're at risk of overfitting. For illustration, consider \autoref{fig:early_stopping} in which the training loss continues to decrease in the number of epochs while the validation loss seems to reach its lowest value around epoch 28.
+\textbf{Early stopping:} Split training into training and validation sets. After each epoch (or every few), compute both training and validation losses. If training loss is decreasing while validation loss is not decreasing then you're at risk of overfitting. For illustration, consider \autoref{fig:early_stopping} in which the training loss continues to decrease in the number of epochs while the validation loss seems to reach its lowest value around epoch 28.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{./figures/neural_nets/early_stopping.pdf}
+    \includegraphics[width=0.5\textwidth]{./figures/neural_nets/REG_early_stopping.pdf}
     \caption{Training and validation losses over 50 epochs for some model.}
     \label{fig:early_stopping}
 \end{figure}
@@ -1020,7 +1020,7 @@ Some questions to challenge one's understanding.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{./figures/neural_nets/dropout.png}
+    \includegraphics[width=0.5\textwidth]{./figures/neural_nets/REG_dropout.png}
     \caption{Dropout to prevent overdependence.}
     \label{fig:dropout}
 \end{figure}
