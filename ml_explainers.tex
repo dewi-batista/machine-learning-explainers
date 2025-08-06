@@ -13,35 +13,42 @@
 
 % abstract
 \begin{abstract}
-    \noindent Summaries of a bunch of machine learning-related topics. My main motive in writing these summaries is as a reminder for my future self.
+    \noindent Summaries of a bunch of machine learning-related topics. My main motive in writing these summaries is as a reminder for future Dewi.
 \end{abstract}
 
 % table of contents
 \setcounter{tocdepth}{2}{\small\tableofcontents}
 
+% title page number not counted
+\thispagestyle{empty}
+\setcounter{page}{0}
+\newpage
+
 % intro
 \section{Introduction}
 
-I personally think of machine learning as modelling the relationship between model variables $\X$ and output variables $\Y$, be the relationship probabilistic or not, in line with the demands of the task to be solved. Vaguely put, this is done by constructing some parameterized representation $f_{\theta}$ of their relationship. Some parameters do a better job than others, according to some metric of goodness, so we'd ideally have the optimal parameters $\theta^{*}$.
-
-What makes machine learning fun is that, for whatever reason, these learned representations of underlying relationships can be used to infer things about the relationship of $\X$ and $\Y$ very well. The fact that this is possible to at least a small extent isn't too surprising, but, nowadays, this is possible to the extent of being able to do things like input natural language to output a photo-realistic image described by said input. Why is this possible? The more I've learned, the more I'm amazed that our methods work as well as they do. Take denoising diffusion models for image generation. It effectively learns to transform randomly sampled Gaussian noise into something convincingly belonging to the distribution pertainintg to the data that the model was trained on. So if I train such a model on a large dataset of images of cats then it learns to transform Gaussian noise into new images of cats that are sufficiently distinct from those it was trained on. That is, such models do not necessarily need to overfit to be able to output samples convincingly belonging to the target distribution. Why are diffusion, flow-based models, GANs, VAEs, probabilistic circuits or attention-based models so effective? It's sometimes hard to believe, even after working with some of these architectures extensively and understanding them in detail.
+I think of machine learning as the discipline of studying methods of learning parameterised models over from data. What makes machine learning fun is the stupidly high rate of improvement of the discipline since 2012. At their core, many methods boil down to statistically-principled things, like maximum likelihood, \dots. The fact that this is possible to at least a small extent isn't too surprising, but, nowadays, this is possible to the extent of being able to do things like input natural language to output a photo-realistic image described by said input. Why is this possible? The more I've learned, the more I'm amazed that our methods work as well as they do. Take denoising diffusion models for image generation. It effectively learns to transform randomly sampled Gaussian noise into something convincingly belonging to the distribution pertainintg to the data that the model was trained on. So if I train such a model on a large dataset of images of cats then it learns to transform Gaussian noise into new images of cats that are sufficiently distinct from those it was trained on. That is, such models do not necessarily need to overfit to be able to output samples convincingly belonging to the target distribution. Why are diffusion, flow-based models, GANs, VAEs, probabilistic circuits or attention-based models so effective? It's sometimes hard to believe, even after working with some of these architectures extensively and understanding them in detail.
 
 % thoughts on reasoning
 \section*{Thoughts on reasoning}
 
+\textcolor{red}{the Turing test was not agreed upon by many to be a measure of intelligence}
+
 As a term, machine learning is used almost interchangeably with AI as of now (summer of 2024). AI isn't particularly well-defined in itself, even in academic settings, so its use in day-to-day things, like the news, can be confusing. I think of machine learning as what's written above, effectively in line with statistical learning theory. I'm not sure how I would define AI in a way that'd satisfy most. Maybe the discipline of studying things that can `reason', as a human does, given some agreeable notion of `reasoning'. A common issue found in discussions surrounding this topic is that a definition of `reasoning' is left out. In fairness, it's a tricky thing to define precisely. For a long time, people considered the Turing test to be a metric in line with the idea of machines `reasoning'. Current LLMs are far beyond passing the Turing test but still it is argued that they don't reason, which I think I agree with as of now, but it's worth being conscious of the fact that we have effectively moved the goal posts. A similar example of this is the Automatic Statistician: a model that, given a bunch of data, can effectively output a report on the likely relationships between different parts of the data\footnote{\url{https://www.youtube.com/watch?v=aPDOZfu_Fyk}}. Essentially a data scientist or statistician in the form of a machine, which we're much closer to than in say 2020 due to LLMs.
 
-Right now, I'm unaware of any machine learning model that can `reason' by any agreeable notion of the term. Let's say that GPT-4o concludes that a continuous real-valued function $f:\R\rightarrow\R$ has a root in some interval $(a, b)$ using the intermediate value theorem (IVT) by noting that $f(a)<0$ and $f(b)>0$. Is this `reasoning' or do we instead brush this off as the model having been trained on a bunch of examples of the use of IVT? Does it understand what it's concluding? As of right now I'd say that it doesn't. This of course isn't something unique to IVT - we can construct many such examples. What I think makes IVT interesting is that we can effectively express what it means to understand it as a human. I'd say that the distinction between ChatGPT's `understanding' here and a human's is that a human knows that if they trace their finger on a piece of paper starting from the bottom half, crossing a horizontal line cutting through the middle, to the top half of the page without taking their finger off the paper then their finger must have touched the horizontal line at some point, i.e. the function must have intersected the $x$-axis during this continuous traversal. I believe that humans understand this due to just experiencing the real world. You don't need any mathematical training to know and, more importantly, understand `why' your finger crosses through this horizontal line on the page. I'm certain that current GPT models do not `understand' the IVT in this way, or really any way that isn't purely formally mathematical.
+Right now, I'm unaware of any machine learning model that can `reason' by any agreeable notion of the term. Let's say that GPT-4o concludes that a continuous real-valued function $f:\R\rightarrow\R$ has a root in some interval $(a, b)$ using the intermediate value theorem (IVT) by noting that $f(a)<0$ and $f(b)>0$. Is this `reasoning' or do we instead brush this off as the model having been trained on a bunch of examples of the use of IVT? Does it understand what it's concluding? As of right now I'd say that it doesn't. This of course isn't something unique to IVT — we can construct many such examples. What I think makes IVT interesting is that we can effectively express what it means to understand it as a human. I'd say that the distinction between ChatGPT's `understanding' here and a human's is that a human knows that if they trace their finger on a piece of paper starting from the bottom half, crossing a horizontal line cutting through the middle, to the top half of the page without taking their finger off the paper then their finger must have touched the horizontal line at some point, i.e. the function must have intersected the $x$-axis during this continuous traversal. I believe that humans understand this due to just experiencing the real world. You don't need any mathematical training to know and, more importantly, understand `why' your finger crosses through this horizontal line on the page. I'm certain that current GPT models do not `understand' the IVT in this way, or really any way that isn't purely formally mathematical.
 
-A follow up question is to what extent it matters that a model `understands' how it arrives at its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. Maybe 50 years from now we'll be well-taken care of by a fleet of machine learning-based robots and we'll still complain that they aren't truly capable of reasoning like us. Hopefully not. %I wish industry research in certain areas of machine learning, like LLMs and image/video generation, would be very heavily regulated. Perhaps forcefully stopped entirely. Of course, this will never happen due to countries' desire to be ahead of their competitors.
+A follow up question is to what extent it matters that a model `understands' how it arrives at its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. Maybe 50 years from now we'll be well-taken care of by a fleet of machine learning-based robots and we'll still complain that they aren't truly capable of reasoning like us.
 
-% misc.
-Some things I've heard prominent figures in AI say that gelled with me:
-\begin{itemize}
-    \item Allan Newell: know what you're bad at! (add source youtube vid)
-    \item Marvin Minsky: when I get to the point that I understand something or have successfully implemented something it no longer seems difficult. In fact, there's thing feeling of it never having \textit{really} been difficult. I don't like this since it takes away that feeling of self-reward of ``well done Dewi you did something''.
-    \item Stuart Russell: similar comment to his ``it's as if Aliens came down and gave us this deep learning technology''
-\end{itemize}
+\begin{tcolorbox}[colback=c2]
+    Here are things prominent AI figures have said that I gelled with: \textcolor{red}{fix}
+    \begin{itemize}
+        \item Allan Newell\footnote{\url{https://www.youtube.com/watch?v=_sD42h9d1pk&t=3031s&ab_channel=CMURoboticsInstitute}}: Be conscious of what you're bad at!
+        \item Marvin Minsky: Once I understand something or have successfully implemented something, the task of understanding/implementing it no longer seems difficult. In fact, usually, the feeling of it never having \textit{really} been difficult emerges. I don't like this since it takes away from the feeling of satisfaction or self-congratulation.
+        \item Stuart Russell: similar comment to his ``it's as if Aliens came down and gave us this deep learning technology''
+        \item John McCarthy: 200 years from now, once we've figured it all out, we'll look back and ask why we didn't think of it 200 years ago. Essentially, hindsight is 2020.
+    \end{itemize}
+\end{tcolorbox}
 
 % supervised learning
 \section{Supervised Learning}
@@ -50,7 +57,7 @@ Supervised learning algorithms are a class of machine learning algorithms in whi
 
 An example of a task which supervised learning is appropriate for includes regression predicting life expectancies of a poulation given features such as the population's height, age, BMI etc. You can think of regression tasks as those where the output of the model should belong to some continuously distributed space. Other than regression, the other vanilla supervised learning task is binary or multi-class classification. Well known examples of binary classification include whether or not a given passenger survived the titanic wreck given their ticket class, sex, age, port of embarkation and a ton more. The bread and butter example of multi-class classification is handwritten digit recognition. It's amazing that something difficult as recently as 2005 is trivial now for various levels of machine learing understanding.
 
-Other than the types of tasks which we consider in this section, it's worth mentioning how we deal with our data in general. In training a model on some dataset, we need some idea of how well the model generalises to new data. This is done by splitting the given dataset $\D$ into a training set $\Dtrain$ and a testing set $\Dtest$. How exactly this split is done depends on the task at hand but an example is 50/50 uniformly randomly splitting the original dataset $\D$ - chronologically or not. It can be important that this is done uniformly randomly. For example, if one is tackling a binary classification task and $\D$ consists of $1000$ samples with $500$ belonging to class 1 and $500$ belonging to class 2 then it's important that one does not split in a way that causes egregiously imbalanced representations of these classes. Training a model on $500$ samples of class 1 then testing it on $500$ samples of class 2 wouldn't make much sense. Similar idea for regression tasks but with ensuring a reasonable balance in representation of values belonging to given intervals corresponding to the output space. With a reasonable split we train the model on $\Dtrain$. It is all the model knows - $\Dtrain$ is the model's universe. After training, we measure the model's ability to generalise to new samples belonging to the same underlying distribution by seeing how well it performs with respect to the samples in $\Dtest$. Essentially comparing its output given some sample to the ideal/true output value of said sample. Things get a bit more fancy when we consider cross-validation but that'll come later.
+Other than the types of tasks which we consider in this section, it's worth mentioning how we deal with our data in general. In training a model on some dataset, we need some idea of how well the model generalises to new data. This is done by splitting the given dataset $\D$ into a training set $\Dtrain$ and a testing set $\Dtest$. How exactly this split is done depends on the task at hand but an example is 50/50 uniformly randomly splitting the original dataset $\D$ — chronologically or not. It can be important that this is done uniformly randomly. For example, if one is tackling a binary classification task and $\D$ consists of $1000$ samples with $500$ belonging to class 1 and $500$ belonging to class 2 then it's important that one does not split in a way that causes egregiously imbalanced representations of these classes. Training a model on $500$ samples of class 1 then testing it on $500$ samples of class 2 wouldn't make much sense. Similar idea for regression tasks but with ensuring a reasonable balance in representation of values belonging to given intervals corresponding to the output space. With a reasonable split we train the model on $\Dtrain$. It is all the model knows — $\Dtrain$ is the model's universe. After training, we measure the model's ability to generalise to new samples belonging to the same underlying distribution by seeing how well it performs with respect to the samples in $\Dtest$. Essentially comparing its output given some sample to the ideal/true output value of said sample. Things get a bit more fancy when we consider cross-validation but that'll come later.
 
 % linear regression
 \subsection{Linear Regression}
@@ -85,7 +92,7 @@ where $f_{\theta}(\x_i)$ is the model's prediction for feature values $\x_i$ and
 $$
 \text{MSE}(\theta)=\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2
 $$
-which pertains to taking $d(f_{\theta}(\x_i), y_i)=(y_i-f_{\theta}(\x_i))^2$. I'll still refer to it as the `mean' square error, even though I don't divide by $n$, simply because minimising it as written above is equivalent to minimising the same expression with division by $n$ included - it's mostly a notational convenience thing. So in our case, we wish to find
+which pertains to taking $d(f_{\theta}(\x_i), y_i)=(y_i-f_{\theta}(\x_i))^2$. I'll still refer to it as the `mean' square error, even though I don't divide by $n$, simply because minimising it as written above is equivalent to minimising the same expression with division by $n$ included — it's mostly a notational convenience thing. So in our case, we wish to find
 $$
 \thetaOpt=\argmin_{\theta\in\R^{p+1}}\left[\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\right].
 $$
@@ -312,14 +319,14 @@ As for how well the model performs, its MSE on $\Dtrain$ is $1.26$ and its MSE o
 \end{figure}
 
 \begin{tcolorbox}[colback=c2]
-    \textbf{Funny misuse of linear regression - Momentous sprint at the 2156 Olympics?}
+    \textbf{Funny misuse of linear regression: Momentous sprint at the 2156 Olympics?}
     \vspace{10pt}
 
     The following is taken from an answer on Quora\footnote{\url{https://qr.ae/pslbEN}} (the top comment is worth reading) based on a paper\footnote{\url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3173856/}} published in Nature. Related\footnote{\url{https://xkcd.com/1007/}}.
 \end{tcolorbox}
 
 \subsubsection{Regularisation}
-Ridge regression intentionally introduces bias with the intention of reducing variance and improve accuracy!
+The most well known methods of regularisation in the context of regression are Lasso and Ridge regression. These are also known as L1 and L2 regularisation. They are motivated very nicely using Bayesian arguments. L1 regularisation corresponds to a Laplace prior and L2 to a Gaussian prior.
 
 \subsubsection{$R^2$ value}
 \dots
@@ -562,7 +569,7 @@ To be honest, I thought a streamline test for this existed. As per this Stack Ex
 
 % vanilla gradient descent
 \subsection{Gradient Descent}
-How do we find such an appropriate set of weights and biases for a neural network? More generally, how do we find an appropriate set of parameters for a machine learning model? A popular method is that of gradient descent.
+\dots
 
 % momentum
 \subsection{Momentum}
@@ -570,7 +577,7 @@ How do we find such an appropriate set of weights and biases for a neural networ
 
 % hyperparam tuning
 \subsection{Hyperparameter Tuning}
-cross-validation and shiiiiiiieeet
+\dots
 
 % misc. questions
 \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
@@ -580,13 +587,10 @@ cross-validation and shiiiiiiieeet
 Some questions to challenge one's understanding.
 
 \begin{center}
-    \textbf{\textcolor{blue}{Q1:} ?}
+    \textbf{\textcolor{blue}{Q1:} Why does $f(\mathbf{x})$ ascend most in the direction of $\nabla f(\mathbf{x})$?}
 \end{center}
-\dots
 
-\subsubsection{Why does $f(\mathbf{x})$ ascend most in the direction of $\nabla f(\mathbf{x})$?}
-
-The following is more of a proof \textit{that} $\nabla f(x)$ yields the direction of steepest ascent not an intuition of \textit{why}. That'll come later.
+\noindent The following is more of a proof \textit{that} $\nabla f(x)$ yields the direction of steepest ascent not an intuition of \textit{why}. That'll come later.
 
 For some reason, it is typically taken for granted that $f(\mathbf{x})$ would both ascend and ascend \textit{most} in the direction of $\nabla f(\mathbf{x})$. I do not consider this obvious at all, so here is an informal physicist-like argument. Note that in this argument, we consider only unit vectors $\mathbf{v}$. This is because we care only about the direction of such vectors, so size does not matter, and an equation later on simplifies quite nicely due to its unit length. 
 
@@ -624,8 +628,11 @@ The edge case where $\nabla f(\mathbf{x})=0$ of course corresponds to $f(\mathbf
 
 \noindent\textbf{Note}: This argument, which utilises a Taylor approximation, relies on a sufficiently small $\eta>0$. Otherwise, the terms in the Taylor approximation of $f(\mathbf{x}+\eta\mathbf{v})$ beyond $\nabla f(\mathbf{x})\cdot\eta\mathbf{v}$ are not necessarily negligible.
 
-\subsubsection{Choosing a loss function}
-Note that these depend on having uniform diversity of classes. If not then use weighted cross-entropy loss functions. There are a ton of machine learning-related scenarios that would need a specially chosen loss function but the list below is a fine start. 123
+\begin{center}
+    \textbf{\textcolor{blue}{Q2:} Which loss function is appropriate?}
+\end{center}
+
+\noindent Note that these depend on having uniform diversity of classes. If not then use weighted cross-entropy loss functions. There are a ton of machine learning-related scenarios that would need a specially-chosen loss function but the list below is a fine start.
 
 \begin{table}[ht]
     \begin{center}
@@ -644,15 +651,19 @@ Note that these depend on having uniform diversity of classes. If not then use w
     \caption{\centering Loss function choices.}
     \label{tab:loss_func_choices}
 \end{table}
+\noindent Most of these are principled in that their minimisation corrsponds to maximum likelihood estimation.
 
-\subsubsection{How should we choose the learning rate $\eta$?}
+\begin{center}
+    \textbf{\textcolor{blue}{Q3:} How should we choose the learning rate $\eta$?}
+\end{center}
 This is entirely problem-dependent but $\eta=0.1$ is a great staple choice. If convergence is unstable then try $\eta=0.01$. Other than this line of thinking, there are some `rules of thumb' relating batch number/size to learning rate, otherwise it's a `whatever seems to work best' kind of thing.
 
-\subsubsection{How should we initialise the parameters?}
-\dots
+\begin{center}
+    \textbf{\textcolor{blue}{Q4:} How should we initialise the parameters?}
+\end{center}
+Xavier initialisation is often-used for neural networks. Unsure about older architectures.
 
-% deep learning
-\newpage
+% neural nets
 \section{Neural Networks}
 It's often the case that someone's intended meaning when stating `neural networks' is more precisely multi-layer perceptrons (MLPs), perhaps the simplest kind of neural network. Rigorously formulating MLPs is one of those things that's useful to do at least once. Formulating more sophisticated architectures, like CNNs, RNNs, etc., can be done in a much less rigorous manner if your use-case is solving tasks in an engineery way.\\
 
@@ -735,7 +746,9 @@ where the activation function $\sigma_{j+1}$ is applied element-wise.
 
 If we fix the structure and choice of activation functions of an MLP then all that is left to learn are its weights and biases. This is often done using gradient descent to minimise some loss function in which gradients are computed via back-propagation. Such a loss function can be a principled measure, e.g. corresponding to maximum likelihood, but this is not always necessary: ad-hoc loss functions are sometimes employed.
 
-\subsubsection{Constructive example - The algebra}
+\subsubsection{Constructive example: The algebra}
+
+\textcolor{red}{fix this figure}
 
 \begin{figure}[ht]
     \centering
@@ -803,7 +816,7 @@ which is just the scalar value $a_1^{(1)}$. For the output layer, we have
     a_2^{(2)}&=\sigma_2\left(w_{2,1}^{(2)}\sigma_1\left(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\right) + b_2^{(2)}\right).
 \end{align*}
 
-\subsubsection{Constructive example - Subbing values in}
+\subsubsection{Constructive example — Subbing values in}
 
 \noindent\textbf{Note}: The weights and biases of a neural network are typically learned during training, i.e. they are parameters to be tweaked and tuned until the corresponding model performs sufficiently well. They are not taken randomly as is done here for the sake of example.\\
 
@@ -835,9 +848,9 @@ and
 To confirm these values against the same neural network set up using TensorFlow, consider \texttt{nn\_constructive\_example.py} found \href{https://gitlab.com/dewibatista/master/-/tree/main/_Done/Personal}{here}.
 
 % universal function approximation theorem
-\subsubsection{Universal function approximation theorem (expressivity)}
+\subsubsection{Universal function approximation}
 \label{subsubsec:universal_function_approximation_theorem}
-Rough idea\dots
+Polynomials have one via Wasserstein. But polynomials have low expressive-efficiency. Good motive for MLPs and architectures often-labelled neural networks more generally.
 
 % depth over width
 \subsubsection{Depth $>$ Width}
@@ -853,14 +866,14 @@ Very crudely supposing $n_0=\dots=n_{k+1}=n$ yields a complexity of
 $$
 \mathcal{O}((k+1)n^2),
 $$
-i.e. complexity grows linearly in the number of layers and quadratically in the number of neurons per layer. So we argue for increasing depth over width. Far more parameter-efficient.
+i.e. complexity grows linearly in the number of layers and quadratically in the number of neurons per layer. So we argue for increasing depth over width.
 
 % backprop
-\subsection{Backpropagation}
+\subsection{Backpropagation for MLPs}
 \label{subsec:backprop}
 As with formulating MLPs, it's good to rigorously express backpropagation at least once in life, so here it is. It's sort of strange that I haven't done this yet and simply trust that it works while having only an intuitive idea of it up to now (August 2025).
 
-Chain rule/automatic differentiation
+Chain rule/automatic differentiation to learn the parameters from data. Very often it helps us perform numerical maximum likelihood (depends on the loss function invoked).
 
 % convolutional neural networks
 \subsection{Convolutional Neural Networks (CNNs)}
@@ -939,6 +952,9 @@ CNNs are best understood by example. Consider the nice frog in \autoref{fig:CNN_
 
 There are 32 kernel triplets in our case and so you can think of the output of this layer as 32 images each of which are $30\times30$ in spatial dimension. Alternatively, you can think of the output as a single tensor of dimensions $32\times30\times30$. Also, each is passed through a non-linear activation function purely for the purpose of sprinkling in some non-linearity.
 
+\subsubsection{Backpropagation for covnolutional layers}
+Ultimately, similar idea as for MLPs: automatic differentiation\footnote{\url{https://www.quarkml.com/2023/07/backward-pass-in-convolutional-neural-network-explained.html}}.
+
 % recurrent neural networks
 \subsection{Recurrent Neural Networks (RNNs)}
 \dots
@@ -974,9 +990,9 @@ Our encoder architecture will have an input layer consisting of 784 nodes, match
 \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
 \begin{itemize}
     \item Most intuitive benefit: it helps prevent some layer in the architecture from degrading the input entirely. It's like a nice reminder to the model what it was working from before it got to this point
-    \item Reduces vanishing or exploding gradients - opens the door to far deeper architectures
+    \item Reduces vanishing or exploding gradients: opens the door to far deeper architectures
     \item Ensures that the model has to learn the residual as opposed to the full underlying function: faster convergence usually
-    \item Takes pressure off parameter initialisation - if you set parameters to zero then initially model is just identity and learning from their is feasible
+    \item Takes pressure off parameter initialisation: if you set parameters to zero then initially model is just the identity and learning from there is feasible
 \end{itemize}
 
 % misc. questions
@@ -1000,7 +1016,7 @@ Some questions to challenge one's understanding.
 
 \noindent If you observe this for sufficiently many consecutive epochs then you can stop training and use the parameters pertaining to the epoch at which the validation loss was lowest. To do this, at each epoch during training, save the parameters of the current epoch if they offer a lower validation loss than at any epoch before. This is often referred to as a checkpoint within the training process and the parameters are saved in a \texttt{.ckpt} file.\\
 
-\noindent\textbf{Dropout -} We don't want to be overly-reliant on any given subset of neurons. To prevent such dependencies, at each epoch, independently set the activation of each neuron to 0 with probability $p$. This way some portion of neurons are silenced during the training epoch. As a result, its corresponding parameters (weights and bias) are not updated during backpropagation - it is truly silenced. This idea is illustrated in \autoref{fig:dropout}. Do not perform dropout when testing.
+\noindent\textbf{Dropout -} We don't want to be overly-reliant on any given subset of neurons. To prevent such dependencies, at each epoch, independently set the activation of each neuron to 0 with probability $p$. This way some portion of neurons are silenced during the training epoch. As a result, its corresponding parameters (weights and bias) are not updated during backpropagation — it is truly silenced. This idea is illustrated in \autoref{fig:dropout}. Do not perform dropout when testing.
 
 \begin{figure}[ht]
     \centering
@@ -1032,7 +1048,7 @@ Without the application of at least one activation function, the values of the o
     \label{fig:non_lin_transformation}
 \end{figure}
 
-From here, a natural linear decision boundary is just the plane $z=0$. Any sample above the plane, i.e. any sample whose $z-$coordinate is positive, is classified as blue. It is otherwise classified as red. We can be more clever than this though. This transformation required us to map samples to 3D - how about mapping to just 1D? To do this, a complete decision function is given by $D(x,y)=\left\lceil\frac{\left\lfloor x^2+y^2\right\rfloor}{x^2+y^2}\right\rceil$ and just define $D(0,0)=0$ to avoid the annoying pole.
+From here, a natural linear decision boundary is just the plane $z=0$. Any sample above the plane, i.e. any sample whose $z-$coordinate is positive, is classified as blue. It is otherwise classified as red. We can be more clever than this though. This transformation required us to map samples to 3D — how about mapping to just 1D? To do this, a complete decision function is given by $D(x,y)=\left\lceil\frac{\left\lfloor x^2+y^2\right\rfloor}{x^2+y^2}\right\rceil$ and just define $D(0,0)=0$ to avoid the annoying pole.
 
 \begin{center}
     \textbf{\textcolor{blue}{Q3:} Why not just one activation function in the output layer?}
@@ -1058,11 +1074,8 @@ Small fun note, the universal function approximation of MLPs has been proven onl
 \end{center}
 Suppose we have an MLP and a CNN, both trained to perform binary classification on images of cats and dogs. Further, suppose they perform equally. It might not be too surprisnig that the MLP will necessarily consist of a number of parameters that is orders of magnitude greater than for the CNN. Also, it's not so clear if a given MLP is translation invariant while various components of a CNN architecture help alleviate fears of translation-related issues.
 
-On top of this, pixel values are very usually correlated, so why use an MLP in which many nodes are redundant?
-
 % generative models
-\newpage
-\section{Generative Models}
+\section{Deep Generative Models}
 
 Since the era of deep learning began in 2012, tons of generative image, video and text models have arisen. The general idea of these generative models is that if we have a model that fits training data particularly well then samples from the model should be sufficiently convincing. That is, if I get a nice fit for the distribution of images of cats lounging in the sun then samples from my fit distirubtion should look convincingly like cats lounging in the sun.
 
@@ -1090,18 +1103,20 @@ New idea: how about we feed the decoder latent points that are pretty close to t
     \label{fig:autoencoder_generation_2}
 \end{figure}
 
-Distaster strikes again. To get decoder outputs that are meaningful using this idea, one must take points in the latent space which are ridiculously close to this chosen sample's latent embedding. So close that you'd be practically reconstructing the original training sample each time - certainly not what we mean when we say that we'd like to generate samples.
+Distaster strikes again. To get decoder outputs that are meaningful using this idea, one must take points in the latent space which are ridiculously close to this chosen sample's latent embedding. So close that you'd be practically reconstructing the original training sample each time — certainly not what we mean when we say that we'd like to generate samples.
 
 Queue variational autoencoders (VAEs), illustrated in \autoref{fig:VAE_architecture}. Loosely put, they have a somewhat similar structure to regular autoencoders in that they have an encoder and a decoder but they are distinguished by two things. First, they impose structure on the latent space which helps very much with making the ideas presented earlier feesable. For example, points that are close in feature space are also close in the latent space and all of the latent space is made use of, none of it meaningless. Second, given fixed inputs, the outputs of the encoder and decoder are not fixed points (hence variational). Instead, the outputs are parameters of sampleable distributions.
 
 \begin{figure}
     \centering
-    \includegraphics[width=1\columnwidth]{./figures/generative_models/VAE_handcrafted.pdf}
-    \caption{\centering Example architecture of a variational autoencoder in which the input distribution is two-dimensional.}
+    \includegraphics[width=0.46\linewidth]{figures/neural_nets/VAE_encoder.pdf}
+    \hspace{20pt}
+    \includegraphics[width=0.46\linewidth]{figures/neural_nets/VAE_decoder.pdf}
+    \caption{Left: an encoder which outputs parameters of the latent distribution $q_{\theta}(\z|\x)=\mathcal{N}(\mu_{\theta},\Sigma_{\theta})$. Right: a decoder which outputs parameters of the reconstruction distribution $p_{\phi}(\x|\z')=\mathcal{N}(\mu_{\phi},\Sigma_{\phi})$ in which $\z'\sim q_{\theta}(\z|\x)$.}
     \label{fig:VAE_architecture}
 \end{figure}
 
-\subsubsection{think of different subsubsection name}
+\subsubsection{Formulating VAEs}
 Denote the parameters of the encoder by $\phi$ and the paramaters of the decoder by $\theta$. Note that sometimes I will write $\phi(\x)$ to denote the output of the encoder, which is a little odd as $\phi$ denotes the encoder's paramteres but it makes notation a little easier. Anyway, the role of the encoder and decoder in VAEs is to output paramters of sampleable distributions. For example, in the vanilla formulation, a VAE's encoder takes in some sample $\x$ and outputs the parameters $\mu_{\phi}$ and $\Sigma_{\phi}$ (usually diagonal) of a normal distribution which approximates the posterior distriubtion $\Z|\x$. If we want to reconstruct $\x$, we sample from $q_{\phi}(\z|\x)=\N(\mu_{\phi}, \Sigma_{\phi})$ and feed it as input to the decoder which outputs the mean $\mu_{\theta}$ of $p_{\theta}(\x|\z)=\N(\mu_{\theta},\sigma^2 I)$ where $\sigma$ is a hyperparameter. Sampling from this approximation of the likelihood distribution $\X|\z$ will yield something close to $\x$ itself.
 
 While the idea itself is clear, the difficulty in having it come to fruition is training such an architecture, i.e. finding the parameters $\phi$ and $\theta$ that offer the best reconstruction and smooth latent space, all according to some metric. In line with most other approaches to generative modelling, if we can do maximum likelihood in some way, i.e. ensure that the likelihood of the training data is maximal under our model then samples from the likelihood distribution, whose parameters are output by the model's decoder, should resemble those in the training set. To do this, we would ideally perform maximum likelihood directly but we don't have access to the true underlying joint distribution function $p(\x)$. As such, we instead look to find a lower bound for $p(\x)$ which we maximise instead. The idea is that pushing this supposed lower bound up will in turn push up $p(\x)$ itself. In line with this, we derive the evidence lower bound (ELBO), first noting that
@@ -1139,18 +1154,10 @@ $$
 $$
 If we can maximise the ELBO then we are doing some sort of pseudo-maximum likelihood but what do the individual terms mean? The first term, $\E_{q_{\phi}(\z|\x)}\left[\log(p_{\theta}(\x|\Z))\right]$ pertains to how well the model reconstructs an input $\x$ given its latent representation. The motive of maximising this is self-explanatory. The second term, however, isn't entirely clear at first and motivations for minimising it are usually pretty bad. Minimising the KL-divergence term $-D_{\text{KL}}(q_{\phi}(\Z|\x)||p(\Z))$ pertains to encouraging our approximation of the posterior to be close to our chosen prior (usually just $\N(0,I)$). There is good reason to desire this as any usual choice of prior is nicely structured. It ensures that sampling from the prior distribution is sufficiently similar to sampling from the posterior itself. Note that more often than not, even though this ensures that the posterior is well-structured, this does not mean that it looks human-interpretable\footnote{\url{https://n8python.github.io/mnistLatentSpace/}}.
 
-It turns out that the ELBO is a very tight bound in many cases - even to the extent of performing very well on density estimation benchmarks.
+It turns out that the ELBO is a very tight bound in many cases — even to the extent of performing very well on density estimation benchmarks.
 
 \subsubsection{The Reparameterization Trick}
 Back propping through sampling is not a thing, it ain't differentiable 
-
-\subsubsection{VAE architecture for MNIST}
-For generating new sample of MNIST, the following architecture worked for me. Encoder:
-\begin{itemize}
-    \item three hidden layers of $h/4$, $h/2$ and $h$ neurons respectively where $h=4096$ is the hidden dimension
-    \item ReLU for each hidden layer and just linear maps for parameters
-    \item a latent dimension of $256$
-\end{itemize}
 
 % general adversarial networks
 \subsection{Generative Adversarial Networks (GANs)}
@@ -1319,9 +1326,11 @@ $$
 
 \noindent It's straightforward to see that $S(E)=-\log(\P(E))$ satisfies these three properties but it turns out that it is unique in satisfying these properties, up to its base.\\
 
-\noindent\textbf{Note:} It's clear from the second condition that this surprise function is actually a function whose domain is the powerset of $\Omega_X$ but addressing this detail isn't worth it - the idea being conveyed is hopefully clear regardless.
+\noindent\textbf{Note 1:} It's clear from the second condition that this surprise function is actually a function whose domain is the powerset of $\Omega_X$ but addressing this detail isn't worth it — the idea being conveyed is hopefully clear regardless.\\
 
-\subsubsection{Example of using entropy}
+\noindent\textbf{Note 2:} You can see entropy as pertaining to a random variable or of a distribution of said random variable. I should formalise this at some point.
+
+\subsubsection{Distribution fitting using cross-entropy}
 Suppose we have the geometric distribution with $p=1/2$ and would like to fit it using a Poisson distribution. That is, we would like to best approximate
 \begin{align*}
     p:\mathbb{N}\backslash\{0\}&\to[0,1]\\
@@ -1342,7 +1351,7 @@ H(p,q)
 $$
 which can be seen as the incurred cost of using the model $q$ in place of the true underlying model $p$. There are a bunch of different ways of describing/interpreting this quantity. The most interesting is perhaps the one related to encodings. Anyway, in our case, if we can find a closed form of this expression in terms of $\lambda$ then we can look to compute which value of $\lambda$ it's minimised by. In line with this, we compute
 \begin{align*}
-    H(p,q)
+    H(p,q;\lambda)
     &=
     -\E_{K\sim p}\left[\log(q(K))\right]\\
     &=
@@ -1350,14 +1359,42 @@ which can be seen as the incurred cost of using the model $q$ in place of the tr
     &=
     -\sum_{k=1}^{\infty}2^{-k}\left(-\lambda+k\log(\lambda)-\log(k!)\right)\\
     &=
-    123
+    \lambda\sum_{k=1}^{\infty}\frac{1}{2^k}-\log(\lambda)\sum_{k=1}^{\infty}\frac{k}{2^k}+\sum_{k=1}^{\infty}\frac{\log(k!)}{2^k}\\
+    &=
+    \lambda-\log(\lambda)+C
+\end{align*}
+where $C=\sum_{k=1}^{\infty}\frac{\log(k!)}{2^k}$ is independent of $\lambda$. In computing the minmum of $H(p,q;\lambda)$ in $\lambda$ we compute
+$$
+\frac{\partial}{\partial \lambda}H(p,q;\lambda)
+=
+1-\frac{1}{\lambda}
+$$
+which yields $\lambda=1$. So according cross-entropy, the best-fitting Poisson distribution to our geometric distribution is Poi$(1)$. For $\lambda=1$ we compute a cross-entropy of
+$$
+H(p,q;1)
+=
+1+\sum_{k=1}^{\infty}\frac{\log(k!)}{2^k}
+\approx
+2.01567.
+$$
+On its own, this quantity isn't too useful. To get a sense of goodness-of-fit we desire the KL-divergence, i.e. the cross-entropy minus the self-entropy of $p$. Let's compute said self-entropy:
+\begin{align*}
+    H(p)
+    &=
+    -\sum_{k=1}^{\infty}p(k)\log(p(k))\\
+    &=
+    -\sum_{k=1}^{\infty}2^{-k}\log(2^{-k})\\
+    &=
+    \log(2)\sum_{k=1}^{\infty}\frac{k}{2^k}\\
+    &=
+    \textcolor{red}{finish this some time}
 \end{align*}
 
 \subsection{The Central Limit Theorem (CLT)}
 \dots
 
 % statistics things
-\section{Statistics Things}
+\section{Classical Statistics Things}
 
 \subsection{Independent samples}
 Suppose we'd like to get an idea of the average height of men and women in our population. If we randomly sample 100 men and 100 women then we're good to go: we have independent samples. If instead we randomly sample 100 couples then our samples would not be independent since couples' heights correlate.
