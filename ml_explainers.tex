@@ -17,7 +17,7 @@
 \end{abstract}
 
 % table of contents
-\setcounter{tocdepth}{2}{\small\tableofcontents}
+\setcounter{tocdepth}{2}{\footnotesize\tableofcontents}
 
 % title page number not counted
 \thispagestyle{empty}
@@ -32,23 +32,11 @@ I think of machine learning as the discipline of studying methods of learning pa
 % thoughts on reasoning
 \section*{Thoughts on reasoning}
 
-\textcolor{red}{the Turing test was not agreed upon by many to be a measure of intelligence}
-
-As a term, machine learning is used almost interchangeably with AI as of now (summer of 2024). AI isn't particularly well-defined in itself, even in academic settings, so its use in day-to-day things, like the news, can be confusing. I think of machine learning as what's written above, effectively in line with statistical learning theory. I'm not sure how I would define AI in a way that'd satisfy most. Maybe the discipline of studying things that can `reason', as a human does, given some agreeable notion of `reasoning'. A common issue found in discussions surrounding this topic is that a definition of `reasoning' is left out. In fairness, it's a tricky thing to define precisely. For a long time, people considered the Turing test to be a metric in line with the idea of machines `reasoning'. Current LLMs are far beyond passing the Turing test but still it is argued that they don't reason, which I think I agree with as of now, but it's worth being conscious of the fact that we have effectively moved the goal posts. A similar example of this is the Automatic Statistician: a model that, given a bunch of data, can effectively output a report on the likely relationships between different parts of the data\footnote{\url{https://www.youtube.com/watch?v=aPDOZfu_Fyk}}. Essentially a data scientist or statistician in the form of a machine, which we're much closer to than in say 2020 due to LLMs.
+As a term, machine learning is used almost interchangeably with AI as of now (summer of 2024). AI isn't particularly well-defined in itself, even in academic settings, so its use in day-to-day things, like the news, can be confusing. I think of machine learning as what's written above, effectively in line with statistical learning theory. I'm not sure how I would define AI in a way that'd satisfy most. Maybe the discipline of studying things that can `reason', as a human does, given some agreeable notion of `reasoning'. A common issue found in discussions surrounding this topic is that a definition of `reasoning' is left out. In fairness, it's a tricky thing to define precisely.
 
 Right now, I'm unaware of any machine learning model that can `reason' by any agreeable notion of the term. Let's say that GPT-4o concludes that a continuous real-valued function $f:\R\rightarrow\R$ has a root in some interval $(a, b)$ using the intermediate value theorem (IVT) by noting that $f(a)<0$ and $f(b)>0$. Is this `reasoning' or do we instead brush this off as the model having been trained on a bunch of examples of the use of IVT? Does it understand what it's concluding? As of right now I'd say that it doesn't. This of course isn't something unique to IVT — we can construct many such examples. What I think makes IVT interesting is that we can effectively express what it means to understand it as a human. I'd say that the distinction between ChatGPT's `understanding' here and a human's is that a human knows that if they trace their finger on a piece of paper starting from the bottom half, crossing a horizontal line cutting through the middle, to the top half of the page without taking their finger off the paper then their finger must have touched the horizontal line at some point, i.e. the function must have intersected the $x$-axis during this continuous traversal. I believe that humans understand this due to just experiencing the real world. You don't need any mathematical training to know and, more importantly, understand `why' your finger crosses through this horizontal line on the page. I'm certain that current GPT models do not `understand' the IVT in this way, or really any way that isn't purely formally mathematical.
 
-A follow up question is to what extent it matters that a model `understands' how it arrives at its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. Maybe 50 years from now we'll be well-taken care of by a fleet of machine learning-based robots and we'll still complain that they aren't truly capable of reasoning like us.
-
-\begin{tcolorbox}[colback=c2]
-    Here are things prominent AI figures have said that I gelled with: \textcolor{red}{fix}
-    \begin{itemize}
-        \item Allan Newell\footnote{\url{https://www.youtube.com/watch?v=_sD42h9d1pk&t=3031s&ab_channel=CMURoboticsInstitute}}: Be conscious of what you're bad at!
-        \item Marvin Minsky: Once I understand something or have successfully implemented something, the task of understanding/implementing it no longer seems difficult. In fact, usually, the feeling of it never having \textit{really} been difficult emerges. I don't like this since it takes away from the feeling of satisfaction or self-congratulation.
-        \item Stuart Russell: similar comment to his ``it's as if Aliens came down and gave us this deep learning technology''
-        \item John McCarthy: 200 years from now, once we've figured it all out, we'll look back and ask why we didn't think of it 200 years ago. Essentially, hindsight is 2020.
-    \end{itemize}
-\end{tcolorbox}
+A separate but related question is to what extent it matters that a model `understands' how it arrives at its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. Maybe 50 years from now we'll be well-taken care of by a fleet of machine learning-based robots and we'll still complain that they aren't truly capable of reasoning like us.
 
 % supervised learning
 \section{Supervised Learning}
@@ -206,7 +194,7 @@ As such, the maximum likelihood estimator of the parameters of a linear regressi
         \end{tabular}
     \end{center}
     \vspace{-15pt}
-    \caption{\centering Patient data pertaining to their age, BMI and cholesterol levels.}
+    \caption{Patient data pertaining to their age, BMI and cholesterol levels.}
     \label{tab:lin_reg_example}
 \end{table}
 
@@ -220,7 +208,7 @@ where $x_1$ and $x_2$ correspond to the input sample patient's age and BMI level
     \centering
     \includegraphics[width=0.49\columnwidth]{./figures/lin_reg_example/age_and_bmi_vs_cholesterol.pdf}
     \includegraphics[width=0.49\columnwidth]{./figures/lin_reg_example/age_vs_bmi_vs_cholesterol.pdf}
-    \caption{\centering Each feature against the output (left) and the dataset in the feature space (right).}
+    \caption{Each feature against the output (left) and the dataset in the feature space (right).}
     \label{fig:not_at_all_the_same}
 \end{figure}
 
@@ -240,7 +228,7 @@ where $x_1$ and $x_2$ correspond to the input sample patient's age and BMI level
                     65 & 33.5 & 280 \\
                     \hline
                 \end{tabular}
-                \caption{\centering Training dataset.}
+                \caption{Training dataset.}
                 \label{tab:lin_reg_example_train}
             \end{center}
         \end{minipage} \hfill
@@ -257,7 +245,7 @@ where $x_1$ and $x_2$ correspond to the input sample patient's age and BMI level
                     70 & 34.0 & 290 \\
                     \hline
                 \end{tabular}
-                \caption{\centering Testing dataset.}
+                \caption{Testing dataset.}
                 \label{tab:lin_reg_example_test}
             \end{center}
         \end{minipage}
@@ -314,7 +302,7 @@ As for how well the model performs, its MSE on $\Dtrain$ is $1.26$ and its MSE o
     \centering
     \includegraphics[width=0.49\columnwidth]{./figures/lin_reg_example/model_predicts_train.pdf}
     \includegraphics[width=0.49\columnwidth]{./figures/lin_reg_example/model_predicts_test.pdf}
-    \caption{\centering Model performance on the training set (left) and testing set (right).}
+    \caption{Model performance on the training set (left) and testing set (right).}
     \label{fig:lin_reg_example_on_train_and_test}
 \end{figure}
 
@@ -421,12 +409,11 @@ $$
 =
 \argmax_{\theta\in\R^{p+1}}\left[\sum_{i=1}^n\left[-\log(1+\exp(-\theta^{\T}\x_i))-(1-y_i)\theta^{\T}\x_i\right]\right].
 $$
-
-\noindent\textbf{Note:} In practice, it's unlikely that any samples will lie on the hyperplane $f_{\theta^*}(\x)=0$ itself.
+Note that, in practice, it's unlikely that any samples will lie on the hyperplane $f_{\theta^*}(\x)=0$ itself.
 
 % support vector machines
 \subsection{Support Vector Machines (SVMs)}
-Logistic regression and SVMs both fit a hyperplane in feature space. The distinction is the metric of goodness of said hyperplanes. In logistic regression, the metric of goodness is how much the parameters of said hyperplane maximise the relevant log-likelihood. SVMs, however, look to maximise the distance between the hyperplane and the samples. So in some sense, logistic regression is a probabilistic approach while SVMs take more of a classic approach of `maximise this thing according to well-defined contraints'.
+Logistic regression and SVMs both fit a hyperplane in feature space. The distinction is the metric of goodness of said hyperplanes. In logistic regression, the metric of goodness is how much the parameters of said hyperplane maximise the relevant log-likelihood. SVMs, however, look to maximise the distance between the hyperplane and the samples. So in some sense, logistic regression is a probabilistic approach while SVMs take a constraint-based approach.
 
 The authors' insight came from structural risk minimization in which instead of focusing on minimising training error (as neural networks and decision trees were doing at the time), one focuses on minimising an upper bound on the generalisation error. The inclusion of `support vector' is clear from their construction but `machine' stood out to me as a bit odd. It turns out that at time of their development, around 1960, it was common to use `machine' when referring to algorithms that learned from data, i.e. algorithms belonging to statistical learning theory.\\
 
@@ -437,8 +424,8 @@ Since we aim to fit a hyperplane in our feature space $\R^{p+1}$, we use the sam
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\columnwidth]{./figures/SVMs/SVM_hard_margin.pdf}
-    \caption{\centering A hard-margin SVM in two dimensions.}
+    \includegraphics[width=0.75\columnwidth]{./figures/SVMs/SVM_hard_margin.pdf}
+    \caption{A hard-margin SVM in two dimensions.}
     \label{fig:SVM_hard_margin}
 \end{figure}
 
@@ -486,8 +473,8 @@ where $\lambda\geq0$ is a regularisation parameter that influences the tradeoff 
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\columnwidth]{./figures/SVMs/SVM_soft_margin.pdf}
-    \caption{\centering A soft-margin SVM in two dimensions. Samples are labelled according to their true class.}
+    \includegraphics[width=0.75\columnwidth]{./figures/SVMs/SVM_soft_margin.pdf}
+    \caption{A soft-margin SVM in two dimensions. Samples are labelled according to their true class.}
     \label{fig:SVM_soft_margin}
 \end{figure}
 
@@ -648,7 +635,7 @@ The edge case where $\nabla f(\mathbf{x})=0$ of course corresponds to $f(\mathbf
         \end{tabular}
     \end{center}
     \vspace{-15pt}
-    \caption{\centering Loss function choices.}
+    \caption{Loss function choices.}
     \label{tab:loss_func_choices}
 \end{table}
 \noindent Most of these are principled in that their minimisation corrsponds to maximum likelihood estimation.
@@ -679,7 +666,7 @@ The application of MLPs to learning functions from data is due to their expressi
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\linewidth]{./figures/neural_nets/MLP_1.pdf}
-    \caption{\centering A multi-layer perceptron (MLP) with $k=3$ hidden layers.}
+    \caption{A multi-layer perceptron (MLP) with $k=3$ hidden layers.}
     \label{fig:MLP}
 \end{figure}
 
@@ -753,7 +740,7 @@ If we fix the structure and choice of activation functions of an MLP then all th
 \begin{figure}[ht]
     \centering
     \includegraphics{./figures/neural_nets/MLP_2.pdf}
-    \caption{\centering A neural network with $k=1$ hidden layer.}
+    \caption{A neural network with $k=1$ hidden layer.}
     \label{fig:neural_nets_simple_example}
 \end{figure}
 
@@ -881,21 +868,19 @@ Chain rule/automatic differentiation to learn the parameters from data. Very oft
 
 \textbf{Note:} The terms `kernel' and `filter' are synonymous in this subsection.\\
 
-\noindent Convolutional neural networks (CNNs) are neural networks whose architectures are specially fit to process image data. Illustrated in \autoref{fig:CNN_frog}, their architecture can be described on a high level as consisting of two parts. The first part essentially performs feature extraction. The second part is an MLP which uses the extracted feature values to produce the overall model's output. So feature extraction into MLP, pretty intuitive.
+\noindent Convolutional neural networks (CNNs) are neural networks whose architectures are designed to process image data. Illustrated in \autoref{fig:CNN_frog}, their architecture can be described on a high level as consisting of two parts. The first part performs feature extraction through convolutions and pooling. The second part is an MLP which uses the extracted feature values to produce the overall model's output, e.g. the probability that the input object belongs to a given class. Feature extraction into MLP, pretty intuitive.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{./figures/neural_nets/CNN_frog.pdf}
-    \caption{\centering A binary classification CNN processing an image of a frog.}
+    \caption{A binary classification CNN processing an image of a frog.}
     \label{fig:CNN_frog}
 \end{figure}
 
-\noindent Before these deep learning architectures, researchers would have to perform feature extraction and feed the extracted feature values to a chosen model, e.g. an SVM for classification. The disadvantage of this is that one would have to pick a feature extraction method and a model to go along with it. Which feature extraction algorithms work best for a given model? This is annoying to have to do. To alleviate this, deep learning architectures streamline the process. A huge advantage is that, in some sense, these deep learning models know what features are best for the `prediction' part of the model.
-
-So how do these earlier layers in CNN architectures perform feature extraction? Convolution and pooling layers.
+Before these deep learning architectures, researchers would have use handcrafted features and feed the feature values to a given model, e.g. an SVM for classification. Humans turn out to be far worse at knowing what features to use than well-trained machine learning models. So how do these earlier layers in CNN architectures perform feature extraction? Convolution and pooling layers.
 
 \subsubsection{Convolutions}
-Convolution operations involve using a square matrix to, in some sense, summarise the information embedded in the pixels it traverses over. This square matrix is called the kernel or filter (synonymous and I switch a lot). You can think of this convolution operation as a sort of dot product between the filter and the pixel values it is on top of at that point.
+Convolution operations involve using a square matrix to, in some sense, summarise the information embedded in the parts of the imaage which it traverses over. This square matrix is referred to as a filter. It's sometimes referred to as a kernel and I tend to unconsciously switch which I use. You can think of this convolution operation as a sort of dot product between the filter and the grid of pixel values it is on top of at that point.
 
 More formally, given a feature map $I\in\mathbb{R}^{C\times W\times H}$ and a kernel $K\in\mathbb{R}^{C\times k\times k}$ with $k<W$ and $k<H$, the feature map $F=K*I\in\mathbb{R}^{W'\times H'}$ given by the convolution of $K$ over $I$ is given by
 $$
@@ -908,11 +893,11 @@ where $b_c$ is the kernel's bias in channel $c$. Note that this notation is inte
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{./figures/neural_nets/CNN_convolution.png}
-    \caption{\centering Convolution without bias.}
+    \caption{Convolution without bias.}
     \label{fig:convolution_operation}
 \end{figure}
 
-\noindent Generally, earlier convolutions in a CNN architecture extract higher level features, like edges and textures, while later convolutions extract lower level features that are usually beyond human interpretation. This is observed in \autoref{fig:CNN_frog} where after the first convolutional layer one can still see a resemblance of the input image of a frog. The feature maps produced by the second convolutional layer do not maintain a human interpretable resemblance of the frog.
+Generally, earlier convolutions in a CNN architecture extract higher level features, like edges and textures, while later convolutions extract lower level features which are not human-interpretable. This is observed in \autoref{fig:CNN_frog} where after the first convolutional layer one can still see a resemblance of the input image of a frog. The feature maps produced by the second convolutional layer do not maintain a human-interpretable resemblance of the frog.
 
 \subsubsection{Pooling}
 Pooling operations reduce the spatial dimensions of a given feature map by, in some sense, clustering certain parts of the feature map. There's not much point to writing this mathematically rigorously. Instead, consider \autoref{fig:pooling}. Pooling has a ton of flavours: max, min, average and more.
@@ -920,11 +905,11 @@ Pooling operations reduce the spatial dimensions of a given feature map by, in s
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{./figures/neural_nets/CNN_pooling.pdf}
-    \caption{\centering The core flavours of pooling.}
+    \caption{The core flavours of pooling.}
     \label{fig:pooling}
 \end{figure}
 
-\noindent I typically just pick max pooling and see how it does. A nice benefit of pooling is improved robustness to translations of images. Ideally, our model would classify an image in a similar enough way to how it'd classify the same image but slightly shifted. What is meant here is very problem-dependent so take it with a grain of salt. Hopefully the idea is clear anyway. Another core benefit is the reduced compute.
+\noindent I typically just pick max pooling and see how it does. A nice benefit of pooling is improved translation-invariance. Ideally, our model would classify an image in a similar enough way to how it'd classify the same image but slightly shifted. What is meant here is very problem-dependent so take it with a grain of salt. Hopefully the idea is clear anyway. Another benefit to pooling the reduced compute.
 
 \subsubsection*{Output dimensions of convolutions and pooling}
 Given a feature map $F\in\mathbb{R}^{W\times H}$, suppose we compute the convolution $O\in\mathbb{R}^{W'\times H'}$ of the kernel $K\in\mathbb{R}^{k\times k}$ over $F$ with uniform padding $P$ and stride $S$. The precise dimensions $W'$ and $H'$ of the new feature map $O$ are given by
@@ -945,15 +930,10 @@ H'
 \right\rfloor
 +1.
 $$
-It's not too tricky to derive these. It's the kinda thing you do once and never again. Maybe worth mentioning that some frameworks allow going beyond the edges of a feature map when convolving, e.g. Pytorch's \texttt{MaxPool2d} has a \texttt{ceil\_mode} flag that determines whether the does precisely this.
+It's not too tricky to derive these. It's the kinda thing you do once and never again.
 
-\subsubsection{Example}
-CNNs are best understood by example. Consider the nice frog in \autoref{fig:CNN_frog}. The input to the model is a $32\times32$ RBG image, so $3\times32\times32$ accounting for the three colour channels. This input is fed into the first layer of our CNN which is a convolutional layer. This convolutional layer has 32 filters/kernels each of which is $3\times3\times3$. I prefer to think of each of these kernels as three separate $3\times3$ kernels, one for each colour channel. For a given kernel triplet, each is slid over the $32\times32$ image corresponding to their channel, each yielding a $30\times30$ output. Since each kernel triplet outputs three such $30\times30$ outputs, we sum them to obtain the overall feature map corresponding to this kernel.
-
-There are 32 kernel triplets in our case and so you can think of the output of this layer as 32 images each of which are $30\times30$ in spatial dimension. Alternatively, you can think of the output as a single tensor of dimensions $32\times30\times30$. Also, each is passed through a non-linear activation function purely for the purpose of sprinkling in some non-linearity.
-
-\subsubsection{Backpropagation for covnolutional layers}
-Ultimately, similar idea as for MLPs: automatic differentiation\footnote{\url{https://www.quarkml.com/2023/07/backward-pass-in-convolutional-neural-network-explained.html}}.
+\subsubsection{Backpropagation for CNNs}
+We've already seen how to backprop through the MLP component. We haven't seen how to backprop through convoluationa/pooling layers yet. Ultimately, similar idea as for MLPs: automatic differentiation, chain rule, bla bla bla\footnote{\url{https://www.quarkml.com/2023/07/backward-pass-in-convolutional-neural-network-explained.html}}.
 
 % recurrent neural networks
 \subsection{Recurrent Neural Networks (RNNs)}
@@ -968,21 +948,31 @@ Ultimately, similar idea as for MLPs: automatic differentiation\footnote{\url{ht
 % autoencoders
 \subsection{Autoencoders}
 \label{sec:autoencoders}
-Autoencoders are a nice precursor to variational autoencoders (VAEs). Essentially, autoencoders are neural nets in which you have a bottleneck layer in the middle of the network which compresses inputs in a way that allows for the reconstruction after decoding. So an encoder can be written as a function $\mathcal{E}:\OX\rightarrow\R^d$. Similarly, a decoder can be written as a function $\D:\R^d\rightarrow\OX$. Ideally, for all $\x\in\X$ we have $\D(\mathcal{E}(\x))=\x$ but of course in practice it is only practical to achieve $\D(\mathcal{E}(\x))\approx\x$.
+An autoencoder $(\Omega_{\X},d,\theta,\phi)$ consists of a sample space $\Omega_{\X}\subset\mathbb{R}^n$, a latent dimension $d\in\mathbb{Z}_{\geq1}$, an encoder $\theta:\mathbb{R}^n\to\mathbb{R}^d$ and a decoder $\phi:\mathbb{R}^d\to\mathbb{R}^n$. Using a subset of $\Omega_{\X}$, one typically learns the encoder $\theta$ and the decoder $\phi$ with the goal of approximating the identity on $\Omega_{\X}$ via $\phi\circ \theta$. That is, roughly put, one seeks to obtain an encoder/decoder pair such that $\phi(\theta(\x))\approx\x$ for all $\x\in\Omega_{\X}$.
 
 \begin{figure}[ht]
     \centering
     \includegraphics{./figures/neural_nets/AE_autoencoder.pdf}
-    \caption{\centering An autoencoder mapping from the sample space $\OX$ to the latent space $\R^d$ then back to $\OX$.}
+    \caption{An autoencoder in which $\theta$ and $\phi$ are fit using multi-layer perceptrons (MLPs).}
     \label{fig:autoencoder}
 \end{figure}
 
-The encoder architecture is typically pretty straightforward: some neural net with an input layer consisting of a number of neurons that matches the dimension of $\OX$, some hidden layers and an output layer with $d$ neurons matching the dimension of the latent space $\mathbb{R}^d$. Similarly, the decoder architecture consists of an input layer of $d$ neurons, some hidden layers and an output layer of $\text{dim}(\OX)$ neurons. So the idea is simple: train the encoder $\mathcal{E}$ and decoder $\D$ such that $\D(\mathcal{E}(\x))\approx\x$ for all $\x\in\OX$ where $\text{dim}(\text{Im}(\mathcal{E}))<<\text{dim}(\OX)$.
+In intuitive terms, one can see the encoder $\theta$ as a compressor of samples in $\Omega_{\X}$ to their compressed (or latent) representation in $\mathbb{R}^d$ and so one might refer to the image of $\theta$ as the latent space $\Omega_{\Z}$. Similarly, the decoder $\phi$ can be seen as a decompressor of compressed representations $\z\in\Omega_{\Z}$ yielding the original sample $\x$. In line with this notion of an autoencoder as a compressor/decompressor, the latent dimension $d$ is typically taken to be far smaller than the dimension of the distribution of interest, i.e. $d\ll n$. Of course, when $d\ll n$, learning such mappings $\theta$ and $\phi$ typically involves some loss of information if $\Omega_{\X}$ is a manifold whose intrinsic dimension is greater than $d$. That is, autoencoders are typically lossy compressors.
 
-\subsubsection{Example autoencoder (visualisation bonus)}
-Consider the MNIST dataset, bunch of handwritten digits. Let's learn an autoencoder in which the latent space is $\R^2$. A nice advantage of picking latent spaces whose dimension is $1$, $2$ or $3$ is that we can visualise the mappings of samples in $\OX$ to the latent space and see if there is some structure there, e.g. we can inspect if it separate them nicely.
+\begin{example}
+    Suppose $\Omega_{\X}=\{(a,a,b)\in\mathbb{R}^3:||(a,a,b)||\leq1\}$ and $d=2$. One immediately notices that $\Omega_{\X}$ is a two-dimensional surface embedded in $\mathbb{R}^3$ as it is the intersection of the unit ball and the plane $\{(a,a,b):a,b\in\mathbb{R}\}$. To produce representations of $\x=(a,a,b)\in\Omega_{\X}$ in $\mathbb{R}^2$ (i.e. to compress a sample) one might employ the encoder $\theta_2(x,y,z)=(x,z)$. To reconstruct samples from their latent representation (i.e. to decompress) one might employ the decoder $\phi_2(x,z)=(x,x,z)$. The autoencoder $(\Omega_{\X},2,\theta_2,\phi_2)$ offers lossless compression on the sample space of interest as $(\phi_2\circ\theta_2)(\x)=\x$ for all $\x\in\Omega_{\X}$.
 
-Our encoder architecture will have an input layer consisting of 784 nodes, matching the size of samples in MNIST, two hidden layers of ? neurons each and an output layer consisting of two nodes (tight bottleneck). The decoder will then have an input layer of two nodes, two hidden layers of ? neurons each and an output layer consisting of 784 nodes.
+    If we instead desire latent representations of $\x=(a,a,b)\in\Omega_{\X}$ in $\mathbb{R}$, i.e. if $d=1$, one might employ the encoder $\theta_1(x,y,z)=x$ and the decoder $\phi_1(x)=(x,x,x)$. The autoencoder $(\Omega_{\X},1,\theta_1,\phi_1)$ offers lossy compression, i.e. some information pertaining to a sample is lost in compressing and then decompressing it as $(\phi_1\circ\theta_1)(a,a,b)=(a,a,a)$ for all $a,b\in\mathbb{R}$.
+\end{example}
+
+One's tolerance for the loss incurred by a given encoder/decoder pair is task-dependent. Given a dataset $\mathcal{D}=\{\x_1,\dots,\x_M\}\subset\Omega_{\X}$ and a latent dimension $d$, one might compute the pair $(\theta^*,\phi^*)\in\Theta\times\Phi$ which minimises the empirical risk over $\mathcal{D}$ where $\Theta$ and $\Phi$ are chosen function classes. That is, computing
+$$
+(\theta^*,\phi^*)
+=
+\argmin_{(\theta,\phi)\in\Theta\times\Phi}
+\sum_{i=1}^M||\x_i-\phi(\theta(\x_i))||^2.
+$$
+If the function classes permit for computing the gradients of $\theta\in\Theta$ and $\phi\in\Phi$ then this computation may be done using gradient descent. For example, one could take $\Theta$ and $\Phi$ to be the classes of MLPs of appropriate input and output dimensions, as illustrated in \autoref{fig:autoencoder}.
 
 % skip connections
 \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
@@ -1005,50 +995,54 @@ Some questions to challenge one's understanding.
 \begin{center}
     \textbf{\textcolor{blue}{Q1:} How does one prevent overfitting in NNs?}
 \end{center}
-\textbf{Early stopping:} Split training into training and validation sets. After each epoch (or every few), compute both training and validation losses. If training loss is decreasing while validation loss is not decreasing then you're at risk of overfitting. For illustration, consider \autoref{fig:early_stopping} in which the training loss continues to decrease in the number of epochs while the validation loss seems to reach its lowest value around epoch 28.
+\textbf{1) Early stopping:} Split training into training and validation sets. After each epoch (or every few), compute both training and validation losses. If training loss is decreasing while validation loss is not decreasing then you're at risk of overfitting. For illustration, consider \autoref{fig:early_stopping} in which the training loss continues to decrease in the number of epochs while the validation loss seems to reach its lowest value around epoch 28.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{./figures/neural_nets/REG_early_stopping.pdf}
+    \includegraphics[width=0.75\textwidth]{./figures/neural_nets/REG_early_stopping.pdf}
     \caption{Training and validation losses over 50 epochs for some model.}
     \label{fig:early_stopping}
 \end{figure}
 
 \noindent If you observe this for sufficiently many consecutive epochs then you can stop training and use the parameters pertaining to the epoch at which the validation loss was lowest. To do this, at each epoch during training, save the parameters of the current epoch if they offer a lower validation loss than at any epoch before. This is often referred to as a checkpoint within the training process and the parameters are saved in a \texttt{.ckpt} file.\\
 
-\noindent\textbf{Dropout -} We don't want to be overly-reliant on any given subset of neurons. To prevent such dependencies, at each epoch, independently set the activation of each neuron to 0 with probability $p$. This way some portion of neurons are silenced during the training epoch. As a result, its corresponding parameters (weights and bias) are not updated during backpropagation — it is truly silenced. This idea is illustrated in \autoref{fig:dropout}. Do not perform dropout when testing.
+\noindent\textbf{2) Dropout:} We don't want to be overly-reliant on any given subset of neurons. To prevent such dependencies, at each epoch, independently set the activation of each neuron to 0 with probability $p$. This way some portion of neurons are silenced during the training epoch. As a result, its corresponding parameters (weights and bias) are not updated during backpropagation — it is truly silenced. This idea is illustrated in \autoref{fig:dropout}. Do not perform dropout when testing.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{./figures/neural_nets/REG_dropout.png}
-    \caption{Dropout to prevent overdependence.}
+    \includegraphics[width=0.75\textwidth]{./figures/neural_nets/REG_dropout.png}
+    \caption{Dropout to prevent overdependence on given neurons.}
     \label{fig:dropout}
 \end{figure}
 
 \begin{center}
     \textbf{\textcolor{blue}{Q2:} What is the purpose of activation functions?}
 \end{center}
-Without the application of at least one activation function, the values of the output neurons would simply be the result of matrix-vector multiplication and vector addition. That is to say, the output of the neural network, without an any activation function, would be a purely linear transformation of the input. The issue with this is that most problems require some degree of non-linearity. The staple example of this is the classification of two-dimensional samples which are not linearly-separable.
+Without the application of at least one activation function, the values of the output neurons would simply be the result of matrix-vector multiplication and vector addition. That is to say, the output of the neural network, without an any activation function, would be a purely linear transformation of the input. The issue with this is that most problems require some degree of non-linearity. The staple example of this is the classification of two-dimensional samples which are not linearly-separable. Two such cases are illustrated in \autoref{fig:non_linearly_separable}.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.40\columnwidth]{./figures/neural_nets/NLA_xor.png}
     \hspace{20pt}
     \includegraphics[width=0.40\columnwidth]{./figures/neural_nets/NLA_circle.png}
-    \caption{\centering Examples of samples belonging to classes that are not linearly-separable.}
+    \caption{Examples of samples belonging to classes that are not linearly-separable.}
     \label{fig:non_linearly_separable}
 \end{figure}
 
-\noindent The point is that there is no line that would separate the classes in either case: non-linearity is needed! In the latter case, it is desirable to be able to somehow punch the interior of the unit disc to form a blue mountain with the surrounding ground covered in red. This can be achieved by the non-linear transformation $\phi(x,y)=\max(0,1-(x^2+y^2))$ which is illustrated in \autoref{fig:non_lin_transformation}.
+The point is that there is no line that would separate the classes in either case: non-linearity is needed! In the latter case, it is desirable to be able to somehow punch the interior of the unit disc to form a blue mountain with the surrounding ground covered in red. This can be achieved by the non-linear transformation $\phi(x,y)=\max(0,1-(x^2+y^2))$ which is illustrated in \autoref{fig:non_lin_transformation}.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.40\columnwidth]{./figures/neural_nets//NLA_non_lin_transform.png}
-    \caption{\centering The image of our non-linear transformation.}
+    \caption{The image of our non-linear transformation.}
     \label{fig:non_lin_transformation}
 \end{figure}
 
-From here, a natural linear decision boundary is just the plane $z=0$. Any sample above the plane, i.e. any sample whose $z-$coordinate is positive, is classified as blue. It is otherwise classified as red. We can be more clever than this though. This transformation required us to map samples to 3D — how about mapping to just 1D? To do this, a complete decision function is given by $D(x,y)=\left\lceil\frac{\left\lfloor x^2+y^2\right\rfloor}{x^2+y^2}\right\rceil$ and just define $D(0,0)=0$ to avoid the annoying pole.
+From here, a natural linear decision boundary is the plane $z=0$ (i.e. the red ground surrounding the blue mountain). Any sample above the plane, i.e. any sample whose $z-$coordinate is positive, is classified as blue. It is otherwise classified as red. We can be more clever than this though. This transformation required us to map samples to 3D — how about mapping to just 1D? To do this, a complete decision function is given by
+$$
+D(x,y)=\left\lceil\frac{\left\lfloor x^2+y^2\right\rfloor}{x^2+y^2}\right\rceil
+$$
+and define $D(0,0)=0$ to account for the removable singularity.
 
 \begin{center}
     \textbf{\textcolor{blue}{Q3:} Why not just one activation function in the output layer?}
@@ -1060,7 +1054,7 @@ If there were a single activation function towards the end of the architecture t
 \begin{center}
     \textbf{\textcolor{blue}{Q4:} Must activation functions be monotonic?}
 \end{center}
-No, just makes it much easier to optimise when they are.
+No, it just makes things related to optimisation easier while not impacting performance.
 
 \begin{center}
     \textbf{\textcolor{blue}{Q5:} Which activation functions should be used when?}
@@ -1077,7 +1071,7 @@ Suppose we have an MLP and a CNN, both trained to perform binary classification 
 % generative models
 \section{Deep Generative Models}
 
-Since the era of deep learning began in 2012, tons of generative image, video and text models have arisen. The general idea of these generative models is that if we have a model that fits training data particularly well then samples from the model should be sufficiently convincing. That is, if I get a nice fit for the distribution of images of cats lounging in the sun then samples from my fit distirubtion should look convincingly like cats lounging in the sun.
+Since the era of deep learning began in 2012, tons of generative image, video and text models have arisen. The general idea of these generative models is that if we have a model that fits the data generating process, e.g. the relevant distribution if taking a probabilistic approach, then samples from the model should be sufficiently convincing. That is, if I get a nice fit for the distribution of images of cats lounging in the sun then samples from my fit distirubtion should look convincingly like cats lounging in the sun.
 
 The problem with fitting such a distribution is that it is not at all clear what the distribution function would be. These distributions are complex and generally very hard to get right. Most ways to fit the underlying distribution is to perfrom maximum likelihood in some way. Performing maximum likelihood directly without access to any sort of direct distribution function is pretty hard, so it is often done indirectly. For example, when training a variatioanl autoencoder (VAE), you look to maximise a lower bound of the likelihood. The idea is that if this lower bound is sufficiently tight then maximising it in some sense pushes up the true likelihood, maximising it.
 
@@ -1088,24 +1082,43 @@ In \autoref{sec:autoencoders}, autoencoders (AEs) were discussed. Autoencoders a
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.60\columnwidth]{./figures/generative_models/AE_gen_1.png}
-    \caption{\centering The output of the decoder of an autoencoder with randomly generated latent points as input. Gibberish output.}
+    \caption{The output of the decoder of an autoencoder with randomly generated latent points as input. Gibberish output.}
     \label{fig:autoencoder_generation_1}
 \end{figure}
 
-Disaster strikes and we begin to see just how unstructured the latent space of an autoencoder is: randomly sampling from it (whatever this may mean) results in nonsense outputs from the decoder because most of the latent space itself is meaningless (nothing is encoded to most of it, so in some sense a lot of it is `un-utilised'). This is perhaps unsurprising as at no point during training an autoencoder do we impose any sort of restriction on the structure of its latent space.
+\noindent Disaster strikes and we begin to see just how unstructured the latent space of an autoencoder is: randomly sampling from it (whatever this may mean) results in nonsense outputs from the decoder because most of the latent space itself is meaningless (nothing is encoded to most of it, so in some sense a lot of it is `un-utilised'). This is perhaps unsurprising as at no point during training an autoencoder do we impose any sort of restriction on the structure of its latent space.
 
 New idea: how about we feed the decoder latent points that are pretty close to the embedding of a given training sample, as in \autoref{fig:autoencoder_generation_2}? This should result in decoder outputs that are similar in structure to the input sample but a bit different, right? No.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.75\columnwidth]{./figures/generative_models/AE_gen_2.png}
-    \caption{\centering The output of the decoder of an autoencoder points relatively close to the latent embedding of a given training sample.}
+    \caption{The output of the decoder of an autoencoder points relatively close to the latent embedding of a given training sample.}
     \label{fig:autoencoder_generation_2}
 \end{figure}
 
-Distaster strikes again. To get decoder outputs that are meaningful using this idea, one must take points in the latent space which are ridiculously close to this chosen sample's latent embedding. So close that you'd be practically reconstructing the original training sample each time — certainly not what we mean when we say that we'd like to generate samples.
+\noindent Distaster strikes again. To get decoder outputs that are meaningful using this idea, one must take points in the latent space which are ridiculously close to this chosen sample's latent embedding. So close that you'd be practically reconstructing the original training sample each time — certainly not what we mean when we say that we'd like to generate samples.
 
-Queue variational autoencoders (VAEs), illustrated in \autoref{fig:VAE_architecture}. Loosely put, they have a somewhat similar structure to regular autoencoders in that they have an encoder and a decoder but they are distinguished by two things. First, they impose structure on the latent space which helps very much with making the ideas presented earlier feesable. For example, points that are close in feature space are also close in the latent space and all of the latent space is made use of, none of it meaningless. Second, given fixed inputs, the outputs of the encoder and decoder are not fixed points (hence variational). Instead, the outputs are parameters of sampleable distributions.
+Queue variational autoencoders (VAEs), illustrated in \autoref{fig:VAE_architecture}.
+
+\subsubsection{Formulating VAEs}
+Leaving aside, for now, how to learn one from data, VAEs can informally be seen as an extension of autoencoders in which the encoder and decoder each output parameters of a distribution belonging to some pre-chosen distribution family. Extending the notation used to define autoencoders, a variational autoencoder $(\Omega_{\X},d,\mathcal{Q}_d,\mathcal{P}_n,\theta,\phi)$ consists of the sample space of the distribution of interest $\Omega_{\X}\subset\mathbb{R}^n$, a latent dimension $d\in\mathbb{Z}_{\geq1}$, the parameter space $\mathcal{Q}_d$ of a family of $d-$dimensional conditional distributions denoted $q_{\theta}(\z|\x)$, the parameter space $\mathcal{P}_n$ of a family of $n-$dimensional conditional distributions denoted $p_{\phi}(\x|\z)$, an encoder $\theta:\mathbb{R}^n\to\mathcal{Q}_d$ and a decoder $\phi:\mathbb{R}^d\to\mathcal{P}_n$.
+
+To illustrate the intended meaning of the newly-introduced parameter spaces $\mathcal{Q}_d$ and $\mathcal{P}_n$, one's encoder might yield the expectation vector and covariance matrix of a $d-$dimensional Gaussian $\mathcal{N}(\mu,\Sigma)$, i.e. $\mathcal{Q}_d$ could be the parameter space of the family of $d-$dimensional Gaussian distributions yielding
+$$
+\mathcal{Q}_d
+=
+\{
+(\mu,\Sigma):\mu\in\mathbb{R}^d, \Sigma\in\mathcal{S}_{++}^d
+\}
+=
+\mathbb{R}^d\times\mathcal{S}_{++}^d
+$$
+where $\mathcal{S}_{++}^d$ denotes the set of all positive-definite matrices in $\mathbb{R}^{d\times d}$.
+
+As the encoder of a VAE yields a $d-$dimensional distribution $q_{\theta}(\z|\x)$ given the sample $\x\in\Omega_{\X}$, to obtain a latent $d-$dimensional representation $\z'\in\mathbb{R}^d$ of $\x$, one computes the parameters $\theta(\x)\in\mathcal{Q}_d$ of $q_{\theta}(\z|\x)$, e.g. a $d-$dimensional Gaussian, via the encoder and samples $\z'\sim q_{\theta}(\z|\x)$. To reconstruct $\x$ from its latent representation $\z'$, one computes the parameters $\phi(\z')\in\mathcal{P}_n$ of the $n-$dimensional reconstruction distribution $p_{\phi}(\x|\z')$ via the decoder. Sampling $\x'\sim p_{\phi}(\x|\z')$ yields (ideally) a sufficiently-accurate reconstruction of the original sample $\x$. Achieving accurate reconstructions is done in a similar manner to autoencoders: by including a penalty term pertaining to reconstruction quality in the loss function used to learn the encoder and decoder.
+
+Note that one's choice of $\mathcal{Q}_d$ and $\mathcal{P}_n$ should take into account the need to sample efficiently and so they should correspond to families of distributions which offer efficient means of sampling, e.g. Gaussians, as in \autoref{fig:VAE_architecture}.
 
 \begin{figure}
     \centering
@@ -1116,48 +1129,84 @@ Queue variational autoencoders (VAEs), illustrated in \autoref{fig:VAE_architect
     \label{fig:VAE_architecture}
 \end{figure}
 
-\subsubsection{Formulating VAEs}
-Denote the parameters of the encoder by $\phi$ and the paramaters of the decoder by $\theta$. Note that sometimes I will write $\phi(\x)$ to denote the output of the encoder, which is a little odd as $\phi$ denotes the encoder's paramteres but it makes notation a little easier. Anyway, the role of the encoder and decoder in VAEs is to output paramters of sampleable distributions. For example, in the vanilla formulation, a VAE's encoder takes in some sample $\x$ and outputs the parameters $\mu_{\phi}$ and $\Sigma_{\phi}$ (usually diagonal) of a normal distribution which approximates the posterior distriubtion $\Z|\x$. If we want to reconstruct $\x$, we sample from $q_{\phi}(\z|\x)=\N(\mu_{\phi}, \Sigma_{\phi})$ and feed it as input to the decoder which outputs the mean $\mu_{\theta}$ of $p_{\theta}(\x|\z)=\N(\mu_{\theta},\sigma^2 I)$ where $\sigma$ is a hyperparameter. Sampling from this approximation of the likelihood distribution $\X|\z$ will yield something close to $\x$ itself.
+\begin{example}
+    Suppose $X_1\sim\mathcal{N}(1,2)$ and $X_3\sim\mathcal{N}(-1,1)$ are independent. Let $X_2=X_1+\epsilon$ where $\epsilon\sim\mathcal{N}(0,1)$ is independent of $X_1$ and $X_3$. If $X=(X_1,X_2,X_3)$ then $X\sim\mathcal{N}(\mu,\Sigma)$ with $\mu=(1,1,-1)'$ and
+    $$
+    \Sigma
+    =
+    \begin{bmatrix}
+        2 & 2 & 0\\
+        2 & 3 & 0\\
+        0 & 0 & 1
+    \end{bmatrix}.
+    $$
+    As such, $\Omega_{\X}=\mathbb{R}^3$. To obtain two-dimensional representations of samples $\x\in\Omega_{\X}$ (so $d=2$), one might choose $\mathcal{Q}_2=\mathbb{R}^2\times\mathcal{S}_{++}^2$ and $\mathcal{P}_3=\mathbb{R}^3\times\mathcal{S}_{++}^3$. That is, we could fit a two-dimensional Gaussian to the latent space and a three-dimensional Gaussian to the reconstruction space. Knowing $X_2=X_1+\epsilon$, where $\epsilon\sim\mathcal{N}(0,1)$, one might choose the encoder
+    \begin{align*}
+        \theta&:
+        \Omega_{\X}\to\mathcal{Q}_2\\
+        &(x_1,x_2,x_3)\mapsto((x_1,x_3),\sigma^2I_2)
+    \end{align*}
+    where $\sigma>0$ is small. That is, for a sample $(x_1,x_2,x_3)\in\Omega_{\X}$, the encoder's output would yield the latent distribution $q_{\theta}(\z|\x)=\mathcal{N}((x_1,x_3),\sigma^2I_2)$. As decoder, if all we desire is accurate reconstructions, we might choose
+    \begin{align*}
+        \phi&:
+        \mathbb{R}^2\to\mathcal{P}_3\\
+        &(z_1,z_2)\mapsto((z_1,z_1,z_2), \sigma^2I_3).
+    \end{align*}
+    That is, for the latent sample $\z'=(z_1',z_2')$, the decoder's output would yield the reconstruction distribution $p_{\phi}(\x|\z')=\mathcal{N}((z_1',z_1',z_2'),\sigma^2I_3)$. Ideally, sampling $(x_1',x_2',x_3')\sim p_{\phi}(\x|\z')$ would yield a sample sufficiently similar to the original sample $\x=(x_1,x_2,x_3)$.
 
-While the idea itself is clear, the difficulty in having it come to fruition is training such an architecture, i.e. finding the parameters $\phi$ and $\theta$ that offer the best reconstruction and smooth latent space, all according to some metric. In line with most other approaches to generative modelling, if we can do maximum likelihood in some way, i.e. ensure that the likelihood of the training data is maximal under our model then samples from the likelihood distribution, whose parameters are output by the model's decoder, should resemble those in the training set. To do this, we would ideally perform maximum likelihood directly but we don't have access to the true underlying joint distribution function $p(\x)$. As such, we instead look to find a lower bound for $p(\x)$ which we maximise instead. The idea is that pushing this supposed lower bound up will in turn push up $p(\x)$ itself. In line with this, we derive the evidence lower bound (ELBO), first noting that
-$$
+    Note that in practice, one does not know the true distribution $p(\x)$ and so hand-picking the encoder and decoder as in this example is infeasible. Typically, the encoder and decoder are learned from a dataset $\mathcal{D}\subset\Omega_{\X}$.
+\end{example}
+At this point, a natural question arises: for which tasks is learning a VAE more appropriate than learning an autoencoder? The answer lies in the purpose of VAEs which is two-fold: 1) to perform sufficiently-accurate compression/decompression and 2) to produce a sufficiently regularised approximation of the latent space $\Omega_{\Z}$. The latter is ensured by how one learns a VAE from data, which we soon consider. In brief, when learning an autoencoder one never imposes restrictions on the latent space beyond encouraging the model to yield sufficiently-accurate reconstructions. As a result, the latent space of an autoencoder is not well-structured. For example, for latent samples $\z_1,\z_2\in\Omega_{\Z}$ which are `close' in the latent space, their reconstructions are not necessarily `close' in $\mathbb{R}^n$. VAEs seek to remedy this.
+
+To learn a VAE from data, we look to maximise the evidence lower bound (ELBO) over some dataset $\mathcal{D}=\{\x_1,\dots,\x_M\}\subset\Omega_{\X}$. Over a single sample $\x\in\Omega_{\X}$, the ELBO is a tight lower bound of $\log(p(\x))$. As such, maximising the ELBO over $\mathcal{D}$ can be seen as performing approximate maximum-likelihood estimation over $\mathcal{D}$ (sometimes referred to as evidence maximisation). To derive the ELBO, first note that given a decoder $\phi$ (which parameterises the reconstruction distribution $p_{\phi}(\x|\z)$), we may express the marginal distribution $p(\x)$ using $p_{\phi}(\x|\z)$ as
+\begin{equation}
+\label{eq:marginal_likelihood}
 p(\x)
 =
 \int p(\x,\z)d\z
 =
 \int p(\x|\z)p(\z)d\z
-\approx
-\int p_{\theta}(\x|\z)p(\z)d\z
-$$
-where the parameters of $p_{\theta}(\x|\z)$ are given by VAE's decoder. Note that an almost identical method can be used for discrete random variables, integrals just look prettier. From here, we can utilise Jensen's inequality to obtain
+=
+\int p_{\phi}(\x|\z)p(\z)d\z.
+\end{equation}
+Using \autoref{eq:marginal_likelihood}, along with the encoder $\theta$ (which parameterises the latent distribution $q_{\theta}(\z|\x)$) we derive the ELBO over a single sample $\x\in\Omega_{\X}$:
 \begin{align*}
     \log(p(\x))
     &=
-    \log\left(\int p_{\theta}(\x|\z)p(\z)d\z\right)\\
+    \log\left(\int p_{\phi}(\x|\z)p(\z)d\z\right)\\
     &=
-    \log\left(\int q_{\phi}(\z|\x)\frac{p_{\theta}(\x|\z)p(\z)}{q_{\phi}(\z|\x)}d\z\right)\\
+    \log\left(\int q_{\theta}(\z|\x)\frac{p_{\phi}(\x|\z)p(\z)}{q_{\theta}(\z|\x)}d\z\right)\\
     &=
-    \log\left(\E_{q_{\phi}(\z|\x)}\left[\frac{p_{\theta}(\x|\Z)p(\Z)}{q_{\phi}(\z|\x)}\right]\right)\\
+    \log\left(\E_{\Z\sim q_{\theta}(\z|\x)}\left[\frac{p_{\phi}(\x|\Z)p(\Z)}{q_{\theta}(\Z|\x)}\right]\right)\\
     &\geq
-    \E_{q_{\phi}(\z|\x)}\left[\log\left(\frac{p_{\theta}(\x|\Z)p(\Z)}{q_{\phi}(\Z|\x)}\right)\right]\\
+    \E_{\Z\sim q_{\theta}(\z|\x)}\left[\log\left(\frac{p_{\phi}(\x|\Z)p(\Z)}{q_{\theta}(\Z|\x)}\right)\right]\\
     &=
-    \E_{q_{\phi}(\z|\x)}\left[\log(p_{\theta}(\x|\Z))\right]-\E_{q_{\phi}(\z|\x)}\left[\log\left(\frac{q_{\phi}(\Z|\x)}{p(\Z)}\right)\right]\\
+    \E_{\Z\sim q_{\theta}(\z|\x)}\left[\log(p_{\phi}(\x|\Z))\right]-\E_{\Z\sim q_{\theta}(\z|\x)}\left[\log\left(\frac{q_{\theta}(\Z|\x)}{p(\Z)}\right)\right]\\
     &=
-    \E_{q_{\phi}(\z|\x)}\left[\log(p_{\theta}(\x|\Z))\right]-D_{\text{KL}}(q_{\phi}(\Z|\x)||p(\Z))\\
+    \E_{\Z\sim q_{\theta}(\z|\x)}\left[\log(p_{\phi}(\x|\Z))\right]-D_{\text{KL}}(q_{\theta}(\Z|\x)||p(\Z))\\
     &=:
     \text{ELBO}
 \end{align*}
-where the parameters of $q_{\phi}(\z|\x)$ are given by the VAE's encoder. As such, for a training set $\{\x_i\}_{i=1}^N$, we look to compute
-
+in which the inequality arises due to Jensen's inequality, as in $\E[\log(f(\Z))]\leq\log(\E[f(\Z)])$, and $D_\text{KL}(Q||P)$ denotes the KL-divergence between distributions $Q$ and $P$, which is detailed in \textcolor{red}{entropy part?}. The effect of maximising
 $$
-\argmax_{\phi,\theta}\sum_{i=1}^N\left[\E_{q_{\phi}(\z|\x_i)}\left[\log(p_{\theta}(\x_i|\Z))\right]-D_{\text{KL}}(q_{\phi}(\Z|\x_i)||p(\Z))\right].
+\text{ELBO}
+=
+\E_{\Z\sim q_{\theta}(\z|\x)}\left[\log(p_{\phi}(\x|\Z))\right]-D_{\text{KL}}(q_{\theta}(\Z|\x)||p(\Z))
 $$
-If we can maximise the ELBO then we are doing some sort of pseudo-maximum likelihood but what do the individual terms mean? The first term, $\E_{q_{\phi}(\z|\x)}\left[\log(p_{\theta}(\x|\Z))\right]$ pertains to how well the model reconstructs an input $\x$ given its latent representation. The motive of maximising this is self-explanatory. The second term, however, isn't entirely clear at first and motivations for minimising it are usually pretty bad. Minimising the KL-divergence term $-D_{\text{KL}}(q_{\phi}(\Z|\x)||p(\Z))$ pertains to encouraging our approximation of the posterior to be close to our chosen prior (usually just $\N(0,I)$). There is good reason to desire this as any usual choice of prior is nicely structured. It ensures that sampling from the prior distribution is sufficiently similar to sampling from the posterior itself. Note that more often than not, even though this ensures that the posterior is well-structured, this does not mean that it looks human-interpretable\footnote{\url{https://n8python.github.io/mnistLatentSpace/}}.
+over a dataset is often explained term-by-term. The first term is a principled measure of the VAE's ability to reconstruct latent representations, as with autoencoders. The second term is a principled measure of the similarity of the latent distribution $q_{\theta}(\z|\x)$ and the prior $p(\z)$. The prior is chosen before training and the most common choice is a $d-$dimensional standard Gaussian, i.e. $p(\z)=\mathcal{N}(0,I_d)$. As such, minimising the negative KL-divergence between the latent distribution and said prior is often interpreted as encouraging the learning of the encoder such that latent representations are distributed according to the prior. This is particularly useful in the case that one is learning a VAE to generate new samples from $\Omega_{\X}$: post-training, sample $\z'\sim p(\z)$, compute the parameters $\phi(\z')$ of the reconstruction distribution $p_{\phi}(\x|\z')$ via the decoder and sample from it. Note that using a VAE for generative purposes does not invoke the use of the encoder, only the decoder is required post-training.
 
-It turns out that the ELBO is a very tight bound in many cases — even to the extent of performing very well on density estimation benchmarks.
+Given a dataset $\mathcal{D}=\{\x_1,\dots,\x_M\}\subset\Omega_{\X}$, we learn a VAE by choosing function classes $\Theta$ and $\Phi$ (e.g. MLPs as in \autoref{fig:VAE_architecture}) and computing
+$$
+\argmax_{(\theta,\phi)\in\Theta\times\Phi}
+\left[
+\sum_{i=1}^M
+\E_{\Z\sim q_{\theta}(\z|\x_i)}\left[\log(p_{\phi}(\x_i|\Z))\right]-D_{\text{KL}}(q_{\theta}(\Z|\x_i)||p(\Z))
+\right].
+$$
+In practice, after choosing a latent dimension $d$, we often take $p(\z)=\mathcal{N}(0,I_d)$, $\mathcal{Q}_d=\mathbb{R}^d\times\mathcal{S}_{++}^d$ and $\mathcal{P}_n=\mathbb{R}^n\times\mathcal{S}_{++}^n$, i.e. Gaussians for the latent and reconstruction distribution families and the standard $d-$dimensional Gaussian for the prior. A benefit of these choices is that it yields a differentiable and easy-to-implement closed form for the KL-divergence term in the ELBO. Additionally, the expectation pertaining to the reconstruction term is typically approximated via a single sample, boiling down to a mean square error term\footnote{\url{https://n8python.github.io/mnistLatentSpace/}}.
 
-\subsubsection{The Reparameterization Trick}
-Back propping through sampling is not a thing, it ain't differentiable 
+\subsubsection{Backpropagation for VAEs}
+The expectation term in the ELBO requires us to sample from $q_{\theta}(\z|\x)$. Back propping through sampling is not a thing, it ain't differentiable. We need the reparameterisation trick!
 
 % general adversarial networks
 \subsection{Generative Adversarial Networks (GANs)}
@@ -1189,9 +1238,22 @@ Use sinusoids to form a position vector $P_k$ for the $k$th token in an input se
 Some questions to challenge one's understanding.
 
 \begin{center}
-    \textbf{\textcolor{blue}{Q1:} Why choose normal priors in VAEs?}
+    \textbf{\textcolor{blue}{Q1:} Blelele?}
 \end{center}
 \dots
+
+% object detection models
+\section{Object Detection Models}
+
+CNNs and transformer-based architectures have revolutionised object detection. Three main flavours: R-CNN, YOLO and DETR. Before going into detail about them, what is object detection? What methods came before CNN/transformer-based architectures?
+
+% R-CNN
+\subsection{(Fast/Faster) R-CNN}
+R-CNN models has three flavours: R-CNN, Fast R-CNN and Faster R-CNN. R-CNN stands for \textit{Regions with CNN features}. Roughly put, detecting objects within a given image using an R-CNN model consist of two parts:
+\begin{enumerate}
+    \item Proposing regions of interest within the image
+    \item Classifying what is in each region (if there is something in the region)
+\end{enumerate}
 
 % appendices
 \newpage

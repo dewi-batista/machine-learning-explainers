@@ -2,6 +2,9 @@
 \usepackage{amsfonts, amsmath, amssymb}
 \usepackage[toc,page]{appendix}
 % \usepackage{geometry}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{setspace}
 
 \usepackage[pass]{geometry}
 \newlength\DX
@@ -12,10 +15,6 @@
 \DY=2.8in
 \paperheight=\dimexpr\paperheight-\DY\relax
 \voffset=\dimexpr\voffset-.5\DY-.5\footskip\relax
-
-\usepackage{hyperref}
-\usepackage[utf8]{inputenc}
-\usepackage{setspace}
 
 %% for the indicator function
 \usepackage{bbm}
@@ -28,7 +27,7 @@
 %% for displaying boxes around text
 \usepackage{tcolorbox}
 
-%% for defining colours
+%% colour presets
 \usepackage{xcolor}
 \definecolor{c1}{RGB}{255,240,200}
 \definecolor{c2}{RGB}{173,216,230}
@@ -70,11 +69,13 @@
 \newcommand{\x}{\mathbf{x}}
 \newcommand{\z}{\mathbf{z}}
 
+\newcommand{\HRule}{\noindent\hspace*{\fill}\rule{0.95\linewidth}{0.1pt}\hspace*{\fill}}
+
+\newtheorem{example}{Example}[section]
+
 %% for numeric footnote markers
 \renewcommand{\thefootnote}{\arabic{footnote}}
 
+%% for argmax and argmin notation
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
-
-%% latex commands/operators
-\newcommand{\HRule}{\noindent\hspace*{\fill}\rule{0.95\linewidth}{0.1pt}\hspace*{\fill}}

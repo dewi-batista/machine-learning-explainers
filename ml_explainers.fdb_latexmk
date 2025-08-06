@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1754486949.94234 "ml_explainers.tex" "ml_explainers.pdf" "ml_explainers" 1754486951.61525 0
+["pdflatex"] 1754500034.31967 "ml_explainers.tex" "ml_explainers.pdf" "ml_explainers" 1754500036.05465 0
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1095.tfm" 1136768653 1536 02c06700a42be0f5a28664c7273f82e7 ""
@@ -42,6 +42,7 @@
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1248133631 32080 340ef9bf63678554ee606688e7b5339d ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb" 1248133631 32007 e8fa0078355f39467039935974716569 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb" 1248133631 32166 b0c356b15f19587482a9217ce1d8fa67 ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb" 1248133631 32298 c6d25bb16d1eac01ebdc6d7084126a1e ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1248133631 30251 6afa5cb1d0204815a708a080681d4674 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1248133631 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb" 1248133631 37166 8ab3487cbe3ab49ebce74c29ea2418db ""
@@ -220,11 +221,11 @@
   "figures/neural_nets/NLA_xor.png" 1749495679.39908 11993 fdbd2d96d0e3aab01f3ceb48c951bf65 ""
   "figures/neural_nets/REG_dropout.png" 1749499510.65021 538594 293a23a35b93ebd583fe6bb76b134415 ""
   "figures/neural_nets/REG_early_stopping.pdf" 1749499510.65092 14319 3ed71a265c15e252cba041ed10d6e285 ""
-  "header.tex" 1749495679.40044 2076 f89e7ee4d849d78cc2192c1cf7de8792 ""
-  "ml_explainers.aux" 1754486951.50687 17439 6357db99351f21f7f54f9343f3638705 "pdflatex"
-  "ml_explainers.out" 1754486950.46016 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "ml_explainers.tex" 1754486947.68772 96215 98d3924018aaf583fcaa62149078294e ""
-  "ml_explainers.toc" 1754486951.50865 6374 26dde28241adb32ffa87b40b25af9e23 "pdflatex"
+  "header.tex" 1754489662.82394 2115 494cff586bc643cb98903a0caf0bfb9b ""
+  "ml_explainers.aux" 1754500035.93745 17015 d2dddf6e164c815954593aa6a75c72c9 "pdflatex"
+  "ml_explainers.out" 1754500034.91034 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "ml_explainers.tex" 1754500034.06934 99848 3f541f4140fa0fb8cf28637b51583c29 ""
+  "ml_explainers.toc" 1754500035.93919 6318 fc41a12e5f4335d11af0d53a7f14dab2 "pdflatex"
   (generated)
   "ml_explainers.aux"
   "ml_explainers.log"
