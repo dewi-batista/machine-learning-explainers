@@ -1087,7 +1087,7 @@ In \autoref{sec:autoencoders}, autoencoders (AEs) were discussed. Autoencoders a
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.60\columnwidth]{./figures/generative_models/AEs_gen_1.png}
+    \includegraphics[width=0.60\columnwidth]{./figures/generative_models/AE_gen_1.png}
     \caption{\centering The output of the decoder of an autoencoder with randomly generated latent points as input. Gibberish output.}
     \label{fig:autoencoder_generation_1}
 \end{figure}
@@ -1098,7 +1098,7 @@ New idea: how about we feed the decoder latent points that are pretty close to t
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.75\columnwidth]{./figures/generative_models/AEs_gen_2.png}
+    \includegraphics[width=0.75\columnwidth]{./figures/generative_models/AE_gen_2.png}
     \caption{\centering The output of the decoder of an autoencoder points relatively close to the latent embedding of a given training sample.}
     \label{fig:autoencoder_generation_2}
 \end{figure}
@@ -1109,9 +1109,9 @@ Queue variational autoencoders (VAEs), illustrated in \autoref{fig:VAE_architect
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.46\linewidth]{figures/neural_nets/VAE_encoder.pdf}
+    \includegraphics[width=0.46\linewidth]{figures/generative_models/VAE_encoder.pdf}
     \hspace{20pt}
-    \includegraphics[width=0.46\linewidth]{figures/neural_nets/VAE_decoder.pdf}
+    \includegraphics[width=0.46\linewidth]{figures/generative_models/VAE_decoder.pdf}
     \caption{Left: an encoder which outputs parameters of the latent distribution $q_{\theta}(\z|\x)=\mathcal{N}(\mu_{\theta},\Sigma_{\theta})$. Right: a decoder which outputs parameters of the reconstruction distribution $p_{\phi}(\x|\z')=\mathcal{N}(\mu_{\phi},\Sigma_{\phi})$ in which $\z'\sim q_{\theta}(\z|\x)$.}
     \label{fig:VAE_architecture}
 \end{figure}
