@@ -413,6 +413,16 @@ INPUT ./figures/generative_models/VAE_decoder.pdf
 INPUT ./figures/generative_models/VAE_decoder.pdf
 INPUT ./figures/generative_models/VAE_decoder.pdf
 INPUT ./figures/generative_models/VAE_decoder.pdf
+INPUT ./figures/generative_models/diffusion_process.pdf
+INPUT ./figures/generative_models/diffusion_process.pdf
+INPUT ./figures/generative_models/diffusion_process.pdf
+INPUT ./figures/generative_models/diffusion_process.pdf
+INPUT ./figures/generative_models/diffusion_process.pdf
+INPUT ./figures/generative_models/unet.png
+INPUT ./figures/generative_models/unet.png
+INPUT ./figures/generative_models/unet.png
+INPUT ./figures/generative_models/unet.png
+INPUT ./figures/generative_models/unet.png
 INPUT ml_explainers.aux
 INPUT ./ml_explainers.out
 INPUT ./ml_explainers.out

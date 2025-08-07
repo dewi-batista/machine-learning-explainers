@@ -1068,6 +1068,8 @@ Small fun note, the universal function approximation of MLPs has been proven onl
 \end{center}
 Suppose we have an MLP and a CNN, both trained to perform binary classification on images of cats and dogs. Further, suppose they perform equally. It might not be too surprisnig that the MLP will necessarily consist of a number of parameters that is orders of magnitude greater than for the CNN. Also, it's not so clear if a given MLP is translation invariant while various components of a CNN architecture help alleviate fears of translation-related issues.
 
+Also, improved learning-efficiency\footnote{\url{https://ai.stackexchange.com/questions/27407/what-does-statistical-efficiency-mean-in-this-context}}, i.e. fewer samples needed to lean distributions to similar degrees of precision.
+
 % generative models
 \section{Deep Generative Models}
 
@@ -1099,7 +1101,7 @@ New idea: how about we feed the decoder latent points that are pretty close to t
 
 \noindent Distaster strikes again. To get decoder outputs that are meaningful using this idea, one must take points in the latent space which are ridiculously close to this chosen sample's latent embedding. So close that you'd be practically reconstructing the original training sample each time — certainly not what we mean when we say that we'd like to generate samples.
 
-Queue variational autoencoders (VAEs), illustrated in \autoref{fig:VAE_architecture}.
+So how do we do autoencoder-like things in a way that yields well-structured latent spaces? Queue variational autoencoders (VAEs), illustrated in \autoref{fig:VAE_architecture}.
 
 \subsubsection{Formulating VAEs}
 Leaving aside, for now, how to learn one from data, VAEs can informally be seen as an extension of autoencoders in which the encoder and decoder each output parameters of a distribution belonging to some pre-chosen distribution family. Extending the notation used to define autoencoders, a variational autoencoder $(\Omega_{\X},d,\mathcal{Q}_d,\mathcal{P}_n,\theta,\phi)$ consists of the sample space of the distribution of interest $\Omega_{\X}\subset\mathbb{R}^n$, a latent dimension $d\in\mathbb{Z}_{\geq1}$, the parameter space $\mathcal{Q}_d$ of a family of $d-$dimensional conditional distributions denoted $q_{\theta}(\z|\x)$, the parameter space $\mathcal{P}_n$ of a family of $n-$dimensional conditional distributions denoted $p_{\phi}(\x|\z)$, an encoder $\theta:\mathbb{R}^n\to\mathcal{Q}_d$ and a decoder $\phi:\mathbb{R}^d\to\mathcal{P}_n$.
@@ -1218,14 +1220,62 @@ Turn noise to samples!
 
 % diffusion models
 \subsection{Diffusion Models}
-Turn noise to samples!
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[height=3cm]{./figures/generative_models/diffusion_process.pdf}
+    \caption{Johann Bernoulli being denoised in line with the backward process of a diffusion model.}
+    \label{fig:diffusion_process}
+\end{figure}
+
+The purpose of diffusion models is to facilitate the generation of samples from complex distributions from which sampling is typically intractable. While this overarching motive is not unique to diffusion models, how a diffusion model learns and how it generates new samples is quite distinct from other well-known generative models like VAEs and GANs (though some ideas are certainly comparable). A diffusion model can be described by its forward (noising) and backward (denoising) processes. Its forward process iteratively noises a sample $\x_0\in\mathcal{X}$, belonging to the distribution of interest, $T$-many times to obtain its noised equivalent $\x_T$. Formally, this is done via the Markov process
+$$
+q(\x_t|\x_{t-1})
+=
+\mathcal{N}\left(\x_t|\sqrt{1-\beta_t}\x_{t-1},\beta_tI\right)
+$$
+where $\beta_1,\dots,\beta_T\in[0,1]$ are hyperparameters satisfying $\beta_i<\beta_{i+1}$, often referred to as the noise schedule of the model. With an appropriately chosen final time $T$, these noised equivalents $\x_T$ are akin to random noise sampled from $\mathcal{N}(0,I)$.
+
+Letting $\alpha_t=1-\beta_t$ and $\Bar{\alpha}_t=\prod_{i=1}^t\alpha_i$, we can describe the backward process of a diffusion model again as a Markov process in which we sample some random noise $\x_T$ from $\mathcal{N}(0,I)$ and obtain the $(t-1){\text{st}}$ denoised sample from $p_{\theta}(\x_{t-1}|\x_t)$ via
+$$
+\x_{t-1}=\frac{1}{\sqrt{\alpha_t}}\left(\x_t-\frac{1-\alpha_t}{\sqrt
+{1-\bar{\alpha}_t}}\epsilon_{\theta}(\x_t,t)\right)+\sigma_t\z
+$$
+where $\sigma_1,\dots,\sigma_T$ are hyperparameters, $\epsilon_{\theta}$ is the diffusion model's denoiser and $\z$ is sampled from $\mathcal{N}(0,I)$. % For clarity, $p_{\theta}(\x_{t-1}|\x_t)=\mathcal{N}(\x_{t-1}|\mu_{\theta}(\x_t,t),\sigma_tI)$ where $\mu_{\theta}(\x_t,t)$ is determined by the decoder $\epsilon_{\theta}$, the current noised image $\x_t$ and the time step $t$.
+The purpose of the denoiser $\epsilon_{\theta}$, where $\theta$ is its tuple of parameters, is akin to its name: it is used to iteratively turn sampled noise $\x_T\in\mathcal{N}(0,I)$ into something resembling a sample $\x_0\in\mathcal{X}$ from the distribution of interest. If the architecture of its denoiser can be backpropagated through then training a diffusion model can be done in the usual manner of choosing an appropriate loss function and performing gradient descent in which gradients are computed via backpropagation through the entire model. We leave further details of training a diffusion model out for the sake of brevity but these can easily be found in literature.
+
+So, what is an appropriate choice for the architecture of a diffusion model's denoiser? Before considering transformers for this task, we consider a more often-used choice, U-Net: a class of convolutional neural networks (CNNs).
+
+\subsection{U-Net denoisers}
+Despite not being the choice of denoiser made in the seminal paper introducing diffusion models, U-Net became the go to choice of denoiser architecture for contemporary diffusion models. To understand U-Net's popularity in this regard, it is worth understanding its architecture which consists of a contracting branch, terminating at its bottleneck, followed by an expansion branch, illustrated in \autoref{fig:u_net_arch}. This architecture can be thought of as forming a `U'-like shape, with the bottleneck lying at the bottom, hence its name.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\columnwidth]{./figures/generative_models/unet.png}
+    \caption{\centering Example U-Net architecture.}
+    \label{fig:u_net_arch}
+\end{figure}
+
+\noindent In the context of denoising, the contraction branch takes a noised image as input and iteratively completes a series of convolution operations followed by max pooling until reaching the bottleneck layer. At the bottleneck, the model has heavily reduced the spatial dimension of the input image while extracting varying levels of feature abstractions. For example, after the first iteration of convolution and max pooling, the spatial dimension of the input image may be reduced from $1024\times1024$ to $512\times512$ but edges and textures within the original image may be encoded in the feature maps at this stage. Then, during expansion, the model looks to upscale from the bottleneck in a way that retains the underlying image while removing noise. This is done by iteratively completing a series of deconvolutions, which correspond to upscaling, and using skip connections from its corresponding component in the contraction branch, seen in \autoref{fig:u_net_arch}, in order to retain the underlying image. With this in mind, it is clear why U-Net has been the go to choice of denoiser when developing a diffusion model.
 
 % transformer models
 \subsection{Transformers}
 Stand at attention!
 
 \subsubsection{Token embedding}
-Embed the semantics of tokens in high-dimensional space. ``Germany" plus ``fascist" minus ``Mussolini" equals ``Hitler".
+Embed the semantics of tokens in high-dimensional space:
+$$
+E(\text{Germany})
++E(\text{fascist})
+-E(\text{Mussolini})
+\approx
+E(\text{Hitler}).
+$$
+So the embedding function $E$ maps from the token vocabulary $S$ to some high-dimensional space. If you first encode the tokens in the token vocabulary, e.g. via enumeration, then
+$$
+E:\{1,\dots,|S|\}\to\mathbb{R}^d
+$$
+where $d\in\mathbb{N}\backslash\{0\}$ is the embedding dimension. What makes token embedding functions interesting is how well they can capture semantics of language.
 
 \subsubsection{Positional encoding}
 Use sinusoids to form a position vector $P_k$ for the $k$th token in an input sequence of length $L$. Add $P_k$ to the word embedding $E_k$ for $k=0,\dots,L-1$ to obtain the input $[E_0+P_0,\dots,E_{L-1}+P_{L-1}]$ fed to the model.

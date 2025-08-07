@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1754500034.31967 "ml_explainers.tex" "ml_explainers.pdf" "ml_explainers" 1754500036.05465 0
+["pdflatex"] 1754582949.67682 "ml_explainers.tex" "ml_explainers.pdf" "ml_explainers" 1754582952.01571 0
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1095.tfm" 1136768653 1536 02c06700a42be0f5a28664c7273f82e7 ""
@@ -206,6 +206,8 @@
   "figures/generative_models/AE_gen_2.png" 1749499506.88646 176005 fe96d0a24c3ba67f64bc6891ed67ef2e ""
   "figures/generative_models/VAE_decoder.pdf" 1754437118.02176 80650 62d6ed2eace108eb6a423eedf34a02f0 ""
   "figures/generative_models/VAE_encoder.pdf" 1754437115.7534 72717 ff4491906311b6c03b26db67d4f8f5ba ""
+  "figures/generative_models/diffusion_process.pdf" 1754582875.56353 90574 a359346efa8896b5601a4f69cc47856e ""
+  "figures/generative_models/unet.png" 1754582718.71376 86116 d1b06f17d046d217fa5ce76ff5b7d038 ""
   "figures/lin_reg_example/age_and_bmi_vs_cholesterol.pdf" 1749499508.17534 15032 1f2f2e5cdc826b6ea085b2400efa662e ""
   "figures/lin_reg_example/age_vs_bmi_vs_cholesterol.pdf" 1749499508.83032 17376 313f18acbb124e8de35f714ac1c9a1f7 ""
   "figures/lin_reg_example/model_predicts_test.pdf" 1749499509.33049 15509 2c5b5d68508f4c9581a2588347b5ad98 ""
@@ -222,10 +224,10 @@
   "figures/neural_nets/REG_dropout.png" 1749499510.65021 538594 293a23a35b93ebd583fe6bb76b134415 ""
   "figures/neural_nets/REG_early_stopping.pdf" 1749499510.65092 14319 3ed71a265c15e252cba041ed10d6e285 ""
   "header.tex" 1754489662.82394 2115 494cff586bc643cb98903a0caf0bfb9b ""
-  "ml_explainers.aux" 1754500035.93745 17015 d2dddf6e164c815954593aa6a75c72c9 "pdflatex"
-  "ml_explainers.out" 1754500034.91034 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "ml_explainers.tex" 1754500034.06934 99848 3f541f4140fa0fb8cf28637b51583c29 ""
-  "ml_explainers.toc" 1754500035.93919 6318 fc41a12e5f4335d11af0d53a7f14dab2 "pdflatex"
+  "ml_explainers.aux" 1754582951.86421 17756 d710e233017ff834abd81db3981f63d8 "pdflatex"
+  "ml_explainers.out" 1754582950.47698 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "ml_explainers.tex" 1754582947.0824 105576 92f08e40bd1fd0d46dc97eea66c8b356 ""
+  "ml_explainers.toc" 1754582951.86704 6400 d2ef0c6f7cf9a86ba52964bd4a9c145e "pdflatex"
   (generated)
   "ml_explainers.aux"
   "ml_explainers.log"
