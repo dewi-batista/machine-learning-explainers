@@ -36,9 +36,9 @@
 \contentsline {subsubsection}{\numberline {4.1.4}Depth $>$ Width}{30}{subsubsection.4.1.4}%
 \contentsline {subsection}{\numberline {4.2}Backpropagation for MLPs}{31}{subsection.4.2}%
 \contentsline {subsection}{\numberline {4.3}Convolutional Neural Networks (CNNs)}{31}{subsection.4.3}%
-\contentsline {subsubsection}{\numberline {4.3.1}Convolutions}{31}{subsubsection.4.3.1}%
-\contentsline {subsubsection}{\numberline {4.3.2}Pooling}{32}{subsubsection.4.3.2}%
-\contentsline {subsubsection}{\numberline {4.3.3}Backpropagation for CNNs}{33}{subsubsection.4.3.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Convolutions}{32}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.2}Pooling}{33}{subsubsection.4.3.2}%
+\contentsline {subsubsection}{\numberline {4.3.3}Backpropagation for CNNs}{34}{subsubsection.4.3.3}%
 \contentsline {subsection}{\numberline {4.4}Recurrent Neural Networks (RNNs)}{34}{subsection.4.4}%
 \contentsline {subsubsection}{\numberline {4.4.1}Long Short-Term Memory (LSTMs)}{34}{subsubsection.4.4.1}%
 \contentsline {subsubsection}{\numberline {4.4.2}Gated Recurrent Units (GRUs)}{34}{subsubsection.4.4.2}%
@@ -55,15 +55,15 @@
 \contentsline {subsubsection}{\numberline {5.1.2}Backpropagation for VAEs}{46}{subsubsection.5.1.2}%
 \contentsline {subsection}{\numberline {5.2}Generative Adversarial Networks (GANs)}{46}{subsection.5.2}%
 \contentsline {subsection}{\numberline {5.3}Normalising Flow Models}{46}{subsection.5.3}%
-\contentsline {subsection}{\numberline {5.4}Diffusion Models}{46}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.4}Diffusion Models}{47}{subsection.5.4}%
 \contentsline {subsection}{\numberline {5.5}U-Net denoisers}{48}{subsection.5.5}%
 \contentsline {subsection}{\numberline {5.6}Transformers}{49}{subsection.5.6}%
 \contentsline {subsubsection}{\numberline {5.6.1}Token embedding}{49}{subsubsection.5.6.1}%
 \contentsline {subsubsection}{\numberline {5.6.2}Positional encoding}{49}{subsubsection.5.6.2}%
 \setcounter {tocdepth}{1}
-\contentsline {subsection}{\numberline {5.7}Misc. questions}{49}{subsection.5.7}%
+\contentsline {subsection}{\numberline {5.7}Misc. questions}{50}{subsection.5.7}%
 \setcounter {tocdepth}{2}
-\contentsline {section}{\numberline {6}Object Detection Models}{49}{section.6}%
+\contentsline {section}{\numberline {6}Object Detection Models}{50}{section.6}%
 \contentsline {subsection}{\numberline {6.1}(Fast/Faster) R-CNN}{50}{subsection.6.1}%
 \contentsline {section}{Appendices}{51}{section*.27}%
 \setcounter {tocdepth}{0}

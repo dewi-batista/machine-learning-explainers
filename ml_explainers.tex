@@ -496,12 +496,12 @@ which can be done using gradient descent.
 \subsection{Decision Trees and Random Forests}
 \begin{itemize}
     \item split according to some feature
-    \item i love democracy, prune them
+    \item prune prune prune
 \end{itemize}
 
 % handcrafted features
 \subsection{Handcrafted Features}
-A lost art in the era of deep learning\dots
+A lost art in the current era :(
 
 % the bias-variance tradeoff
 \subsection{The Bias-Variance Trade-Off}
@@ -517,7 +517,7 @@ R\l(\hat{f}_D\r)
 =
 \E_{(X,Y)}\l[\l(Y-\hat{f}_D(X)\r)^2\r].
 $$
-The quantity pertaining to the quality of the learning procedure (used to determine $\hat{f}_{D}$ from $D\in\Omega_{\D}$) is then
+The quantity pertaining to the quality of the learning procedure, which is used to determine $\hat{f}_{D}$ from $D\in\Omega_{\D}$, is then
 \begin{align*}
     \E_{\D}\l[R\l(\hat{f}_{\D}\r)\r]
     &=
@@ -636,11 +636,10 @@ Some questions to challenge one's understanding.
     \textbf{Q1: What are the benefits of using logistic regression over more sophisticated methods?}
 \end{center}
 \vspace{-8pt}
-\begin{itemize}
+\begin{itemize}[label=\scriptsize\textbullet,left=0pt]
     \item Its implementation and interpretation are straightforward
-    \item If offers a notion of classification confidence which can be useful
+    \item If offers a notion of classification confidence which is useful
     \item Statistical tests can be conducted on parameters, e.g. statistical significance tests
-    \item mention more classical statistics approaches like LDA and QDA
 \end{itemize}
 \end{tcolorbox}
 
@@ -762,7 +761,7 @@ This is entirely problem-dependent but $\eta=0.1$ is a great staple choice. If c
 \begin{center}
     \textbf{\textcolor{blue}{Q4:} How should we initialise the parameters?}
 \end{center}
-Xavier initialisation is often-used for neural networks. Unsure about older architectures.
+Xavier initialisation is often-used for neural networks. Maybe things have changed in this regard though; things move fast. Unsure about older architectures.
 
 % neural nets
 \section{Neural Networks}
