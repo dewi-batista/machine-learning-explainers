@@ -13,7 +13,7 @@
 
 % abstract
 \begin{abstract}
-    \noindent Summaries of a bunch of machine learning-related topics. My main motive in writing these summaries is as a reminder for future Dewi.
+    \noindent Summaries of a bunch of machine learning-related topics. My main motive in writing these summaries is as a reminder for future me.
 \end{abstract}
 
 % table of contents
@@ -82,7 +82,7 @@ $$
 $$
 which pertains to taking $d(f_{\theta}(\x_i), y_i)=(y_i-f_{\theta}(\x_i))^2$. I'll still refer to it as the `mean' square error, even though I don't divide by $n$, simply because minimising it as written above is equivalent to minimising the same expression with division by $n$ included — it's mostly a notational convenience thing. So in our case, we wish to find
 $$
-\thetaOpt=\argmin_{\theta\in\R^{p+1}}\left[\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\right].
+\thetaOpt=\argmin_{\theta\in\R^{p+1}}\l[\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\r].
 $$
 
 \noindent We know that in the context of linear regression, the optimal paramters $\thetaOpt$ are typically taken to be those which minimise the mean square error over $\Dtrain$ but how do we actually compute $\thetaOpt$? This could be done through numerical methods, which is often the case in machine learning, e.g. using gradient descent in computing the optimal parameters of a logistic regression model, but linear regression has a closed form solution. This is pretty cool since it's not so common for such closed form solutions to exist. The informal method which I use to remember the closed form solution for the optimal paramters of a linear regression model is
@@ -146,9 +146,9 @@ and $x_{i,j}$ denotes the $j$th element of the $i^{\text{th}}$ sample. To find t
     &=
     \nabla(y-X\theta)^{\T}(y-X\theta)\\
     &=
-    \nabla\left[\theta^{\T}X^{\T}X\theta-\theta^{\T}X^{\T}y-y^{\T}X\theta+y^{\T}y\right]\\
+    \nabla\l[\theta^{\T}X^{\T}X\theta-\theta^{\T}X^{\T}y-y^{\T}X\theta+y^{\T}y\r]\\
     &=
-    \nabla\left[\theta^{\T}X^{\T}X\theta-2y^{\T}X\theta+y^{\T}y\right]\\
+    \nabla\l[\theta^{\T}X^{\T}X\theta-2y^{\T}X\theta+y^{\T}y\r]\\
     &=
     2X^{\T}X\theta-2X^{\T}y
 \end{align*}
@@ -161,14 +161,14 @@ $$
 
 This idea of minimising the mean square error of the model over $\Dtrain$ even has some rigorous statistical motivation. Assume that the residuals corresponding of the model's output over $\Dtrain$ are independent and identically normally distributed with mean 0. That is, assume $e_i=y_i-f_{\theta}(\x_i)\sim\N(0, \sigma^2)$ for $i=1,\dots,n$ are i.i.d. This assumption is reasonable in practice via the CLT. Since $f_{\theta}(\x_i)$ is a constant, we have $y_i|\x_i\sim\N(f_{\theta}(\x_i), \sigma^2)$ and so
 $$
-\P(y_i|\x_i;\theta)=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(y_i-f_{\theta}(\x_i))^2}{2\sigma^2}\right).
+\P(y_i|\x_i;\theta)=\frac{1}{\sqrt{2\pi}\sigma}\exp\l(-\frac{(y_i-f_{\theta}(\x_i))^2}{2\sigma^2}\r).
 $$
 By the law of maximum likelihood\footnote{maximum likelihood link}, the maximum likelihood estimator $\theta_{\text{MLE}}$ for the parameters of our linear regression model is that which maximise our log-likelihood. That is,
 \begin{align*}
-    \theta_{\text{MLE}}&=\argmax_{\theta}\left[\log\left(\prod_{i=1}^n\P(y_i|\x_i;\theta)\right)\right]\\
-    &=\argmax_{\theta}\left[\sum_{i=1}^n\log(\P(y_i|\x_i;\theta))\right]\\
-    &=\argmax_{\theta}\left[n\log\left(\frac{1}{\sqrt{2\pi}\sigma}\right)-\frac{1}{2\sigma^2}\sum_{i=1}^n(y_i-f_{\w,b}(\x_i))^2\right]\\
-    &=\argmin_{\theta}\left[\sum_{i=1}^n(y_i-f_{\w,b}(\x_i))^2\right].
+    \theta_{\text{MLE}}&=\argmax_{\theta}\l[\log\l(\prod_{i=1}^n\P(y_i|\x_i;\theta)\r)\r]\\
+    &=\argmax_{\theta}\l[\sum_{i=1}^n\log(\P(y_i|\x_i;\theta))\r]\\
+    &=\argmax_{\theta}\l[n\log\l(\frac{1}{\sqrt{2\pi}\sigma}\r)-\frac{1}{2\sigma^2}\sum_{i=1}^n(y_i-f_{\w,b}(\x_i))^2\r]\\
+    &=\argmin_{\theta}\l[\sum_{i=1}^n(y_i-f_{\w,b}(\x_i))^2\r].
 \end{align*}
 As such, the maximum likelihood estimator of the parameters of a linear regression model are precisely those which minimise the mean square error of the model over $\Dtrain$.
 
@@ -206,8 +206,8 @@ where $x_1$ and $x_2$ correspond to the input sample patient's age and BMI level
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.49\columnwidth]{./figures/lin_reg_example/age_and_bmi_vs_cholesterol.pdf}
-    \includegraphics[width=0.49\columnwidth]{./figures/lin_reg_example/age_vs_bmi_vs_cholesterol.pdf}
+    \includegraphics[width=0.49\columnwidth]{./figures/supervised_learning/lin_reg_example/age_and_bmi_vs_cholesterol.pdf}
+    \includegraphics[width=0.49\columnwidth]{./figures/supervised_learning/lin_reg_example/age_vs_bmi_vs_cholesterol.pdf}
     \caption{Each feature against the output (left) and the dataset in the feature space (right).}
     \label{fig:not_at_all_the_same}
 \end{figure}
@@ -275,7 +275,7 @@ from which we obtain
 $$
 \thetaOpt
 =
-\left(X^{\T}X\right)^{-1}X^{\T}y
+\l(X^{\T}X\r)^{-1}X^{\T}y
 =
 \begin{bmatrix}
     25.68\\
@@ -300,8 +300,8 @@ As for how well the model performs, its MSE on $\Dtrain$ is $1.26$ and its MSE o
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.49\columnwidth]{./figures/lin_reg_example/model_predicts_train.pdf}
-    \includegraphics[width=0.49\columnwidth]{./figures/lin_reg_example/model_predicts_test.pdf}
+    \includegraphics[width=0.49\columnwidth]{./figures/supervised_learning/lin_reg_example/model_predicts_train.pdf}
+    \includegraphics[width=0.49\columnwidth]{./figures/supervised_learning/lin_reg_example/model_predicts_test.pdf}
     \caption{Model performance on the training set (left) and testing set (right).}
     \label{fig:lin_reg_example_on_train_and_test}
 \end{figure}
@@ -391,23 +391,23 @@ We construct the log-likelihood of $h_{\theta}(\x)$ over $\Dtrain=\{(\x_i,y_i)\}
     &=
     \sum_{i=1}^n\log(\P(y_i|\x_i;\theta))\\
     &=
-    \sum_{i=1}^n\log\left((h_{\theta}(\x_i))^{y_i}(1-h_{\theta}(\x_i))^{1-y_i}\right)\\
+    \sum_{i=1}^n\log\l((h_{\theta}(\x_i))^{y_i}(1-h_{\theta}(\x_i))^{1-y_i}\r)\\
     &=
     \sum_{i=1}^ny\log(h_{\theta}(\x_i))+(1-y_i)\log(1-h_{\theta}(\x_i))\\
     &=
-    \sum_{i=1}^n\left[y_i\log\left(\frac{1}{1+\exp(-\theta^{\T}\x_i)}\right)+(1-y_i)\log\left(1-\frac{1}{1+\exp(-\theta^{\T}\x_i)}\right)\right]\\
+    \sum_{i=1}^n\l[y_i\log\l(\frac{1}{1+\exp(-\theta^{\T}\x_i)}\r)+(1-y_i)\log\l(1-\frac{1}{1+\exp(-\theta^{\T}\x_i)}\r)\r]\\
     &=
-    \sum_{i=1}^n\left[y_i\log\left(\frac{1}{1+\exp(-\theta^{\T}\x_i)}\right)+(1-y_i)\log\left(\frac{\exp(-\theta^{\T}\x_i)}{1+\exp(-\theta^{\T}\x_i)}\right)\right]\\
+    \sum_{i=1}^n\l[y_i\log\l(\frac{1}{1+\exp(-\theta^{\T}\x_i)}\r)+(1-y_i)\log\l(\frac{\exp(-\theta^{\T}\x_i)}{1+\exp(-\theta^{\T}\x_i)}\r)\r]\\
     &=
-    \sum_{i=1}^n\left[y_i\log\left(\frac{1}{1+\exp(-\theta^{\T}\x_i)}\right)+(1-y_i)\left(-\theta^{\T}\x_i+\log\left(\frac{1}{1+\exp(-\theta^{\T}\x_i)}\right)\right)\right]\\
+    \sum_{i=1}^n\l[y_i\log\l(\frac{1}{1+\exp(-\theta^{\T}\x_i)}\r)+(1-y_i)\l(-\theta^{\T}\x_i+\log\l(\frac{1}{1+\exp(-\theta^{\T}\x_i)}\r)\r)\r]\\
     &=
-    \sum_{i=1}^n\left[-\log(1+\exp(-\theta^{\T}\x_i))-(1-y_i)\theta^{\T}\x_i\right]
+    \sum_{i=1}^n\l[-\log(1+\exp(-\theta^{\T}\x_i))-(1-y_i)\theta^{\T}\x_i\r]
 \end{align*}
 which we maximise using something like gradient descent to obtain the optimal paramateres
 $$
 \thetaOpt
 =
-\argmax_{\theta\in\R^{p+1}}\left[\sum_{i=1}^n\left[-\log(1+\exp(-\theta^{\T}\x_i))-(1-y_i)\theta^{\T}\x_i\right]\right].
+\argmax_{\theta\in\R^{p+1}}\l[\sum_{i=1}^n\l[-\log(1+\exp(-\theta^{\T}\x_i))-(1-y_i)\theta^{\T}\x_i\r]\r].
 $$
 Note that, in practice, it's unlikely that any samples will lie on the hyperplane $f_{\theta^*}(\x)=0$ itself.
 
@@ -424,14 +424,14 @@ Since we aim to fit a hyperplane in our feature space $\R^{p+1}$, we use the sam
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.75\columnwidth]{./figures/SVMs/SVM_hard_margin.pdf}
+    \includegraphics[width=0.75\columnwidth]{./figures/supervised_learning/SVMs/SVM_hard_margin.pdf}
     \caption{A hard-margin SVM in two dimensions.}
     \label{fig:SVM_hard_margin}
 \end{figure}
 
 \noindent Let $\mathbf{p}_i$ denote the projection of $\x_i$ onto the hyperplane and let $d_i$ denote the distance between $\mathbf{p}_i$ and $\x_i$. Noting that the normal to the hyperplane is $\theta_+$, we have $\mathbf{p}_i=\x_i-\frac{\theta_+}{||\theta_+||}d_i$ and so
 $$
-\theta_+^{\text{T}}\left(\x_i-\frac{\theta_+}{||\theta_+||}d_i\right)+\theta_0
+\theta_+^{\text{T}}\l(\x_i-\frac{\theta_+}{||\theta_+||}d_i\r)+\theta_0
 =
 0
 $$
@@ -445,21 +445,21 @@ Taking a point $\x_i$ whose class is $-1$ yields $d_i=-\frac{\theta_+^{\text{T}}
 \begin{align*}
     \thetaOpt
     &=
-    \argmax_{(\theta_0,\theta_+)}\left[\min_{i=1,\dots,n}d_i\right]\\
+    \argmax_{(\theta_0,\theta_+)}\l[\min_{i=1,\dots,n}d_i\r]\\
     &=
-    \argmax_{(\theta_0,\theta_+)}\left[\min_{i=1,\dots,n}\frac{z_i(\theta_+^{\text{T}}\x_i+\theta_0)}{||\theta_+||}\right]\\
+    \argmax_{(\theta_0,\theta_+)}\l[\min_{i=1,\dots,n}\frac{z_i(\theta_+^{\text{T}}\x_i+\theta_0)}{||\theta_+||}\r]\\
 \end{align*}
 which we'd like to translate into a convex optimisation problem. First, notice that computing $\thetaOpt$ is equivalent to solving
 $$
-\max_{(\theta_0,\theta_+)}\frac{r}{||\theta_+||}\text{ s.t. } z_i\left(\theta_+^{\text{T}}\x_i+\theta_0\right)\geq r\text{ } (i=1,\dots,n).
+\max_{(\theta_0,\theta_+)}\frac{r}{||\theta_+||}\text{ s.t. } z_i\l(\theta_+^{\text{T}}\x_i+\theta_0\r)\geq r\text{ } (i=1,\dots,n).
 $$
 in which $r$ is arbtirarily scalable, so it is equivalent to
 $$
-\max_{(\theta_0,\theta_+)}\frac{1}{||\theta_+||}\text{ s.t. } z_i\left(\theta_+^{\text{T}}\x_i+\theta_0\right)\geq 1\text{ } (i=1,\dots,n).
+\max_{(\theta_0,\theta_+)}\frac{1}{||\theta_+||}\text{ s.t. } z_i\l(\theta_+^{\text{T}}\x_i+\theta_0\r)\geq 1\text{ } (i=1,\dots,n).
 $$
 This problem is still non-convex so we make a convenient switcheroo in realising that it is equivalent to solving
 $$
-\min_{(\theta_0,\theta_+)}||\theta_+||^2\text{ s.t. } z_i\left(\theta_+^{\text{T}}\x_i+\theta_0\right)\geq 1\text{ } (i=1,\dots,n)
+\min_{(\theta_0,\theta_+)}||\theta_+||^2\text{ s.t. } z_i\l(\theta_+^{\text{T}}\x_i+\theta_0\r)\geq 1\text{ } (i=1,\dots,n)
 $$
 which is solved in the usual convex problem solving ways.
 
@@ -467,20 +467,20 @@ which is solved in the usual convex problem solving ways.
 
 Hard-margin SVMs are rarely applicable. In practice, classes are not entirely linearly separable, due to noise and outliers, and so allowing for some misclassification is pragmatic. Going from hard-margin to soft-margin is pretty straightforward, just include some slack variables $\xi=(\xi_1,\dots,\xi_n)$ that ultimately allow the model to violate the constraints while penalising said violations. More precisely, it involves solving
 $$
-\min_{(\theta_0,\theta_+,\xi)}\left[||\theta_+||^2+\lambda\sum_{i=1}^n\xi_i\right]\text{s.t. } z_i\left(\theta_+^{\text{T}}\x_i+\theta_0\right)\geq 1-\xi_i,\text{ }\xi_i\geq0\text{ } (i=1,\dots,n)
+\min_{(\theta_0,\theta_+,\xi)}\l[||\theta_+||^2+\lambda\sum_{i=1}^n\xi_i\r]\text{s.t. } z_i\l(\theta_+^{\text{T}}\x_i+\theta_0\r)\geq 1-\xi_i,\text{ }\xi_i\geq0\text{ } (i=1,\dots,n)
 $$
 where $\lambda\geq0$ is a regularisation parameter that influences the tradeoff of margin size and misclassification rate. Larger $\lambda$ corresponds to prioritising a larger margin while smaller $\lambda$ corresponds to prioritising the minimisation of misclassification.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.75\columnwidth]{./figures/SVMs/SVM_soft_margin.pdf}
+    \includegraphics[width=0.75\columnwidth]{./figures/supervised_learning/SVMs/SVM_soft_margin.pdf}
     \caption{A soft-margin SVM in two dimensions. Samples are labelled according to their true class.}
     \label{fig:SVM_soft_margin}
 \end{figure}
 
 \noindent As illustrated in \autoref{fig:SVM_soft_margin}, it allows for samples to be closer to the decision boundary than the margin as well as outright misclassifications. Again, it is typically solved in the usual convex problem solving ways. Going a step further, it turns out that this can be simplified to computing
 $$
-\argmin_{(\theta_0,\theta_+)}\left[||\theta_+||^2+\lambda\sum_{i=1}^n\max\left(0,1-z_i\left(\theta_+^{\text{T}}\x_i+\theta_0\right)\right)\right]
+\argmin_{(\theta_0,\theta_+)}\l[||\theta_+||^2+\lambda\sum_{i=1}^n\max\l(0,1-z_i\l(\theta_+^{\text{T}}\x_i+\theta_0\r)\r)\r]
 $$
 which can be done using gradient descent.
 
@@ -501,11 +501,125 @@ which can be done using gradient descent.
 
 % handcrafted features
 \subsection{Handcrafted Features}
-\dots
+A lost art in the era of deep learning\dots
 
 % the bias-variance tradeoff
 \subsection{The Bias-Variance Trade-Off}
-\dots
+Recall that sample targets pertaining to datasets from which models are learned are effected by noise, i.e. $Y|(X=x)=f(x)+\epsilon(x)$ where $\epsilon(x)\sim\N(0,\sigma^2(x))$ and so
+$$
+Y|(X=x)
+\sim
+\N\l(f(x), \sigma^2(x)\r).
+$$
+We seek to learn an estimate $\hat{f}_{D}$ of $f(x)=\E_Y\l[Y|X=x\r]$ from the dataset $D\subset(\Omega_X\times\Omega_Y)^n$. In other words, the model/estimate $\hat{f}_{D}$ is determined by the realisation $D$ of $\D$ where $\D$ is distributed according to $p(x,y)^{\otimes n}$ for some fixed $n$. As is common in supervised learning contexts, we make use of the expected risk of an estimate $\hat{f}_D$ which is given by
+$$
+R\l(\hat{f}_D\r)
+=
+\E_{(X,Y)}\l[\l(Y-\hat{f}_D(X)\r)^2\r].
+$$
+The quantity pertaining to the quality of the learning procedure (used to determine $\hat{f}_{D}$ from $D\in\Omega_{\D}$) is then
+\begin{align*}
+    \E_{\D}\l[R\l(\hat{f}_{\D}\r)\r]
+    &=
+    \E_{\D}\l[\E_{(X,Y)}\l[\l(Y-\hat{f}_{\D}(X)\r)^2\r]\r]\nonumber\\
+    &=
+    \E_{\D}\l[\E_{(X,Y)}\l[\l(Y-f(X)+f(X)-\hat{f}_{\D}(X)\r)^2\r]\r]\nonumber\\
+    &=
+    \textcolor{c5}{\E_{\D}\l[\E_{(X,Y)}\l[\l(Y-f(X)\r)^2\r]\r]}+
+    \textcolor{c11}{\E_{\D}\l[\E_X\l[\l(f(X)-\hat{f}_{\D}(X)\r)^2\r]\r]}\\
+    &+\textcolor{c3}{\E_{\D}\l[\E_{(X,Y)}\l[2(Y-f(X))\l(f(X)-\hat{f}_{\D}(X)\r)\r]\r]}.
+\end{align*}
+Let's address this term-by-term beginning with the third term in red. See that
+\begin{align*}
+    &\hspace{14.52pt}
+    \textcolor{c3}{\E_{\D}\l[\E_{(X,Y)}\l[2(Y-f(X))\l(f(X)-\hat{f}_{\D}(X)\r)\r]\r]}\\
+    &=
+    \E_{\D}\l[\E_{(X,Y)}\l[2(Y-f(X))\l(f(X)-\hat{f}_{\D}(X)\r)\r]\r]\\
+    &=
+    2\E_{\D}\l[\E_X\l[\E_{Y|X}\l[(Y-f(X))\l(f(X)-\hat{f}_{\D}(X)\r)\r]\r]\r]\\
+    &=
+    2\E_{\D}\l[\E_X\l[\l(f(X)-\hat{f}_{\D}(X)\r)\E_{Y|X}\l[Y-f(X)\r]\r]\r]\\
+    &=
+    2\E_{\D}\l[\E_X\l[\l(f(X)-\hat{f}_{\D}(X)\r)\cdot0\r]\r]\\
+    &=
+    0
+\end{align*}
+in which the tower property of conditional expectations
+$$
+\E_{(X,Y)}[z(X,Y)]
+=
+\E_X\l[\E_{Y|X}\l[z(X,Y)\r]\r]
+$$
+is applied. As such, the quantity of interest reduces to only two terms as in
+$$
+\E_{\D}\l[R\l(\hat{f}_{\D}\r)\r]
+=
+\textcolor{c5}{\E_{\D}\l[\E_{(X,Y)}\l[\l(Y-f(X)\r)^2\r]\r]}+\textcolor{c11}{\E_{\D}\l[\E_X\l[\l(f(X)-\hat{f}_{\D}(X)\r)^2\r]\r]}
+$$
+of which we will now address the first in orange. Noting that
+$$
+\E_{Y|X=x}\l[Y-f(x)\r]
+=
+0
+$$
+for all $x\in\Omega_X$ and that what is inside the expectation over $\D$ is independent of $\D$, we see that the first term reduces to
+\begin{align*}
+    \textcolor{c5}{\E_{\D}\l[\E_{(X,Y)}\l[(Y-f(X))^2\r]\r]}
+    &=
+    \E_{(X,Y)}\l[(Y-f(X))^2\r]\\
+    &=
+    \E_X\l[\E_{Y|X}\l[(Y-f(X))^2\r]\r]\\
+    &=
+    \E_X\l[\E_{Y|X}\l[\l(Y-\E_{Y|X}[Y]\r)^2\r]\r]\\
+    &=
+    \E_X\l[\text{Var}_{Y|X}\l(Y\r)\r]\\
+    &=
+    \E_X[\sigma^2(X)]
+\end{align*}
+This is simply the expected noise, e.g. due to imperfect calibration in the instruments used to obtain samples, and is typically taken to be constant. Usually, as a constant, it is simply denoted by $\sigma$.
+
+For the final term, let $\bar{f}(x)=\E_{\D}\l[\hat{f}_{\D}(x)\r]$ for all $x\in\Omega_X$ and see that
+\begin{align*}
+    &\hspace{14.52pt}
+    \textcolor{c11}{\E_{\D}\l[\E_X\l[\l(f(X)-\hat{f}_{\D}(X)\r)^2\r]\r]}\\
+    &=
+    \E_{\D}\l[\E_X\l[\l(f(X)-\bar{f}(X)+\bar{f}(X)-\hat{f}_{\D}(X)\r)^2\r]\r]\\
+    &=
+    \E_X\l[\l(f(X)-\bar{f}(X)\r)^2\r]+\E_{\D}\l[\E_X\l[\l(\bar{f}(X)-\hat{f}_{\D}(X)\r)^2\r]\r]\\
+    &+
+    2\E_{\D}\l[\E_X\l[\l(f(X)-\bar{f}(X)\r)\l(\bar{f}(X)-\hat{f}_{\D}(X)\r)\r]\r].
+\end{align*}
+See that the final term vanishes as $\E_{\D}\l[\bar{f(X)}-\hat{f}_{\D}(X)\r]=0$ and so
+\begin{align*}
+    &\hspace{14.52pt}
+    \textcolor{c11}{\E_{\D}\l[\E_X\l[\l(f(X)-\hat{f}_{\D}(X)\r)^2\r]\r]}\\
+    &=
+    \E_X\l[\l(f(X)-\bar{f}(X)\r)^2\r]+\E_{\D}\l[\E_X\l[\l(\bar{f}(X)-\hat{f}_{\D}(X)\r)^2\r]\r]\\
+    &=
+    \E_X\l[\l(f(X)-\bar{f}(X)\r)^2+\E_{\D}\l[\l(\bar{f}(X)-\hat{f}_{\D}(X)\r)^2\r]\r]\\
+    &=
+    \E_X\l[\l(f(X)-\E_{\D}\l[\hat{f}_{\D}(X)\r]\r)^2+\E_{\D}\l[\l(\hat{f}_{\D}(X)-\E_{\D}\l[\hat{f}_{\D}(X)\r]\r)^2\r]\r].
+\end{align*}
+Put together, we obtain
+\begin{align*}
+    &\hspace{14.52pt}
+    \E_{\D}\l[R\l(\hat{f}_{\D}\r)\r]\\
+    &=
+    \E_X\l[\underbrace{\l(f(X)-\E_{\D}\l[\hat{f}_{\D}(X)\r]\r)^2}_{\text{square of bias of estimator}}+\underbrace{\E_{\D}\l[\l(\hat{f}_{\D}(X)-\E_{\D}\l[\hat{f}_{\D}(X)\r]\r)^2\r]}_{\text{variance of estimator}}+\underbrace{\sigma^2(X)}_{\text{noise}}\r]
+\end{align*}
+and there we have it.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\columnwidth]{./figures/supervised_learning/bias_variance.png}
+    \caption{\dots}
+    \label{fig:bias_variance}
+\end{figure}
+
+In brief, if the learned estimate varies a lot as we vary the dataset from which it is determined then the estimator has high variance. If instead there is not much variance in this regard then we might expect that our learning method is almost invariant to the dataset used, i.e. our learning method is particularly biased. Think of fitting a line to third degree polynomial — no matter what dataset you use, the best fit line will likely not change too much (which is good) but the fit itself will never be anything but linear, i.e. a bad fit. WE SHOULD HIT A SWEET SPOT!
+
+\subsubsection{Beyond MSE}
+Why MSE if classification is approached using supervised learning and uses cross-entropy losses instead of mean square errors?
 
 \subsubsection{Double descent}
 \dots
@@ -683,12 +797,12 @@ For ease of notation, given an MLP with $k$ hidden layers, denote the index of t
 \begin{align*}
     a_i^{(j+1)}
     &=
-    \sigma_{j+1}\left(
+    \sigma_{j+1}\l(
     \sum_{l=1}^{n_j} w_{i,l}^{(j+1)}a_l^{(j)} + b_i^{(j+1)}
-    \right)\\
+    \r)\\
     &=
-    \sigma_{j+1}\left(
-    \left[w_{i,1}^{(j+1)} \dots w_{i,n_j}^{(j+1)}\right]
+    \sigma_{j+1}\l(
+    \l[w_{i,1}^{(j+1)} \dots w_{i,n_j}^{(j+1)}\r]
     \begin{bmatrix}
         a_1^{(j)}\\
         \vdots\\
@@ -696,7 +810,7 @@ For ease of notation, given an MLP with $k$ hidden layers, denote the index of t
     \end{bmatrix}
     +
     b_i^{(j+1)}
-\right)
+\r)
 \end{align*}
 for $j\in\{0,\dots,k\}$. The reason for writing the second equality above, involving the dot product of two vectors, is that it helps us to see how using matrix-vector notation allows us to write an elegant and compact expression for the activation values of all nodes in a non-input layer in terms of the activation values of the neurons belonging to its preceding layer as
 $$
@@ -706,7 +820,7 @@ $$
     a_{n_{j+1}}^{(j+1)}
 \end{bmatrix}
 =
-\sigma_{j+1}\left(
+\sigma_{j+1}\l(
 \begin{bmatrix}
     w_{1,1}^{(j+1)} & \dots & w_{1,n_j}^{(j+1)}\\
     \vdots & \ddots & \vdots\\
@@ -723,11 +837,11 @@ $$
     \vdots\\
     b_{n_{j+1}}^{(j+1)}
 \end{bmatrix}
-\right)
+\r)
 $$
 which we abbreviate to
 $$
-\mathbf{a}^{(j+1)}=\sigma_{j+1}\left(\mathbf{W}^{(j+1)}\mathbf{a}^{(j)}+\mathbf{b}^{(j+1)}\right)
+\mathbf{a}^{(j+1)}=\sigma_{j+1}\l(\mathbf{W}^{(j+1)}\mathbf{a}^{(j)}+\mathbf{b}^{(j+1)}\r)
 $$
 where the activation function $\sigma_{j+1}$ is applied element-wise.
 
@@ -767,40 +881,40 @@ we can explicitly express the activation of the single neuron in the hidden laye
 \begin{align*}
 \mathbf{a}^{(1)}
 &=
-\sigma_1\left(\mathbf{W}^{(1)}\mathbf{a}^{(0)}+\mathbf{b}^{(1)}\right)\\
+\sigma_1\l(\mathbf{W}^{(1)}\mathbf{a}^{(0)}+\mathbf{b}^{(1)}\r)\\
 &=
-\sigma_1\left(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\right)
+\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r)
 \end{align*}
 which is just the scalar value $a_1^{(1)}$. For the output layer, we have
 \begin{align*}
 \mathbf{a}^{(2)}
 &=
-\sigma_2\left(\mathbf{W}^{(2)}\mathbf{a}^{(1)}+\mathbf{b}^{(2)}\right)\\
+\sigma_2\l(\mathbf{W}^{(2)}\mathbf{a}^{(1)}+\mathbf{b}^{(2)}\r)\\
 &=
-\sigma_2\left(
+\sigma_2\l(
 \begin{bmatrix}
     w_{1,1}^{(2)}a_1^{(1)} + b_1^{(2)}\\
     w_{2,1}^{(2)}a_1^{(1)} + b_2^{(2)}
 \end{bmatrix}
-\right)\\
+\r)\\
 &=
-\sigma_2\left(
+\sigma_2\l(
 \begin{bmatrix}
-    w_{1,1}^{(2)}\sigma_1\left(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\right) + b_1^{(2)}\\
-    w_{2,1}^{(2)}\sigma_1\left(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\right) + b_2^{(2)}
+    w_{1,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_1^{(2)}\\
+    w_{2,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_2^{(2)}
 \end{bmatrix}
-\right)\\
+\r)\\
 &=
 \begin{bmatrix}
-    \sigma_2\left(w_{1,1}^{(2)}\sigma_1\left(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\right) + b_1^{(2)}\right)\\
-    \sigma_2\left(w_{2,1}^{(2)}\sigma_1\left(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\right) + b_2^{(2)}\right)
+    \sigma_2\l(w_{1,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_1^{(2)}\r)\\
+    \sigma_2\l(w_{2,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_2^{(2)}\r)
 \end{bmatrix}.
 \end{align*}
 
 \noindent As such, the activations of the output neurons are given by
 \begin{align*}
-    a_1^{(2)}&=\sigma_2\left(w_{1,1}^{(2)}\sigma_1\left(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\right) + b_1^{(2)}\right)\\
-    a_2^{(2)}&=\sigma_2\left(w_{2,1}^{(2)}\sigma_1\left(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\right) + b_2^{(2)}\right).
+    a_1^{(2)}&=\sigma_2\l(w_{1,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_1^{(2)}\r)\\
+    a_2^{(2)}&=\sigma_2\l(w_{2,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_2^{(2)}\r).
 \end{align*}
 
 \subsubsection{Constructive example — Subbing values in}
@@ -845,9 +959,9 @@ Polynomials have one via Wasserstein. But polynomials have low expressive-effici
 The complexity of a forward pass of an MLP can be expressed in terms of the number of nodes in each layer as
 $$
 \mathcal{O}
-\left(
+\l(
 \sum_{j=0}^{k+1}n_{j-1}\cdot n_j
-\right).
+\r).
 $$
 Very crudely supposing $n_0=\dots=n_{k+1}=n$ yields a complexity of
 $$
@@ -916,7 +1030,7 @@ Given a feature map $F\in\mathbb{R}^{W\times H}$, suppose we compute the convolu
 $$
 W'
 =
-\left\lfloor
+\l\lfloor
 \frac{W+2P-k}{S}
 \right\rfloor
 +1
@@ -925,7 +1039,7 @@ and
 $$
 H'
 =
-\left\lfloor
+\l\lfloor
 \frac{H+2P-k}{S}
 \right\rfloor
 +1.
@@ -1040,7 +1154,7 @@ The point is that there is no line that would separate the classes in either cas
 
 From here, a natural linear decision boundary is the plane $z=0$ (i.e. the red ground surrounding the blue mountain). Any sample above the plane, i.e. any sample whose $z-$coordinate is positive, is classified as blue. It is otherwise classified as red. We can be more clever than this though. This transformation required us to map samples to 3D — how about mapping to just 1D? To do this, a complete decision function is given by
 $$
-D(x,y)=\left\lceil\frac{\left\lfloor x^2+y^2\right\rfloor}{x^2+y^2}\right\rceil
+D(x,y)=\l\lceil\frac{\l\lfloor x^2+y^2\right\rfloor}{x^2+y^2}\right\rceil
 $$
 and define $D(0,0)=0$ to account for the removable singularity.
 
@@ -1175,17 +1289,17 @@ Using \autoref{eq:marginal_likelihood}, along with the encoder $\theta$ (which p
 \begin{align*}
     \log(p(\x))
     &=
-    \log\left(\int p_{\phi}(\x|\z)p(\z)d\z\right)\\
+    \log\l(\int p_{\phi}(\x|\z)p(\z)d\z\r)\\
     &=
-    \log\left(\int q_{\theta}(\z|\x)\frac{p_{\phi}(\x|\z)p(\z)}{q_{\theta}(\z|\x)}d\z\right)\\
+    \log\l(\int q_{\theta}(\z|\x)\frac{p_{\phi}(\x|\z)p(\z)}{q_{\theta}(\z|\x)}d\z\r)\\
     &=
-    \log\left(\E_{\Z\sim q_{\theta}(\z|\x)}\left[\frac{p_{\phi}(\x|\Z)p(\Z)}{q_{\theta}(\Z|\x)}\right]\right)\\
+    \log\l(\E_{\Z\sim q_{\theta}(\z|\x)}\l[\frac{p_{\phi}(\x|\Z)p(\Z)}{q_{\theta}(\Z|\x)}\r]\r)\\
     &\geq
-    \E_{\Z\sim q_{\theta}(\z|\x)}\left[\log\left(\frac{p_{\phi}(\x|\Z)p(\Z)}{q_{\theta}(\Z|\x)}\right)\right]\\
+    \E_{\Z\sim q_{\theta}(\z|\x)}\l[\log\l(\frac{p_{\phi}(\x|\Z)p(\Z)}{q_{\theta}(\Z|\x)}\r)\r]\\
     &=
-    \E_{\Z\sim q_{\theta}(\z|\x)}\left[\log(p_{\phi}(\x|\Z))\right]-\E_{\Z\sim q_{\theta}(\z|\x)}\left[\log\left(\frac{q_{\theta}(\Z|\x)}{p(\Z)}\right)\right]\\
+    \E_{\Z\sim q_{\theta}(\z|\x)}\l[\log(p_{\phi}(\x|\Z))\r]-\E_{\Z\sim q_{\theta}(\z|\x)}\l[\log\l(\frac{q_{\theta}(\Z|\x)}{p(\Z)}\r)\r]\\
     &=
-    \E_{\Z\sim q_{\theta}(\z|\x)}\left[\log(p_{\phi}(\x|\Z))\right]-D_{\text{KL}}(q_{\theta}(\Z|\x)||p(\Z))\\
+    \E_{\Z\sim q_{\theta}(\z|\x)}\l[\log(p_{\phi}(\x|\Z))\r]-D_{\text{KL}}(q_{\theta}(\Z|\x)||p(\Z))\\
     &=:
     \text{ELBO}
 \end{align*}
@@ -1193,17 +1307,17 @@ in which the inequality arises due to Jensen's inequality, as in $\E[\log(f(\Z))
 $$
 \text{ELBO}
 =
-\E_{\Z\sim q_{\theta}(\z|\x)}\left[\log(p_{\phi}(\x|\Z))\right]-D_{\text{KL}}(q_{\theta}(\Z|\x)||p(\Z))
+\E_{\Z\sim q_{\theta}(\z|\x)}\l[\log(p_{\phi}(\x|\Z))\r]-D_{\text{KL}}(q_{\theta}(\Z|\x)||p(\Z))
 $$
 over a dataset is often explained term-by-term. The first term is a principled measure of the VAE's ability to reconstruct latent representations, as with autoencoders. The second term is a principled measure of the similarity of the latent distribution $q_{\theta}(\z|\x)$ and the prior $p(\z)$. The prior is chosen before training and the most common choice is a $d-$dimensional standard Gaussian, i.e. $p(\z)=\mathcal{N}(0,I_d)$. As such, minimising the negative KL-divergence between the latent distribution and said prior is often interpreted as encouraging the learning of the encoder such that latent representations are distributed according to the prior. This is particularly useful in the case that one is learning a VAE to generate new samples from $\Omega_{\X}$: post-training, sample $\z'\sim p(\z)$, compute the parameters $\phi(\z')$ of the reconstruction distribution $p_{\phi}(\x|\z')$ via the decoder and sample from it. Note that using a VAE for generative purposes does not invoke the use of the encoder, only the decoder is required post-training.
 
 Given a dataset $\mathcal{D}=\{\x_1,\dots,\x_M\}\subset\Omega_{\X}$, we learn a VAE by choosing function classes $\Theta$ and $\Phi$ (e.g. MLPs as in \autoref{fig:VAE_architecture}) and computing
 $$
 \argmax_{(\theta,\phi)\in\Theta\times\Phi}
-\left[
+\l[
 \sum_{i=1}^M
-\E_{\Z\sim q_{\theta}(\z|\x_i)}\left[\log(p_{\phi}(\x_i|\Z))\right]-D_{\text{KL}}(q_{\theta}(\Z|\x_i)||p(\Z))
-\right].
+\E_{\Z\sim q_{\theta}(\z|\x_i)}\l[\log(p_{\phi}(\x_i|\Z))\r]-D_{\text{KL}}(q_{\theta}(\Z|\x_i)||p(\Z))
+\r].
 $$
 In practice, after choosing a latent dimension $d$, we often take $p(\z)=\mathcal{N}(0,I_d)$, $\mathcal{Q}_d=\mathbb{R}^d\times\mathcal{S}_{++}^d$ and $\mathcal{P}_n=\mathbb{R}^n\times\mathcal{S}_{++}^n$, i.e. Gaussians for the latent and reconstruction distribution families and the standard $d-$dimensional Gaussian for the prior. A benefit of these choices is that it yields a differentiable and easy-to-implement closed form for the KL-divergence term in the ELBO. Additionally, the expectation pertaining to the reconstruction term is typically approximated via a single sample, boiling down to a mean square error term\footnote{\url{https://n8python.github.io/mnistLatentSpace/}}.
 
@@ -1232,14 +1346,14 @@ The purpose of diffusion models is to facilitate the generation of samples from 
 $$
 q(\x_t|\x_{t-1})
 =
-\mathcal{N}\left(\x_t|\sqrt{1-\beta_t}\x_{t-1},\beta_tI\right)
+\mathcal{N}\l(\x_t|\sqrt{1-\beta_t}\x_{t-1},\beta_tI\r)
 $$
 where $\beta_1,\dots,\beta_T\in[0,1]$ are hyperparameters satisfying $\beta_i<\beta_{i+1}$, often referred to as the noise schedule of the model. With an appropriately chosen final time $T$, these noised equivalents $\x_T$ are akin to random noise sampled from $\mathcal{N}(0,I)$.
 
 Letting $\alpha_t=1-\beta_t$ and $\Bar{\alpha}_t=\prod_{i=1}^t\alpha_i$, we can describe the backward process of a diffusion model again as a Markov process in which we sample some random noise $\x_T$ from $\mathcal{N}(0,I)$ and obtain the $(t-1){\text{st}}$ denoised sample from $p_{\theta}(\x_{t-1}|\x_t)$ via
 $$
-\x_{t-1}=\frac{1}{\sqrt{\alpha_t}}\left(\x_t-\frac{1-\alpha_t}{\sqrt
-{1-\bar{\alpha}_t}}\epsilon_{\theta}(\x_t,t)\right)+\sigma_t\z
+\x_{t-1}=\frac{1}{\sqrt{\alpha_t}}\l(\x_t-\frac{1-\alpha_t}{\sqrt
+{1-\bar{\alpha}_t}}\epsilon_{\theta}(\x_t,t)\r)+\sigma_t\z
 $$
 where $\sigma_1,\dots,\sigma_T$ are hyperparameters, $\epsilon_{\theta}$ is the diffusion model's denoiser and $\z$ is sampled from $\mathcal{N}(0,I)$. % For clarity, $p_{\theta}(\x_{t-1}|\x_t)=\mathcal{N}(\x_{t-1}|\mu_{\theta}(\x_t,t),\sigma_tI)$ where $\mu_{\theta}(\x_t,t)$ is determined by the decoder $\epsilon_{\theta}$, the current noised image $\x_t$ and the time step $t$.
 The purpose of the denoiser $\epsilon_{\theta}$, where $\theta$ is its tuple of parameters, is akin to its name: it is used to iteratively turn sampled noise $\x_T\in\mathcal{N}(0,I)$ into something resembling a sample $\x_0\in\mathcal{X}$ from the distribution of interest. If the architecture of its denoiser can be backpropagated through then training a diffusion model can be done in the usual manner of choosing an appropriate loss function and performing gradient descent in which gradients are computed via backpropagation through the entire model. We leave further details of training a diffusion model out for the sake of brevity but these can easily be found in literature.
@@ -1457,7 +1571,7 @@ To find a good $\lambda$, it makes sense to first come up with a metric for how 
 $$
 H(p,q)
 =
--\E_{K\sim p}\left[\log(q(K))\right]
+-\E_{K\sim p}\l[\log(q(K))\r]
 =
 -\sum_{k=1}^{\infty}p(k)\log(q(k))
 $$
@@ -1465,11 +1579,11 @@ which can be seen as the incurred cost of using the model $q$ in place of the tr
 \begin{align*}
     H(p,q;\lambda)
     &=
-    -\E_{K\sim p}\left[\log(q(K))\right]\\
+    -\E_{K\sim p}\l[\log(q(K))\r]\\
     &=
     -\sum_{k=1}^{\infty}p(k)\log(q(k))\\
     &=
-    -\sum_{k=1}^{\infty}2^{-k}\left(-\lambda+k\log(\lambda)-\log(k!)\right)\\
+    -\sum_{k=1}^{\infty}2^{-k}\l(-\lambda+k\log(\lambda)-\log(k!)\r)\\
     &=
     \lambda\sum_{k=1}^{\infty}\frac{1}{2^k}-\log(\lambda)\sum_{k=1}^{\infty}\frac{k}{2^k}+\sum_{k=1}^{\infty}\frac{\log(k!)}{2^k}\\
     &=
