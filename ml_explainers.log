@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.6.18)  12 AUG 2025 01:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.6.18)  12 AUG 2025 03:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -647,23 +647,23 @@ Underfull \hbox (badness 10000) in paragraph at lines 55--56
  []
 
 [3] [4] [5] [6] [7]
-<./figures/supervised_learning/lin_reg_example/age_and_bmi_vs_cholesterol.pdf, id=121, 462.52798pt x 346.89601pt>
+<./figures/supervised_learning/lin_reg_example/age_and_bmi_vs_cholesterol.pdf, id=119, 462.52798pt x 346.89601pt>
 File: ./figures/supervised_learning/lin_reg_example/age_and_bmi_vs_cholesterol.pdf Graphic file (type pdf)
 <use ./figures/supervised_learning/lin_reg_example/age_and_bmi_vs_cholesterol.pdf>
 Package pdftex.def Info: ./figures/supervised_learning/lin_reg_example/age_and_bmi_vs_cholesterol.pdf  used on input line 215.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
-<./figures/supervised_learning/lin_reg_example/age_vs_bmi_vs_cholesterol.pdf, id=122, 462.52798pt x 346.89601pt>
+<./figures/supervised_learning/lin_reg_example/age_vs_bmi_vs_cholesterol.pdf, id=120, 462.52798pt x 346.89601pt>
 File: ./figures/supervised_learning/lin_reg_example/age_vs_bmi_vs_cholesterol.pdf Graphic file (type pdf)
 <use ./figures/supervised_learning/lin_reg_example/age_vs_bmi_vs_cholesterol.pdf>
 Package pdftex.def Info: ./figures/supervised_learning/lin_reg_example/age_vs_bmi_vs_cholesterol.pdf  used on input line 216.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
  [8 <./figures/supervised_learning/lin_reg_example/age_and_bmi_vs_cholesterol.pdf> <./figures/supervised_learning/lin_reg_example/age_vs_bmi_vs_cholesterol.pdf>]
-<./figures/supervised_learning/lin_reg_example/model_predicts_train.pdf, id=214, 462.52798pt x 346.89601pt>
+<./figures/supervised_learning/lin_reg_example/model_predicts_train.pdf, id=212, 462.52798pt x 346.89601pt>
 File: ./figures/supervised_learning/lin_reg_example/model_predicts_train.pdf Graphic file (type pdf)
 <use ./figures/supervised_learning/lin_reg_example/model_predicts_train.pdf>
 Package pdftex.def Info: ./figures/supervised_learning/lin_reg_example/model_predicts_train.pdf  used on input line 309.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
-<./figures/supervised_learning/lin_reg_example/model_predicts_test.pdf, id=215, 462.52798pt x 346.89601pt>
+<./figures/supervised_learning/lin_reg_example/model_predicts_test.pdf, id=213, 462.52798pt x 346.89601pt>
 File: ./figures/supervised_learning/lin_reg_example/model_predicts_test.pdf Graphic file (type pdf)
 <use ./figures/supervised_learning/lin_reg_example/model_predicts_test.pdf>
 Package pdftex.def Info: ./figures/supervised_learning/lin_reg_example/model_predicts_test.pdf  used on input line 310.
@@ -691,7 +691,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 426--427
 [14]
 
 pdfTeX warning: pdflatex (file ./figures/supervised_learning/SVMs/SVM_hard_margin.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/supervised_learning/SVMs/SVM_hard_margin.pdf, id=346, 571.33452pt x 551.96214pt>
+<./figures/supervised_learning/SVMs/SVM_hard_margin.pdf, id=344, 571.33452pt x 551.96214pt>
 File: ./figures/supervised_learning/SVMs/SVM_hard_margin.pdf Graphic file (type pdf)
 <use ./figures/supervised_learning/SVMs/SVM_hard_margin.pdf>
 Package pdftex.def Info: ./figures/supervised_learning/SVMs/SVM_hard_margin.pdf  used on input line 435.
@@ -699,7 +699,7 @@ Package pdftex.def Info: ./figures/supervised_learning/SVMs/SVM_hard_margin.pdf 
 [15] [16 <./figures/supervised_learning/SVMs/SVM_hard_margin.pdf>]
 
 pdfTeX warning: pdflatex (file ./figures/supervised_learning/SVMs/SVM_soft_margin.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/supervised_learning/SVMs/SVM_soft_margin.pdf, id=402, 571.33452pt x 551.96214pt>
+<./figures/supervised_learning/SVMs/SVM_soft_margin.pdf, id=400, 571.33452pt x 551.96214pt>
 File: ./figures/supervised_learning/SVMs/SVM_soft_margin.pdf Graphic file (type pdf)
 <use ./figures/supervised_learning/SVMs/SVM_soft_margin.pdf>
 Package pdftex.def Info: ./figures/supervised_learning/SVMs/SVM_soft_margin.pdf  used on input line 484.
@@ -710,13 +710,13 @@ Overfull \hbox (4.947pt too wide) detected at line 542
  []
 
 [19] [20]
-<./figures/supervised_learning/bias_variance.png, id=476, 1137.24875pt x 682.55pt>
+<./figures/supervised_learning/bias_variance.png, id=474, 1137.24875pt x 682.55pt>
 File: ./figures/supervised_learning/bias_variance.png Graphic file (type png)
 <use ./figures/supervised_learning/bias_variance.png>
 Package pdftex.def Info: ./figures/supervised_learning/bias_variance.png  used on input line 627.
 (pdftex.def)             Requested size: 360.0pt x 216.0667pt.
  [21] [22 <./figures/supervised_learning/bias_variance.png>]
-<./figures/supervised_learning/double_descent.png, id=489, 1206.5075pt x 485.815pt>
+<./figures/supervised_learning/double_descent.png, id=487, 1206.5075pt x 485.815pt>
 File: ./figures/supervised_learning/double_descent.png Graphic file (type png)
 <use ./figures/supervised_learning/double_descent.png>
 Package pdftex.def Info: ./figures/supervised_learning/double_descent.png  used on input line 655.
@@ -726,13 +726,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 803--804
 
  []
 
-<./figures/neural_nets/MLP_1.pdf, id=531, 307.63333pt x 180.23235pt>
+<./figures/neural_nets/MLP_1.pdf, id=529, 307.63333pt x 180.23235pt>
 File: ./figures/neural_nets/MLP_1.pdf Graphic file (type pdf)
 <use ./figures/neural_nets/MLP_1.pdf>
 Package pdftex.def Info: ./figures/neural_nets/MLP_1.pdf  used on input line 816.
 (pdftex.def)             Requested size: 360.0pt x 210.915pt.
 [28] [29 <./figures/neural_nets/MLP_1.pdf>]
-<./figures/neural_nets/MLP_2.pdf, id=574, 182.44159pt x 101.20108pt>
+<./figures/neural_nets/MLP_2.pdf, id=572, 182.44159pt x 101.20108pt>
 File: ./figures/neural_nets/MLP_2.pdf Graphic file (type pdf)
 <use ./figures/neural_nets/MLP_2.pdf>
 Package pdftex.def Info: ./figures/neural_nets/MLP_2.pdf  used on input line 890.
@@ -750,18 +750,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 1030--1031
 [33]
 
 pdfTeX warning: pdflatex (file ./figures/neural_nets/CNN_frog.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/neural_nets/CNN_frog.pdf, id=614, 2540.49126pt x 501.37312pt>
+<./figures/neural_nets/CNN_frog.pdf, id=612, 2540.49126pt x 501.37312pt>
 File: ./figures/neural_nets/CNN_frog.pdf Graphic file (type pdf)
 <use ./figures/neural_nets/CNN_frog.pdf>
 Package pdftex.def Info: ./figures/neural_nets/CNN_frog.pdf  used on input line 1036.
 (pdftex.def)             Requested size: 360.0pt x 71.04094pt.
 [34 <./figures/neural_nets/CNN_frog.pdf>]
-<./figures/neural_nets/CNN_convolution.png, id=700, 1405.25pt x 547.04375pt>
+<./figures/neural_nets/CNN_convolution.png, id=698, 1405.25pt x 547.04375pt>
 File: ./figures/neural_nets/CNN_convolution.png Graphic file (type png)
 <use ./figures/neural_nets/CNN_convolution.png>
 Package pdftex.def Info: ./figures/neural_nets/CNN_convolution.png  used on input line 1056.
 (pdftex.def)             Requested size: 360.0pt x 140.1412pt.
-<./figures/neural_nets/CNN_pooling.pdf, id=703, 505.89pt x 164.28377pt>
+<./figures/neural_nets/CNN_pooling.pdf, id=701, 505.89pt x 164.28377pt>
 File: ./figures/neural_nets/CNN_pooling.pdf Graphic file (type pdf)
 <use ./figures/neural_nets/CNN_pooling.pdf>
 Package pdftex.def Info: ./figures/neural_nets/CNN_pooling.pdf  used on input line 1068.
@@ -772,70 +772,70 @@ Overfull \hbox (75.44508pt too wide) in paragraph at lines 1097--1097
  []
 
 [36 <./figures/neural_nets/CNN_pooling.pdf>]
-<./figures/neural_nets/AE_autoencoder.pdf, id=725, 333.59631pt x 232.56184pt>
+<./figures/neural_nets/AE_autoencoder.pdf, id=723, 333.59631pt x 232.56184pt>
 File: ./figures/neural_nets/AE_autoencoder.pdf Graphic file (type pdf)
 <use ./figures/neural_nets/AE_autoencoder.pdf>
-Package pdftex.def Info: ./figures/neural_nets/AE_autoencoder.pdf  used on input line 1116.
+Package pdftex.def Info: ./figures/neural_nets/AE_autoencoder.pdf  used on input line 1124.
 (pdftex.def)             Requested size: 333.59549pt x 232.56126pt.
- [37 <./figures/neural_nets/AE_autoencoder.pdf>] [38]
-<./figures/neural_nets/REG_early_stopping.pdf, id=782, 462.52798pt x 346.89601pt>
+ [37] [38 <./figures/neural_nets/AE_autoencoder.pdf>]
+<./figures/neural_nets/REG_early_stopping.pdf, id=780, 462.52798pt x 346.89601pt>
 File: ./figures/neural_nets/REG_early_stopping.pdf Graphic file (type pdf)
 <use ./figures/neural_nets/REG_early_stopping.pdf>
-Package pdftex.def Info: ./figures/neural_nets/REG_early_stopping.pdf  used on input line 1163.
+Package pdftex.def Info: ./figures/neural_nets/REG_early_stopping.pdf  used on input line 1160.
 (pdftex.def)             Requested size: 270.0pt x 202.50723pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1168--1169
+Underfull \hbox (badness 10000) in paragraph at lines 1165--1166
 
  []
 
 [39 <./figures/neural_nets/REG_early_stopping.pdf>]
-<./figures/neural_nets/REG_dropout.png, id=827, 1405.25pt x 759.83875pt>
+<./figures/neural_nets/REG_dropout.png, id=825, 1405.25pt x 759.83875pt>
 File: ./figures/neural_nets/REG_dropout.png Graphic file (type png)
 <use ./figures/neural_nets/REG_dropout.png>
-Package pdftex.def Info: ./figures/neural_nets/REG_dropout.png  used on input line 1174.
+Package pdftex.def Info: ./figures/neural_nets/REG_dropout.png  used on input line 1171.
 (pdftex.def)             Requested size: 270.0pt x 145.99405pt.
-<./figures/neural_nets/NLA_xor.png, id=829, 152.57pt x 151.56625pt>
+<./figures/neural_nets/NLA_xor.png, id=827, 152.57pt x 151.56625pt>
 File: ./figures/neural_nets/NLA_xor.png Graphic file (type png)
 <use ./figures/neural_nets/NLA_xor.png>
-Package pdftex.def Info: ./figures/neural_nets/NLA_xor.png  used on input line 1186.
+Package pdftex.def Info: ./figures/neural_nets/NLA_xor.png  used on input line 1183.
 (pdftex.def)             Requested size: 143.9978pt x 143.05508pt.
-<./figures/neural_nets/NLA_circle.png, id=830, 803.0pt x 803.0pt>
+<./figures/neural_nets/NLA_circle.png, id=828, 803.0pt x 803.0pt>
 File: ./figures/neural_nets/NLA_circle.png Graphic file (type png)
 <use ./figures/neural_nets/NLA_circle.png>
-Package pdftex.def Info: ./figures/neural_nets/NLA_circle.png  used on input line 1188.
+Package pdftex.def Info: ./figures/neural_nets/NLA_circle.png  used on input line 1185.
 (pdftex.def)             Requested size: 143.9978pt x 143.99464pt.
  [40 <./figures/neural_nets/REG_dropout.png>]
-<./figures/neural_nets//NLA_non_lin_transform.png, id=839, 809.0225pt x 783.92876pt>
+<./figures/neural_nets//NLA_non_lin_transform.png, id=837, 809.0225pt x 783.92876pt>
 File: ./figures/neural_nets//NLA_non_lin_transform.png Graphic file (type png)
 <use ./figures/neural_nets//NLA_non_lin_transform.png>
-Package pdftex.def Info: ./figures/neural_nets//NLA_non_lin_transform.png  used on input line 1197.
+Package pdftex.def Info: ./figures/neural_nets//NLA_non_lin_transform.png  used on input line 1194.
 (pdftex.def)             Requested size: 143.9978pt x 139.52213pt.
  [41 <./figures/neural_nets/NLA_xor.png> <./figures/neural_nets/NLA_circle.png> <./figures/neural_nets//NLA_non_lin_transform.png>] [42]
-Overfull \hbox (123.19453pt too wide) in paragraph at lines 1232--1232
+Overfull \hbox (123.19453pt too wide) in paragraph at lines 1229--1229
 [][][]$\OT1/cmtt/m/n/9 https : / / ai . stackexchange . com / questions / 27407 / what-[]does-[]statistical-[]efficiency-[]mean-[]in-[]this-[]context$[]| 
  []
 
 [43]
-<./figures/generative_models/AE_gen_1.png, id=863, 1307.88625pt x 943.525pt>
+<./figures/generative_models/AE_gen_1.png, id=861, 1307.88625pt x 943.525pt>
 File: ./figures/generative_models/AE_gen_1.png Graphic file (type png)
 <use ./figures/generative_models/AE_gen_1.png>
-Package pdftex.def Info: ./figures/generative_models/AE_gen_1.png  used on input line 1247.
+Package pdftex.def Info: ./figures/generative_models/AE_gen_1.png  used on input line 1244.
 (pdftex.def)             Requested size: 216.0022pt x 155.81888pt.
-<./figures/generative_models/AE_gen_2.png, id=865, 1607.00375pt x 795.97375pt>
+<./figures/generative_models/AE_gen_2.png, id=863, 1607.00375pt x 795.97375pt>
 File: ./figures/generative_models/AE_gen_2.png Graphic file (type png)
 <use ./figures/generative_models/AE_gen_2.png>
-Package pdftex.def Info: ./figures/generative_models/AE_gen_2.png  used on input line 1258.
+Package pdftex.def Info: ./figures/generative_models/AE_gen_2.png  used on input line 1255.
 (pdftex.def)             Requested size: 270.0pt x 133.73482pt.
  [44 <./figures/generative_models/AE_gen_1.png>] [45 <./figures/generative_models/AE_gen_2.png>]
-<figures/generative_models/VAE_encoder.pdf, id=882, 189.94765pt x 192.72803pt>
+<figures/generative_models/VAE_encoder.pdf, id=880, 189.94765pt x 192.72803pt>
 File: figures/generative_models/VAE_encoder.pdf Graphic file (type pdf)
 <use figures/generative_models/VAE_encoder.pdf>
-Package pdftex.def Info: figures/generative_models/VAE_encoder.pdf  used on input line 1288.
+Package pdftex.def Info: figures/generative_models/VAE_encoder.pdf  used on input line 1285.
 (pdftex.def)             Requested size: 165.60242pt x 168.03372pt.
-<figures/generative_models/VAE_decoder.pdf, id=883, 191.93405pt x 192.72803pt>
+<figures/generative_models/VAE_decoder.pdf, id=881, 191.93405pt x 192.72803pt>
 File: figures/generative_models/VAE_decoder.pdf Graphic file (type pdf)
 <use figures/generative_models/VAE_decoder.pdf>
-Package pdftex.def Info: figures/generative_models/VAE_decoder.pdf  used on input line 1290.
+Package pdftex.def Info: figures/generative_models/VAE_decoder.pdf  used on input line 1287.
 (pdftex.def)             Requested size: 165.60242pt x 166.29572pt.
  [46 <./figures/generative_models/VAE_encoder.pdf> <./figures/generative_models/VAE_decoder.pdf>] [47] [48]
 
@@ -843,21 +843,21 @@ pdfTeX warning: pdflatex (file ./figures/generative_models/diffusion_process.pdf
 <./figures/generative_models/diffusion_process.pdf, id=975, 2707.11375pt x 757.9316pt>
 File: ./figures/generative_models/diffusion_process.pdf Graphic file (type pdf)
 <use ./figures/generative_models/diffusion_process.pdf>
-Package pdftex.def Info: ./figures/generative_models/diffusion_process.pdf  used on input line 1387.
+Package pdftex.def Info: ./figures/generative_models/diffusion_process.pdf  used on input line 1384.
 (pdftex.def)             Requested size: 304.84697pt x 85.35826pt.
 [49 <./figures/generative_models/diffusion_process.pdf>] [50]
-<./figures/generative_models/unet.png, id=1033, 1405.25pt x 706.64pt>
+<./figures/generative_models/unet.png, id=1034, 1405.25pt x 706.64pt>
 File: ./figures/generative_models/unet.png Graphic file (type png)
 <use ./figures/generative_models/unet.png>
-Package pdftex.def Info: ./figures/generative_models/unet.png  used on input line 1415.
+Package pdftex.def Info: ./figures/generative_models/unet.png  used on input line 1412.
 (pdftex.def)             Requested size: 360.0pt x 181.02646pt.
  [51 <./figures/generative_models/unet.png>] [52] [53] [54] [55] [56] [57]
-Underfull \hbox (badness 10000) in paragraph at lines 1605--1606
+Underfull \hbox (badness 10000) in paragraph at lines 1604--1605
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1607--1608
+Underfull \hbox (badness 10000) in paragraph at lines 1606--1607
 
  []
 
@@ -870,13 +870,13 @@ Package rerunfilecheck Info: File `ml_explainers.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 24385 strings out of 474116
- 460825 string characters out of 5743682
+ 24386 strings out of 474116
+ 460848 string characters out of 5743682
  1944187 words of memory out of 5000000
- 46174 multiletter control sequences out of 15000+600000
+ 46175 multiletter control sequences out of 15000+600000
  570637 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,20n,96p,1658b,579s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,20n,96p,1658b,584s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{Hfootnote.11} has been referenced but does not exist, replaced by a fixed one
 
@@ -911,7 +911,7 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist,
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on ml_explainers.pdf (62 pages, 2289790 bytes).
+Output written on ml_explainers.pdf (62 pages, 2289293 bytes).
 PDF statistics:
  1239 PDF objects out of 1440 (max. 8388607)
  856 compressed objects within 9 object streams

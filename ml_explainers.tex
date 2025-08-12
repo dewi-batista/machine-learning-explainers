@@ -883,7 +883,7 @@ If we fix the structure and choice of activation functions of an MLP then all th
 
 \subsubsection{Constructive example: The algebra}
 
-\textcolor{red}{fix this figure}
+\textcolor{red}{TODO: fix figure}
 
 \begin{figure}[ht]
     \centering
@@ -1106,6 +1106,14 @@ We've already seen how to backprop through the MLP component. We haven't seen ho
 \subsubsection{Gated Recurrent Units (GRUs)}
 \dots
 
+\subsubsection{Skip connections/residual networks}
+\begin{itemize}
+    \item Most intuitive benefit: it helps prevent some layer in the architecture from degrading the input entirely. It's like a nice reminder to the model what it was working from before it got to this point
+    \item Reduces vanishing or exploding gradients: opens the door to far deeper architectures
+    \item Ensures that the model has to learn the residual as opposed to the full underlying function: faster convergence usually
+    \item Takes pressure off parameter initialisation: if you set parameters to zero then initially model is just the identity and learning from there is feasible
+\end{itemize}
+
 % autoencoders
 \subsection{Autoencoders}
 \label{sec:autoencoders}
@@ -1134,17 +1142,6 @@ $$
 \sum_{i=1}^M||\x_i-\phi(\theta(\x_i))||^2.
 $$
 If the function classes permit for computing the gradients of $\theta\in\Theta$ and $\phi\in\Phi$ then this computation may be done using gradient descent. For example, one could take $\Theta$ and $\Phi$ to be the classes of MLPs of appropriate input and output dimensions, as illustrated in \autoref{fig:autoencoder}.
-
-% skip connections
-\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
-\subsection{Skip Connections/Residual Networks}
-\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
-\begin{itemize}
-    \item Most intuitive benefit: it helps prevent some layer in the architecture from degrading the input entirely. It's like a nice reminder to the model what it was working from before it got to this point
-    \item Reduces vanishing or exploding gradients: opens the door to far deeper architectures
-    \item Ensures that the model has to learn the residual as opposed to the full underlying function: faster convergence usually
-    \item Takes pressure off parameter initialisation: if you set parameters to zero then initially model is just the identity and learning from there is feasible
-\end{itemize}
 
 % misc. questions
 \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
@@ -1210,7 +1207,7 @@ and define $D(0,0)=0$ to account for the removable singularity.
 \end{center}
 If there were a single activation function towards the end of the architecture then everything that came before would be a series of linear transformations of the input. The composition of linear transformations is just a linear transformation. As such, the model would effectively be a single linear layer into a non-linear transformation. The only way this could be effective would be if the non-linear transformation were effectively the function we're looking to model in the first place.
 
-\textcolor{red}{note that this is just a single-layer perceptron}: most activation functions are monotonic, so SLPs reduce to, again, a hyperplane in feature space. like the first paragraph states, if we allow for arbitrary non-linear activation functions then this is possbile in theory (but unrealistic). monotonicity kills it
+\textcolor{red}{TODO: note that this is just a single-layer perceptron}: most activation functions are monotonic, so SLPs reduce to, again, a hyperplane in feature space. like the first paragraph states, if we allow for arbitrary non-linear activation functions then this is possbile in theory (but unrealistic). monotonicity kills it
 
 \begin{center}
     \textbf{\textcolor{blue}{Q4:} Must activation functions be monotonic?}
@@ -1350,7 +1347,7 @@ Using \autoref{eq:marginal_likelihood}, along with the encoder $\theta$ (which p
     &=:
     \text{ELBO}
 \end{align*}
-in which the inequality arises due to Jensen's inequality, as in $\E[\log(f(\Z))]\leq\log(\E[f(\Z)])$, and $D_\text{KL}(Q||P)$ denotes the KL-divergence between distributions $Q$ and $P$, which is detailed in \textcolor{red}{entropy part?}. The effect of maximising
+in which the inequality arises due to Jensen's inequality, as in $\E[\log(f(\Z))]\leq\log(\E[f(\Z)])$, and $D_\text{KL}(Q||P)$ denotes the KL-divergence between distributions $Q$ and $P$, which is detailed in \autoref{app:entropy}. The effect of maximising
 $$
 \text{ELBO}
 =
@@ -1407,7 +1404,7 @@ The purpose of the denoiser $\epsilon_{\theta}$, where $\theta$ is its tuple of 
 
 So, what is an appropriate choice for the architecture of a diffusion model's denoiser? Before considering transformers for this task, we consider a more often-used choice, U-Net: a class of convolutional neural networks (CNNs).
 
-\subsection{U-Net denoisers}
+\subsubsection{U-Net denoisers}
 Despite not being the choice of denoiser made in the seminal paper introducing diffusion models, U-Net became the go to choice of denoiser architecture for contemporary diffusion models. To understand U-Net's popularity in this regard, it is worth understanding its architecture which consists of a contracting branch, terminating at its bottleneck, followed by an expansion branch, illustrated in \autoref{fig:u_net_arch}. This architecture can be thought of as forming a `U'-like shape, with the bottleneck lying at the bottom, hence its name.
 
 \begin{figure}[ht]
@@ -1584,6 +1581,8 @@ $$
 $$
 
 \subsection{Entropy}
+\label{app:entropy}
+
 The entropy of a random variable can be motivated by the notion of the surprise of (or information learned from) observing assignments of said random variable. Given a discrete random variable $X$, an event $E\in\Omega_X$ and a surprise function $S:\Omega_X\rightarrow[0,\infty)$, the surprise of observing $E$ is $S(E)$. Before we continue, we need to understand what we want out of our surprise function. Following the use of `surprising' in day-to-day communication, we want events with low probability to be highly surprising and events with high probability to be less surprising, with some extra conditions. So if $\P(E)=0.01$ then we want $S(E)$ to be close to relatively high (strictly speaking it doesn't need to be bounded above) and if $\P(E)=0.99$ then we want $S(E)$ to be close to 0.
 
 An easy way to achieve this is to take $S(E)=\log(\P(E))$ where $\log$ denotes the natural logarithm. Doesn't really matter which base tbh. Quickly see that $\log(0.01)=4.61$ and $\log(0.99)=0.01$. From here, we define the entropy of a random variable as its expected surprise
