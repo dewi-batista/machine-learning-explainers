@@ -326,6 +326,7 @@ INPUT ./figures/supervised_learning/lin_reg_example/model_predicts_test.pdf
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmti8.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmti7.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt9.tfm
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
 INPUT ./figures/supervised_learning/SVMs/SVM_hard_margin.pdf
 INPUT ./figures/supervised_learning/SVMs/SVM_hard_margin.pdf
 INPUT ./figures/supervised_learning/SVMs/SVM_hard_margin.pdf
@@ -343,6 +344,11 @@ INPUT ./figures/supervised_learning/bias_variance.png
 INPUT ./figures/supervised_learning/bias_variance.png
 INPUT ./figures/supervised_learning/bias_variance.png
 INPUT ./figures/supervised_learning/bias_variance.png
+INPUT ./figures/supervised_learning/double_descent.png
+INPUT ./figures/supervised_learning/double_descent.png
+INPUT ./figures/supervised_learning/double_descent.png
+INPUT ./figures/supervised_learning/double_descent.png
+INPUT ./figures/supervised_learning/double_descent.png
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm0800.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
 INPUT ./figures/neural_nets/MLP_1.pdf
@@ -355,7 +361,6 @@ INPUT ./figures/neural_nets/MLP_2.pdf
 INPUT ./figures/neural_nets/MLP_2.pdf
 INPUT ./figures/neural_nets/MLP_2.pdf
 INPUT ./figures/neural_nets/MLP_2.pdf
-INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
 INPUT ./figures/neural_nets/CNN_frog.pdf
 INPUT ./figures/neural_nets/CNN_frog.pdf
 INPUT ./figures/neural_nets/CNN_frog.pdf

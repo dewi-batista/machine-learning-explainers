@@ -13,7 +13,7 @@
 
 % abstract
 \begin{abstract}
-    \noindent Summaries of a bunch of machine learning-related topics. My main motive in writing these summaries is as a reminder for future me.
+    \noindent Summaries of a bunch of machine/deep learning-related topics. My main motive in writing this is as a reminder for future me.
 \end{abstract}
 
 % table of contents
@@ -159,7 +159,13 @@ $$
 
 \subsubsection{Statistical Motivation}
 
-This idea of minimising the mean square error of the model over $\Dtrain$ even has some rigorous statistical motivation. Assume that the residuals corresponding of the model's output over $\Dtrain$ are independent and identically normally distributed with mean 0. That is, assume $e_i=y_i-f_{\theta}(\x_i)\sim\N(0, \sigma^2)$ for $i=1,\dots,n$ are i.i.d. This assumption is reasonable in practice via the CLT. Since $f_{\theta}(\x_i)$ is a constant, we have $y_i|\x_i\sim\N(f_{\theta}(\x_i), \sigma^2)$ and so
+This idea of minimising the mean square error of the model over $\Dtrain$ even has some rigorous statistical motivation. Assume that the residuals corresponding of the model's output over $\Dtrain$ are independent and identically normally distributed with mean 0. That is, assume
+$$
+e_i
+=
+y_i-f_{\theta}(\x_i)\sim\N(0, \sigma^2)
+$$
+for $i=1,\dots,n$ are i.i.d. This assumption is reasonable in practice via the CLT. Since $f_{\theta}(\x_i)$ is a constant, we have $y_i|\x_i\sim\N(f_{\theta}(\x_i), \sigma^2)$ and so
 $$
 \P(y_i|\x_i;\theta)=\frac{1}{\sqrt{2\pi}\sigma}\exp\l(-\frac{(y_i-f_{\theta}(\x_i))^2}{2\sigma^2}\r).
 $$
@@ -323,14 +329,16 @@ The most well known methods of regularisation in the context of regression are L
     \textbf{Assumption of normally distributed residuals}
     \vspace{10pt}
 
-    Central limit theorem to the rescue!\footnote{\url{https://en.wikipedia.org/wiki/Central\_limit\_theorem\#Regression}} ``Regression analysis, and in particular ordinary least squares, specifies that a dependent variable depends according to some function upon one or more independent variables, with an additive error term. Various types of statistical inference on the regression assume that the error term is normally distributed. This assumption can be justified by assuming that the error term is actually the sum of many independent error terms; even if the individual error terms are not normally distributed, by the central limit theorem their sum can be well approximated by a normal distribution."
+    Central limit theorem to the rescue!\footnote{\url{https://en.wikipedia.org/wiki/Central\_limit\_theorem\#Regression}} ``Regression analysis, and in particular ordinary least squares, specifies that a dependent variable depends according to some function upon one or more independent variables, with an additive error term. Various types of statistical inference on the regression assume that the error term is normally distributed. This assumption can be justified by assuming that the error term is actually the sum of many independent error terms; even if the individual error terms are not normally distributed, by the central limit theorem their sum can be well approximated by a normal distribution."\\
+
+    Another good link: \url{https://stats.stackexchange.com/a/12266}.
 \end{tcolorbox}
 
 \subsubsection{Terminology}
 
 Nowadays, regression models are those which predict a value belonging to some continuous space but where did it come from? In 1886, Francis Galton authored ``Regression Towards Mediocrity in Hereditary Stature'' which is where the `regression towards the mean' term comes from. Galton noticed that tall father's have short sons, short fathers have tall sons and average height fathers have average height sons. Taken from a Stack Exchange comment: ``Galton derived a linear approximation to estimate a son's height from the father's height in that paper. His equation was fitted so an average height father would have an average height son, but a taller than average father would have a son that is taller than average by 2/3 the amount his father is. Same with shorter than average. This could be argued to be a simple linear regression."
 
-Put mathematically, suppose random variables $X$ and $Y$ are related via $Y=\alpha+\beta Y+\epsilon$ where $\alpha,\beta\in\R$ are regression coefficients and $\epsilon$ is noise with mean $0$. Then $\E[Y|X]=\alpha+\beta X$, so if we first normalise to have RVs of mean 0 and variance 1 then we would have $E[Y|X]=\rho X$ where $\rho$ is the correlation coefficient between $X$ and $Y$. Since $|\rho|\leq1$ we know that the expected value of $Y$ is close to the mean than $X$ unless $\rho=1$. So extreme values of $X$ tend to correspond to values of $Y$ that are closer to the mean, i.e. one has regression towards the mean.
+Put mathematically, suppose random variables $X$ and $Y$ are related via $Y=\alpha+\beta X+\epsilon$ where $\alpha,\beta\in\R$ are regression coefficients and $\epsilon$ is noise with mean $0$. Then $\E[Y|X]=\alpha+\beta X$, so if we first normalise to have RVs of mean 0 and variance 1 then we would have $E[Y|X]=\rho X$ where $\rho$ is the correlation coefficient between $X$ and $Y$. Since $|\rho|\leq1$ we know that the expected value of $Y$ is close to the mean than $X$ unless $\rho=1$. So extreme values of $X$ tend to correspond to values of $Y$ that are closer to the mean, i.e. one has regression towards the mean.
 
 To see why this does not apply to all modern `regression' models, consider logistic regression in which one, roughly speaking, predicts probabilities of binary outcomes. In such cases, the dependent variable is binary, so `regressing towards the mean' has no meaningful interpretation.
 
@@ -413,7 +421,7 @@ Note that, in practice, it's unlikely that any samples will lie on the hyperplan
 
 % support vector machines
 \subsection{Support Vector Machines (SVMs)}
-Logistic regression and SVMs both fit a hyperplane in feature space. The distinction is the metric of goodness of said hyperplanes. In logistic regression, the metric of goodness is how much the parameters of said hyperplane maximise the relevant log-likelihood. SVMs, however, look to maximise the distance between the hyperplane and the samples. So in some sense, logistic regression is a probabilistic approach while SVMs take a constraint-based approach.
+Logistic regression and SVMs both fit a hyperplane to feature space. The distinction is the metric of goodness of said hyperplanes. In logistic regression, the metric of goodness is how much the parameters of said hyperplane maximise the relevant log-likelihood. SVMs, however, look to maximise the distance between the hyperplane and the samples. So in some sense, logistic regression is a probabilistic approach while SVMs take a constraint-based approach.
 
 The authors' insight came from structural risk minimization in which instead of focusing on minimising training error (as neural networks and decision trees were doing at the time), one focuses on minimising an upper bound on the generalisation error. The inclusion of `support vector' is clear from their construction but `machine' stood out to me as a bit odd. It turns out that at time of their development, around 1960, it was common to use `machine' when referring to algorithms that learned from data, i.e. algorithms belonging to statistical learning theory.\\
 
@@ -504,8 +512,11 @@ which can be done using gradient descent.
 A lost art in the current era :(
 
 % the bias-variance tradeoff
-\subsection{The Bias-Variance Trade-Off}
-Recall that sample targets pertaining to datasets from which models are learned are effected by noise, i.e. $Y|(X=x)=f(x)+\epsilon(x)$ where $\epsilon(x)\sim\N(0,\sigma^2(x))$ and so
+\subsection{The Bias-Variance Tradeoff}
+The bias-variance tradeoff is a statement pertaining to how well one can perform supervised learning from datasets. Crudely put, if the model family used to fit is too simple to represent the underlying distributions from which the samples were drawn then our learning method is highly-biased: our method is almost dataset-invariant. Think of fitting a line to a high-degree polynomial. On the other end, if the model family is too complex (e.g. overparameterised) then one might expect to more-easily overfit the underlying distribution. There are too many parameters to twink and tweam so fitting the individal samples is too easy.
+
+\subsubsection{Derivation with MSE loss}
+Recall that sample targets pertaining to datasets from which supervised models are learned are effected by noise, i.e. $Y|(X=x)=f(x)+\epsilon(x)$ where $\epsilon(x)\sim\N(0,\sigma^2(x))$ and so
 $$
 Y|(X=x)
 \sim
@@ -515,9 +526,9 @@ We seek to learn an estimate $\hat{f}_{D}$ of $f(x)=\E_Y\l[Y|X=x\r]$ from the da
 $$
 R\l(\hat{f}_D\r)
 =
-\E_{(X,Y)}\l[\l(Y-\hat{f}_D(X)\r)^2\r].
+\E_{(X,Y)}\l[\l(Y-\hat{f}_D(X)\r)^2\r]
 $$
-The quantity pertaining to the quality of the learning procedure, which is used to determine $\hat{f}_{D}$ from $D\in\Omega_{\D}$, is then
+in which mean square error (MSE) is used as loss. The quantity pertaining to the quality of a learning procedure used to determine $\hat{f}_{D}$ from $D\in\Omega_{\D}$ is given by
 \begin{align*}
     \E_{\D}\l[R\l(\hat{f}_{\D}\r)\r]
     &=
@@ -529,27 +540,29 @@ The quantity pertaining to the quality of the learning procedure, which is used 
     \textcolor{c11}{\E_{\D}\l[\E_X\l[\l(f(X)-\hat{f}_{\D}(X)\r)^2\r]\r]}\\
     &+\textcolor{c3}{\E_{\D}\l[\E_{(X,Y)}\l[2(Y-f(X))\l(f(X)-\hat{f}_{\D}(X)\r)\r]\r]}.
 \end{align*}
-Let's address this term-by-term beginning with the third term in red. See that
+Let's address this term-by-term beginning with the term in red. See that
 \begin{align*}
     &\hspace{14.52pt}
     \textcolor{c3}{\E_{\D}\l[\E_{(X,Y)}\l[2(Y-f(X))\l(f(X)-\hat{f}_{\D}(X)\r)\r]\r]}\\
     &=
-    \E_{\D}\l[\E_{(X,Y)}\l[2(Y-f(X))\l(f(X)-\hat{f}_{\D}(X)\r)\r]\r]\\
+    2\E_{\D}\l[\E_X\l[\E_{Y}\l[(Y-f(X))\l(f(X)-\hat{f}_{\D}(X)\r)|X\r]\r]\r]\\
     &=
-    2\E_{\D}\l[\E_X\l[\E_{Y|X}\l[(Y-f(X))\l(f(X)-\hat{f}_{\D}(X)\r)\r]\r]\r]\\
-    &=
-    2\E_{\D}\l[\E_X\l[\l(f(X)-\hat{f}_{\D}(X)\r)\E_{Y|X}\l[Y-f(X)\r]\r]\r]\\
+    2\E_{\D}\l[\E_X\l[\l(f(X)-\hat{f}_{\D}(X)\r)\E_{Y}\l[Y-f(X)|X\r]\r]\r]\\
     &=
     2\E_{\D}\l[\E_X\l[\l(f(X)-\hat{f}_{\D}(X)\r)\cdot0\r]\r]\\
     &=
     0
 \end{align*}
 in which the tower property of conditional expectations
-$$
-\E_{(X,Y)}[z(X,Y)]
-=
-\E_X\l[\E_{Y|X}\l[z(X,Y)\r]\r]
-$$
+\begin{align*}
+    \E_{(X,Y)}[g(X,Y)]
+    &=
+    \iint g(x,y)f_{(X,Y)}(x,y)dxdy\\
+    &=
+    \int \l(\int g(x,y)f_{Y|X}(y|x)dy\r)f_X(x)dx\\
+    &=
+    \E_X\l[\E_Y\l[g(X,Y)|X\r]\r]
+\end{align*}
 is applied. As such, the quantity of interest reduces to only two terms as in
 $$
 \E_{\D}\l[R\l(\hat{f}_{\D}\r)\r]
@@ -558,7 +571,7 @@ $$
 $$
 of which we will now address the first in orange. Noting that
 $$
-\E_{Y|X=x}\l[Y-f(x)\r]
+\E_{Y}\l[Y-f(x)|X=x\r]
 =
 0
 $$
@@ -568,17 +581,17 @@ for all $x\in\Omega_X$ and that what is inside the expectation over $\D$ is inde
     &=
     \E_{(X,Y)}\l[(Y-f(X))^2\r]\\
     &=
-    \E_X\l[\E_{Y|X}\l[(Y-f(X))^2\r]\r]\\
+    \E_X\l[\E_Y\l[(Y-f(X))^2|X\r]\r]\\
     &=
-    \E_X\l[\E_{Y|X}\l[\l(Y-\E_{Y|X}[Y]\r)^2\r]\r]\\
+    \E_X\l[\E_Y\l[\l(Y-\E_Y[Y|X]\r)^2|X\r]\r]\\
     &=
-    \E_X\l[\text{Var}_{Y|X}\l(Y\r)\r]\\
+    \E_X\l[\text{Var}_Y\l(Y|X\r)\r]\\
     &=
     \E_X[\sigma^2(X)]
 \end{align*}
-This is simply the expected noise, e.g. due to imperfect calibration in the instruments used to obtain samples, and is typically taken to be constant. Usually, as a constant, it is simply denoted by $\sigma$.
+This is simply the expected noise, e.g. due to imperfect calibration in the instruments used to obtain samples, and is typically taken to be constant. Usually, as a constant, it is simply denoted by $\sigma^2$.
 
-For the final term, let $\bar{f}(x)=\E_{\D}\l[\hat{f}_{\D}(x)\r]$ for all $x\in\Omega_X$ and see that
+For the term in green, let $\bar{f}(x)=\E_{\D}\l[\hat{f}_{\D}(x)\r]$ for all $x\in\Omega_X$ and see that
 \begin{align*}
     &\hspace{14.52pt}
     \textcolor{c11}{\E_{\D}\l[\E_X\l[\l(f(X)-\hat{f}_{\D}(X)\r)^2\r]\r]}\\
@@ -605,24 +618,46 @@ Put together, we obtain
     &\hspace{14.52pt}
     \E_{\D}\l[R\l(\hat{f}_{\D}\r)\r]\\
     &=
-    \E_X\l[\underbrace{\l(f(X)-\E_{\D}\l[\hat{f}_{\D}(X)\r]\r)^2}_{\text{square of bias of estimator}}+\underbrace{\E_{\D}\l[\l(\hat{f}_{\D}(X)-\E_{\D}\l[\hat{f}_{\D}(X)\r]\r)^2\r]}_{\text{variance of estimator}}+\underbrace{\sigma^2(X)}_{\text{noise}}\r]
+    \E_X\l[\underbrace{\l(f(X)-\E_{\D}\l[\hat{f}_{\D}(X)\r]\r)^2}_{\text{square of bias of estimator}}+\underbrace{\E_{\D}\l[\l(\hat{f}_{\D}(X)-\E_{\D}\l[\hat{f}_{\D}(X)\r]\r)^2\r]}_{\text{variance of estimator}}\r]+\underbrace{\sigma^2}_{\text{noise}}
 \end{align*}
-and there we have it.
+where $\sigma^2=\E_X\l[\sigma^2(X)\r]$ (ignore the poor choice of notation). We can crudely summarise it as the sum of the weighted average, according to $p(x)$, of the square of the bias of the learning method, the variance of the estimate according to the dataset from which it is determined and irreducible noise. The irreducible noise is invariant to the learning method and so it's usually ignored in discussions surrounding the bias-variance tradeoff.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\columnwidth]{./figures/supervised_learning/bias_variance.png}
-    \caption{\dots}
+    \caption{The graph of learning method error against model complexity in terms of bias and variance.}
     \label{fig:bias_variance}
 \end{figure}
 
-In brief, if the learned estimate varies a lot as we vary the dataset from which it is determined then the estimator has high variance. If instead there is not much variance in this regard then we might expect that our learning method is almost invariant to the dataset used, i.e. our learning method is particularly biased. Think of fitting a line to third degree polynomial — no matter what dataset you use, the best fit line will likely not change too much (which is good) but the fit itself will never be anything but linear, i.e. a bad fit. WE SHOULD HIT A SWEET SPOT!
+In brief, if the learned estimate varies a lot as we vary the dataset from which it is determined then the learning method has high variance. This is often due to the estimates in question overfitting the dataset on which they were learned which itself is often due to overparameterisation. If the number of parameters of a model is far higher than is needed then one can easily fit the individal samples from the dataset used during learning. Think of fitting a high degree polynomial to a line. The dataset will consist of points which roughly form a line but the high degree polynomial, if not regularised, can easily fit the samples present in the dataset used to learn (and in doing so fits the noise) resulting in an overfit model.
+
+The flip side of this is an underparameterised model. Since such a model has little hope of fitting the dataset from which it is learned, you'd expect it to rarely overfit (it can't) and to instead be almost invariant to the dataset. That is, no matter which dataset you gave it to learn from, you get a similar model each time. In other words, the learning method (the method of going from dataset to model) is biased. Think of fitting a line to high degree polynomial — no matter what dataset you use, the best fit line will likely not change too much (which is usually a good thing) but the fit itself will never be anything but linear, i.e. always a bad fit. 
+
+With this in mind, when considering which learning method (i.e. model family) to consider when tackling a problem, thought should be given to how complex (i.e. parameter number) the model family should be. Too simple (i.e. too few parameters) and you underfit (high bias, low variance). Too complex (i.e. too many parameters) and you overfit (low bias, high variance). This is nicely illustrated in \autoref{fig:bias_variance} in which we see that there exists a sweet spot in model complexity. A spot in which said model complexity yields some square of bias and some variance but the minimum some of said quantities, i.e. the lowest learning method error. You can think of this plot as the graph of
+$$
+\l(N\l(\mathcal{A}\r),\E_X\l[R\l(\hat{f}_{\D}(X)\r)\r]\r)
+$$
+where $N(\mathcal{A})$ denotes the number of parameters of models given by $\mathcal{A}$.
+
+\subsubsection{\textcolor{red}{TODO:} How it motivates regularisation}
+For ordinary least squares (OLS), methods of regularisation, such as L1 and L2, introduce some bias but reduce variance. The result is better performance according to MSE.
+
+For classification, as the quantity of data increases, the variance of learned models decreases. As such, if we get more and more data, it might be more tempting to use methods which knowingly have minimal bias as the variance will be taken care of by increased amounts of data. On the other hand, if you have few samples then perhaps consider methods with knowingly little variance, e.g. Bayesian methods.
 
 \subsubsection{Beyond MSE}
-Why MSE if classification is approached using supervised learning and uses cross-entropy losses instead of mean square errors?
+Natural question: MSE is a common choice of loss when dealing with regression but not classification, in which cross-entropies are used for loss, so why does every derivation of the bias-variance tradeoff only use MSE? The quick answer is that it's the only choice which yields a relatively simple derivation of this nice decomposition of learning method error into two orthogonal characteristics of the learning method: bias and variance. It turns out that if you instead consider specifically probabilistic classification methods then using expected cross-entropy as loss yields a decomposition into bias and variance but with a different form.
 
 \subsubsection{Double descent}
-\dots
+Double descent refers to a behaviour in which overparameterised models ignore fly in the face of the bias-variance tradeoff. As the number of parameters (i.e. the model complexity) increases beyond a certain point the test error begins to drop. What makes this a phenomenon is that it seems that this threshold is the number of samples used to determine the model. This is illustrated nicely in \autoref{fig:double_descent}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\columnwidth]{./figures/supervised_learning/double_descent.png}
+    \caption{\dots}
+    \label{fig:double_descent}
+\end{figure}
+
+A consequence of this is that very deep neural networks learned using gradient descent do exceptionally well. It flies in the face of conventional wisdom. I'm unaware of anyone that this doesn't surprise. It isn't well-understood. It's related to grokking.
 
 % misc. questions
 \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
@@ -968,9 +1003,22 @@ $$
 $$
 i.e. complexity grows linearly in the number of layers and quadratically in the number of neurons per layer. So we argue for increasing depth over width.
 
+A perhaps more important result is from using MLPs for classification. Geomentrically, they do this by splitting some space into a bunch of regions. It turns out that the number of regions by which a single-layer MLP with $n$ neurons in its hidden layer splits the space is bounded above by
+$$
+\frac{1}{2}(n^2+n+2)
+$$
+which is quadratic in $n$. For an MLP with $k$ hidden layers of $n$ neurons each, the number of regions by which the space is split is bounded above by
+$$
+\frac{1}{2}(n^2+n+2)\l(\frac{n}{n_0}+1\r)^{n_0(k-1)}
+$$
+which is exponential in $k$. Again, we argue for increasing depth $k$ over width $n$.
+
+There's something to be said about the fact that these are upper bounds and to what extent the bounds are tight in practice. Another worthwhile question is: to what extent do contemporary methods of learning the parameters of such architectures make use of this improved number of regions? Do gradient descent-based methods utilise this increase in number of regions perfectly? No, but the study of this sort of thing is worthy of a career so I won't go into more detail about it beyond interesting results, once I come across them.
+
 % backprop
 \subsection{Backpropagation for MLPs}
 \label{subsec:backprop}
+
 As with formulating MLPs, it's good to rigorously express backpropagation at least once in life, so here it is. It's sort of strange that I haven't done this yet and simply trust that it works while having only an intuitive idea of it up to now (August 2025).
 
 Chain rule/automatic differentiation to learn the parameters from data. Very often it helps us perform numerical maximum likelihood (depends on the loss function invoked).
@@ -1429,7 +1477,6 @@ R-CNN models has three flavours: R-CNN, Fast R-CNN and Faster R-CNN. R-CNN stand
 \begin{tcolorbox}[colback=c5]
     \textbf{Discrete:}
     \begin{itemize}
-        \item Poisson, Geometric $\rightarrow$ Negative Binomial \textbf{(generic)}
         \item Bernoulli $\rightarrow$ Binomial \textbf{(binary classification)}
         \item Categorical $\rightarrow$ Multinomial \textbf{(multi-class classification)}
     \end{itemize}
@@ -1438,9 +1485,7 @@ R-CNN models has three flavours: R-CNN, Fast R-CNN and Faster R-CNN. R-CNN stand
 \begin{tcolorbox}[colback=c9]
     \textbf{Continuous:}
     \begin{itemize}
-        \item Uniform, (Multivariate) Normal, Exponential \textbf{(generic)}
-        \item (Multivariate) Student's $t$, Chi-squared \textbf{(classical stats)}
-        \item Beta, Gamma, Dirichlet \textbf{(Bayesian stats)}
+        \item (Multivariate) Normal \textbf{(generic)}
     \end{itemize}
 \end{tcolorbox}
 
@@ -1530,6 +1575,14 @@ $$
 p(1-p)^k.
 $$
 
+\subsection{The Law of Large Numbers}
+Suppose you have some i.i.d. samples $x_1,\dots,x_n\sim p(x)$ then
+$$
+\frac{1}{n}\sum_{i=1}^n x_i
+\xrightarrow{n\to\infty}
+\E[X]
+$$
+
 \subsection{Entropy}
 The entropy of a random variable can be motivated by the notion of the surprise of (or information learned from) observing assignments of said random variable. Given a discrete random variable $X$, an event $E\in\Omega_X$ and a surprise function $S:\Omega_X\rightarrow[0,\infty)$, the surprise of observing $E$ is $S(E)$. Before we continue, we need to understand what we want out of our surprise function. Following the use of `surprising' in day-to-day communication, we want events with low probability to be highly surprising and events with high probability to be less surprising, with some extra conditions. So if $\P(E)=0.01$ then we want $S(E)$ to be close to relatively high (strictly speaking it doesn't need to be bounded above) and if $\P(E)=0.99$ then we want $S(E)$ to be close to 0.
 
@@ -1555,7 +1608,31 @@ $$
 
 \noindent\textbf{Note 2:} You can see entropy as pertaining to a random variable or of a distribution of said random variable. I should formalise this at some point.
 
+\subsubsection{Kullback–Leibler Divergence (KL-divergence)}
+
+Given probability density/mass functions $p$ and $q$ on the same space $\Omega$, their Kullback–Leibler divergence (KL-divergence) is given by
+$$
+D_{\text{KL}}(p||q)
+=
+\E_{X\sim p}\left[\log\left(\frac{p(X)}{q(X)}\right)\right].
+$$
+It is often used as a measure of similarity between two distributions: it follows from Gibbs' inequality that it is non-zero and it is often proposed as a loss function when assessing how well a model $q$ encodes an underlying distribution $p$.
+
+The KL-divergence of two distributions can be expressed in terms of self-entropy and cross-entropy terms as
+\begin{align*}
+    D_{\text{KL}}(p||q)
+    &=
+    \E_{X\sim p}\left[\log\left(\frac{p(X)}{q(X)}\right)\right]\\
+    &=
+    \E_{X\sim p}\left[-\log(q(X))\right]-\E_{X\sim p}\left[-\log(p(X))\right]\\
+    &=
+    H(p,q)-H(p)
+\end{align*}
+where $H(p,q)$ denotes the cross-entropy between $p$ and $q$ while $H(p)$ denotes the self-entropy of $p$. It follows that minimising the KL-divergence $D_{\text{KL}}(p,q)$ in $q$ corresponds to minimising the cross-entropy $H(p,q)$.
+
 \subsubsection{Distribution fitting using cross-entropy}
+\label{subsubsec:dist_fit_CE}
+
 Suppose we have the geometric distribution with $p=1/2$ and would like to fit it using a Poisson distribution. That is, we would like to best approximate
 \begin{align*}
     p:\mathbb{N}\backslash\{0\}&\to[0,1]\\
@@ -1612,8 +1689,34 @@ On its own, this quantity isn't too useful. To get a sense of goodness-of-fit we
     &=
     \log(2)\sum_{k=1}^{\infty}\frac{k}{2^k}\\
     &=
-    \textcolor{red}{finish this some time}
+    2\log(2)\\
+    &\approx
+    1.386
 \end{align*}
+from which we know that the KL-divergence between the underlying geometric distribution $p$ and our Poisson fit $q$ is given by
+$$
+\text{KL}(p||q)
+\approx
+2.016-1.386
+=
+0.63
+$$
+which seems pretty low. Good fit!
+
+\subsubsection{Distribution fitting using maximum likelihood estimation}
+Suppose instead of knowing the nice geometric distribution from \autoref{subsubsec:dist_fit_CE} we only had $n$ i.i.d. samples drawn from it denoted $\D=(k_1,\dots,k_n)\in\mathbb{N}^n$. The MLE of the `true' $k$ of $\text{Poi}(k)$ is given by
+$$
+k_{\text{MLE}}
+=
+\frac{1}{n}\sum_{i=1}^n k_i.
+$$
+The reason I write `true' in the previous sentence is that of course we know that these samples were not drawn from a Poisson distribution at all. This is a nice example of imperfections in model assumptions. Is a Poisson distribution what gave rise to our samples? Is the class of functions given by an MLP with a fixed number of layers and nodes in each layer the function that gave rise to our samples? We're not god afterall.
+
+Anyway, by the law of large numbers, we know that
+$$
+k_{\text{MLE}}\xrightarrow{n\to\infty}\E[K]=1.
+$$
+From what I understand, the fact that minimising cross-entropy yields the same estimate as MLE with $n\to\infty$ here is a special case of things learned in generalised linear models. Some sort of result about distributions from exponential families. Sadly, I never took the GLMs course at my university by Wim Krijnen so it isn't obvious to me.
 
 \subsection{The Central Limit Theorem (CLT)}
 \dots
@@ -1625,9 +1728,6 @@ On its own, this quantity isn't too useful. To get a sense of goodness-of-fit we
 Suppose we'd like to get an idea of the average height of men and women in our population. If we randomly sample 100 men and 100 women then we're good to go: we have independent samples. If instead we randomly sample 100 couples then our samples would not be independent since couples' heights correlate.
 
 This is important because when performing maximum likelihood, the assumption of independence of samples is key to writing the likelihood of the set as a product of individual probabilities. Without this independence, the likelihood would be a horribly complex function that we would not be able to utilise. Independence is also assumed in a ton of other statistics-related things like t-tests, ANOVA, etc.
-
-\subsection{Assumptions of Normality}
-https://stats.stackexchange.com/a/12266
 
 \end{appendices}
 

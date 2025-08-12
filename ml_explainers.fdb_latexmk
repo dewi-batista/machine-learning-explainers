@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1754868023.87387 "ml_explainers.tex" "ml_explainers.pdf" "ml_explainers" 1754868026.13253 0
+["pdflatex"] 1754958239.45347 "ml_explainers.tex" "ml_explainers.pdf" "ml_explainers" 1754958241.50063 0
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm0800.tfm" 1136768653 1536 05df9db6aeccc4eea94fec15c9024f79 ""
@@ -223,15 +223,16 @@
   "figures/supervised_learning/SVMs/SVM_hard_margin.pdf" 1749499503.63665 14639 f8dbfb3fd6a3b7f745b75e517127ceec ""
   "figures/supervised_learning/SVMs/SVM_soft_margin.pdf" 1749499504.53167 15192 e094051b0f29fb6df18e974d1afff91c ""
   "figures/supervised_learning/bias_variance.png" 1754866980.37606 156968 46369a95566ab4c6230fdd2f02a65a9f ""
+  "figures/supervised_learning/double_descent.png" 1754957031.77901 121589 feb538f6396bb9445d62757010feb16b ""
   "figures/supervised_learning/lin_reg_example/age_and_bmi_vs_cholesterol.pdf" 1749499508.17534 15032 1f2f2e5cdc826b6ea085b2400efa662e ""
   "figures/supervised_learning/lin_reg_example/age_vs_bmi_vs_cholesterol.pdf" 1749499508.83032 17376 313f18acbb124e8de35f714ac1c9a1f7 ""
   "figures/supervised_learning/lin_reg_example/model_predicts_test.pdf" 1749499509.33049 15509 2c5b5d68508f4c9581a2588347b5ad98 ""
   "figures/supervised_learning/lin_reg_example/model_predicts_train.pdf" 1749499509.75229 15414 8f672c71dfce3fdf6d88b3696bff952d ""
   "header.tex" 1754867734.7822 2228 34275fedba91f4736480e10e22b3a6b7 ""
-  "ml_explainers.aux" 1754868025.98563 18081 669a114b6a7df7f7efe500f5c15b4ffe "pdflatex"
-  "ml_explainers.out" 1754868024.53834 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "ml_explainers.tex" 1754868021.34512 110545 c2eb6a74123568dd8e52ea717fb7597c ""
-  "ml_explainers.toc" 1754868025.98808 6487 33ebca5e181b287503367468fd1c5122 "pdflatex"
+  "ml_explainers.aux" 1754958241.38312 19213 06dc93ec22f40b4b386bd7a61635ce38 "pdflatex"
+  "ml_explainers.out" 1754958239.98278 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "ml_explainers.tex" 1754958237.12401 119232 3da3f81fee3f36032b3bf23adb4fc730 ""
+  "ml_explainers.toc" 1754958241.38514 6978 3c727237d81305a4be57e96811836779 "pdflatex"
   (generated)
   "ml_explainers.aux"
   "ml_explainers.log"
