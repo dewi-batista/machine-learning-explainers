@@ -29,6 +29,21 @@
 
 I think of machine learning as the discipline of studying methods of learning parameterised models over from data. What makes machine learning fun is the stupidly high rate of improvement of the discipline since 2012. At their core, many methods boil down to statistically-principled things, like maximum likelihood, \dots. The fact that this is possible to at least a small extent isn't too surprising, but, nowadays, this is possible to the extent of being able to do things like input natural language to output a photo-realistic image described by said input. Why is this possible? The more I've learned, the more I'm amazed that our methods work as well as they do. Take denoising diffusion models for image generation. It effectively learns to transform randomly sampled Gaussian noise into something convincingly belonging to the distribution pertainintg to the data that the model was trained on. So if I train such a model on a large dataset of images of cats then it learns to transform Gaussian noise into new images of cats that are sufficiently distinct from those it was trained on. That is, such models do not necessarily need to overfit to be able to output samples convincingly belonging to the target distribution. Why are diffusion, flow-based models, GANs, VAEs, probabilistic circuits or attention-based models so effective? It's sometimes hard to believe, even after working with some of these architectures extensively and understanding them in detail.
 
+``ML as a ﬁeld, which perceives itself as a ﬁeld under this name, is relatively young,
+say, about 40 years (related research was called “pattern recognition” earlier).
+It is interdisciplinary and has historical and methodological connections to neuro-
+science, cognitive science, linguistics, mathematical statistics, AI, signal processing
+and control; it uses mathematical methods from statistics (of course), information
+theory, signal processing and control, dynamical systems theory, mathematical
+logic and numerical mathematics; and it has a very wide span of application types.
+This diversity in traditions, methods and applications makes it diﬃcult to study
+“Machine Learning”. Any given textbook, even if it is very thick, will reﬂect the
+author’s individual view and knowledge of the ﬁeld and will be partially blind to
+other perspectives. This is quite diﬀerent from other areas in computer science,
+say for example formal languages / theory of computation / computational com-
+plexity where a widely shared repertoire of standard themes and methods cleanly
+deﬁne the ﬁeld.''
+
 % thoughts on reasoning
 \section*{Thoughts on reasoning}
 
