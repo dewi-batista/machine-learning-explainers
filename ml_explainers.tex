@@ -13,7 +13,7 @@
 
 % abstract
 \begin{abstract}
-    \noindent Summaries of a bunch of machine/deep learning-related topics. My main motive in writing this is as a reminder for future me.
+    \noindent Summaries of some machine/deep learning-related topics. My main motive in writing these summaries is as a reminder for my future self.
 \end{abstract}
 
 % table of contents
@@ -27,49 +27,23 @@
 % intro
 \section{Introduction}
 
-I think of machine learning as the discipline of studying methods of learning parameterised models over from data. What makes machine learning fun is the stupidly high rate of improvement of the discipline since 2012. At their core, many methods boil down to statistically-principled things, like maximum likelihood, \dots. The fact that this is possible to at least a small extent isn't too surprising, but, nowadays, this is possible to the extent of being able to do things like input natural language to output a photo-realistic image described by said input. Why is this possible? The more I've learned, the more I'm amazed that our methods work as well as they do. Take denoising diffusion models for image generation. It effectively learns to transform randomly sampled Gaussian noise into something convincingly belonging to the distribution pertainintg to the data that the model was trained on. So if I train such a model on a large dataset of images of cats then it learns to transform Gaussian noise into new images of cats that are sufficiently distinct from those it was trained on. That is, such models do not necessarily need to overfit to be able to output samples convincingly belonging to the target distribution. Why are diffusion, flow-based models, GANs, VAEs, probabilistic circuits or attention-based models so effective? It's sometimes hard to believe, even after working with some of these architectures extensively and understanding them in detail.
+I think of machine learning as the discipline of studying methods of fitting parameterised models from data. Why I find machine learning so interesting interesting is due to its rapid development since the era of deep learning began in 2012. At their core, many methods in machine learning are statistically-principled in nature, corresponding to maximum likelihood estimation. The fact that something as simple as maximum likelihood estimation can be used to fit very complex distributions, in practice, to at least a small extent isn't too surprising. What amazes me is how well such complex distributions can be modelled using maximum likelihood estimation to fit deep architectures. So well that we are now able to produce models which take a natural language description as input and output a photo-realistic image matching said description. What right do such simple methods have to fit such complex distributions? What right do the architectures we use have to facilitate such effective learning? The more I've learned, the more I'm amazed that contemporary methods work as well as they do.
 
-``ML as a ﬁeld, which perceives itself as a ﬁeld under this name, is relatively young,
-say, about 40 years (related research was called “pattern recognition” earlier).
-It is interdisciplinary and has historical and methodological connections to neuro-
-science, cognitive science, linguistics, mathematical statistics, AI, signal processing
-and control; it uses mathematical methods from statistics (of course), information
-theory, signal processing and control, dynamical systems theory, mathematical
-logic and numerical mathematics; and it has a very wide span of application types.
-This diversity in traditions, methods and applications makes it diﬃcult to study
-“Machine Learning”. Any given textbook, even if it is very thick, will reﬂect the
-author’s individual view and knowledge of the ﬁeld and will be partially blind to
-other perspectives. This is quite diﬀerent from other areas in computer science,
-say for example formal languages / theory of computation / computational com-
-plexity where a widely shared repertoire of standard themes and methods cleanly
-deﬁne the ﬁeld.''
-
-% thoughts on reasoning
-\section*{Thoughts on reasoning}
-
-As a term, machine learning is used almost interchangeably with AI as of now (summer of 2024). AI isn't particularly well-defined in itself, even in academic settings, so its use in day-to-day things, like the news, can be confusing. I think of machine learning as what's written above, effectively in line with statistical learning theory. I'm not sure how I would define AI in a way that'd satisfy most. Maybe the discipline of studying things that can `reason', as a human does, given some agreeable notion of `reasoning'. A common issue found in discussions surrounding this topic is that a definition of `reasoning' is left out. In fairness, it's a tricky thing to define precisely.
-
-Right now, I'm unaware of any machine learning model that can `reason' by any agreeable notion of the term. Let's say that GPT-4o concludes that a continuous real-valued function $f:\R\rightarrow\R$ has a root in some interval $(a, b)$ using the intermediate value theorem (IVT) by noting that $f(a)<0$ and $f(b)>0$. Is this `reasoning' or do we instead brush this off as the model having been trained on a bunch of examples of the use of IVT? Does it understand what it's concluding? As of right now I'd say that it doesn't. This of course isn't something unique to IVT — we can construct many such examples. What I think makes IVT interesting is that we can effectively express what it means to understand it as a human. I'd say that the distinction between ChatGPT's `understanding' here and a human's is that a human knows that if they trace their finger on a piece of paper starting from the bottom half, crossing a horizontal line cutting through the middle, to the top half of the page without taking their finger off the paper then their finger must have touched the horizontal line at some point, i.e. the function must have intersected the $x$-axis during this continuous traversal. I believe that humans understand this due to just experiencing the real world. You don't need any mathematical training to know and, more importantly, understand `why' your finger crosses through this horizontal line on the page. I'm certain that current GPT models do not `understand' the IVT in this way, or really any way that isn't purely formally mathematical.
-
-A separate but related question is to what extent it matters that a model `understands' how it arrives at its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. Maybe 50 years from now we'll be well-taken care of by a fleet of machine learning-based robots and we'll still complain that they aren't truly capable of reasoning like us.
+For a description of machine learning which clarifies why it is difficult to define as a term, consider the following description written by Herbert Jaeger: ``ML as a ﬁeld, which perceives itself as a ﬁeld under this name, is relatively young, say, about 40 years (related research was called “pattern recognition” earlier). It is interdisciplinary and has historical and methodological connections to neuroscience, cognitive science, linguistics, mathematical statistics, AI, signal processing and control; it uses mathematical methods from statistics (of course), information theory, signal processing and control, dynamical systems theory, mathematical logic and numerical mathematics; and it has a very wide span of applications. This diversity in traditions, methods and applications makes it diﬃcult to study ``Machine Learning". Any given textbook, even if it is very thick, will reﬂect the author's individual view and knowledge of the ﬁeld and will be partially blind to other perspectives. This is quite diﬀerent from other areas in computer science, say for example formal languages/theory of computation/computational complexity where a widely shared repertoire of standard themes and methods cleanly deﬁne the ﬁeld."
 
 % supervised learning
 \section{Supervised Learning}
 
 Supervised learning algorithms are a class of machine learning algorithms in which a model learns some relationship between model variables and output variables by being shown concrete examples of what a given input (pertaining to the model variables) should yield as output. These model and output variables can be continuous or discrete in nature but usually it's a mix.
 
-An example of a task which supervised learning is appropriate for includes regression predicting life expectancies of a poulation given features such as the population's height, age, BMI etc. You can think of regression tasks as those where the output of the model should belong to some continuously distributed space. Other than regression, the other vanilla supervised learning task is binary or multi-class classification. Well known examples of binary classification include whether or not a given passenger survived the titanic wreck given their ticket class, sex, age, port of embarkation and a ton more. The bread and butter example of multi-class classification is handwritten digit recognition. It's amazing that something difficult as recently as 2005 is trivial now for various levels of machine learing understanding.
+An example of a task which supervised learning is appropriate for includes regression predicting life expectancies of a poulation given features such as the population's height, age, BMI etc. You can think of regression tasks as those where the output of the model should belong to some continuously distributed space. Other than regression, the other vanilla supervised learning task is classification. Well known examples of binary classification include whether or not a given passenger survived the titanic wreck given their ticket class, sex, age, port of embarkation and a ton more. The bread and butter example of multi-class classification is handwritten digit recognition. It's amazing that something difficult as recently as 2005 is trivial now for various levels of machine learing understanding.
 
 Other than the types of tasks which we consider in this section, it's worth mentioning how we deal with our data in general. In training a model on some dataset, we need some idea of how well the model generalises to new data. This is done by splitting the given dataset $\D$ into a training set $\Dtrain$ and a testing set $\Dtest$. How exactly this split is done depends on the task at hand but an example is 50/50 uniformly randomly splitting the original dataset $\D$ — chronologically or not. It can be important that this is done uniformly randomly. For example, if one is tackling a binary classification task and $\D$ consists of $1000$ samples with $500$ belonging to class 1 and $500$ belonging to class 2 then it's important that one does not split in a way that causes egregiously imbalanced representations of these classes. Training a model on $500$ samples of class 1 then testing it on $500$ samples of class 2 wouldn't make much sense. Similar idea for regression tasks but with ensuring a reasonable balance in representation of values belonging to given intervals corresponding to the output space. With a reasonable split we train the model on $\Dtrain$. It is all the model knows — $\Dtrain$ is the model's universe. After training, we measure the model's ability to generalise to new samples belonging to the same underlying distribution by seeing how well it performs with respect to the samples in $\Dtest$. Essentially comparing its output given some sample to the ideal/true output value of said sample. Things get a bit more fancy when we consider cross-validation but that'll come later.
 
 % linear regression
 \subsection{Linear Regression}
 
-\textbf{Note:} There are some pieces of literature that define linear regression models as regression models that are linear in their parameters. By this definition, linear regression, as a term, would encompass polynomial regression models and other regression models with non-linear basis functions so long as the model is linear in its parameters. This confuses me as `linear regression' most often refers to models that fit a hyperplane to the data.
-
-In fairness, from what I understand, using the least squares method derived below for all such regression models linear in their parameters is viable.\\
-
-\noindent Perhaps the simplest example of supervised learning is linear regression. Suppose we are given a dataset $\D=\{(\x_i,y_i)\}_{i=1,\dots,2n}$ where
+Perhaps the simplest example of supervised learning is linear regression. Suppose we are given a dataset $\D=\{(\x_i,y_i)\}_{i=1,\dots,2n}$ where
 $$
 \x_i=(x_{i,1},\dots,x_{i, p})\in \Omega_{X_1}\times\dots\times \Omega_{X_p}=:\OX\subseteq\R^p
 $$
@@ -87,15 +61,24 @@ are the feature values of the $i^{\text{th}}$ sample and $y_i\in \OY\subseteq\R$
 \end{align*}
 where $\theta=(\theta_0,\theta_1\dots,\theta_p)\in\R^{p+1}$ are the model parameters, i.e. the values we can tweak to our heart's desire until the corresponding model is sufficiently well according to some metric. Some people refer to the paramter $\theta_0$, which dictates the elevation of the hyperplane corresponding to $f_{\theta}(\x)=0$, as the bias of the model which I find very confusing as there are a bunch of other intended meanings of the term `bias' in statistics and machine learning. I prefer to refer to it as the elevation. Anyway, once such a linear function has been fit, given feature values $\tilde{\x}\in\OX$ we can predict the corresponding output as $\tilde{y}=f_{\theta}(\tilde{\x})$.
 
+\begin{tcolorbox}[colback=c6]
+    \textbf{Assumption of normally distributed residuals}
+    \vspace{10pt}
+
+    Central limit theorem to the rescue!\footnote{\url{https://en.wikipedia.org/wiki/Central\_limit\_theorem\#Regression}} ``Regression analysis, and in particular ordinary least squares, specifies that a dependent variable depends according to some function upon one or more independent variables, with an additive error term. Various types of statistical inference on the regression assume that the error term is normally distributed. This assumption can be justified by assuming that the error term is actually the sum of many independent error terms; even if the individual error terms are not normally distributed, by the central limit theorem their sum can be well approximated by a normal distribution."\\
+
+    Another good link: \url{https://stats.stackexchange.com/a/12266}.
+\end{tcolorbox}
+
 An intuitive approach to finding the `optimal' parameters for a linear regression model, which we denote by $\thetaOpt$, is to split $\D$ into training and testing datasets $\Dtrain$ and $\Dtest$ (each consisting of $n$ sample in our case) and minimising some pre-determined loss function of said parameters over $\Dtrain$. Essentially, minimising something like
 $$
-\text{Loss}(\theta)=\sum_{i=1}^nd(f_{\theta}(\x_i), y_i)
+\mathcal{L}(\theta)=\sum_{i=1}^nd(f_{\theta}(\x_i), y_i)
 $$
 where $f_{\theta}(\x_i)$ is the model's prediction for feature values $\x_i$ and $d:Y\times Y\rightarrow\R_{\geq0}$ is some metric on the set of possible output values and itself. Said loss function gives one an idea of how well $\theta$ fits the true underlying relationship which we wish to model. A common choice for the loss function is the mean square error
 $$
-\text{MSE}(\theta)=\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2
+\text{MSE}(\theta)=\frac{1}{n}\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2
 $$
-which pertains to taking $d(f_{\theta}(\x_i), y_i)=(y_i-f_{\theta}(\x_i))^2$. I'll still refer to it as the `mean' square error, even though I don't divide by $n$, simply because minimising it as written above is equivalent to minimising the same expression with division by $n$ included — it's mostly a notational convenience thing. So in our case, we wish to find
+which pertains to taking $d(f_{\theta}(\x_i), y_i)=(y_i-f_{\theta}(\x_i))^2$. Note that the factor of $1/n$ is often left out when discussing MSE as minimising the expression in $\theta$ is invariant to the inclusion of the factor — it's mostly a notational convenience thing. So in our case, we seek to compute
 $$
 \thetaOpt=\argmin_{\theta\in\R^{p+1}}\l[\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\r].
 $$
@@ -172,24 +155,33 @@ $$
 \thetaOpt=(X^{\T}X)^{-1}X^{\T}y.
 $$
 
+\begin{tcolorbox}[colback=c1]
+    \textbf{Note:} There are some pieces of literature that define linear regression models as regression models that are linear in their parameters. By this definition, linear regression, as a term, would encompass polynomial regression models and other regression models with non-linear basis functions so long as the model is linear in its parameters. This confuses me as `linear regression' most often refers to models that fit a hyperplane to data. In fairness, from what I understand, using the least squares method derived below for all regression models linear in their parameters is viable.
+\end{tcolorbox}
+
 \subsubsection{Statistical Motivation}
 
 This idea of minimising the mean square error of the model over $\Dtrain$ even has some rigorous statistical motivation. Assume that the residuals corresponding of the model's output over $\Dtrain$ are independent and identically normally distributed with mean 0. That is, assume
 $$
-e_i
+E_i
 =
-y_i-f_{\theta}(\x_i)\sim\N(0, \sigma^2)
+Y_i-f_{\theta}(\X_i)\sim\N(0, \sigma^2)
 $$
-for $i=1,\dots,n$ are i.i.d. This assumption is reasonable in practice via the CLT. Since $f_{\theta}(\x_i)$ is a constant, we have $y_i|\x_i\sim\N(f_{\theta}(\x_i), \sigma^2)$ and so
+for $i=1,\dots,n$ are i.i.d. This assumption is reasonable in practice due to the central limit theorem (CLT). We have $Y_i|\X_i\sim\N(f_{\theta}(\x_i), \sigma^2)$ and so
 $$
-\P(y_i|\x_i;\theta)=\frac{1}{\sqrt{2\pi}\sigma}\exp\l(-\frac{(y_i-f_{\theta}(\x_i))^2}{2\sigma^2}\r).
+f_{Y|\X}(y_i|\x_i;\theta)=\frac{1}{\sqrt{2\pi}\sigma}\exp\l(-\frac{(y_i-f_{\theta}(\x_i))^2}{2\sigma^2}\r).
 $$
-By the law of maximum likelihood\footnote{maximum likelihood link}, the maximum likelihood estimator $\theta_{\text{MLE}}$ for the parameters of our linear regression model is that which maximise our log-likelihood. That is,
+The maximum likelihood estimator $\theta_{\text{MLE}}$ for the parameters of our linear regression model is that which maximise our log-likelihood. That is,
 \begin{align*}
-    \theta_{\text{MLE}}&=\argmax_{\theta}\l[\log\l(\prod_{i=1}^n\P(y_i|\x_i;\theta)\r)\r]\\
-    &=\argmax_{\theta}\l[\sum_{i=1}^n\log(\P(y_i|\x_i;\theta))\r]\\
-    &=\argmax_{\theta}\l[n\log\l(\frac{1}{\sqrt{2\pi}\sigma}\r)-\frac{1}{2\sigma^2}\sum_{i=1}^n(y_i-f_{\w,b}(\x_i))^2\r]\\
-    &=\argmin_{\theta}\l[\sum_{i=1}^n(y_i-f_{\w,b}(\x_i))^2\r].
+    \theta_{\text{MLE}}
+    &=
+    \argmax_{\theta\in\R^{p+1}}\l[\log\l(\prod_{i=1}^n f_{Y|\X}(y_i|\x_i;\theta)\r)\r]\\
+    &=
+    \argmax_{\theta\in\R^{p+1}}\l[\sum_{i=1}^n\log(f_{Y|\X}(y_i|\x_i;\theta))\r]\\
+    &=
+    \argmax_{\theta\in\R^{p+1}}\l[n\log\l(\frac{1}{\sqrt{2\pi}\sigma}\r)-\frac{1}{2\sigma^2}\sum_{i=1}^n(y_i-f_{\w,b}(\x_i))^2\r]\\
+    &=
+    \argmin_{\theta\in\R^{p+1}}\l[\sum_{i=1}^n(y_i-f_{\w,b}(\x_i))^2\r].
 \end{align*}
 As such, the maximum likelihood estimator of the parameters of a linear regression model are precisely those which minimise the mean square error of the model over $\Dtrain$.
 
@@ -272,7 +264,7 @@ where $x_1$ and $x_2$ correspond to the input sample patient's age and BMI level
         \end{minipage}
     \end{center}
 \end{table}
-Since $\Dtrain$ consists of only five samples, it's feasible to write out the optimal parameters $\thetaOpt$ by hand. We have
+Since $\Dtrain$ consists of only five samples, it's feasible to compute the optimal parameters $\thetaOpt$ by hand. We have
 $$
 y=
 \begin{bmatrix}
@@ -313,9 +305,9 @@ What's nice about such a low-dimensional problem like this is that visualising t
 $$
 \text{MSE}(25.68, \theta_1, \theta_2)
 =
-\sum_{i=1}^5 (y_i-25.68-\theta_1\x_{1,1}-\theta_2\x_{1,2})^2
+\sum_{i=1}^5 (y_i-25.68-\theta_1\x_{i,1}-\theta_2\x_{i,2})^2
 $$
-where the sum is taken over the training data $\{(\x_i,y_i)\}_{i=1,\dots,5}$.
+where the sum is taken over the training data $\{(\x_i,y_i)\}_{i=1}^5$.
 
 As for how well the model performs, its MSE on $\Dtrain$ is $1.26$ and its MSE on $\Dtest$ is $12.24$. In this case, such a difference is fine. To get a visual on how well the model does on the training and testing sets, consider \autoref{fig:lin_reg_example_on_train_and_test}. I should improve these at some point.
 
@@ -323,7 +315,7 @@ As for how well the model performs, its MSE on $\Dtrain$ is $1.26$ and its MSE o
     \centering
     \includegraphics[width=0.49\columnwidth]{./figures/supervised_learning/lin_reg_example/model_predicts_train.pdf}
     \includegraphics[width=0.49\columnwidth]{./figures/supervised_learning/lin_reg_example/model_predicts_test.pdf}
-    \caption{Model performance on the training set (left) and testing set (right).}
+    \caption{Model output for the training set (left) and testing set (right). Hard to appreciate these 3D figures.}
     \label{fig:lin_reg_example_on_train_and_test}
 \end{figure}
 
@@ -339,15 +331,6 @@ The most well known methods of regularisation in the context of regression are L
 
 \subsubsection{$R^2$ value}
 \dots
-
-\begin{tcolorbox}[colback=c2]
-    \textbf{Assumption of normally distributed residuals}
-    \vspace{10pt}
-
-    Central limit theorem to the rescue!\footnote{\url{https://en.wikipedia.org/wiki/Central\_limit\_theorem\#Regression}} ``Regression analysis, and in particular ordinary least squares, specifies that a dependent variable depends according to some function upon one or more independent variables, with an additive error term. Various types of statistical inference on the regression assume that the error term is normally distributed. This assumption can be justified by assuming that the error term is actually the sum of many independent error terms; even if the individual error terms are not normally distributed, by the central limit theorem their sum can be well approximated by a normal distribution."\\
-
-    Another good link: \url{https://stats.stackexchange.com/a/12266}.
-\end{tcolorbox}
 
 \subsubsection{Terminology}
 
@@ -668,7 +651,7 @@ Double descent refers to a behaviour in which overparameterised models ignore fl
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\columnwidth]{./figures/supervised_learning/double_descent.png}
-    \caption{\dots}
+    \caption{The double descent phenomenon.}
     \label{fig:double_descent}
 \end{figure}
 
@@ -681,37 +664,24 @@ A consequence of this is that very deep neural networks learned using gradient d
 
 Some questions to challenge one's understanding.
 
-\begin{tcolorbox}[colback=c2]
 \begin{center}
-    \textbf{Q1: What are the benefits of using logistic regression over more sophisticated methods?}
+    \textbf{\textcolor{blue}{Q1:} What are the benefits of using logistic regression over more sophisticated methods?}
 \end{center}
-\vspace{-8pt}
-\begin{itemize}[label=\scriptsize\textbullet,left=0pt]
-    \item Its implementation and interpretation are straightforward
-    \item If offers a notion of classification confidence which is useful
-    \item Statistical tests can be conducted on parameters, e.g. statistical significance tests
-\end{itemize}
-\end{tcolorbox}
+Mostly because statistical tests can be conducted on parameters, e.g. statistical significance tests. It also helps that it offers a notion of classification confidence and that it simplementation and interpretation are straightforward.
 
-\begin{tcolorbox}[colback=c2]
 \begin{center}
-    \textbf{Q2: Why not use mean absolute error instead of MSE?}
+    \textbf{\textcolor{blue}{Q2:} Why not use mean absolute error instead of MSE?}
 \end{center}
-\vspace{-8pt}
 There are many reasons for this, one of which is that often in machine learning and statistics-related contexts one would like to be able to compute the derivative(s) of such a loss function, e.g. in gradient descent, and the presence of an absolute value makes this annoying.
 
 As to why it's useful that the MSE involves the squares of the errors, instead of exponents like $2.05, 3$ or $\pi$, it was best put by this answer to a Stack Exchange answer about the same question\footnote{\url{https://math.stackexchange.com/a/63245}}:
 
 ``The variance is the mean squared deviation from the average. The variance of the sum of 10,000 random variables is the sum of their variances. That doesn't work for other powers of the absolute value of the deviation. That means if you roll a die 6,000 times, so that the expected number of 1s you get is 1,000, then you also know that the variance of 1s is $6000\cdot\frac{1}{6}\cdot\frac{5}{6}$ so if you want the probability that the numbner of 1s is between 990 and 1,020, you can approximate the distribution by the normal distribution with the same mean and variance. You couldn't do that if you didn't know the variance, and you couldn't know the variances without additivity of variances, and if the exponent were anything besides 2, then you don't have that. (Oddly, you do have additivity with cubes of the deviations, but not cubes of the absolute values of the deviations)."
-\end{tcolorbox}
 
-\begin{tcolorbox}[colback=c2]
 \begin{center}
-    \textbf{Q3: How can we get an idea of the extent to which our features and output are linearly related without plotting?}
+    \textbf{\textcolor{blue}{Q3:} How can we get an idea of the extent to which our features and output are linearly related without plotting?}
 \end{center}
-\vspace{-8pt}
 To be honest, I thought a streamline test for this existed. As per this Stack Exchange answer\footnote{\url{https://stats.stackexchange.com/a/239142}}, a good method for this is to simply fit a linear and a non-linear model (e.g. a cubic spline smoother model) and see which explains a larger amount of the variance of the output via ANOVA tests.
-\end{tcolorbox}
 
 % gradient descent and optimisation techniques
 \section{Gradient Descent and its Optimisation}
@@ -739,28 +709,25 @@ Some questions to challenge one's understanding.
 \begin{center}
     \textbf{\textcolor{blue}{Q1:} Why does $f(\mathbf{x})$ ascend most in the direction of $\nabla f(\mathbf{x})$?}
 \end{center}
+The following is more of a proof \textit{that} $\nabla f(x)$ yields the direction of steepest ascent not an intuition of \textit{why}. For some reason, it is typically taken for granted that $f(\mathbf{x})$ would both ascend and ascend \textit{most} in the direction of $\nabla f(\mathbf{x})$. I do not consider this obvious at all, so here is an informal physicist-like argument. Note that in this argument, we consider only unit vectors $\mathbf{v}$. This is because we care only about the direction of such vectors, so size does not matter, and an equation later on simplifies quite nicely due to its unit length. 
 
-\noindent The following is more of a proof \textit{that} $\nabla f(x)$ yields the direction of steepest ascent not an intuition of \textit{why}. That'll come later.
-
-For some reason, it is typically taken for granted that $f(\mathbf{x})$ would both ascend and ascend \textit{most} in the direction of $\nabla f(\mathbf{x})$. I do not consider this obvious at all, so here is an informal physicist-like argument. Note that in this argument, we consider only unit vectors $\mathbf{v}$. This is because we care only about the direction of such vectors, so size does not matter, and an equation later on simplifies quite nicely due to its unit length. 
-
-In gradient descent, we are looking for the unit vector $\mathbf{v}$ such that $f(\mathbf{x})$ increases most in the direction of $\mathbf{v}$, i.e. we are trying to solve the optimisation problem given by
+In gradient descent, we are looking for the unit vector $\mathbf{v}$ such that $f(\mathbf{x})$ increases most in the direction of $\mathbf{v}$, i.e. we seek to compute
 $$\argmax_{||\mathbf{v}||=1}\Big[f(\mathbf{x}+\eta\mathbf{v})-f(\mathbf{x})\Big]$$
-where $\eta>0$. Approximating $f(\mathbf{x}+\eta\mathbf{v})$ by its Taylor approximation
+where $\eta>0$. If $\eta$ is small then approximating $f(\mathbf{x}+\eta\mathbf{v})$ using its Taylor expansion yields
 $$
 \nabla f(\mathbf{x})\cdot\mathbf{v}\approx\frac{f(\mathbf{x}+\eta\mathbf{v})-f(\mathbf{x})}{\eta},
 $$
-for small $\eta>0$, yields
+from which we obtain
 $$
 f(\mathbf{x}+\eta\mathbf{v})-f(\mathbf{x})
 \approx
-\nabla f(\mathbf{x})\cdot\eta\mathbf{v}
+\nabla f(\mathbf{x})\cdot\eta\mathbf{v}.
 $$
-and so the problem translates to finding the unit vector $\mathbf{v}$ that maximises
+Thus, the problem translates to finding the unit vector $\mathbf{v}$ that maximises
 $$
 \nabla f(\mathbf{x})\cdot\eta\mathbf{v}=||\nabla f(\mathbf{x})||\cdot||\eta\mathbf{v}||\cdot\cos(\theta)=\eta||\nabla f(\mathbf{x})||\cdot\cos(\theta)
 $$
-where $\theta\in[0,\pi)$ denotes the angle between $\nabla f(\mathbf{x})$ and $\mathbf{v}$. This is clearly maximised when $\cos(\theta)=1$, i.e. when $\theta=0$, and $\mathbf{v}$ has the same direction as $\nabla f(\mathbf{x})$. So $\mathbf{v}$ is a unit vector in the direction of $\nabla f(\mathbf{x})$, i.e. $\mathbf{v}=\frac{\nabla f(\mathbf{x})}{||\nabla f(\mathbf{x})||}$. To see that $f$ ascends after being sent in the direction of $\mathbf{v}=\frac{\nabla f(\mathbf{x})}{||\nabla f(\mathbf{x})||}$ from $\mathbf{x}$ by a distance $\eta>0$, note that
+where $\theta\in[0,\pi)$ denotes the angle between $\nabla f(\mathbf{x})$ and $\mathbf{v}$. This expression is maximised when $\cos(\theta)=1$, i.e. when $\theta=0$, which necessitates $\mathbf{v}$ having the same direction as $\nabla f(\mathbf{x})$. So $\mathbf{v}$ is a unit vector in the direction of $\nabla f(\mathbf{x})$, i.e. $\mathbf{v}=\frac{\nabla f(\mathbf{x})}{||\nabla f(\mathbf{x})||}$. To see that $f$ ascends after being sent in the direction of $\mathbf{v}=\frac{\nabla f(\mathbf{x})}{||\nabla f(\mathbf{x})||}$ from $\mathbf{x}$ by a distance $\eta>0$, note that
 $$
 f(\mathbf{x}+\eta\mathbf{v})-f(\mathbf{x})
 \approx
@@ -772,18 +739,16 @@ f(\mathbf{x}+\eta\mathbf{v})-f(\mathbf{x})
 >
 0.
 $$
-The edge case where $\nabla f(\mathbf{x})=0$ of course corresponds to $f(\mathbf{x})$ being a local maximum.
+The edge case where $\nabla f(\mathbf{x})=0$ corresponds to $f(\mathbf{x})$ being a local maximum.
 
 \vspace{10pt}
 
-\noindent\textbf{Note}: This argument, which utilises a Taylor approximation, relies on a sufficiently small $\eta>0$. Otherwise, the terms in the Taylor approximation of $f(\mathbf{x}+\eta\mathbf{v})$ beyond $\nabla f(\mathbf{x})\cdot\eta\mathbf{v}$ are not necessarily negligible.
+\noindent\textbf{Note}: This argument, which utilises a Taylor approximation, relies on a sufficiently small learning rate $\eta>0$. Otherwise, the terms in the Taylor approximation of $f(\mathbf{x}+\eta\mathbf{v})$ beyond $\nabla f(\mathbf{x})\cdot\eta\mathbf{v}$ are not necessarily negligible.
 
 \begin{center}
-    \textbf{\textcolor{blue}{Q2:} Which loss function is appropriate?}
+    \textbf{\textcolor{blue}{Q2:} Which loss function is appropriate for gradient descent?}
 \end{center}
-
-\noindent Note that these depend on having uniform diversity of classes. If not then use weighted cross-entropy loss functions. There are a ton of machine learning-related scenarios that would need a specially-chosen loss function but the list below is a fine start.
-
+There are a ton of machine learning-related scenarios that would need a specially-chosen loss function but the list below is a fine overview. Most are principled in their motivation due to their minimisation corresponding to maximum likelihood estimation in some way.
 \begin{table}[ht]
     \begin{center}
         \begin{tabular}{c||c}
@@ -798,18 +763,19 @@ The edge case where $\nabla f(\mathbf{x})=0$ of course corresponds to $f(\mathbf
         \end{tabular}
     \end{center}
     \vspace{-15pt}
-    \caption{Loss function choices.}
+    \caption{Loss function overview.}
     \label{tab:loss_func_choices}
 \end{table}
-\noindent Most of these are principled in that their minimisation corrsponds to maximum likelihood estimation.
 
 \begin{center}
     \textbf{\textcolor{blue}{Q3:} How should we choose the learning rate $\eta$?}
 \end{center}
 This is entirely problem-dependent but $\eta=0.1$ is a great staple choice. If convergence is unstable then try $\eta=0.01$. Other than this line of thinking, there are some `rules of thumb' relating batch number/size to learning rate, otherwise it's a `whatever seems to work best' kind of thing.
 
+It's perhaps also worth mentioning the idea of learning over some number of epochs with $\eta=0.1$ and then for a few more epochs with $\eta=0.01$. There's some name for this idea. It's a pretty intuitive one and I first saw it used in practice by Karpathy.
+
 \begin{center}
-    \textbf{\textcolor{blue}{Q4:} How should we initialise the parameters?}
+    \textbf{\textcolor{blue}{Q4:} How should we initialise the parameters? \textcolor{red}{TODO}}
 \end{center}
 Xavier initialisation is often-used for neural networks. Maybe things have changed in this regard though; things move fast. Unsure about older architectures.
 
@@ -821,6 +787,7 @@ It's often the case that someone's intended meaning when stating `neural network
 
 % neural networks
 \subsection{Multi-Layer Perceptrons (MLPs)}
+\label{sec:multi_layer_perceptrons}
 
 Multi-layer perceptrons (MLPs) are fully-connected feed-forward networks consisting of an input layer (where data is input), hidden layers and an output layer. An MLP with three hidden layers is illustrated in \autoref{fig:MLP}. Each layer is made up of a number of neurons, each of which has a real-valued activation value.  For any node in a non-input layer, its activation value is the output of a non-linear activation function given, as input, the node's real-valued bias plus a weighted sum of the activation values of the neurons in its preceding layer. Regarding their inspiration from the human brain, consider this footnote\footnote{\url{https://stats.stackexchange.com/a/159172}}.
 
@@ -833,13 +800,13 @@ The application of MLPs to learning functions from data is due to their expressi
     \label{fig:MLP}
 \end{figure}
 
-For ease of notation, given an MLP with $k$ hidden layers, denote the index of the input layer by $0$, the output layer by $k+1$ and by extension the $j^{\text{th}}$ layer by $j\in\{0,\dots,k+1\}$. Additionally, note the following:
+For brevity, given $m,n\in\mathbb{N}$ with $m\leq n$ let $[n]_m=\{m,\dots,n\}$ and let $[n]=[n]_1$. For further ease of notation, given an MLP with $k$ hidden layers, denote the index of the input layer by $0$, the output layer by $k+1$ and by extension the $j^{\text{th}}$ layer by $j\in[k+1]_0$. Additionally, note the following:
 \begin{itemize}
     \item Let $n_j\in\mathbb{Z}_{\geq1}$ denote the number of neurons in layer $j$.
     \item Let $a_i^{(j)}\in\mathbb{R}$ denote the activation value of neuron $i$ in layer $j$.
-    \item Let $w_{i,l}^{(j)}\in\mathbb{R}$ denote the weight associated with the edge to neuron $i$ in layer $j\in\{1,\dots,k+1\}$ from neuron $l$ in layer $j-1$.
-    \item Let $b_i^{(j)}\in\mathbb{R}$ denote the bias of neuron $i$ in layer $j\in\{1,\dots,k+1\}$.
-    \item Let $\sigma_j:\mathbb{R}\rightarrow\mathbb{R}$ denote the non-linear activation function of layer $j\in\{1,\dots,k+1\}$.
+    \item Let $w_{i,l}^{(j)}\in\mathbb{R}$ denote the weight associated with the edge to neuron $i$ in layer $j\in[k+1]$ from neuron $l$ in layer $j-1$.
+    \item Let $b_i^{(j)}\in\mathbb{R}$ denote the bias of neuron $i$ in layer $j\in[k+1]$.
+    \item Let $\sigma_j:\mathbb{R}\rightarrow\mathbb{R}$ denote the non-linear activation function of layer $j\in[k+1]$.
 \end{itemize}
 
 \noindent From here we can express the activation value of any neuron in a non-input layer in terms of the activation values of the neurons in the layer which precedes it as
@@ -861,7 +828,7 @@ For ease of notation, given an MLP with $k$ hidden layers, denote the index of t
     b_i^{(j+1)}
 \r)
 \end{align*}
-for $j\in\{0,\dots,k\}$. The reason for writing the second equality above, involving the dot product of two vectors, is that it helps us to see how using matrix-vector notation allows us to write an elegant and compact expression for the activation values of all nodes in a non-input layer in terms of the activation values of the neurons belonging to its preceding layer as
+for $j\in[k]_0$. The reason for writing the second equality above, involving the dot product of two vectors, is that it helps us to see how using matrix-vector notation allows us to write an elegant and compact expression for the activation values of all nodes in a non-input layer in terms of the activation values of the neurons belonging to its preceding layer as
 $$
 \begin{bmatrix}
     a_1^{(j+1)}\\
@@ -1034,9 +1001,131 @@ There's something to be said about the fact that these are upper bounds and to w
 \subsection{Backpropagation for MLPs}
 \label{subsec:backprop}
 
-As with formulating MLPs, it's good to rigorously express backpropagation at least once in life, so here it is. It's sort of strange that I haven't done this yet and simply trust that it works while having only an intuitive idea of it up to now (August 2025).
+Backpropagation is a method of computing the gradient of a loss function pertaining to an MLP (or more generally some neural network) with respect to its weights and biases. Said gradients are used to learn suitable MLP parameters via gradient descent. We'll soon see why it's called backpropagation: it computes the gradients of interest in a way that requires going forwards through the MLP and then backwards. As with formulating MLPs, it's good to rigorously derive backpropagation at least once. It's sort of strange that I haven't done that yet (August 2025 is time of writing) and have just trusted that it holds up.
 
-Chain rule/automatic differentiation to learn the parameters from data. Very often it helps us perform numerical maximum likelihood (depends on the loss function invoked).
+Onto the derivation, which makes use of the notation introduced in \autoref{sec:multi_layer_perceptrons}. The dataset from which the MLP is learned is constant, and so in deriving backpropagation the loss function is treated as a function of the weights and biases only, i.e.
+$$
+\mathcal{L}\l(\mathbf{W}^{(1)},\dots,\mathbf{W}^{(k+1)},\mathbf{b}^{(1)},\dots,\mathbf{b}^{(k+1)}\r)
+$$
+which we denote by just $\mathcal{L}$. Let $\mathbf{z}^{(j)}=\mathbf{W}^{(j)}\mathbf{a}^{(j-1)}+\mathbf{b}^{(j)}$ for $j\in[k+1]$ from which we have $\mathbf{a}^{(j)}=\sigma_{j}\l(\mathbf{z}^{(j)}\r)$. Further, let
+$$
+\delta^{(j)}_i
+=
+\frac{\partial\mathcal{L}}{\partial z^{(j)}_i}
+$$
+for $j\in[k+1]$ and $i\in[n_j]$ where $\l(z_1^{(j)},\dots,z_{n_j}^{(j)}\r)=\mathbf{z}^{(j)}$. We seek to derive four statements:
+\begin{enumerate}
+    \item $\delta_i^{(k+1)}=\sigma_{k+1}'\l(z_i^{(k+1)}\r)\frac{\partial\mathcal{L}}{\partial a_i^{(k+1)}}$ for $i\in[k+1]$
+    \item $\delta_i^{(j)}=\sigma_{j}'\l(z_i^{(j)}\r)\l(\l(\mathbf{W}^{(j+1)}\r)^\top\delta^{(j+1)}\r)_i$ for $j\in[k]$ and $i\in[n_j]$
+    \item $\frac{\partial\mathcal{L}}{\partial b^{(j)}_i}=\delta^{(j)}_i$ for $j\in[k+1]$ and $i\in[n_j]$
+    \item $\frac{\partial\mathcal{L}}{\partial w_{l,i}^{(j)}}=\delta_l^{(j)}a_i^{(j-1)}$ for $j\in[k+1]$, $i\in[n_{j-1}]$ and $l\in[n_j]$
+\end{enumerate}
+Before deriving each statement in order, we can see already what was meant earlier by propagating backwards through the MLP: to compute the gradients relevant to performing gradient descent, backpropagation requires the computation of $\mathbf{z}^{(1)},\dots,\mathbf{z}^{(k+1)}$ from which $\delta^{(k+1)}$ can be computed. Note that the $\frac{\partial\mathcal{L}}{\partial a_i^{(k+1)}}$ term in the first statement is often easily computed, e.g. for MSE loss we have
+$$
+\frac{\partial\mathcal{L}}{\partial a_i^{(k+1)}}=a_i^{(k+1)}-y_i.
+$$
+From there, one can compute $\delta^{(k)},\dots,\delta^{(1)}$ in that order, effectively propagating through the MLP backwards. With $\delta^{(1)},\dots,\delta^{(k+1)}$ and $\mathbf{a}^{(0)},\mathbf{a}^{(1)}=\sigma_1\l(\mathbf{z}^{(1)}\r),\dots,\mathbf{a}^{(k+1)}=\sigma_{k+1}\l(\mathbf{z}^{(k+1)}\r)$, computing the relevant gradients is straightforward.\\
+
+\noindent\textbf{Statement 1.} Using the chain rule, see that
+\begin{align*}
+    \delta_i^{(k+1)}
+    &=
+    \frac{\partial\mathcal{L}}{\partial z_i^{(k+1)}}\\
+    &=
+    \frac{\partial\mathcal{L}}{\partial a_i^{(k+1)}}\frac{a_i^{(k+1)}}{\partial z_i^{(k+1)}}\\
+    &=
+    \sigma_{k+1}'\l(z_i^{(k+1)}\r)\frac{\partial\mathcal{L}}{\partial a_i^{(k+1)}}.
+\end{align*}
+
+\noindent\textbf{Statement 2.} First, note that
+$$
+\l(\mathbf{W}^{(j+1)}\r)^\top\delta^{(j+1)}
+=
+\begin{bmatrix}
+    w_{1,1}^{(j+1)}   & \dots  & w_{n_{j+1},1}^{(j+1)}\\
+    \vdots            & \ddots & \vdots               \\
+    w_{1,n_j}^{(j+1)} & \dots  & w_{n_{j+1},n_j}^{(j+1)}
+\end{bmatrix}
+\begin{bmatrix}
+    \delta_1^{(j+1)}\\
+    \vdots\\
+    \delta_{n_{j+1}}^{(j+1)}
+\end{bmatrix}
+=
+\sum_{l=1}^{n_{j+1}}\delta_l^{(j+1)}
+\begin{bmatrix}
+    w_{l,1}^{(j+1)}\\
+    \vdots\\
+    w_{l,n_j}^{(j+1)}
+\end{bmatrix}
+$$
+and so
+$$
+\l(\l(\mathbf{W}^{(j+1)}\r)^\top\delta^{(j+1)}\r)_i
+=
+\sum_{l=1}^{n_{j+1}}\delta_l^{(j+1)}w_{l,i}^{(j+1)}
+$$
+which reduces the to-be-derived statement to
+$$
+\delta_i^{(j)}
+=
+\sigma_j'(z_i^{(j)})\sum_{l=1}^{n_{j+1}}\delta_l^{(j+1)}w_{l,i}^{(j+1)}.
+$$
+Using the chain rule, we deduce that
+\begin{equation*}
+    \label{eq:back_prop_statement_2}
+    \delta_i^{(j)}
+    =
+    \frac{\partial\mathcal{L}}{\partial z_i^{(j)}}
+    =
+    \sum_{l=1}^{n_{j+1}}\frac{\partial\mathcal{L}}{\partial z_l^{(j+1)}}\frac{\partial z_l^{(j+1)}}{\partial z_i^{(j)}}
+    =
+    \sum_{l=1}^{n_{j+1}}\delta_l^{(j+1)}\frac{\partial z_l^{(j+1)}}{\partial z_i^{(j)}}.
+\end{equation*}
+To complete our deduction, see that
+$$
+z_l^{(j+1)}
+=
+\sum_{i=1}^{n_j}w_{l,i}^{(j+1)}\sigma_{j+1}\l(z_i^{(j)}\r)+b_l^{(j+1)}
+$$
+from which we obtain
+$$
+\frac{\partial z_l^{(j+1)}}{\partial z_i^{(j)}}
+=
+\sigma_{j+1}'(z_i^{(j)})w_{l,i}^{(j+1)}
+$$
+completing the deduction.\\
+
+\noindent\textbf{Statement 3.} This one's a simple application of the chain rule, as in
+$$
+\frac{\partial\mathcal{L}}{\partial b_i^{(j)}}
+=
+\sum_{l=1}^{n_{j+1}}\frac{\partial\mathcal{L}}{\partial z_l^{(j)}}\frac{\partial z_l^{(j)}}{\partial b_i^{(j)}}
+=
+\frac{\partial\mathcal{L}}{\partial z_i^{(j)}}
+=
+\delta_i^{(j)}.
+$$
+\textbf{Statement 4.} As before, see that
+$$
+z_l^{(j)}
+=
+\sum_{i=1}^{n_j}w_{l,i}^{(j)}a_i^{(j-1)}+b_l^{(j)}
+$$
+which yields
+$$
+\frac{\partial z_l^{(j)}}{\partial w_{l,i}^{(j)}}
+=
+a_i^{(j-1)}.
+$$
+To complete the derivation, consider
+$$
+\frac{\partial\mathcal{L}}{\partial w_{l,i}^{(j)}}
+=
+\frac{\partial\mathcal{L}}{\partial z_l^{(j)}}\frac{\partial z_l^{(j)}}{\partial w_{l,i}^{(j)}}
+=
+\delta_i^{(j)}a_i^{(j-1)}.
+$$
 
 % convolutional neural networks
 \subsection{Convolutional Neural Networks (CNNs)}
@@ -1087,7 +1176,7 @@ Pooling operations reduce the spatial dimensions of a given feature map by, in s
 
 \noindent I typically just pick max pooling and see how it does. A nice benefit of pooling is improved translation-invariance. Ideally, our model would classify an image in a similar enough way to how it'd classify the same image but slightly shifted. What is meant here is very problem-dependent so take it with a grain of salt. Hopefully the idea is clear anyway. Another benefit to pooling the reduced compute.
 
-\subsubsection*{Output dimensions of convolutions and pooling}
+\subsubsection{Output dimensions after convolving and pooling}
 Given a feature map $F\in\mathbb{R}^{W\times H}$, suppose we compute the convolution $O\in\mathbb{R}^{W'\times H'}$ of the kernel $K\in\mathbb{R}^{k\times k}$ over $F$ with uniform padding $P$ and stride $S$. The precise dimensions $W'$ and $H'$ of the new feature map $O$ are given by
 $$
 W'
@@ -1108,9 +1197,6 @@ H'
 $$
 It's not too tricky to derive these. It's the kinda thing you do once and never again.
 
-\subsubsection{Backpropagation for CNNs}
-We've already seen how to backprop through the MLP component. We haven't seen how to backprop through convoluationa/pooling layers yet. Ultimately, similar idea as for MLPs: automatic differentiation, chain rule, bla bla bla\footnote{\url{https://www.quarkml.com/2023/07/backward-pass-in-convolutional-neural-network-explained.html}}.
-
 % recurrent neural networks
 \subsection{Recurrent Neural Networks (RNNs)}
 \dots
@@ -1120,14 +1206,6 @@ We've already seen how to backprop through the MLP component. We haven't seen ho
 
 \subsubsection{Gated Recurrent Units (GRUs)}
 \dots
-
-\subsubsection{Skip connections/residual networks}
-\begin{itemize}
-    \item Most intuitive benefit: it helps prevent some layer in the architecture from degrading the input entirely. It's like a nice reminder to the model what it was working from before it got to this point
-    \item Reduces vanishing or exploding gradients: opens the door to far deeper architectures
-    \item Ensures that the model has to learn the residual as opposed to the full underlying function: faster convergence usually
-    \item Takes pressure off parameter initialisation: if you set parameters to zero then initially model is just the identity and learning from there is feasible
-\end{itemize}
 
 % autoencoders
 \subsection{Autoencoders}
@@ -1222,12 +1300,12 @@ and define $D(0,0)=0$ to account for the removable singularity.
 \end{center}
 If there were a single activation function towards the end of the architecture then everything that came before would be a series of linear transformations of the input. The composition of linear transformations is just a linear transformation. As such, the model would effectively be a single linear layer into a non-linear transformation. The only way this could be effective would be if the non-linear transformation were effectively the function we're looking to model in the first place.
 
-\textcolor{red}{TODO: note that this is just a single-layer perceptron}: most activation functions are monotonic, so SLPs reduce to, again, a hyperplane in feature space. like the first paragraph states, if we allow for arbitrary non-linear activation functions then this is possbile in theory (but unrealistic). monotonicity kills it
+\textcolor{red}{TODO: note that this is just a single-layer perceptron}: most activation functions are monotonic, so single layer perceptrons reduce to, again, a hyperplane in feature space. like the first paragraph states, if we allow for arbitrary non-linear activation functions then this is possbile in theory (but unrealistic). monotonicity kills it
 
 \begin{center}
     \textbf{\textcolor{blue}{Q4:} Must activation functions be monotonic?}
 \end{center}
-No, it just makes things related to optimisation easier while not impacting performance.
+No, it just makes things related to optimisation easier while having a sufficiently-small effect on practical performance.
 
 \begin{center}
     \textbf{\textcolor{blue}{Q5:} Which activation functions should be used when?}
@@ -1243,6 +1321,18 @@ Suppose we have an MLP and a CNN, both trained to perform binary classification 
 
 Also, improved learning-efficiency\footnote{\url{https://ai.stackexchange.com/questions/27407/what-does-statistical-efficiency-mean-in-this-context}}, i.e. fewer samples needed to lean distributions to similar degrees of precision.
 
+\begin{center}
+    \textbf{\textcolor{blue}{Q7:} How does one prevent vanishing/exploding gradients?}
+\end{center}
+
+\noindent Through skip connections. Architectures which use them are sometimes called residual networks.
+\begin{itemize}
+    \item Most intuitive benefit: it helps prevent some layer in the architecture from degrading the input entirely. It's like a nice reminder to the model what it was working from before it got to this point
+    \item Reduces vanishing or exploding gradients: opens the door to far deeper architectures
+    \item Ensures that the model has to learn the residual as opposed to the full underlying function: faster convergence usually
+    \item Takes pressure off parameter initialisation: if you set parameters to zero then initially model is just the identity and learning from there is feasible
+\end{itemize}
+
 % generative models
 \section{Deep Generative Models}
 
@@ -1252,6 +1342,8 @@ The problem with fitting such a distribution is that it is not at all clear what
 
 % variational autoencoders
 \subsection{Variational Autoencoders (VAEs)}
+
+\subsubsection*{Motivating VAEs}
 In \autoref{sec:autoencoders}, autoencoders (AEs) were discussed. Autoencoders are great for data compression/decompression, denoising, interpreting complex models, etc. but we haven't seen yet how we might make use of them for generative tasks, i.e. sampling from the nasty/complex underlying distribution of the data they are trained on. An intuitive first idea is to train a compression/decompression autoencoder, randomly generate points in its latent space and feed them through the decoder, as in \autoref{fig:autoencoder_generation_1}. The outputs of the decoder should be similar to the training data, right? No.
 
 \begin{figure}[ht]
@@ -1272,11 +1364,9 @@ New idea: how about we feed the decoder latent points that are pretty close to t
     \label{fig:autoencoder_generation_2}
 \end{figure}
 
-\noindent Distaster strikes again. To get decoder outputs that are meaningful using this idea, one must take points in the latent space which are ridiculously close to this chosen sample's latent embedding. So close that you'd be practically reconstructing the original training sample each time — certainly not what we mean when we say that we'd like to generate samples.
+\noindent Distaster strikes again. To get decoder outputs that are meaningful using this idea, one must take points in the latent space which are ridiculously close to this chosen sample's latent embedding. So close that you'd be practically reconstructing the original training sample each time — certainly not what we mean when we say that we'd like to generate samples. So how do we do autoencoder-like things in a way that yields well-structured latent spaces? Variational autoencoders (VAEs)!
 
-So how do we do autoencoder-like things in a way that yields well-structured latent spaces? Queue variational autoencoders (VAEs), illustrated in \autoref{fig:VAE_architecture}.
-
-\subsubsection{Formulating VAEs}
+\subsubsection*{Formulating VAEs}
 Leaving aside, for now, how to learn one from data, VAEs can informally be seen as an extension of autoencoders in which the encoder and decoder each output parameters of a distribution belonging to some pre-chosen distribution family. Extending the notation used to define autoencoders, a variational autoencoder $(\Omega_{\X},d,\mathcal{Q}_d,\mathcal{P}_n,\theta,\phi)$ consists of the sample space of the distribution of interest $\Omega_{\X}\subset\mathbb{R}^n$, a latent dimension $d\in\mathbb{Z}_{\geq1}$, the parameter space $\mathcal{Q}_d$ of a family of $d-$dimensional conditional distributions denoted $q_{\theta}(\z|\x)$, the parameter space $\mathcal{P}_n$ of a family of $n-$dimensional conditional distributions denoted $p_{\phi}(\x|\z)$, an encoder $\theta:\mathbb{R}^n\to\mathcal{Q}_d$ and a decoder $\phi:\mathbb{R}^d\to\mathcal{P}_n$.
 
 To illustrate the intended meaning of the newly-introduced parameter spaces $\mathcal{Q}_d$ and $\mathcal{P}_n$, one's encoder might yield the expectation vector and covariance matrix of a $d-$dimensional Gaussian $\mathcal{N}(\mu,\Sigma)$, i.e. $\mathcal{Q}_d$ could be the parameter space of the family of $d-$dimensional Gaussian distributions yielding
@@ -1485,21 +1575,7 @@ R-CNN models has three flavours: R-CNN, Fast R-CNN and Faster R-CNN. R-CNN stand
 
 % probability things
 \section{Probability Theory Things}
-
-\begin{tcolorbox}[colback=c5]
-    \textbf{Discrete:}
-    \begin{itemize}
-        \item Bernoulli $\rightarrow$ Binomial \textbf{(binary classification)}
-        \item Categorical $\rightarrow$ Multinomial \textbf{(multi-class classification)}
-    \end{itemize}
-\end{tcolorbox}
-
-\begin{tcolorbox}[colback=c9]
-    \textbf{Continuous:}
-    \begin{itemize}
-        \item (Multivariate) Normal \textbf{(generic)}
-    \end{itemize}
-\end{tcolorbox}
+Here are some probability theory-related things, e.g. long derivations, which are well-suited for an appendix.
 
 \subsection{From Bernoulli to Binomial}
 Let's try to generalise the Bernoulli distribution to the binomial distribution. If $X\sim\text{Ber}(p)$ then $\Omega_X=\{0,1\}$ and $\P(X=x)=p^x(1-p)^{1-x}$, so $\P(X=1)=p$ and $\P(X=0)=1-p$.
@@ -1587,7 +1663,7 @@ $$
 p(1-p)^k.
 $$
 
-\subsection{The Law of Large Numbers}
+\subsection{The Law of Large Numbers \textcolor{red}{TODO}}
 Suppose you have some i.i.d. samples $x_1,\dots,x_n\sim p(x)$ then
 $$
 \frac{1}{n}\sum_{i=1}^n x_i
@@ -1717,7 +1793,7 @@ $$
 $$
 which seems pretty low. Good fit!
 
-\subsubsection{Distribution fitting using maximum likelihood estimation}
+\subsubsection{Distribution fitting using maximum likelihood estimation \textcolor{red}{TODO}}
 Suppose instead of knowing the nice geometric distribution from \autoref{subsubsec:dist_fit_CE} we only had $n$ i.i.d. samples drawn from it denoted $\D=(k_1,\dots,k_n)\in\mathbb{N}^n$. The MLE of the `true' $k$ of $\text{Poi}(k)$ is given by
 $$
 k_{\text{MLE}}
@@ -1732,16 +1808,30 @@ k_{\text{MLE}}\xrightarrow{n\to\infty}\E[K]=1.
 $$
 From what I understand, the fact that minimising cross-entropy yields the same estimate as MLE with $n\to\infty$ here is a special case of things learned in generalised linear models. Some sort of result about distributions from exponential families. Sadly, I never took the GLMs course at my university by Wim Krijnen so it isn't obvious to me.
 
-\subsection{The Central Limit Theorem (CLT)}
+\subsection{The Central Limit Theorem (CLT) \textcolor{red}{TODO}}
 \dots
 
 % statistics things
 \section{Classical Statistics Things}
+I should have a far more concrete understanding of classical statistics tbh. Such is life.
 
 \subsection{Independent samples}
 Suppose we'd like to get an idea of the average height of men and women in our population. If we randomly sample 100 men and 100 women then we're good to go: we have independent samples. If instead we randomly sample 100 couples then our samples would not be independent since couples' heights correlate.
 
 This is important because when performing maximum likelihood, the assumption of independence of samples is key to writing the likelihood of the set as a product of individual probabilities. Without this independence, the likelihood would be a horribly complex function that we would not be able to utilise. Independence is also assumed in a ton of other statistics-related things like t-tests, ANOVA, etc.
+
+% philosophy things
+\section{Philosophy Things}
+I don't think about the philosophic side of maching learning very often but I find some topics interesting.
+
+% thoughts on reasoning
+\subsection{Thoughts on reasoning (Summer 2024)}
+
+At the time of writing, machine learning, as a term, is used almost interchangeably with artificial intelligence (AI). AI isn't particularly well-defined in itself, even in academic settings, so its use in day-to-day things, e.g. in the news, often causes confusion and debate. I'm not sure how I would define AI in a way that'd satisfy most. Maybe the discipline of studying things that can `reason', as a human does, given some agreed upon notion of `reasoning'. A common issue found in discussions surrounding this topic is that a definition of `reasoning' is left out. This is probably because it's a tricky term to arrive at an agreed upon definition of.
+
+Right now, I'm unaware of any machine learning model that can `reason' by any agreed upon definition of the term. I suspect that while current models can simulate `reasoning' to the extent of being able to effectively solve tasks which require some sort of underlying understanding, they do not `reason' in the human sense, which is grounded in embodied experience. Let's say that an LLM (e.g. GPT-4o) concludes that a continuous real-valued function $f:\R\rightarrow\R$ has a root in some interval $(a, b)$ using the intermediate value theorem (IVT) by noting that $f(a)<0$ and $f(b)>0$. Did the LLM `reason' in its application of the IVT or do we instead brush this off as the LLM having been trained many examples of the application of the IVT? Does it `understand' what it's concluding? As of right now I'd say that it doesn't. This of course isn't something unique to the IVT — we can construct many such examples. What I think makes IVT interesting is that we can effectively express what it means to `understand' its correctness as a human. I'd say that the distinction between the LLM's `understanding' and a human's here is that a human knows that if they trace their finger on a piece of paper starting from the bottom half, crossing a horizontal line cutting through the middle of the paper, to the top half of the paper without removing their finger then their finger must have touched the horizontal line at some point (ignore the fact that such a traversal is not necessarily a function, you get the idea). You don't need any mathematical training to know and, more importantly, understand why your finger crosses through the horizontal line on the page. LLMs certainly do not `understand' the correctness of the IVT in this way, or really any way that isn't purely symbolic. Maybe multimodal LLMs will alleviate this.
+
+A separate but related question is to what extent it matters that a model `understands' why it arrived at its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. From a purely problem solving point of view, these philosophical debates regarding what constitutes reasoning, understand and knowing aren't too important in the short term. While I definitely fall into the bucket of machine learning people who only care about problem solving in the short term, I do sometimes think about these things. It'd be funny if 50 years from now we're well-taken care of by a fleet of machine learning-powered robots and we still complain that they aren't truly capable of reasoning like us.
 
 \end{appendices}
 
