@@ -61,11 +61,11 @@ are the feature values of the $i^{\text{th}}$ sample and $y_i\in \OY\subseteq\R$
 \end{align*}
 where $\theta=(\theta_0,\theta_1\dots,\theta_p)\in\R^{p+1}$ are the model parameters, i.e. the values we can tweak to our heart's desire until the corresponding model is sufficiently well according to some metric. Some people refer to the paramter $\theta_0$, which dictates the elevation of the hyperplane corresponding to $f_{\theta}(\x)=0$, as the bias of the model which I find very confusing as there are a bunch of other intended meanings of the term `bias' in statistics and machine learning. I prefer to refer to it as the elevation. Anyway, once such a linear function has been fit, given feature values $\tilde{\x}\in\OX$ we can predict the corresponding output as $\tilde{y}=f_{\theta}(\tilde{\x})$.
 
-\begin{tcolorbox}[colback=c6]
+\begin{tcolorbox}[colback=c2]
     \textbf{Assumption of normally distributed residuals}
-    \vspace{10pt}
+    \vspace{5pt}
 
-    Central limit theorem to the rescue!\footnote{\url{https://en.wikipedia.org/wiki/Central\_limit\_theorem\#Regression}} ``Regression analysis, and in particular ordinary least squares, specifies that a dependent variable depends according to some function upon one or more independent variables, with an additive error term. Various types of statistical inference on the regression assume that the error term is normally distributed. This assumption can be justified by assuming that the error term is actually the sum of many independent error terms; even if the individual error terms are not normally distributed, by the central limit theorem their sum can be well approximated by a normal distribution."\\
+    \footnote{\url{https://en.wikipedia.org/wiki/Central\_limit\_theorem\#Regression}}Central limit theorem to the rescue: ``Regression analysis, and in particular ordinary least squares, specifies that a dependent variable depends according to some function upon one or more independent variables, with an additive error term. Various types of statistical inference on the regression assume that the error term is normally distributed. This assumption can be justified by assuming that the error term is actually the sum of many independent error terms; even if the individual error terms are not normally distributed, by the central limit theorem their sum can be well approximated by a normal distribution."
 
     Another good link: \url{https://stats.stackexchange.com/a/12266}.
 \end{tcolorbox}
@@ -374,7 +374,7 @@ h_{\theta}(\x)
 =
 \frac{1}{1+\exp(-f_{\theta}(\x))}\in(0,1)
 $$
-and say that sample $\x$ is of class $1$ if $h_{\theta}(\x)>p$, for some pre-determined threshold $p\in(0,1)$, and of class $0$ if $h_{\theta}(\x)\leq p$. So ultimately, $C_{\theta}(\x)=I(h_{\theta}(\x)>p)$ where $I$ denotes the indicator function. Typically, people take $p=0.5$ which yields precisely the same classifications as $f_{\theta}(\x)$. To see this, note that if $p=0.5$ then we have
+and say that sample $\x$ is of class $1$ if $h_{\theta}(\x)>p$, for some pre-determined threshold $p\in(0,1)$, and of class $0$ if $h_{\theta}(\x)\leq p$. So ultimately, $C_{\theta}(\x)=\mathbbm{1}(h_{\theta}(\x)>p)$. Typically, people take $p=0.5$ which yields precisely the same classifications as $f_{\theta}(\x)$. To see this, note that if $p=0.5$ then we have
 \begin{align*}
     C_{\theta}(\x)=1
     \iff & h_{\theta}(\x)>0.5\\
@@ -687,6 +687,9 @@ To be honest, I thought a streamline test for this existed. As per this Stack Ex
 \section{Gradient Descent and its Optimisation}
 \dots
 
+\subsection{Batch learning}
+Loss landscape gets smoothed out. Make sure to make a note of what Welch Labs states about projecting loss landscapes: every step you make in the actual high dimensional loss landscape will change its 2D projection. His example of the actual loss landscape being 2D and illustrating its 1D projection makes for a great example (he mentions that this only applies to the case of training on a single sample? I don't understand entirely as of now). He also makes an interesting point of ``if we get stuck in a global minimum then it must be a minima wrt all dimensions, which is less likely to happen the higher the dimension'' whatever that might mean precisely.
+
 % vanilla gradient descent
 \subsection{Gradient Descent}
 \dots
@@ -865,12 +868,10 @@ If we fix the structure and choice of activation functions of an MLP then all th
 
 \subsubsection{Constructive example: The algebra}
 
-\textcolor{red}{TODO: fix figure}
-
 \begin{figure}[ht]
     \centering
     \includegraphics{./figures/neural_nets/MLP_2.pdf}
-    \caption{A neural network with $k=1$ hidden layer.}
+    \caption{A neural network with one hidden layer ($k=1$).}
     \label{fig:neural_nets_simple_example}
 \end{figure}
 
@@ -933,7 +934,7 @@ which is just the scalar value $a_1^{(1)}$. For the output layer, we have
     a_2^{(2)}&=\sigma_2\l(w_{2,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_2^{(2)}\r).
 \end{align*}
 
-\subsubsection{Constructive example — Subbing values in}
+\subsubsection{Constructive example: Subbing values in}
 
 \noindent\textbf{Note}: The weights and biases of a neural network are typically learned during training, i.e. they are parameters to be tweaked and tuned until the corresponding model performs sufficiently well. They are not taken randomly as is done here for the sake of example.\\
 
@@ -965,18 +966,96 @@ and
 To confirm these values against the same neural network set up using TensorFlow, consider \texttt{nn\_constructive\_example.py} found \href{https://gitlab.com/dewibatista/master/-/tree/main/_Done/Personal}{here}.
 
 % universal function approximation theorem
-\subsubsection{Universal function approximation}
+\subsubsection{Universal Function Approximation for MLPs}
 \label{subsubsec:universal_function_approximation_theorem}
-Polynomials have one via Wasserstein. But polynomials have low expressive-efficiency. Good motive for MLPs and architectures often-labelled neural networks more generally.
+A class of functions, or function class, $\mathcal{F}_S$ is capable of universal function approximation on $S\subset\R^n$ compact (closed and bounded) if for all continuous $f:S\to\R$ and $\epsilon>0$ there exists some $\hat{f}\in\mathcal{F}_S$ such that
+$$
+\max_{x\in S}\l|f(x)-\hat{f}(x)\r|<\epsilon.
+$$
+Note that such a function family can be used to approximate functions whose codomain is $\R^m$ by performing coordinate-wise approximation. 
+
+The family of polynomials is capable of universal function approximation as shown by Weierstrass in 1885. A directly equivalent statement to a function class satisfying the universal function approximation is the function ckass being dense in $C(S)$ with respect to the supremum norm. Here, $C(S)$ denotes the set of all continuous real-valued functions with compact domain $S\subset\R^n$. Quick note: usually the domain of the to-be-approximated function is denoted by $K$ but I denote the number of layers in an MLP using a $k$ so I'd like to avoid the confusion by using $S$ instead. Instead of offering a rigorous proof, I'll motivate the overall idea starting with a simpler case: functions of the form $f:S\to\R$ where $S\subset\mathbb{N}$ with $\#S<\infty$.
+
+Without loss of generality, let $S=[\#S]$ and so we seek to show that for all $\epsilon>0$ there exists an MLP with one hidden layer, whose output is denoted by $\hat{f}(x)$, which satisfies
+$$
+\max_{x\in [\#S]}\l|f(x)-\hat{f}(x)\r|<\epsilon.
+$$
+First note that for all $x\in[\#S]$,
+\begin{align*}
+f(x)
+&=
+\sum_{s=1}^{\#S}f(k)\mathbbm{1}(x=s)\\
+&=
+\sum_{s=1}^{\#S}f(k)(\mathbbm{1}(x\geq s)-\mathbbm{1}(x\geq s+1))
+\end{align*}
+so we already see that a single node in the ouput layer of a single hidden layer MLP ($2\cdot\#S$ nodes in hidden layer) with weights
+$$
+\mathbf{W}^{(2)}
+=
+\begin{bmatrix}
+    f(1) & -f(1) & \dots & f(\#S) & -f(\#S)
+\end{bmatrix},
+$$
+i.e. $w_{1,s}^{(2)}=(-1)^{s+1}f\l(\l\lfloor\frac{s+1}{2}\r\rfloor\r)$, and bias $\mathbf{b}^{(2)}=0$ is sufficient if the $2\cdot\#S$ nodes in the hidden layer approximate
+$$
+\mathbbm{1}(x\geq1),\mathbbm{1}(x\geq2),\mathbbm{1}(x\geq2),\mathbbm{1}(x\geq3),\dots,\mathbbm{1}(x\geq\#S),\mathbbm{1}(x\geq\#S+1)
+$$
+with the absolute error of each approximation bounded by $\epsilon$. Note that the final indicator $\mathbbm{1}(x\geq\#S+1)$ is redundant so you only really need $2\cdot\#S-1$ nodes but I'll keep it for the nicer number. Also note that these are just renditions of the Heaviside function but I prefer sticking with the indicator function notation. This exact idea can be realised elegantly using the sigmoid as activation for the hidden layer. To see this, note that
+\begin{align*}
+    \sigma\l(10^{\#S}(x-n)+10^{\#S-9}\r)
+    &=
+    \frac{1}{1+\exp\l(-10^{\#S}(x-n)+10^{\#S-9}\r)}\\
+    &=
+    \frac{1}{1+\exp\l(n-x+10^{-9}\r)^{10^{\#S}}}
+\end{align*}
+approximates the Heaviside function $H(x-n)$ well with some tiny leakage. To hit certain levels of precision, i.e. attaining the desired $\epsilon$ bound, simply change the $-9$ exponent to something smaller. You can probably express the exponent in terms of $\epsilon$ explicitly (maybe $\epsilon^{-1}$) but the idea is the point here. So what we want is for the $\l\lceil\frac{s+1}{2}\r\rceil^{\text{th}}$ node in the hidden layer to approximate $H\l(x-\l\lceil\frac{s+1}{2}\r\rceil\r)$ for $s\in[\#S]$. This is straightforward using a sigmoid activation function in the hidden layer given the approximation above. Simply set the weights and biases accordingly: $w_{s,1}^{(1)}=10^{\#S}$ and $b_s^{(1)}=-10^{\#S}\l(\l\lceil\frac{s+1}{2}\r\rceil-10^{-9}\r)$ and we're done.
+
+\subsubsection*{Extending the idea to $S\subset\R$ compact}
+If $f\in C(S)$ for $S\subset\R$ compact then (uniform continuity) for all $\epsilon>0$ there exists $\delta>0$ such that
+$$
+|x-y|<\delta\implies|f(x)-f(y)|<\epsilon.
+$$
+Note that if we have a Lipschitz constant $L$ for a given $f$ then $\delta=\epsilon/L$ suffices. The reason this $\epsilon-\delta$ statement is useful is that if we split $S$ into $N$ subintervals whose width is bounded by $\delta$ then
+$$
+\l|f(x)-f(c)\r|<\epsilon
+$$
+for all $c,x$ in the same subinterval. To realise this idea, if $S=[a,b]$ then split $S$ according to
+$$
+a=x_0<x_1<\dots<x_N=b
+$$
+such that $x_{i+1}-x_i<\delta$ and so take $c=(x_i+x_{i+1})/2$ the midpoint of $[x_i,x_{i+1}]$. The number of subintervals $N$ needed depends on $a,b$ and $\delta$, e.g. $N=\l\lceil\frac{b-a}{\delta/2}\r\rceil$ works but the denominator just needs to be less than $\delta$ so $\delta/1.1$ would give a tighter $N$. From this we see that
+$$
+N
+\approx
+\frac{b-a}{\delta}
+=
+\frac{L(b-a)}{\epsilon}.
+$$
+The higher we take $N$ the more accurate of an approximation we get. This idea of splitting $S$ into $N$ intervals is nice because it requires us to approximate only one point $c_i=(x_i+x_{i+1})/2$ on each subinterval, i.e. we are back to the simpler case which started our motivation of approximating at a fixed number of points.
+
+With this idea in mind, the number of required nodes to realise our idea
+$$
+2N
+=
+2\frac{L(b-a)}{\epsilon}
+$$
+grows linearly in $L$, the interval length $b-a$ and the reciprocal of the desired level of precision $1/\epsilon$. In practice, you only have control of the desired level of precision $\epsilon$.
+
+\subsubsection*{Extending the idea to $S\subset\R^n$ compact}
+The idea is really not very different. Imagine $S\subset\R^2$ compact. The compactness is very hepful for visualisation. As long as we can create indicator-approximate functions on separate regions of $S$ then use exactly the idea described above: split $S$ into separate regions and approximate $f$ on a single point in each. To see that we can approximate the indicator on regions of $S\subset\R^2$ simply see that we can create wall-like objects using the same idea of creating a 'steep' plane and sigmoiding it. As such, to isolate some region, produce three walls which enclose a region and you're done. If you want a more accurate enclosing of the region then use more walls. Without boundedness, which is given by compactness, this idea wouldn't work. Extend this idea to $\R^n$ and voilà.\\
+
+\noindent\textbf{Note:} What this demonstrates is how an MLP \textit{could} approximate functions in $C(S)$ for $S$ compact. It is not at all an indicator of how MLPs learned via gradient descent, in practice, go about approximating functions from data.
+
+An interesting addition to this note is how this formulation gives an idea of how the weights from the hidden layer to the output explicitly encode the evaluation of the to-be-approximated function. Again, this is not what we'd expect MLPs to do in practice, instead they find a much more efficient representation, sharing information between nodes. Reminds me a lot of the research 3Blue1Brown discussed in one of his videos about transfromers and LLMs in which we spoke about how the LLM `knows' to assign a high probability to the token \texttt{Jordan} when given \texttt{My favourite basketballer is Michael} as input. How does it `know' to do that? It isn't at all implied by the grammar/semantics/whatever of the sentence. Said research concluded things about such pieces of knowledge being stored in the weights of the MLPs of the transformer blocks.
 
 % depth over width
-\subsubsection{Depth $>$ Width}
+\subsubsection{Advocating for depth $>$ width}
 \label{subsubsec:deep_MLPs}
 The complexity of a forward pass of an MLP can be expressed in terms of the number of nodes in each layer as
 $$
 \mathcal{O}
 \l(
-\sum_{j=0}^{k+1}n_{j-1}\cdot n_j
+\sum_{j=1}^{k+1}n_{j-1}\cdot n_j
 \r).
 $$
 Very crudely supposing $n_0=\dots=n_{k+1}=n$ yields a complexity of
@@ -985,11 +1064,19 @@ $$
 $$
 i.e. complexity grows linearly in the number of layers and quadratically in the number of neurons per layer. So we argue for increasing depth over width.
 
-A perhaps more important result is from using MLPs for classification. Geomentrically, they do this by splitting some space into a bunch of regions. It turns out that the number of regions by which a single-layer MLP with $n$ neurons in its hidden layer splits the space is bounded above by
+A perhaps more important result is from using MLPs for classification. Geometrically, they do this by splitting some space into a bunch of regions. It turns out that the number of regions by which a single-hidden layer MLP with two input neurons and $n$ neurons in its hidden layer splits the space is bounded above by
 $$
 \frac{1}{2}(n^2+n+2)
 $$
-which is quadratic in $n$. For an MLP with $k$ hidden layers of $n$ neurons each, the number of regions by which the space is split is bounded above by
+which is quadratic in $n$. This generalises to
+$$
+R_d(n)
+=
+\sum_{k=0}^d\binom{n}{k}
+$$
+for $d$ input nodes. So for $d=1$ (so in $\R$), each new hyperplane (line) at most splits the subset of the real line into an additional subinterval, i.e. $R_1(n)=n+1$. In general, $R_d(n)\approx n^d/d!$.
+
+For an MLP with $k$ hidden layers of $n$ neurons each, the number of regions by which the space is split is bounded above by
 $$
 \frac{1}{2}(n^2+n+2)\l(\frac{n}{n_0}+1\r)^{n_0(k-1)}
 $$
@@ -1305,7 +1392,7 @@ If there were a single activation function towards the end of the architecture t
 \begin{center}
     \textbf{\textcolor{blue}{Q4:} Must activation functions be monotonic?}
 \end{center}
-No, it just makes things related to optimisation easier while having a sufficiently-small effect on practical performance.
+Nope, it just makes things related to optimisation easier while having a sufficiently-small effect on practical performance. Additional minor point: some proofs of the universal function approximation theorem of MLPs necessarite monotonicity but these are typically intentionally short proofs; it isn't neceesary in general.
 
 \begin{center}
     \textbf{\textcolor{blue}{Q5:} Which activation functions should be used when?}
