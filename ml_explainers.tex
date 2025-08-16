@@ -17,7 +17,7 @@
 \end{abstract}
 
 % table of contents
-\setcounter{tocdepth}{2}{\footnotesize\tableofcontents}
+\setcounter{tocdepth}{2}{\scriptsize\tableofcontents}
 
 % title page number not counted
 \thispagestyle{empty}
@@ -27,6 +27,8 @@
 % intro
 \section{Introduction}
 
+\textcolor{red}{TODO: fix the use of the term fit/modelled here, perhaps formally state what's meant before hand mentioning that their use is relaxes kinda}
+
 I think of machine learning as the discipline of studying methods of fitting parameterised models from data. Why I find machine learning so interesting interesting is due to its rapid development since the era of deep learning began in 2012. At their core, many methods in machine learning are statistically-principled in nature, corresponding to maximum likelihood estimation. The fact that something as simple as maximum likelihood estimation can be used to fit very complex distributions, in practice, to at least a small extent isn't too surprising. What amazes me is how well such complex distributions can be modelled using maximum likelihood estimation to fit deep architectures. So well that we are now able to produce models which take a natural language description as input and output a photo-realistic image matching said description. What right do such simple methods have to fit such complex distributions? What right do the architectures we use have to facilitate such effective learning? The more I've learned, the more I'm amazed that contemporary methods work as well as they do.
 
 For a description of machine learning which clarifies why it is difficult to define as a term, consider the following description written by Herbert Jaeger: ``ML as a ﬁeld, which perceives itself as a ﬁeld under this name, is relatively young, say, about 40 years (related research was called “pattern recognition” earlier). It is interdisciplinary and has historical and methodological connections to neuroscience, cognitive science, linguistics, mathematical statistics, AI, signal processing and control; it uses mathematical methods from statistics (of course), information theory, signal processing and control, dynamical systems theory, mathematical logic and numerical mathematics; and it has a very wide span of applications. This diversity in traditions, methods and applications makes it diﬃcult to study ``Machine Learning". Any given textbook, even if it is very thick, will reﬂect the author's individual view and knowledge of the ﬁeld and will be partially blind to other perspectives. This is quite diﬀerent from other areas in computer science, say for example formal languages/theory of computation/computational complexity where a widely shared repertoire of standard themes and methods cleanly deﬁne the ﬁeld."
@@ -34,7 +36,7 @@ For a description of machine learning which clarifies why it is difficult to def
 % supervised learning
 \section{Supervised Learning}
 
-Supervised learning algorithms are a class of machine learning algorithms in which a model learns some relationship between model variables and output variables by being shown concrete examples of what a given input (pertaining to the model variables) should yield as output. These model and output variables can be continuous or discrete in nature but usually it's a mix.
+Supervised learning algorithms are a class of machine learning algorithms in which a model learns some relationship between model variables $\X$ and output variables $\Y$ from concrete examples $\{(\x_i,\mathbf{y}_i)\}_{i=1}^n$ of what the to-be-learned model should perhaps yield as output $\mathbf{y}=f_{\theta}(\x)$ for the given input $\x$. These model and output variables can be continuous or discrete in nature, or a mix.
 
 An example of a task which supervised learning is appropriate for includes regression predicting life expectancies of a poulation given features such as the population's height, age, BMI etc. You can think of regression tasks as those where the output of the model should belong to some continuously distributed space. Other than regression, the other vanilla supervised learning task is classification. Well known examples of binary classification include whether or not a given passenger survived the titanic wreck given their ticket class, sex, age, port of embarkation and a ton more. The bread and butter example of multi-class classification is handwritten digit recognition. It's amazing that something difficult as recently as 2005 is trivial now for various levels of machine learing understanding.
 
@@ -45,27 +47,27 @@ Other than the types of tasks which we consider in this section, it's worth ment
 
 Perhaps the simplest example of supervised learning is linear regression. Suppose we are given a dataset $\D=\{(\x_i,y_i)\}_{i=1,\dots,2n}$ where
 $$
-\x_i=(x_{i,1},\dots,x_{i, p})\in \Omega_{X_1}\times\dots\times \Omega_{X_p}=:\OX\subseteq\R^p
+\x_i=(x_{i,1},\dots,x_{i, q})\in \Omega_{X_1}\times\dots\times \Omega_{X_q}=:\OX\subseteq\R^q
 $$
 are the feature values of the $i^{\text{th}}$ sample and $y_i\in \OY\subseteq\R$ is the corresponding output. The reason I chose $|\D|=2n$ is that it results in being able to 50/50 split $\D$ into $\Dtrain$ and $\Dtest$ with $|\Dtrain|=|\Dtest|=n$. A linear regression models fits a linear function (in the parameters)
 \begin{align*}
     f_{\theta}:\OX&\rightarrow \Omega_Y\\
     \x&\mapsto
-    \theta^{\T}
+    \theta^{\top}
     \begin{bmatrix}
         1\\
         \x
     \end{bmatrix}
     =
-    \theta_0+\theta_1x_1+\dots+\theta_px_p    
+    \theta_0+\theta_1x_1+\dots+\theta_qx_q    
 \end{align*}
-where $\theta=(\theta_0,\theta_1\dots,\theta_p)\in\R^{p+1}$ are the model parameters, i.e. the values we can tweak to our heart's desire until the corresponding model is sufficiently well according to some metric. Some people refer to the paramter $\theta_0$, which dictates the elevation of the hyperplane corresponding to $f_{\theta}(\x)=0$, as the bias of the model which I find very confusing as there are a bunch of other intended meanings of the term `bias' in statistics and machine learning. I prefer to refer to it as the elevation. Anyway, once such a linear function has been fit, given feature values $\tilde{\x}\in\OX$ we can predict the corresponding output as $\tilde{y}=f_{\theta}(\tilde{\x})$.
+where $\theta=(\theta_0,\theta_1\dots,\theta_q)\in\R^{q+1}$ are the model parameters, i.e. the values we can tweak to our heart's desire until the corresponding model is sufficiently well according to some metric. Some people refer to the paramter $\theta_0$, which dictates the elevation of the hyperplane corresponding to $f_{\theta}(\x)=0$, as the bias of the model which I find very confusing as there are a bunch of other intended meanings of the term `bias' in statistics and machine learning. I prefer to refer to it as the elevation. Anyway, once such a linear function has been fit, given feature values $\tilde{\x}\in\OX$ we can predict the corresponding output as $\tilde{y}=f_{\theta}(\tilde{\x})$.
 
 \begin{tcolorbox}[colback=c2]
     \textbf{Assumption of normally distributed residuals}
     \vspace{5pt}
 
-    \footnote{\url{https://en.wikipedia.org/wiki/Central\_limit\_theorem\#Regression}}Central limit theorem to the rescue: ``Regression analysis, and in particular ordinary least squares, specifies that a dependent variable depends according to some function upon one or more independent variables, with an additive error term. Various types of statistical inference on the regression assume that the error term is normally distributed. This assumption can be justified by assuming that the error term is actually the sum of many independent error terms; even if the individual error terms are not normally distributed, by the central limit theorem their sum can be well approximated by a normal distribution."
+    \footnote{\url{https://en.wikipedia.org/wiki/Central\_limit\_theorem\#Regression}}Central limit theorem to the rescue: ``Regression analysis, and in particular ordinary least squares, specifies that a dependent variable depends according to some function upon one or more independent variables, with an additive error term. Various types of statistical inference on the regression assume that the error term is normally distributed. This assumption can be justified by assuming that the error term is actually the sum of many independent error terms; even if the individual error terms are not normally distributed, by the central limit theorem their sum can be well approximated by a normal distribution."\\
 
     Another good link: \url{https://stats.stackexchange.com/a/12266}.
 \end{tcolorbox}
@@ -74,22 +76,22 @@ An intuitive approach to finding the `optimal' parameters for a linear regressio
 $$
 \mathcal{L}(\theta)=\sum_{i=1}^nd(f_{\theta}(\x_i), y_i)
 $$
-where $f_{\theta}(\x_i)$ is the model's prediction for feature values $\x_i$ and $d:Y\times Y\rightarrow\R_{\geq0}$ is some metric on the set of possible output values and itself. Said loss function gives one an idea of how well $\theta$ fits the true underlying relationship which we wish to model. A common choice for the loss function is the mean square error
+where $f_{\theta}(\x_i)$ is the model's prediction for feature values $\x_i$ and $d:\Omega_Y\times\Omega_Y\rightarrow\R_{\geq0}$ is some goodness-of-prediction metric. Said loss function gives one an idea of how well $\theta$ fits the true underlying relationship which we wish to model. A common choice for the loss function is the mean square error
 $$
 \text{MSE}(\theta)=\frac{1}{n}\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2
 $$
-which pertains to taking $d(f_{\theta}(\x_i), y_i)=(y_i-f_{\theta}(\x_i))^2$. Note that the factor of $1/n$ is often left out when discussing MSE as minimising the expression in $\theta$ is invariant to the inclusion of the factor — it's mostly a notational convenience thing. So in our case, we seek to compute
+which pertains to taking $d(f_{\theta}(\x_i), y_i)=(y_i-f_{\theta}(\x_i))^2$. Note that the factor of $1/n$ is often left out when discussing MSE as minimising the expression in $\theta$ is invariant to the inclusion of the factor. Also, leaving the factor out is notationally convenience. So in our case, we seek to compute
 $$
-\thetaOpt=\argmin_{\theta\in\R^{p+1}}\l[\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\r].
+\thetaOpt=\argmin_{\theta\in\R^{q+1}}\l[\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\r].
 $$
 
 \noindent We know that in the context of linear regression, the optimal paramters $\thetaOpt$ are typically taken to be those which minimise the mean square error over $\Dtrain$ but how do we actually compute $\thetaOpt$? This could be done through numerical methods, which is often the case in machine learning, e.g. using gradient descent in computing the optimal parameters of a logistic regression model, but linear regression has a closed form solution. This is pretty cool since it's not so common for such closed form solutions to exist. The informal method which I use to remember the closed form solution for the optimal paramters of a linear regression model is
 $$
-X\thetaOpt=y \implies X^{\T}X\thetaOpt=X^{\T}y \implies \thetaOpt=(X^{\T}X)^{-1}X^{\T}y.
+X\thetaOpt=y \implies X^{\top}X\thetaOpt=X^{\top}y \implies \thetaOpt=(X^{\top}X)^{-1}X^{\top}y.
 $$
-In practice, if this matrix $X^{\T}X$ is singular then just add some small values to its diagonal. That is, instead compute
+In practice, if this matrix $X^{\top}X$ is singular then just add some small values to its diagonal. That is, instead compute
 $$
-\thetaOpt=(X^{\T}X+\delta I)^{-1}X^{\T}y
+\thetaOpt=(X^{\top}X+\delta I)^{-1}X^{\top}y
 $$
 for some small $\delta\in\R$. That said, what's given above is not rigorous, so let's derive it. Note that
 \begin{align*}
@@ -105,7 +107,7 @@ for some small $\delta\in\R$. That said, what's given above is not rigorous, so 
         \vdots\\
         y_n-f_{\theta}(\x_n)
     \end{bmatrix}\\
-    &=(y-X\theta)^{\T}(y-X\theta)\\
+    &=(y-X\theta)^{\top}(y-X\theta)\\
     &=||y-X\theta||^2
 \end{align*}
 where
@@ -121,20 +123,20 @@ y
 X
 =
 \begin{bmatrix}
-    1 & x_{1,1} & \cdots & x_{1,p}\\
+    1 & x_{1,1} & \cdots & x_{1,q}\\
     \vdots & \vdots & \ddots & \vdots\\
-    1 & x_{n,1} & \cdots & x_{n,p}
+    1 & x_{n,1} & \cdots & x_{n,q}
 \end{bmatrix}
-\in\R^{n\times (p+1)},
+\in\R^{n\times (q+1)},
 \theta
 =
 \begin{bmatrix}
     \theta_0\\
     \theta_1\\
     \vdots\\
-    \theta_p
+    \theta_q
 \end{bmatrix}
-\in\R^{p+1}
+\in\R^{q+1}
 $$
 and $x_{i,j}$ denotes the $j$th element of the $i^{\text{th}}$ sample. To find the minimiser(s) of $\text{MSE}(\theta)$, i.e. the optimal parameters $\thetaOpt$, we compute its gradient with respect to $\theta$, set it to $0$ and solve for $\thetaOpt$. This of course only works when our function is both differentiable and convex, which is the case here. To see convexity, simply compute the Hessian of $\text{MSE}(\theta)$ and see that it is semi-positive definite. On that note, we have
 \begin{align*}
@@ -142,17 +144,17 @@ and $x_{i,j}$ denotes the $j$th element of the $i^{\text{th}}$ sample. To find t
     &=
     \nabla||y-X\theta||^2\\
     &=
-    \nabla(y-X\theta)^{\T}(y-X\theta)\\
+    \nabla(y-X\theta)^{\top}(y-X\theta)\\
     &=
-    \nabla\l[\theta^{\T}X^{\T}X\theta-\theta^{\T}X^{\T}y-y^{\T}X\theta+y^{\T}y\r]\\
+    \nabla\l[\theta^{\top}X^{\top}X\theta-\theta^{\top}X^{\top}y-y^{\top}X\theta+y^{\top}y\r]\\
     &=
-    \nabla\l[\theta^{\T}X^{\T}X\theta-2y^{\T}X\theta+y^{\T}y\r]\\
+    \nabla\l[\theta^{\top}X^{\top}X\theta-2y^{\top}X\theta+y^{\top}y\r]\\
     &=
-    2X^{\T}X\theta-2X^{\T}y
+    2X^{\top}X\theta-2X^{\top}y
 \end{align*}
 and so the optimiser $\thetaOpt$ is given by
 $$
-\thetaOpt=(X^{\T}X)^{-1}X^{\T}y.
+\thetaOpt=(X^{\top}X)^{-1}X^{\top}y.
 $$
 
 \begin{tcolorbox}[colback=c1]
@@ -169,21 +171,46 @@ Y_i-f_{\theta}(\X_i)\sim\N(0, \sigma^2)
 $$
 for $i=1,\dots,n$ are i.i.d. This assumption is reasonable in practice due to the central limit theorem (CLT). We have $Y_i|\X_i\sim\N(f_{\theta}(\x_i), \sigma^2)$ and so
 $$
-f_{Y|\X}(y_i|\x_i;\theta)=\frac{1}{\sqrt{2\pi}\sigma}\exp\l(-\frac{(y_i-f_{\theta}(\x_i))^2}{2\sigma^2}\r).
+p_{\theta}(y_i|\x_i)=\frac{1}{\sqrt{2\pi}\sigma}\exp\l(-\frac{(y_i-f_{\theta}(\x_i))^2}{2\sigma^2}\r).
 $$
-The maximum likelihood estimator $\theta_{\text{MLE}}$ for the parameters of our linear regression model is that which maximise our log-likelihood. That is,
+The maximum likelihood estimate $\theta_{\text{MLE}}$ for the parameters of our linear regression model is that which maximise our log-likelihood. That is,
 \begin{align*}
     \theta_{\text{MLE}}
     &=
-    \argmax_{\theta\in\R^{p+1}}\l[\log\l(\prod_{i=1}^n f_{Y|\X}(y_i|\x_i;\theta)\r)\r]\\
+    \argmax_{\theta\in\R^{q+1}}\l[\log\l(\prod_{i=1}^n p_{\theta}(y_i|\x_i)\r)\r]\\
     &=
-    \argmax_{\theta\in\R^{p+1}}\l[\sum_{i=1}^n\log(f_{Y|\X}(y_i|\x_i;\theta))\r]\\
+    \argmax_{\theta\in\R^{q+1}}\l[\sum_{i=1}^n\log(p_{\theta}(y_i|\x_i))\r]\\
     &=
-    \argmax_{\theta\in\R^{p+1}}\l[n\log\l(\frac{1}{\sqrt{2\pi}\sigma}\r)-\frac{1}{2\sigma^2}\sum_{i=1}^n(y_i-f_{\w,b}(\x_i))^2\r]\\
+    \argmax_{\theta\in\R^{q+1}}\l[n\log\l(\frac{1}{\sqrt{2\pi}\sigma}\r)-\frac{1}{2\sigma^2}\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\r]\\
     &=
-    \argmin_{\theta\in\R^{p+1}}\l[\sum_{i=1}^n(y_i-f_{\w,b}(\x_i))^2\r].
+    \argmin_{\theta\in\R^{q+1}}\l[\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\r].
 \end{align*}
 As such, the maximum likelihood estimator of the parameters of a linear regression model are precisely those which minimise the mean square error of the model over $\Dtrain$.
+
+\subsubsection{Goodness of fit: $R^2$}
+If we'd like a way to measure the goodness-of-fit of a linear regresison model beyond test MSE, a natural avenue is to assess what portion of the sample variance is explained by the model. As usual, we do this over some sample $D=\{(\x_i,y_i)\}_{i=1}^n\subset\OX\times\OY$. That is, computing
+$$
+\frac{\text{Var}(f_{\theta}(\X))}{\text{Var}(Y)}
+\approx
+\frac{\frac{1}{n}\sum_{i=1}^n\l(f_{\theta}(\x_i)-\bar{y}\r)^2}{\frac{1}{n}\sum_{i=1}^n\l(y_i-\bar{y}\r)^2}
+=:
+R^2
+$$
+where $\bar{y}=\frac{1}{n}\sum_{i=1}^ny_i$. The reason that this quantity is denoted by $R^2$ is that it can be shown that it is equal to the square of the Pearson/multiple (one predictor/multiple predictors) correlation coefficient between $Y$ and $f_{\theta}(\X)$. So for one predictor, i.e. $q=1$, said Pearson correlation coefficient is given by
+$$
+R
+=
+\frac{\sum_{i=1}^n\l(f_{\theta}(\x_i)-\bar{f}_{\theta}\r)(y_i-\bar{y})}{\sqrt{\sum_{i=1}^n\l(f_{\theta}(\x_i)-\bar{f}_{\theta}\r)^2}\sqrt{\sum_{i=1}^n\l(y_i-\bar{y}\r)^2}}.
+$$
+The derivation of this statement is boring, so I'll leave it out. Worth noting that it's typically expressed as
+$$
+R^2
+=
+1-\frac{\sum_{i=1}^n\l(y_i-f_{\theta}(\x_i)\r)^2}{\sum_{i=1}^n\l(y_i-\bar{y}\r)^2}
+=
+1-\frac{s_e^2}{s_Y^2}
+$$
+where $s_e^2$ and $s_Y^2$ denote the sample variances of the residuals and $Y$ respectively. I prefer the ratio of explained variance to underlying model variance though; is more intuitive to me, especially in terms of how its motivated and doesn't feel like it comes outta nowhere. Note that this notion of the portion of explained variance can be extended to logistic regression but the details are a bit much for this document.
 
 \subsubsection{Example}
 
@@ -288,7 +315,7 @@ from which we obtain
 $$
 \thetaOpt
 =
-\l(X^{\T}X\r)^{-1}X^{\T}y
+\l(X^{\top}X\r)^{-1}X^{\top}y
 =
 \begin{bmatrix}
     25.68\\
@@ -298,18 +325,18 @@ $$
 $$
 which corresponds to
 $$
-f(x_1,x_2)=25.68+0.94x_1+5.79x_2.
+f_{\thetaOpt}(x_1,x_2)=25.68+0.94x_1+5.79x_2.
 $$
 
-What's nice about such a low-dimensional problem like this is that visualising the loss landscape is relatively doable. We have three parameters so I'll fix $\theta_0=25.68$ and plot $\theta_1$ and $\theta$ against 
+What's nice about such a low-dimensional problem like this is that visualising the loss landscape is relatively doable. We have three parameters so I'll fix $\theta_0=25.68$ and plot $\theta_1$ and $\theta_2$ against 
 $$
 \text{MSE}(25.68, \theta_1, \theta_2)
 =
 \sum_{i=1}^5 (y_i-25.68-\theta_1\x_{i,1}-\theta_2\x_{i,2})^2
 $$
-where the sum is taken over the training data $\{(\x_i,y_i)\}_{i=1}^5$.
+where the sum is taken over the training data $\{(\x_i,y_i)\}_{i=1}^5$. \textcolor{red}{TODO: make the loss landscape figure.}
 
-As for how well the model performs, its MSE on $\Dtrain$ is $1.26$ and its MSE on $\Dtest$ is $12.24$. In this case, such a difference is fine. To get a visual on how well the model does on the training and testing sets, consider \autoref{fig:lin_reg_example_on_train_and_test}. I should improve these at some point.
+As for how well the model performs, its MSE on $\Dtrain$ is $1.26$ and its MSE on $\Dtest$ is $12.24$. In this case, such a difference is fine. To get a visual on how well the model does on the training and testing sets, consider \autoref{fig:lin_reg_example_on_train_and_test}. I should improve these at some point. \textcolor{red}{TODO: offer a figure for each projected onto each of the two feature axes?}
 
 \begin{figure}[ht]
     \centering
@@ -319,6 +346,8 @@ As for how well the model performs, its MSE on $\Dtrain$ is $1.26$ and its MSE o
     \label{fig:lin_reg_example_on_train_and_test}
 \end{figure}
 
+\textcolor{red}{provide $R^2$ for train and test}
+
 \begin{tcolorbox}[colback=c2]
     \textbf{Funny misuse of linear regression: Momentous sprint at the 2156 Olympics?}
     \vspace{10pt}
@@ -326,43 +355,30 @@ As for how well the model performs, its MSE on $\Dtrain$ is $1.26$ and its MSE o
     The following is taken from an answer on Quora\footnote{\url{https://qr.ae/pslbEN}} (the top comment is worth reading) based on a paper\footnote{\url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3173856/}} published in Nature. Related\footnote{\url{https://xkcd.com/1007/}}.
 \end{tcolorbox}
 
-\subsubsection{Regularisation}
-The most well known methods of regularisation in the context of regression are Lasso and Ridge regression. These are also known as L1 and L2 regularisation. They are motivated very nicely using Bayesian arguments. L1 regularisation corresponds to a Laplace prior and L2 to a Gaussian prior.
+\subsubsection{Why `regression'?}
 
-\subsubsection{$R^2$ value}
-\dots
+Nowadays, regression models are those which predict a value belonging to some continuous space but from where did the term originate? In 1886, Francis Galton authored ``Regression Towards Mediocrity in Hereditary Stature'' which is where the `regression towards the mean' term comes from. Galton noticed that tall fathers have short sons, short fathers have tall sons and average height fathers have average height sons. Taken from a Stack Exchange comment: ``Galton derived a linear approximation to estimate a son's height from the father's height in that paper. His equation was fitted so an average height father would have an average height son, but a taller than average father would have a son that is taller than average by 2/3 the amount his father is. Same with shorter than average. This could be argued to be a simple linear regression."
 
-\subsubsection{Terminology}
-
-Nowadays, regression models are those which predict a value belonging to some continuous space but where did it come from? In 1886, Francis Galton authored ``Regression Towards Mediocrity in Hereditary Stature'' which is where the `regression towards the mean' term comes from. Galton noticed that tall father's have short sons, short fathers have tall sons and average height fathers have average height sons. Taken from a Stack Exchange comment: ``Galton derived a linear approximation to estimate a son's height from the father's height in that paper. His equation was fitted so an average height father would have an average height son, but a taller than average father would have a son that is taller than average by 2/3 the amount his father is. Same with shorter than average. This could be argued to be a simple linear regression."
-
-Put mathematically, suppose random variables $X$ and $Y$ are related via $Y=\alpha+\beta X+\epsilon$ where $\alpha,\beta\in\R$ are regression coefficients and $\epsilon$ is noise with mean $0$. Then $\E[Y|X]=\alpha+\beta X$, so if we first normalise to have RVs of mean 0 and variance 1 then we would have $E[Y|X]=\rho X$ where $\rho$ is the correlation coefficient between $X$ and $Y$. Since $|\rho|\leq1$ we know that the expected value of $Y$ is close to the mean than $X$ unless $\rho=1$. So extreme values of $X$ tend to correspond to values of $Y$ that are closer to the mean, i.e. one has regression towards the mean.
+Put mathematically, suppose random variables $X$ and $Y$ are related via $Y=\alpha+\beta X+\epsilon$ where $\alpha,\beta\in\R$ are regression coefficients and $\epsilon$ is noise with mean $0$. Then $\E[Y|X]=\alpha+\beta X$, so if we first normalise to have RVs of mean 0 and variance 1 then we would have $E[Y|X]=\rho X$ where $\rho$ is the correlation coefficient between $X$ and $Y$. Since $|\rho|\leq1$ we know that the expected value of $Y$ is closer to the mean than $X$ unless $\rho=1$. So extreme values of $X$ tend to correspond to values of $Y$ that are closer to the mean, i.e. one has regression towards the mean.
 
 To see why this does not apply to all modern `regression' models, consider logistic regression in which one, roughly speaking, predicts probabilities of binary outcomes. In such cases, the dependent variable is binary, so `regressing towards the mean' has no meaningful interpretation.
 
 The `linear' part refers to the output variable being linear in the parameters. This is sometimes confusing in linear regression we typically deal with basis functions that give line-like surfaces (lines, planes, etc.) but we could always have non-linear basis functions. For example, $y=\beta_0+\beta_1 e^x$ is linear in $\beta=(\beta_0,\beta_1)$ but $y=\beta_0+e^{\beta_1}x$ is not. A consequence is that an estimate $\hat{\beta}$ of the model parameters can be written as $\hat{\beta}=\sum_{i=1}^k w_iy_i$ where $w_i$ are the determined weights and $y_i$ are the chosen basis functions.
-
-% how good is good data
-\subsubsection{Opportunity to Demonstrate High Quality Data}
-
-Let's say we had perfect data. That is, no noise and samples truly lie on the underlying hyperplane fit. In such a case, if our samples are of the form $(x_1,\dots,x_n,y)\in\R^{n+1}$ then the hyperplanes of interest are $n$-dimensional (assuming independent features?) and each is uniuely identified by $n+1$ distinct points on the plane. So if our data is perfect then bam, all we need is $n+1$ linearly independent samples to perfectly fit the data in the linear regression case.
-
-The idea of course extends to things like polynomial regression, just more points are needed depending on the degree.
 
 % logistic regression
 \subsection{Logistic Regression}
 
 While linear regression is the staple example of regression models, its equivalent for binary classification is logistic regression. The name is a bit confusing at first since it's fair to expect that something with the name regression would be used for regression tasks, i.e. predicting something continuously distributed, as opposed to something discrete like binary classification. Logistic Regression essentially applies a logistic (or sigmoid) transformation to the output of our model to introduce a notion of confidence of the classification. Understandably, this transformation maps all outputs to $(0,1)$. This is what makes it regression-like.
 
-Binary classification is the task of assigning one of two classes to some input sample. For example, given some data pertaining to a patient's health, it might be nice to be able to predict whether they are at risk of suffering from a heart attack or not. With this in mind, how does one classify a sample at all? The idea is to fit a hyperplane to the feature space of the distribution which we wish to model. A hyperplane is an $(n-1)$-dimensional object embedded in $n$-dimensional space. So in 2D space, a hyperplane is just a line and in 3D space it's a plane etc. A hyperplane in $(p+1)-$dimensional space consists of the points $(x_1,\dots,x_p)\in\R^p$ which satisfy
+Binary classification is the task of assigning one of two classes to some input sample. For example, given some data pertaining to a patient's health, it might be nice to be able to predict whether they are at risk of suffering from a heart attack or not. With this in mind, how does one classify a sample at all? The idea is to fit a hyperplane to the feature space of the distribution which we wish to model. A hyperplane is an $(n-1)$-dimensional object embedded in $n$-dimensional space. So in 2D space, a hyperplane is just a line and in 3D space it's a plane etc. A hyperplane in $(q+1)-$dimensional space consists of the points $(x_1,\dots,x_q)\in\R^q$ which satisfy
 $$
 \theta_0+\theta_1x_1+\dots+\theta_px_p=0
 $$
-where $\theta=(\theta_0,\dots,\theta_p)$ are the hyperplane's coefficients and $\x=(1,x_1,\dots,x_p)$ and we can denote the function corresponding to the hyperplane by
+where $\theta=(\theta_0,\dots,\theta_p)$ are the hyperplane's coefficients and $\x=(1,x_1,\dots,x_q)$ and we can denote the function corresponding to the hyperplane by
 $$
 f_{\theta}(\x)
 =
-\theta_0+\theta_1x_1+\dots+\theta_px_p
+\theta_0+\theta_1x_1+\dots+\theta_qx_q
 =
 \theta^{\text{T}}\x.
 $$
@@ -381,7 +397,7 @@ and say that sample $\x$ is of class $1$ if $h_{\theta}(\x)>p$, for some pre-det
     \iff & \frac{1}{1+\exp(-f_{\theta}(\x))}>0.5\\
     \iff & 1 > \exp(-f_{\theta}(\x))\\
     \iff & f_{\theta}(\x) > 0\\
-    \iff & \theta^{\T}\x > 0.
+    \iff & \theta^{\top}\x > 0.
 \end{align*}
 
 \noindent Like in linear regression, for a statistical motivation we'll make some assumptions regarding the class labels to derive a way of finding the optimal parameters $\thetaOpt$.
@@ -401,19 +417,19 @@ We construct the log-likelihood of $h_{\theta}(\x)$ over $\Dtrain=\{(\x_i,y_i)\}
     &=
     \sum_{i=1}^ny\log(h_{\theta}(\x_i))+(1-y_i)\log(1-h_{\theta}(\x_i))\\
     &=
-    \sum_{i=1}^n\l[y_i\log\l(\frac{1}{1+\exp(-\theta^{\T}\x_i)}\r)+(1-y_i)\log\l(1-\frac{1}{1+\exp(-\theta^{\T}\x_i)}\r)\r]\\
+    \sum_{i=1}^n\l[y_i\log\l(\frac{1}{1+\exp(-\theta^{\top}\x_i)}\r)+(1-y_i)\log\l(1-\frac{1}{1+\exp(-\theta^{\top}\x_i)}\r)\r]\\
     &=
-    \sum_{i=1}^n\l[y_i\log\l(\frac{1}{1+\exp(-\theta^{\T}\x_i)}\r)+(1-y_i)\log\l(\frac{\exp(-\theta^{\T}\x_i)}{1+\exp(-\theta^{\T}\x_i)}\r)\r]\\
+    \sum_{i=1}^n\l[y_i\log\l(\frac{1}{1+\exp(-\theta^{\top}\x_i)}\r)+(1-y_i)\log\l(\frac{\exp(-\theta^{\top}\x_i)}{1+\exp(-\theta^{\top}\x_i)}\r)\r]\\
     &=
-    \sum_{i=1}^n\l[y_i\log\l(\frac{1}{1+\exp(-\theta^{\T}\x_i)}\r)+(1-y_i)\l(-\theta^{\T}\x_i+\log\l(\frac{1}{1+\exp(-\theta^{\T}\x_i)}\r)\r)\r]\\
+    \sum_{i=1}^n\l[y_i\log\l(\frac{1}{1+e^{-\theta^{\top}\x_i}}\r)+(1-y_i)\l(-\theta^{\top}\x_i+\log\l(\frac{1}{1+e^{-\theta^{\top}\x_i}}\r)\r)\r]\\
     &=
-    \sum_{i=1}^n\l[-\log(1+\exp(-\theta^{\T}\x_i))-(1-y_i)\theta^{\T}\x_i\r]
+    \sum_{i=1}^n\l[-\log(1+\exp(-\theta^{\top}\x_i))-(1-y_i)\theta^{\top}\x_i\r]
 \end{align*}
 which we maximise using something like gradient descent to obtain the optimal paramateres
 $$
 \thetaOpt
 =
-\argmax_{\theta\in\R^{p+1}}\l[\sum_{i=1}^n\l[-\log(1+\exp(-\theta^{\T}\x_i))-(1-y_i)\theta^{\T}\x_i\r]\r].
+\argmax_{\theta\in\R^{q+1}}\l[\sum_{i=1}^n\l[-\log(1+\exp(-\theta^{\top}\x_i))-(1-y_i)\theta^{\top}\x_i\r]\r].
 $$
 Note that, in practice, it's unlikely that any samples will lie on the hyperplane $f_{\theta^*}(\x)=0$ itself.
 
@@ -426,7 +442,7 @@ The authors' insight came from structural risk minimization in which instead of 
 \noindent\textbf{Note:} Terminology surrounding SVMs is inconsistent. Some pieces of literature describe the decision boundary learned by an SVM as strictly linear, others allow for a non-linear decision boundary. It'd be nice if authors stuck to the former and explicitly stated `non-linear SVM' when describing the latter. Here, `an SVM' refers to the former and I'll state explicitly when considering the latter.
 
 \subsubsection{Hard-margin SVMs}
-Since we aim to fit a hyperplane in our feature space $\R^{p+1}$, we use the same notation for the function $f_{\theta}(\x)$ corresponding to the linear decision boundary (i.e. hyperplane). To make notation a bit easier, let $\theta_+=(\theta_1,\dots,\theta_p)$ so that $\theta$ is the ordered concatentation of $\theta_0$ and $\theta_+$. Further, let $\x_i$ denote the $i^{\text{th}}$ sample's features and $z_i\in\{-1,1\}$ its class such that $z_i$ is 1 if $\theta_+^{\text{T}}\x_i+\theta_0>0$ and 0 otherwise.
+Since we aim to fit a hyperplane in our feature space $\R^{q+1}$, we use the same notation for the function $f_{\theta}(\x)$ corresponding to the linear decision boundary (i.e. hyperplane). To make notation a bit easier, let $\theta_+=(\theta_1,\dots,\theta_q)$ so that $\theta$ is the ordered concatentation of $\theta_0$ and $\theta_+$. Further, let $\x_i$ denote the $i^{\text{th}}$ sample's features and $z_i\in\{-1,1\}$ its class such that $z_i$ is 1 if $\theta_+^{\text{T}}\x_i+\theta_0>0$ and 0 otherwise.
 
 \begin{figure}[ht]
     \centering
@@ -473,9 +489,9 @@ which is solved in the usual convex problem solving ways.
 
 Hard-margin SVMs are rarely applicable. In practice, classes are not entirely linearly separable, due to noise and outliers, and so allowing for some misclassification is pragmatic. Going from hard-margin to soft-margin is pretty straightforward, just include some slack variables $\xi=(\xi_1,\dots,\xi_n)$ that ultimately allow the model to violate the constraints while penalising said violations. More precisely, it involves solving
 $$
-\min_{(\theta_0,\theta_+,\xi)}\l[||\theta_+||^2+\lambda\sum_{i=1}^n\xi_i\r]\text{s.t. } z_i\l(\theta_+^{\text{T}}\x_i+\theta_0\r)\geq 1-\xi_i,\text{ }\xi_i\geq0\text{ } (i=1,\dots,n)
+\min_{(\theta_0,\theta_+,\xi)}\l[||\theta_+||^2+\lambda\sum_{i=1}^n\xi_i\r]\text{s.t. } z_i\l(\theta_+^{\text{T}}\x_i+\theta_0\r)\geq 1-\xi_i,\text{ }\xi_i\geq0
 $$
-where $\lambda\geq0$ is a regularisation parameter that influences the tradeoff of margin size and misclassification rate. Larger $\lambda$ corresponds to prioritising a larger margin while smaller $\lambda$ corresponds to prioritising the minimisation of misclassification.
+for $i=1,\dots,n$ where $\lambda\geq0$ is a regularisation parameter that influences the tradeoff of margin size and misclassification rate. Larger $\lambda$ corresponds to prioritising a larger margin while smaller $\lambda$ corresponds to prioritising the minimisation of misclassification.
 
 \begin{figure}[ht]
     \centering
@@ -484,7 +500,7 @@ where $\lambda\geq0$ is a regularisation parameter that influences the tradeoff 
     \label{fig:SVM_soft_margin}
 \end{figure}
 
-\noindent As illustrated in \autoref{fig:SVM_soft_margin}, it allows for samples to be closer to the decision boundary than the margin as well as outright misclassifications. Again, it is typically solved in the usual convex problem solving ways. Going a step further, it turns out that this can be simplified to computing
+\noindent As illustrated in \autoref{fig:SVM_soft_margin}, it allows for samples to be closer to the decision boundary than the margin as well as outright misclassifications. Again, it is typically solved in the usual convex problem solving ways. Going a step further, it turns out that this can be reduced to computing
 $$
 \argmin_{(\theta_0,\theta_+)}\l[||\theta_+||^2+\lambda\sum_{i=1}^n\max\l(0,1-z_i\l(\theta_+^{\text{T}}\x_i+\theta_0\r)\r)\r]
 $$
@@ -505,12 +521,49 @@ which can be done using gradient descent.
     \item prune prune prune
 \end{itemize}
 
-% handcrafted features
-\subsection{Handcrafted Features}
-A lost art in the current era :(
+% regularisation
+\subsection{Regularisation}
+Helps reduce overfitting. The most well known regularisation techniques are L1 and L2 regularisation. They both correspond to adding some term to loss functions which encourage some sort of learning behaviour. A million ways of motivating them. The most intuitive for are Bayesian approaches: assume independence of parameters and impose a prior distribution on them according to whatever bias we hope to bake in. Then, instead of regular maximum likelihood, compute
+\begin{align*}
+    \argmax_{\theta\in\R^{q+1}}\log(p(\theta|D))
+    &=
+    \argmax_{\theta\in\R^{q+1}}\l[\log(p(D|\theta))+\log(p(\theta))\r]\\
+    &=
+    \argmin_{\theta\in\R^{q+1}}\l[-\sum_{i=1}^n\log(p(y_i|\x_i,\theta))-\sum_{j=1}^q\log(p(\theta_j))\r].
+\end{align*}
+
+\subsubsection{L1 regularisation (LASSO: least absolute shrinkage and selection operator)}
+If we prefer our to-be-learned parameters to be close to 0, then it makes sense to choose a prior which has a lot of mass around 0. A great choice for this is the Laplace distribution with mean 0 and variance $2/\lambda$ which yields L1 regularisation. The corresponding density function is given by $p(z)=\lambda\exp(-2\lambda|z|)$ illustrated in \autoref{fig:laplace_pdf}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\columnwidth]{./figures/supervised_learning/laplace_pdf.png}
+    \caption{Laplace pdf with means 0 and decreasing variances according to $\lambda\in\{0.5,1,2,3\}$.}
+    \label{fig:laplace_pdf}
+\end{figure}
+
+See how $\lambda$ increases, the variance of the corresponding Laplace distribution decreases and more of the mass becomes centred around 0. The result is that the to-be-learned parameters are further encouraged to flatten out around 0. Anyway, with this prior we obtain an expression for the quantity we seek to compute in
+$$
+\argmax_{\theta\in\R^{q+1}}\log(p(\theta|D))
+=
+\argmin_{\theta\in\R^{q+1}}\l[-\sum_{i=1}^n\log(p(y_i|\x_i,\theta))+\lambda\sum_{j=1}^q|\theta_j|\r]
+$$
+
+\subsubsection{L2 regularisation (Ridge regression)}
+If we prefer no given parameter to be too large then imposing some sort of MSE penalty on the parameters makes sense. This is achieved by imposing a normal prior and yields L2 regularisation. That is, if $\theta_1,\dots,\theta_q\sim\N(0,\sigma^2)$ i.i.d. then the quantity we seek to compute is given by
+$$
+\argmax_{\theta\in\R^{q+1}}\log(p(\theta|D))
+=
+\argmin_{\theta\in\R^{q+1}}\l[-\sum_{i=1}^n\log(p(y_i|\x_i,\theta))+\lambda\sum_{j=1}^q \theta_j^2\r]
+$$
+where $\lambda=1/2\sigma^2$. I don't have much more to add for L2 as I think it's pretty clear.
+
+\subsubsection{Visualisation via loss landscapes}
+There's another nice way to think about these forms of regression in terms of loss landscapes: you're adding the original loss landscape to the loss corresponding to this penalty. It's almost like you sink every points in the loss landscape according to how close it is to the centre. It's clear from this visualisation how L1 and L2 reduce variance and increase bias. \textcolor{red}{TODO: make a before and after pic for 3D loss landscape.}
 
 % the bias-variance tradeoff
 \subsection{The Bias-Variance Tradeoff}
+\textcolor{red}{TODO: check consistency of notation between here and earlier part of this section}
 The bias-variance tradeoff is a statement pertaining to how well one can perform supervised learning from datasets. Crudely put, if the model family used to fit is too simple to represent the underlying distributions from which the samples were drawn then our learning method is highly-biased: our method is almost dataset-invariant. Think of fitting a line to a high-degree polynomial. On the other end, if the model family is too complex (e.g. overparameterised) then one might expect to more-easily overfit the underlying distribution. There are too many parameters to twink and tweam so fitting the individal samples is too easy.
 
 \subsubsection{Derivation with MSE loss}
@@ -665,18 +718,18 @@ A consequence of this is that very deep neural networks learned using gradient d
 Some questions to challenge one's understanding.
 
 \begin{center}
-    \textbf{\textcolor{blue}{Q1:} What are the benefits of using logistic regression over more sophisticated methods?}
+    \textbf{\textcolor{blue}{Q1:} What are the benefits of using logistic regression over more sophisticated methods, e.g. SVMs or random forests?}
 \end{center}
 Mostly because statistical tests can be conducted on parameters, e.g. statistical significance tests. It also helps that it offers a notion of classification confidence and that it simplementation and interpretation are straightforward.
 
 \begin{center}
     \textbf{\textcolor{blue}{Q2:} Why not use mean absolute error instead of MSE?}
 \end{center}
-There are many reasons for this, one of which is that often in machine learning and statistics-related contexts one would like to be able to compute the derivative(s) of such a loss function, e.g. in gradient descent, and the presence of an absolute value makes this annoying.
+\textcolor{red}{TODO: corresponds to MLE for normally distributed residuals.}
 
-As to why it's useful that the MSE involves the squares of the errors, instead of exponents like $2.05, 3$ or $\pi$, it was best put by this answer to a Stack Exchange answer about the same question\footnote{\url{https://math.stackexchange.com/a/63245}}:
+Differentiability is a kind of boring answer. There are many reasons for this, one of which is that often in machine learning and statistics-related contexts one would like to be able to compute the derivative(s) of such a loss function, e.g. in gradient descent, and the presence of an absolute value makes this annoying.
 
-``The variance is the mean squared deviation from the average. The variance of the sum of 10,000 random variables is the sum of their variances. That doesn't work for other powers of the absolute value of the deviation. That means if you roll a die 6,000 times, so that the expected number of 1s you get is 1,000, then you also know that the variance of 1s is $6000\cdot\frac{1}{6}\cdot\frac{5}{6}$ so if you want the probability that the numbner of 1s is between 990 and 1,020, you can approximate the distribution by the normal distribution with the same mean and variance. You couldn't do that if you didn't know the variance, and you couldn't know the variances without additivity of variances, and if the exponent were anything besides 2, then you don't have that. (Oddly, you do have additivity with cubes of the deviations, but not cubes of the absolute values of the deviations)."
+As to why it's useful that the MSE involves the squares of the errors, instead of exponents like $2.05, 3$ or $\pi$, it was best put by this answer to a Stack Exchange answer about the same question\footnote{\url{https://math.stackexchange.com/a/63245}}: ``The variance is the mean squared deviation from the average. The variance of the sum of 10,000 random variables is the sum of their variances. That doesn't work for other powers of the absolute value of the deviation. That means if you roll a die 6,000 times, so that the expected number of 1s you get is 1,000, then you also know that the variance of 1s is $6000\cdot\frac{1}{6}\cdot\frac{5}{6}$ so if you want the probability that the numbner of 1s is between 990 and 1,020, you can approximate the distribution by the normal distribution with the same mean and variance. You couldn't do that if you didn't know the variance, and you couldn't know the variances without additivity of variances, and if the exponent were anything besides 2, then you don't have that. (Oddly, you do have additivity with cubes of the deviations, but not cubes of the absolute values of the deviations)."
 
 \begin{center}
     \textbf{\textcolor{blue}{Q3:} How can we get an idea of the extent to which our features and output are linearly related without plotting?}
@@ -687,12 +740,9 @@ To be honest, I thought a streamline test for this existed. As per this Stack Ex
 \section{Gradient Descent and its Optimisation}
 \dots
 
-\subsection{Batch learning}
-Loss landscape gets smoothed out. Make sure to make a note of what Welch Labs states about projecting loss landscapes: every step you make in the actual high dimensional loss landscape will change its 2D projection. His example of the actual loss landscape being 2D and illustrating its 1D projection makes for a great example (he mentions that this only applies to the case of training on a single sample? I don't understand entirely as of now). He also makes an interesting point of ``if we get stuck in a global minimum then it must be a minima wrt all dimensions, which is less likely to happen the higher the dimension'' whatever that might mean precisely.
-
 % vanilla gradient descent
 \subsection{Gradient Descent}
-\dots
+\textbf{Batch learning:} Loss landscape gets smoothed out. Make sure to make a note of what Welch Labs states about projecting loss landscapes: every step you make in the actual high dimensional loss landscape will change its 2D projection. His example of the actual loss landscape being 2D and illustrating its 1D projection makes for a great example (he mentions that this only applies to the case of training on a single sample? I don't understand entirely as of now). He also makes an interesting point of ``if we get stuck in a global minimum then it must be a minima wrt all dimensions, which is less likely to happen the higher the dimension'' whatever that might mean precisely.
 
 % momentum
 \subsection{Momentum}
@@ -700,7 +750,7 @@ Loss landscape gets smoothed out. Make sure to make a note of what Welch Labs st
 
 % hyperparam tuning
 \subsection{Hyperparameter Tuning}
-\dots
+Cross-validation
 
 % misc. questions
 \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
@@ -1294,34 +1344,31 @@ It's not too tricky to derive these. It's the kinda thing you do once and never 
 \subsubsection{Gated Recurrent Units (GRUs)}
 \dots
 
-% autoencoders
-\subsection{Autoencoders}
-\label{sec:autoencoders}
-An autoencoder $(\Omega_{\X},d,\theta,\phi)$ consists of a sample space $\Omega_{\X}\subset\mathbb{R}^n$, a latent dimension $d\in\mathbb{Z}_{\geq1}$, an encoder $\theta:\mathbb{R}^n\to\mathbb{R}^d$ and a decoder $\phi:\mathbb{R}^d\to\mathbb{R}^n$. Using a subset of $\Omega_{\X}$, one typically learns the encoder $\theta$ and the decoder $\phi$ with the goal of approximating the identity on $\Omega_{\X}$ via $\phi\circ \theta$. That is, roughly put, one seeks to obtain an encoder/decoder pair such that $\phi(\theta(\x))\approx\x$ for all $\x\in\Omega_{\X}$.
+% graph neural networks
+\subsection{Graph Neural Networks (GNNs)}
+I know pretty much nothing about these ;(
 
-\begin{figure}[ht]
-    \centering
-    \includegraphics{./figures/neural_nets/AE_autoencoder.pdf}
-    \caption{An autoencoder in which $\theta$ and $\phi$ are fit using multi-layer perceptrons (MLPs).}
-    \label{fig:autoencoder}
-\end{figure}
+% transformer models
+\subsection{Transformers}
+Stand at attention! Many think of transformers as necessarily generative but nope!
 
-In intuitive terms, one can see the encoder $\theta$ as a compressor of samples in $\Omega_{\X}$ to their compressed (or latent) representation in $\mathbb{R}^d$ and so one might refer to the image of $\theta$ as the latent space $\Omega_{\Z}$. Similarly, the decoder $\phi$ can be seen as a decompressor of compressed representations $\z\in\Omega_{\Z}$ yielding the original sample $\x$. In line with this notion of an autoencoder as a compressor/decompressor, the latent dimension $d$ is typically taken to be far smaller than the dimension of the distribution of interest, i.e. $d\ll n$. Of course, when $d\ll n$, learning such mappings $\theta$ and $\phi$ typically involves some loss of information if $\Omega_{\X}$ is a manifold whose intrinsic dimension is greater than $d$. That is, autoencoders are typically lossy compressors.
-
-\begin{example}
-    Suppose $\Omega_{\X}=\{(a,a,b)\in\mathbb{R}^3:||(a,a,b)||\leq1\}$ and $d=2$. One immediately notices that $\Omega_{\X}$ is a two-dimensional surface embedded in $\mathbb{R}^3$ as it is the intersection of the unit ball and the plane $\{(a,a,b):a,b\in\mathbb{R}\}$. To produce representations of $\x=(a,a,b)\in\Omega_{\X}$ in $\mathbb{R}^2$ (i.e. to compress a sample) one might employ the encoder $\theta_2(x,y,z)=(x,z)$. To reconstruct samples from their latent representation (i.e. to decompress) one might employ the decoder $\phi_2(x,z)=(x,x,z)$. The autoencoder $(\Omega_{\X},2,\theta_2,\phi_2)$ offers lossless compression on the sample space of interest as $(\phi_2\circ\theta_2)(\x)=\x$ for all $\x\in\Omega_{\X}$.
-
-    If we instead desire latent representations of $\x=(a,a,b)\in\Omega_{\X}$ in $\mathbb{R}$, i.e. if $d=1$, one might employ the encoder $\theta_1(x,y,z)=x$ and the decoder $\phi_1(x)=(x,x,x)$. The autoencoder $(\Omega_{\X},1,\theta_1,\phi_1)$ offers lossy compression, i.e. some information pertaining to a sample is lost in compressing and then decompressing it as $(\phi_1\circ\theta_1)(a,a,b)=(a,a,a)$ for all $a,b\in\mathbb{R}$.
-\end{example}
-
-One's tolerance for the loss incurred by a given encoder/decoder pair is task-dependent. Given a dataset $\mathcal{D}=\{\x_1,\dots,\x_M\}\subset\Omega_{\X}$ and a latent dimension $d$, one might compute the pair $(\theta^*,\phi^*)\in\Theta\times\Phi$ which minimises the empirical risk over $\mathcal{D}$ where $\Theta$ and $\Phi$ are chosen function classes. That is, computing
+\subsubsection{Token embedding}
+Embed the semantics of tokens in high-dimensional space:
 $$
-(\theta^*,\phi^*)
-=
-\argmin_{(\theta,\phi)\in\Theta\times\Phi}
-\sum_{i=1}^M||\x_i-\phi(\theta(\x_i))||^2.
+E(\text{Germany})
++E(\text{fascist})
+-E(\text{Mussolini})
+\approx
+E(\text{Hitler}).
 $$
-If the function classes permit for computing the gradients of $\theta\in\Theta$ and $\phi\in\Phi$ then this computation may be done using gradient descent. For example, one could take $\Theta$ and $\Phi$ to be the classes of MLPs of appropriate input and output dimensions, as illustrated in \autoref{fig:autoencoder}.
+So the embedding function $E$ maps from the token vocabulary $S$ to some high-dimensional space. If you first encode the tokens in the token vocabulary, e.g. via enumeration, then
+$$
+E:\{1,\dots,|S|\}\to\mathbb{R}^d
+$$
+where $d\in\mathbb{N}\backslash\{0\}$ is the embedding dimension. What makes token embedding functions interesting is how well they can capture semantics of language.
+
+\subsubsection{Positional encoding}
+Use sinusoids to form a position vector $P_k$ for the $k$th token in an input sequence of length $L$. Add $P_k$ to the word embedding $E_k$ for $k=0,\dots,L-1$ to obtain the input $[E_0+P_0,\dots,E_{L-1}+P_{L-1}]$ fed to the model.
 
 % misc. questions
 \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
@@ -1385,9 +1432,9 @@ and define $D(0,0)=0$ to account for the removable singularity.
 \begin{center}
     \textbf{\textcolor{blue}{Q3:} Why not just one activation function in the output layer?}
 \end{center}
-If there were a single activation function towards the end of the architecture then everything that came before would be a series of linear transformations of the input. The composition of linear transformations is just a linear transformation. As such, the model would effectively be a single linear layer into a non-linear transformation. The only way this could be effective would be if the non-linear transformation were effectively the function we're looking to model in the first place.
+If there were a single activation function towards the end of the architecture then everything that came before would be a series of linear transformations of the input. The composition of linear transformations is just a linear transformation. As such, said model would be equivalent to a single layer perceptron, i.e. only linear decision boundaries.
 
-\textcolor{red}{TODO: note that this is just a single-layer perceptron}: most activation functions are monotonic, so single layer perceptrons reduce to, again, a hyperplane in feature space. like the first paragraph states, if we allow for arbitrary non-linear activation functions then this is possbile in theory (but unrealistic). monotonicity kills it
+To be super pedantic, single-layer perceptrons yielding only linear decision boundaries is the case if the activation function used is monotonic, which is often the case. If you allow for weird, non-monotonic activations then this linear decision boundary result doesn't necessary hold but, again, this is pedantic to point out.
 
 \begin{center}
     \textbf{\textcolor{blue}{Q4:} Must activation functions be monotonic?}
@@ -1412,7 +1459,7 @@ Also, improved learning-efficiency\footnote{\url{https://ai.stackexchange.com/qu
     \textbf{\textcolor{blue}{Q7:} How does one prevent vanishing/exploding gradients?}
 \end{center}
 
-\noindent Through skip connections. Architectures which use them are sometimes called residual networks.
+\noindent Skip connections help. Architectures which use them are sometimes called residual networks.
 \begin{itemize}
     \item Most intuitive benefit: it helps prevent some layer in the architecture from degrading the input entirely. It's like a nice reminder to the model what it was working from before it got to this point
     \item Reduces vanishing or exploding gradients: opens the door to far deeper architectures
@@ -1429,6 +1476,35 @@ The problem with fitting such a distribution is that it is not at all clear what
 
 % variational autoencoders
 \subsection{Variational Autoencoders (VAEs)}
+
+% autoencoders
+\subsubsection{Autoencoders: no variation!}
+\label{sec:autoencoders}
+An autoencoder $(\Omega_{\X},d,\theta,\phi)$ consists of a sample space $\Omega_{\X}\subset\mathbb{R}^n$, a latent dimension $d\in\mathbb{Z}_{\geq1}$, an encoder $\theta:\mathbb{R}^n\to\mathbb{R}^d$ and a decoder $\phi:\mathbb{R}^d\to\mathbb{R}^n$. Using a subset of $\Omega_{\X}$, one typically learns the encoder $\theta$ and the decoder $\phi$ with the goal of approximating the identity on $\Omega_{\X}$ via $\phi\circ \theta$. That is, roughly put, one seeks to obtain an encoder/decoder pair such that $\phi(\theta(\x))\approx\x$ for all $\x\in\Omega_{\X}$.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics{./figures/neural_nets/AE_autoencoder.pdf}
+    \caption{An autoencoder in which $\theta$ and $\phi$ are fit using multi-layer perceptrons (MLPs).}
+    \label{fig:autoencoder}
+\end{figure}
+
+In intuitive terms, one can see the encoder $\theta$ as a compressor of samples in $\Omega_{\X}$ to their compressed (or latent) representation in $\mathbb{R}^d$ and so one might refer to the image of $\theta$ as the latent space $\Omega_{\Z}$. Similarly, the decoder $\phi$ can be seen as a decompressor of compressed representations $\z\in\Omega_{\Z}$ yielding the original sample $\x$. In line with this notion of an autoencoder as a compressor/decompressor, the latent dimension $d$ is typically taken to be far smaller than the dimension of the distribution of interest, i.e. $d\ll n$. Of course, when $d\ll n$, learning such mappings $\theta$ and $\phi$ typically involves some loss of information if $\Omega_{\X}$ is a manifold whose intrinsic dimension is greater than $d$. That is, autoencoders are typically lossy compressors.
+
+\begin{example}
+    Suppose $\Omega_{\X}=\{(a,a,b)\in\mathbb{R}^3:||(a,a,b)||\leq1\}$ and $d=2$. One immediately notices that $\Omega_{\X}$ is a two-dimensional surface embedded in $\mathbb{R}^3$ as it is the intersection of the unit ball and the plane $\{(a,a,b):a,b\in\mathbb{R}\}$. To produce representations of $\x=(a,a,b)\in\Omega_{\X}$ in $\mathbb{R}^2$ (i.e. to compress a sample) one might employ the encoder $\theta_2(x,y,z)=(x,z)$. To reconstruct samples from their latent representation (i.e. to decompress) one might employ the decoder $\phi_2(x,z)=(x,x,z)$. The autoencoder $(\Omega_{\X},2,\theta_2,\phi_2)$ offers lossless compression on the sample space of interest as $(\phi_2\circ\theta_2)(\x)=\x$ for all $\x\in\Omega_{\X}$.
+
+    If we instead desire latent representations of $\x=(a,a,b)\in\Omega_{\X}$ in $\mathbb{R}$, i.e. if $d=1$, one might employ the encoder $\theta_1(x,y,z)=x$ and the decoder $\phi_1(x)=(x,x,x)$. The autoencoder $(\Omega_{\X},1,\theta_1,\phi_1)$ offers lossy compression, i.e. some information pertaining to a sample is lost in compressing and then decompressing it as $(\phi_1\circ\theta_1)(a,a,b)=(a,a,a)$ for all $a,b\in\mathbb{R}$.
+\end{example}
+
+One's tolerance for the loss incurred by a given encoder/decoder pair is task-dependent. Given a dataset $\mathcal{D}=\{\x_1,\dots,\x_M\}\subset\Omega_{\X}$ and a latent dimension $d$, one might compute the pair $(\theta^*,\phi^*)\in\Theta\times\Phi$ which minimises the empirical risk over $\mathcal{D}$ where $\Theta$ and $\Phi$ are chosen function classes. That is, computing
+$$
+(\theta^*,\phi^*)
+=
+\argmin_{(\theta,\phi)\in\Theta\times\Phi}
+\sum_{i=1}^M||\x_i-\phi(\theta(\x_i))||^2.
+$$
+If the function classes permit for computing the gradients of $\theta\in\Theta$ and $\phi\in\Phi$ then this computation may be done using gradient descent. For example, one could take $\Theta$ and $\Phi$ to be the classes of MLPs of appropriate input and output dimensions, as illustrated in \autoref{fig:autoencoder}.
 
 \subsubsection*{Motivating VAEs}
 In \autoref{sec:autoencoders}, autoencoders (AEs) were discussed. Autoencoders are great for data compression/decompression, denoising, interpreting complex models, etc. but we haven't seen yet how we might make use of them for generative tasks, i.e. sampling from the nasty/complex underlying distribution of the data they are trained on. An intuitive first idea is to train a compression/decompression autoencoder, randomly generate points in its latent space and feed them through the decoder, as in \autoref{fig:autoencoder_generation_1}. The outputs of the decoder should be similar to the training data, right? No.
@@ -1565,8 +1641,8 @@ The expectation term in the ELBO requires us to sample from $q_{\theta}(\z|\x)$.
 Compete!
 
 % normalising flow models
-\subsection{Normalising Flow Models}
-Turn noise to samples!
+\subsection{Flow-based Models}
+Turn noise to samples through clever bijections!
 
 % diffusion models
 \subsection{Diffusion Models}
@@ -1608,28 +1684,6 @@ Despite not being the choice of denoiser made in the seminal paper introducing d
 
 \noindent In the context of denoising, the contraction branch takes a noised image as input and iteratively completes a series of convolution operations followed by max pooling until reaching the bottleneck layer. At the bottleneck, the model has heavily reduced the spatial dimension of the input image while extracting varying levels of feature abstractions. For example, after the first iteration of convolution and max pooling, the spatial dimension of the input image may be reduced from $1024\times1024$ to $512\times512$ but edges and textures within the original image may be encoded in the feature maps at this stage. Then, during expansion, the model looks to upscale from the bottleneck in a way that retains the underlying image while removing noise. This is done by iteratively completing a series of deconvolutions, which correspond to upscaling, and using skip connections from its corresponding component in the contraction branch, seen in \autoref{fig:u_net_arch}, in order to retain the underlying image. With this in mind, it is clear why U-Net has been the go to choice of denoiser when developing a diffusion model.
 
-% transformer models
-\subsection{Transformers}
-Stand at attention!
-
-\subsubsection{Token embedding}
-Embed the semantics of tokens in high-dimensional space:
-$$
-E(\text{Germany})
-+E(\text{fascist})
--E(\text{Mussolini})
-\approx
-E(\text{Hitler}).
-$$
-So the embedding function $E$ maps from the token vocabulary $S$ to some high-dimensional space. If you first encode the tokens in the token vocabulary, e.g. via enumeration, then
-$$
-E:\{1,\dots,|S|\}\to\mathbb{R}^d
-$$
-where $d\in\mathbb{N}\backslash\{0\}$ is the embedding dimension. What makes token embedding functions interesting is how well they can capture semantics of language.
-
-\subsubsection{Positional encoding}
-Use sinusoids to form a position vector $P_k$ for the $k$th token in an input sequence of length $L$. Add $P_k$ to the word embedding $E_k$ for $k=0,\dots,L-1$ to obtain the input $[E_0+P_0,\dots,E_{L-1}+P_{L-1}]$ fed to the model.
-
 % misc. questions
 \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 \subsection{Misc. questions}
@@ -1642,10 +1696,10 @@ Some questions to challenge one's understanding.
 \end{center}
 \dots
 
-% object detection models
-\section{Object Detection Models}
+% object detection
+\section{Object Detection}
 
-CNNs and transformer-based architectures have revolutionised object detection. Three main flavours: R-CNN, YOLO and DETR. Before going into detail about them, what is object detection? What methods came before CNN/transformer-based architectures?
+Everything else in this document, as of now (Summer 2025), has been included due to their importance to ML as a whole or their interest to me. Since my internship uses object detection models a ton, I'll include a section on the three big object detection flavours. CNNs and transformer-based architectures have revolutionised object detection. Three main flavours: R-CNN, YOLO and DETR. Before going into detail about them, what is object detection? What methods came before CNN/transformer-based architectures?
 
 % R-CNN
 \subsection{(Fast/Faster) R-CNN}
@@ -1654,6 +1708,14 @@ R-CNN models has three flavours: R-CNN, Fast R-CNN and Faster R-CNN. R-CNN stand
     \item Proposing regions of interest within the image
     \item Classifying what is in each region (if there is something in the region)
 \end{enumerate}
+
+% YOLO
+\subsection{YOLO}
+\dots
+
+% DETR
+\subsection{DETR}
+\dots
 
 % appendices
 \newpage
@@ -1807,7 +1869,7 @@ The KL-divergence of two distributions can be expressed in terms of self-entropy
 \end{align*}
 where $H(p,q)$ denotes the cross-entropy between $p$ and $q$ while $H(p)$ denotes the self-entropy of $p$. It follows that minimising the KL-divergence $D_{\text{KL}}(p,q)$ in $q$ corresponds to minimising the cross-entropy $H(p,q)$.
 
-\subsubsection{Distribution fitting using cross-entropy}
+\subsubsection{Distribution fitting via cross-entropy}
 \label{subsubsec:dist_fit_CE}
 
 Suppose we have the geometric distribution with $p=1/2$ and would like to fit it using a Poisson distribution. That is, we would like to best approximate
@@ -1878,9 +1940,9 @@ $$
 =
 0.63
 $$
-which seems pretty low. Good fit!
+which seems pretty low. Good fit! \textcolor{red}{TODO: show graphs of pdfs?}
 
-\subsubsection{Distribution fitting using maximum likelihood estimation \textcolor{red}{TODO}}
+\subsubsection{Distribution fitting via maximum likelihood estimation \textcolor{red}{TODO: move this to stats part?}}
 Suppose instead of knowing the nice geometric distribution from \autoref{subsubsec:dist_fit_CE} we only had $n$ i.i.d. samples drawn from it denoted $\D=(k_1,\dots,k_n)\in\mathbb{N}^n$. The MLE of the `true' $k$ of $\text{Poi}(k)$ is given by
 $$
 k_{\text{MLE}}
@@ -1902,14 +1964,32 @@ From what I understand, the fact that minimising cross-entropy yields the same e
 \section{Classical Statistics Things}
 I should have a far more concrete understanding of classical statistics tbh. Such is life.
 
-\subsection{Independent samples}
+\subsection{Sample Independence}
 Suppose we'd like to get an idea of the average height of men and women in our population. If we randomly sample 100 men and 100 women then we're good to go: we have independent samples. If instead we randomly sample 100 couples then our samples would not be independent since couples' heights correlate.
 
 This is important because when performing maximum likelihood, the assumption of independence of samples is key to writing the likelihood of the set as a product of individual probabilities. Without this independence, the likelihood would be a horribly complex function that we would not be able to utilise. Independence is also assumed in a ton of other statistics-related things like t-tests, ANOVA, etc.
 
+\subsection{Pearson Correlation}
+\textcolor{red}{TODO: not to be pedantic but Pearson correlation is really a property of a joint distribution over X and Y, not of the RVs themselves; distributions over X and Y individaully are marginals...}
+Let $\bar{X}$ and $\bar{Y}$ denote the centres of scalar random variables $X$ and $Y$ repsectively. The Pearson correlation of $X$ and $Y$ is given by
+$$
+\rho_{X,Y}
+=
+\frac{\E\l[\bar{X}\bar{Y}\r]}{\sqrt{\E\l[\bar{X}^2\r]\E\l[\bar{Y}^2\r]}}
+=
+\frac{\text{Cov}(X,Y)}{\sigma_X\sigma_Y}
+\in[-1,1]
+$$
+where the expectation in the numerator is over $p(x,y)$. The overall quantity yields the linear dependence between $X$ and $Y$ and the denominator is for normalisation.
+
+\subsection{Mutual Information \textcolor{red}{TODO: belongs in prob theory section?}}
+What if we want to know about non-linear dependence between random variables, i.e. what if Pearson correlation doesn't suffice? Mutual information to the rescue.
+
+\subsection{Clarifying likelihoods, especially MLE}
+
 % philosophy things
 \section{Philosophy Things}
-I don't think about the philosophic side of maching learning very often but I find some topics interesting.
+I don't think about the philosophic side of maching learning very often; I definitely fall in the camp of my interests lying in short-term problem solving. I find some topics from the philosophical side of things interesting though.
 
 % thoughts on reasoning
 \subsection{Thoughts on reasoning (Summer 2024)}
@@ -1918,7 +1998,7 @@ At the time of writing, machine learning, as a term, is used almost interchangea
 
 Right now, I'm unaware of any machine learning model that can `reason' by any agreed upon definition of the term. I suspect that while current models can simulate `reasoning' to the extent of being able to effectively solve tasks which require some sort of underlying understanding, they do not `reason' in the human sense, which is grounded in embodied experience. Let's say that an LLM (e.g. GPT-4o) concludes that a continuous real-valued function $f:\R\rightarrow\R$ has a root in some interval $(a, b)$ using the intermediate value theorem (IVT) by noting that $f(a)<0$ and $f(b)>0$. Did the LLM `reason' in its application of the IVT or do we instead brush this off as the LLM having been trained many examples of the application of the IVT? Does it `understand' what it's concluding? As of right now I'd say that it doesn't. This of course isn't something unique to the IVT — we can construct many such examples. What I think makes IVT interesting is that we can effectively express what it means to `understand' its correctness as a human. I'd say that the distinction between the LLM's `understanding' and a human's here is that a human knows that if they trace their finger on a piece of paper starting from the bottom half, crossing a horizontal line cutting through the middle of the paper, to the top half of the paper without removing their finger then their finger must have touched the horizontal line at some point (ignore the fact that such a traversal is not necessarily a function, you get the idea). You don't need any mathematical training to know and, more importantly, understand why your finger crosses through the horizontal line on the page. LLMs certainly do not `understand' the correctness of the IVT in this way, or really any way that isn't purely symbolic. Maybe multimodal LLMs will alleviate this.
 
-A separate but related question is to what extent it matters that a model `understands' why it arrived at its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. From a purely problem solving point of view, these philosophical debates regarding what constitutes reasoning, understand and knowing aren't too important in the short term. While I definitely fall into the bucket of machine learning people who only care about problem solving in the short term, I do sometimes think about these things. It'd be funny if 50 years from now we're well-taken care of by a fleet of machine learning-powered robots and we still complain that they aren't truly capable of reasoning like us.
+A separate but related question is to what extent it matters that a model `understands' why it arrived at its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. From a purely problem solving point of view, these philosophical debates regarding what constitutes reasoning, understand and knowing aren't too important in the short term. It'd be funny if 50 years from now we're well-taken care of by a fleet of machine learning-powered robots and we still complain that they aren't truly capable of reasoning like us.
 
 \end{appendices}
 

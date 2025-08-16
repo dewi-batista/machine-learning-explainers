@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1755219464.51602 "ml_explainers.tex" "ml_explainers.pdf" "ml_explainers" 1755219466.86066 0
+["pdflatex"] 1755308587.64599 "ml_explainers.tex" "ml_explainers.pdf" "ml_explainers" 1755308589.84718 0
   "/Users/dewibatista/Library/texlive/2024/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk" 1755178945.25807 7808 c82ce01f248e795d39c6854999a6f077 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -48,7 +48,6 @@
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1248133631 32080 340ef9bf63678554ee606688e7b5339d ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb" 1248133631 32007 e8fa0078355f39467039935974716569 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb" 1248133631 32166 b0c356b15f19587482a9217ce1d8fa67 ""
-  "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb" 1248133631 32298 c6d25bb16d1eac01ebdc6d7084126a1e ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1248133631 30251 6afa5cb1d0204815a708a080681d4674 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1248133631 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb" 1248133631 37166 8ab3487cbe3ab49ebce74c29ea2418db ""
@@ -59,7 +58,6 @@
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb" 1248133631 32734 69e00a6b65cedb993666e42eedb3d48f ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1248133631 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1248133631 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
-  "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb" 1248133631 33993 9b89b85fd2d9df0482bd47194d1d3bf3 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb" 1248133631 32587 1788b0c1c5b39540c96f5e42ccd6dae8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1248133631 32716 08e384dc442464e7285e891af9f45947 ""
@@ -230,15 +228,16 @@
   "figures/supervised_learning/SVMs/SVM_soft_margin.pdf" 1749499504.53167 15192 e094051b0f29fb6df18e974d1afff91c ""
   "figures/supervised_learning/bias_variance.png" 1754866980.37606 156968 46369a95566ab4c6230fdd2f02a65a9f ""
   "figures/supervised_learning/double_descent.png" 1754957031.77901 121589 feb538f6396bb9445d62757010feb16b ""
+  "figures/supervised_learning/laplace_pdf.png" 1755290038.80274 37025 334f5a3f30b1196ac8397d47b28f8f0c ""
   "figures/supervised_learning/lin_reg_example/age_and_bmi_vs_cholesterol.pdf" 1749499508.17534 15032 1f2f2e5cdc826b6ea085b2400efa662e ""
   "figures/supervised_learning/lin_reg_example/age_vs_bmi_vs_cholesterol.pdf" 1749499508.83032 17376 313f18acbb124e8de35f714ac1c9a1f7 ""
   "figures/supervised_learning/lin_reg_example/model_predicts_test.pdf" 1749499509.33049 15509 2c5b5d68508f4c9581a2588347b5ad98 ""
   "figures/supervised_learning/lin_reg_example/model_predicts_train.pdf" 1749499509.75229 15414 8f672c71dfce3fdf6d88b3696bff952d ""
   "header.tex" 1755178933.4977 2428 5612625f105e7e49634763f9adbb7ae8 ""
-  "ml_explainers.aux" 1755219466.73595 19748 be177cf29853d76f494f4d5a13798a08 "pdflatex"
-  "ml_explainers.out" 1755219465.28504 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "ml_explainers.tex" 1755219464.24816 133739 266f54897d25362f8bdf50e566b9e1c5 ""
-  "ml_explainers.toc" 1755219466.73787 7114 0a6a7b2186bba0574324df7b61ac7595 "pdflatex"
+  "ml_explainers.aux" 1755308589.7262 21081 3e49b60f98e276975802bc2a4183a2dc "pdflatex"
+  "ml_explainers.out" 1755308588.22158 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "ml_explainers.tex" 1755308587.30903 139556 7b75fde78ec8857231d5eb532b90dc45 ""
+  "ml_explainers.toc" 1755308589.72852 7816 8ec26b8bb2f4ce881f1e16d0da6d5ac1 "pdflatex"
   (generated)
   "ml_explainers.aux"
   "ml_explainers.log"
