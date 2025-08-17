@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1755308587.64599 "ml_explainers.tex" "ml_explainers.pdf" "ml_explainers" 1755308589.84718 0
+["pdflatex"] 1755393683.57449 "ml_explainers.tex" "ml_explainers.pdf" "ml_explainers" 1755393685.76716 0
   "/Users/dewibatista/Library/texlive/2024/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk" 1755178945.25807 7808 c82ce01f248e795d39c6854999a6f077 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -225,6 +225,7 @@
   "figures/neural_nets/REG_dropout.png" 1749499510.65021 538594 293a23a35b93ebd583fe6bb76b134415 ""
   "figures/neural_nets/REG_early_stopping.pdf" 1749499510.65092 14319 3ed71a265c15e252cba041ed10d6e285 ""
   "figures/supervised_learning/SVMs/SVM_hard_margin.pdf" 1749499503.63665 14639 f8dbfb3fd6a3b7f745b75e517127ceec ""
+  "figures/supervised_learning/SVMs/SVM_non_linear.pdf" 1755388134.75912 11752 62ebc53ea23ca1b37724c14d35ce483d ""
   "figures/supervised_learning/SVMs/SVM_soft_margin.pdf" 1749499504.53167 15192 e094051b0f29fb6df18e974d1afff91c ""
   "figures/supervised_learning/bias_variance.png" 1754866980.37606 156968 46369a95566ab4c6230fdd2f02a65a9f ""
   "figures/supervised_learning/double_descent.png" 1754957031.77901 121589 feb538f6396bb9445d62757010feb16b ""
@@ -234,10 +235,10 @@
   "figures/supervised_learning/lin_reg_example/model_predicts_test.pdf" 1749499509.33049 15509 2c5b5d68508f4c9581a2588347b5ad98 ""
   "figures/supervised_learning/lin_reg_example/model_predicts_train.pdf" 1749499509.75229 15414 8f672c71dfce3fdf6d88b3696bff952d ""
   "header.tex" 1755178933.4977 2428 5612625f105e7e49634763f9adbb7ae8 ""
-  "ml_explainers.aux" 1755308589.7262 21081 3e49b60f98e276975802bc2a4183a2dc "pdflatex"
-  "ml_explainers.out" 1755308588.22158 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "ml_explainers.tex" 1755308587.30903 139556 7b75fde78ec8857231d5eb532b90dc45 ""
-  "ml_explainers.toc" 1755308589.72852 7816 8ec26b8bb2f4ce881f1e16d0da6d5ac1 "pdflatex"
+  "ml_explainers.aux" 1755393685.64883 21881 dc5b700f097ad4baecbd2e153f13d051 "pdflatex"
+  "ml_explainers.out" 1755393684.144 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "ml_explainers.tex" 1755393683.33862 142687 6cb36c049f33a9d9d60a674b6fbcc551 ""
+  "ml_explainers.toc" 1755393685.65116 7977 75ac0133eb4d5ad8125c6e4e4071756b "pdflatex"
   (generated)
   "ml_explainers.aux"
   "ml_explainers.log"

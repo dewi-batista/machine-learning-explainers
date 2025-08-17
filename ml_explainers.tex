@@ -441,7 +441,7 @@ The authors' insight came from structural risk minimization in which instead of 
 
 \noindent\textbf{Note:} Terminology surrounding SVMs is inconsistent. Some pieces of literature describe the decision boundary learned by an SVM as strictly linear, others allow for a non-linear decision boundary. It'd be nice if authors stuck to the former and explicitly stated `non-linear SVM' when describing the latter. Here, `an SVM' refers to the former and I'll state explicitly when considering the latter.
 
-\subsubsection{Hard-margin SVMs}
+\subsubsection{Hard-margin SVMs \textcolor{red}{TODO: switch notation from z to y}}
 Since we aim to fit a hyperplane in our feature space $\R^{q+1}$, we use the same notation for the function $f_{\theta}(\x)$ corresponding to the linear decision boundary (i.e. hyperplane). To make notation a bit easier, let $\theta_+=(\theta_1,\dots,\theta_q)$ so that $\theta$ is the ordered concatentation of $\theta_0$ and $\theta_+$. Further, let $\x_i$ denote the $i^{\text{th}}$ sample's features and $z_i\in\{-1,1\}$ its class such that $z_i$ is 1 if $\theta_+^{\text{T}}\x_i+\theta_0>0$ and 0 otherwise.
 
 \begin{figure}[ht]
@@ -507,19 +507,44 @@ $$
 which can be done using gradient descent.
 
 \subsubsection{Non-linear SVMs}
-\begin{itemize}
-    \item the kernel trick
-    \item standard kernels
-    \item derivation of standard identity
-\end{itemize}
-\dots
+Motivating non-linear SVMs is straightforward: feature spaces are rarely linearly separable. With this in mind, a super intuitive approach is to find a transformation $\phi$ which maps samples to a space in which they are linearly separable. In said space, employ a linear SVM. 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.75\columnwidth]{./figures/supervised_learning/SVMs/SVM_non_linear.pdf}
+    \caption{Non-linearly separable samples being transformed to a space in which they are linearly separable. Almost like punching the curve into a line. I'm unsure why the empty set symbol above the arrow is present.}
+    \label{fig:SVM_non_linear}
+\end{figure}
+
+With this idea in mind, we seek to solve for
+$$
+\min_{(\theta_0,\theta_+,\xi)}\l[\frac{1}{2}||\theta_+||^2+\lambda\sum_{i=1}^n\xi_i\r]\text{s.t. } y_i\l(\phi(\theta_+)^\top\x_i+\theta_0\r)\geq 1-\xi_i,\text{ }\xi_i\geq0
+$$
+which is difficult if the dimension of the image of $\phi$ is large. To make things easier, the dual of problem is optimised instead. I don't understand optimisation well enough to know about theory surrounding primal problems, their duals, Lagrangians etc., so I'll just give the dual outright without deriving it:
+$$
+\max_{(\alpha_1,\dots,\alpha_n)}\l[\sum_{i=1}^n\alpha_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_jK(\x_i,\x_j)\r]\text{s.t. } 0\leq\alpha_i\leq\lambda,\text{ }\sum_{i=1}^n\alpha_iy_i=0
+$$
+where $K(\x,\z)=\langle\phi(\x),\phi(\z)\rangle$ is a pre-chosen kernel. See how it never requires an explicit computation involving $\phi$. Hence the name `kernel trick' (not the same kernel trick as in variational autoencoders). For some reason, solving the dual is easier. \textcolor{red}{TODO: Why is it easier?}
+
+At inference time, given some $\x$, we seek to compute
+\begin{align*}
+    y
+    &=
+    \text{sign}\l(\theta_+^\top\phi(\x)+\theta_0\r)\\
+    &=
+    \text{sign}\l(\sum_{i=1}^n\alpha_iy_iK(\x_i,\x)+b_k\r)
+\end{align*}
+where $b_k=y_k-\sum_{i=1}^n\alpha_iy_iK(\x_i,\x_k)$ for some $(\x_k,y_k)$ that satisfies $0<\alpha_k<\lambda$. Note that the simplifcation made in the equation above is due to an argument used in deriving the dual.
+
+The two simplest kernels are polynomial kernels and the RBF kernel. Polynomial kernels are of the form \dots
 
 % decision trees and random forests
 \subsection{Decision Trees and Random Forests}
-\begin{itemize}
-    \item split according to some feature
-    \item prune prune prune
-\end{itemize}
+I find decision trees and random forests so boring that I'm not going to write about them and will instead include plots which act as a brief reminder. This section mostly exists so that the list of subsections in this section form a rounded list of supervised learning methods. 
+
+\textcolor{red}{TODO: include such figures}
+
+One nice thing about decision trees is that understanding them forces you to learn about entropy but there are other topics which force the same thing, e.g. Variational Autoencoders through the use of KL-divergences. Also, random forests are a nice introduction to ensemble methods which nicely demonstrate how to prevent overfitting through the reduction of variance (directly illustrating the importance of the bias-variance tradeoff). Oh, and bootstrapping. Maybe one day I'll write this subsection properly.
 
 % regularisation
 \subsection{Regularisation}
@@ -559,11 +584,11 @@ $$
 where $\lambda=1/2\sigma^2$. I don't have much more to add for L2 as I think it's pretty clear.
 
 \subsubsection{Visualisation via loss landscapes}
-There's another nice way to think about these forms of regression in terms of loss landscapes: you're adding the original loss landscape to the loss corresponding to this penalty. It's almost like you sink every points in the loss landscape according to how close it is to the centre. It's clear from this visualisation how L1 and L2 reduce variance and increase bias. \textcolor{red}{TODO: make a before and after pic for 3D loss landscape.}
+There's another nice way to think about these forms of regression in terms of loss landscapes: you're adding the original loss landscape to the loss corresponding to this penalty. It's almost like you sink every points in the loss landscape according to how close it is to the centre. It's clear from this visualisation how L1 and L2 reduce variance and increase bias. \textcolor{red}{TODO: make a before and after pic for 3D loss landscape. Also, is this idea subject to initial conditions I guess? Like if the original loss landscape is already very sensitive to initial conditions then I'm unsure what regularisation does.}
 
 % the bias-variance tradeoff
 \subsection{The Bias-Variance Tradeoff}
-\textcolor{red}{TODO: check consistency of notation between here and earlier part of this section}
+\textcolor{red}{TODO: check consistency of notation between here and earlier part of this section surrounding X and D}
 The bias-variance tradeoff is a statement pertaining to how well one can perform supervised learning from datasets. Crudely put, if the model family used to fit is too simple to represent the underlying distributions from which the samples were drawn then our learning method is highly-biased: our method is almost dataset-invariant. Think of fitting a line to a high-degree polynomial. On the other end, if the model family is too complex (e.g. overparameterised) then one might expect to more-easily overfit the underlying distribution. There are too many parameters to twink and tweam so fitting the individal samples is too easy.
 
 \subsubsection{Derivation with MSE loss}
@@ -612,7 +637,7 @@ in which the tower property of conditional expectations
     &=
     \int \l(\int g(x,y)f_{Y|X}(y|x)dy\r)f_X(x)dx\\
     &=
-    \E_X\l[\E_Y\l[g(X,Y)|X\r]\r]
+    \E_X\l[\E_{Y}\l[g(X,Y)|X\r]\r]
 \end{align*}
 is applied. As such, the quantity of interest reduces to only two terms as in
 $$
@@ -632,9 +657,9 @@ for all $x\in\Omega_X$ and that what is inside the expectation over $\D$ is inde
     &=
     \E_{(X,Y)}\l[(Y-f(X))^2\r]\\
     &=
-    \E_X\l[\E_Y\l[(Y-f(X))^2|X\r]\r]\\
+    \E_X\l[\E_{Y}\l[(Y-f(X))^2|X\r]\r]\\
     &=
-    \E_X\l[\E_Y\l[\l(Y-\E_Y[Y|X]\r)^2|X\r]\r]\\
+    \E_X\l[\E_{Y}\l[\l(Y-\E_Y[Y|X]\r)^2|X\r]\r]\\
     &=
     \E_X\l[\text{Var}_Y\l(Y|X\r)\r]\\
     &=
@@ -1332,7 +1357,7 @@ H'
 \right\rfloor
 +1.
 $$
-It's not too tricky to derive these. It's the kinda thing you do once and never again.
+It's not too tricky to derive these. It's the kinda thing you do once and never again. \textcolor{red}{TODO: complete.}
 
 % recurrent neural networks
 \subsection{Recurrent Neural Networks (RNNs)}
@@ -1346,7 +1371,7 @@ It's not too tricky to derive these. It's the kinda thing you do once and never 
 
 % graph neural networks
 \subsection{Graph Neural Networks (GNNs)}
-I know pretty much nothing about these ;(
+I know pretty much nothing about these ;( Will look into them some day.
 
 % transformer models
 \subsection{Transformers}
@@ -1391,7 +1416,7 @@ Some questions to challenge one's understanding.
 
 \noindent If you observe this for sufficiently many consecutive epochs then you can stop training and use the parameters pertaining to the epoch at which the validation loss was lowest. To do this, at each epoch during training, save the parameters of the current epoch if they offer a lower validation loss than at any epoch before. This is often referred to as a checkpoint within the training process and the parameters are saved in a \texttt{.ckpt} file.\\
 
-\noindent\textbf{2) Dropout:} We don't want to be overly-reliant on any given subset of neurons. To prevent such dependencies, at each epoch, independently set the activation of each neuron to 0 with probability $p$. This way some portion of neurons are silenced during the training epoch. As a result, its corresponding parameters (weights and bias) are not updated during backpropagation — it is truly silenced. This idea is illustrated in \autoref{fig:dropout}. Do not perform dropout when testing.
+\noindent\textbf{2) Dropout:} We don't want to be overly-reliant on any given subset of neurons. To prevent such dependencies, at each epoch, independently set the activation of each neuron to 0 with probability $p$. This way some portion of neurons are silenced during the training epoch. As a result, its corresponding parameters (weights and bias) are not updated during backpropagation — it is truly silenced. This idea is illustrated in \autoref{fig:dropout}. Do not perform dropout at test time.
 
 \begin{figure}[ht]
     \centering
@@ -1403,14 +1428,14 @@ Some questions to challenge one's understanding.
 \begin{center}
     \textbf{\textcolor{blue}{Q2:} What is the purpose of activation functions?}
 \end{center}
-Without the application of at least one activation function, the values of the output neurons would simply be the result of matrix-vector multiplication and vector addition. That is to say, the output of the neural network, without an any activation function, would be a purely linear transformation of the input. The issue with this is that most problems require some degree of non-linearity. The staple example of this is the classification of two-dimensional samples which are not linearly-separable. Two such cases are illustrated in \autoref{fig:non_linearly_separable}.
+Without the application of at least one activation function, the values of the output neurons would simply be the result of matrix-vector multiplication and vector addition. That is to say, the output of the neural network, without an any activation function, would be a purely linear transformation of the input. The issue with this is that most problems require some degree of non-linearity. The staple example of this is the classification of two-dimensional samples which are not linearly separable. Two such cases are illustrated in \autoref{fig:non_linearly_separable}.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.40\columnwidth]{./figures/neural_nets/NLA_xor.png}
     \hspace{20pt}
     \includegraphics[width=0.40\columnwidth]{./figures/neural_nets/NLA_circle.png}
-    \caption{Examples of samples belonging to classes that are not linearly-separable.}
+    \caption{Examples of samples belonging to classes that are not linearly separable.}
     \label{fig:non_linearly_separable}
 \end{figure}
 
@@ -1432,26 +1457,24 @@ and define $D(0,0)=0$ to account for the removable singularity.
 \begin{center}
     \textbf{\textcolor{blue}{Q3:} Why not just one activation function in the output layer?}
 \end{center}
-If there were a single activation function towards the end of the architecture then everything that came before would be a series of linear transformations of the input. The composition of linear transformations is just a linear transformation. As such, said model would be equivalent to a single layer perceptron, i.e. only linear decision boundaries.
+If there were a single activation function towards the end of the architecture then everything that came before would be a series of linear transformations of the input. The composition of linear transformations is just a linear transformation. As such, said model would be equivalent to a single layer perceptron, i.e. linear transformation + non-linear activation function, which would yield linear decision boundaries only.
 
-To be super pedantic, single-layer perceptrons yielding only linear decision boundaries is the case if the activation function used is monotonic, which is often the case. If you allow for weird, non-monotonic activations then this linear decision boundary result doesn't necessary hold but, again, this is pedantic to point out.
+To be super pedantic, single-layer perceptrons yielding only linear decision boundaries is the case if the activation function used is monotonic, which is often the case. If you allow for weird, non-monotonic activations then this linear decision boundary result doesn't necessary hold but, again, this is a pretty pedantic detail.
 
 \begin{center}
     \textbf{\textcolor{blue}{Q4:} Must activation functions be monotonic?}
 \end{center}
-Nope, it just makes things related to optimisation easier while having a sufficiently-small effect on practical performance. Additional minor point: some proofs of the universal function approximation theorem of MLPs necessarite monotonicity but these are typically intentionally short proofs; it isn't neceesary in general.
+Nope, it just makes things related to optimisation easier while having a sufficiently-small effect on performance in practice. Some results surrounding neural networks necessitate monotonic activation functions though.
 
 \begin{center}
     \textbf{\textcolor{blue}{Q5:} Which activation functions should be used when?}
 \end{center}
-Roughly speaking, I wouldn't worry too much about this in practice. They're all nice and differentiable (with small caveats here and there, like with ReLU) allowing for the application of backpropagation. You should sometimes care about the output given the problem at hand. For example, if you need outputs in $[-1,1]$ then $\tanh$ is a natural choice. Note that some choices, like Leaky ReLU, introduce hyperparameters to the model which is sometimes undesirable, e.g. if one seeks a hyperparameterless model.
-
-Small fun note, the universal function approximation of MLPs has been proven only for some select activation functions. I should look in more detail about this.
+Roughly speaking, I wouldn't worry too much about this in practice. The usual choices are all nice and differentiable (with small caveats here and there, like with ReLU) facilitating backpropagation. You should sometimes care about the output given the problem at hand. For example, if you need outputs in $[-1,1]$ then $\tanh$ is a natural choice. Note that some choices, like Leaky ReLU, introduce hyperparameters to the model which is sometimes undesirable, e.g. if one seeks a hyperparameterless model.
 
 \begin{center}
     \textbf{\textcolor{blue}{Q6:} Why use a CNN over an MLP?}
 \end{center}
-Suppose we have an MLP and a CNN, both trained to perform binary classification on images of cats and dogs. Further, suppose they perform equally. It might not be too surprisnig that the MLP will necessarily consist of a number of parameters that is orders of magnitude greater than for the CNN. Also, it's not so clear if a given MLP is translation invariant while various components of a CNN architecture help alleviate fears of translation-related issues.
+Suppose we have an MLP and a CNN, both trained to perform binary classification on images of cats and dogs. Further, suppose they perform equally well. It might not be too surprisnig that the MLP will necessarily consist of a number of parameters that is orders of magnitude greater than for the CNN. Also, it's not so clear if a given MLP is translation invariant while various components of a CNN architecture help alleviate fears of translation-related issues.
 
 Also, improved learning-efficiency\footnote{\url{https://ai.stackexchange.com/questions/27407/what-does-statistical-efficiency-mean-in-this-context}}, i.e. fewer samples needed to lean distributions to similar degrees of precision.
 
@@ -1478,7 +1501,7 @@ The problem with fitting such a distribution is that it is not at all clear what
 \subsection{Variational Autoencoders (VAEs)}
 
 % autoencoders
-\subsubsection{Autoencoders: no variation!}
+\subsubsection{Autoencoders: no variation yet!}
 \label{sec:autoencoders}
 An autoencoder $(\Omega_{\X},d,\theta,\phi)$ consists of a sample space $\Omega_{\X}\subset\mathbb{R}^n$, a latent dimension $d\in\mathbb{Z}_{\geq1}$, an encoder $\theta:\mathbb{R}^n\to\mathbb{R}^d$ and a decoder $\phi:\mathbb{R}^d\to\mathbb{R}^n$. Using a subset of $\Omega_{\X}$, one typically learns the encoder $\theta$ and the decoder $\phi$ with the goal of approximating the identity on $\Omega_{\X}$ via $\phi\circ \theta$. That is, roughly put, one seeks to obtain an encoder/decoder pair such that $\phi(\theta(\x))\approx\x$ for all $\x\in\Omega_{\X}$.
 
@@ -1697,7 +1720,7 @@ Some questions to challenge one's understanding.
 \dots
 
 % object detection
-\section{Object Detection}
+\section{Object Detection Models}
 
 Everything else in this document, as of now (Summer 2025), has been included due to their importance to ML as a whole or their interest to me. Since my internship uses object detection models a ton, I'll include a section on the three big object detection flavours. CNNs and transformer-based architectures have revolutionised object detection. Three main flavours: R-CNN, YOLO and DETR. Before going into detail about them, what is object detection? What methods came before CNN/transformer-based architectures?
 
@@ -1724,7 +1747,7 @@ R-CNN models has three flavours: R-CNN, Fast R-CNN and Faster R-CNN. R-CNN stand
 
 % probability things
 \section{Probability Theory Things}
-Here are some probability theory-related things, e.g. long derivations, which are well-suited for an appendix.
+Here are some probability theory-related things, e.g. long derivations, which are well-suited for an appendix. I wish I knew more probability/measure theory.
 
 \subsection{From Bernoulli to Binomial}
 Let's try to generalise the Bernoulli distribution to the binomial distribution. If $X\sim\text{Ber}(p)$ then $\Omega_X=\{0,1\}$ and $\P(X=x)=p^x(1-p)^{1-x}$, so $\P(X=1)=p$ and $\P(X=0)=1-p$.
@@ -1957,7 +1980,10 @@ k_{\text{MLE}}\xrightarrow{n\to\infty}\E[K]=1.
 $$
 From what I understand, the fact that minimising cross-entropy yields the same estimate as MLE with $n\to\infty$ here is a special case of things learned in generalised linear models. Some sort of result about distributions from exponential families. Sadly, I never took the GLMs course at my university by Wim Krijnen so it isn't obvious to me.
 
-\subsection{The Central Limit Theorem (CLT) \textcolor{red}{TODO}}
+\subsection{The Central Limit Theorem (CLT)}
+\dots
+
+\subsection{Quality of distribution fitting = Ability to encode?}
 \dots
 
 % statistics things

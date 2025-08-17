@@ -345,8 +345,11 @@ INPUT ./figures/supervised_learning/SVMs/SVM_soft_margin.pdf
 INPUT ./figures/supervised_learning/SVMs/SVM_soft_margin.pdf
 INPUT ./figures/supervised_learning/SVMs/SVM_soft_margin.pdf
 INPUT ./figures/supervised_learning/SVMs/SVM_soft_margin.pdf
-INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1095.tfm
-INPUT /usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
+INPUT ./figures/supervised_learning/SVMs/SVM_non_linear.pdf
+INPUT ./figures/supervised_learning/SVMs/SVM_non_linear.pdf
+INPUT ./figures/supervised_learning/SVMs/SVM_non_linear.pdf
+INPUT ./figures/supervised_learning/SVMs/SVM_non_linear.pdf
+INPUT ./figures/supervised_learning/SVMs/SVM_non_linear.pdf
 INPUT ./figures/supervised_learning/laplace_pdf.png
 INPUT ./figures/supervised_learning/laplace_pdf.png
 INPUT ./figures/supervised_learning/laplace_pdf.png
@@ -370,6 +373,8 @@ INPUT ./figures/neural_nets/MLP_1.pdf
 INPUT ./figures/neural_nets/MLP_1.pdf
 INPUT ./figures/neural_nets/MLP_1.pdf
 INPUT ./figures/neural_nets/MLP_1.pdf
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1095.tfm
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 INPUT ./figures/neural_nets/MLP_2.pdf
 INPUT ./figures/neural_nets/MLP_2.pdf
 INPUT ./figures/neural_nets/MLP_2.pdf
