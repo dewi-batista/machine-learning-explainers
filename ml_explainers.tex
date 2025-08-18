@@ -67,8 +67,9 @@ where $\theta=(\theta_0,\theta_1\dots,\theta_q)\in\R^{q+1}$ are the model parame
     \textbf{Assumption of normally distributed residuals}
     \vspace{5pt}
 
-    \footnote{\url{https://en.wikipedia.org/wiki/Central\_limit\_theorem\#Regression}}Central limit theorem to the rescue: ``Regression analysis, and in particular ordinary least squares, specifies that a dependent variable depends according to some function upon one or more independent variables, with an additive error term. Various types of statistical inference on the regression assume that the error term is normally distributed. This assumption can be justified by assuming that the error term is actually the sum of many independent error terms; even if the individual error terms are not normally distributed, by the central limit theorem their sum can be well approximated by a normal distribution."\\
+    \footnote{\url{https://en.wikipedia.org/wiki/Central\_limit\_theorem\#Regression}}Central limit theorem to the rescue: ``Regression analysis, and in particular ordinary least squares, specifies that a dependent variable depends according to some function upon one or more independent variables, with an additive error term. Various types of statistical inference on the regression assume that the error term is normally distributed. This assumption can be justified by assuming that the error term is actually the sum of many independent error terms; even if the individual error terms are not normally distributed, by the central limit theorem their sum can be well approximated by a normal distribution."
 
+    \vspace{10pt}
     Another good link: \url{https://stats.stackexchange.com/a/12266}.
 \end{tcolorbox}
 
@@ -187,6 +188,13 @@ The maximum likelihood estimate $\theta_{\text{MLE}}$ for the parameters of our 
 \end{align*}
 As such, the maximum likelihood estimator of the parameters of a linear regression model are precisely those which minimise the mean square error of the model over $\Dtrain$.
 
+\begin{tcolorbox}[colback=c2]
+    \textbf{Funny misuse of linear regression: Momentous sprint at the 2156 Olympics?}
+    \vspace{10pt}
+
+    The following is taken from an answer on Quora\footnote{\url{https://qr.ae/pslbEN}} (the top comment is worth reading) based on a paper\footnote{\url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3173856/}} published in Nature. Related\footnote{\url{https://xkcd.com/1007/}}.
+\end{tcolorbox}
+
 \subsubsection{Goodness of fit: $R^2$}
 If we'd like a way to measure the goodness-of-fit of a linear regresison model beyond test MSE, a natural avenue is to assess what portion of the sample variance is explained by the model. As usual, we do this over some sample $D=\{(\x_i,y_i)\}_{i=1}^n\subset\OX\times\OY$. That is, computing
 $$
@@ -202,7 +210,7 @@ R
 =
 \frac{\sum_{i=1}^n\l(f_{\theta}(\x_i)-\bar{f}_{\theta}\r)(y_i-\bar{y})}{\sqrt{\sum_{i=1}^n\l(f_{\theta}(\x_i)-\bar{f}_{\theta}\r)^2}\sqrt{\sum_{i=1}^n\l(y_i-\bar{y}\r)^2}}.
 $$
-The derivation of this statement is boring, so I'll leave it out. Worth noting that it's typically expressed as
+The derivation of this statement is boring, so I'll leave it out. Worth noting that $R^2$ is typically expressed as
 $$
 R^2
 =
@@ -212,148 +220,141 @@ R^2
 $$
 where $s_e^2$ and $s_Y^2$ denote the sample variances of the residuals and $Y$ respectively. I prefer the ratio of explained variance to underlying model variance though; is more intuitive to me, especially in terms of how its motivated and doesn't feel like it comes outta nowhere. Note that this notion of the portion of explained variance can be extended to logistic regression but the details are a bit much for this document.
 
-\subsubsection{Example}
+% \subsubsection{Example}
 
-\begin{table}[ht]
-    \begin{center}
-        \begin{tabular}{c|c||c}
-            Age (years) & BMI (kg/m$^2$) & Cholesterol (mg/dL)\\
-            \hline
-            \hline
-            25 & 22.5 & 180 \\
-            30 & 24.0 & 190 \\
-            35 & 26.5 & 210 \\
-            40 & 28.0 & 220 \\
-            45 & 29.5 & 240 \\
-            50 & 30.0 & 250 \\
-            55 & 31.5 & 260 \\
-            60 & 32.0 & 270 \\
-            65 & 33.5 & 280 \\
-            70 & 34.0 & 290 \\
-            \hline
-        \end{tabular}
-    \end{center}
-    \vspace{-15pt}
-    \caption{Patient data pertaining to their age, BMI and cholesterol levels.}
-    \label{tab:lin_reg_example}
-\end{table}
+% \begin{table}[ht]
+%     \begin{center}
+%         \begin{tabular}{c|c||c}
+%             Age (years) & BMI (kg/m$^2$) & Cholesterol (mg/dL)\\
+%             \hline
+%             \hline
+%             25 & 22.5 & 180 \\
+%             30 & 24.0 & 190 \\
+%             35 & 26.5 & 210 \\
+%             40 & 28.0 & 220 \\
+%             45 & 29.5 & 240 \\
+%             50 & 30.0 & 250 \\
+%             55 & 31.5 & 260 \\
+%             60 & 32.0 & 270 \\
+%             65 & 33.5 & 280 \\
+%             70 & 34.0 & 290 \\
+%             \hline
+%         \end{tabular}
+%     \end{center}
+%     \vspace{-15pt}
+%     \caption{Patient data pertaining to their age, BMI and cholesterol levels.}
+%     \label{tab:lin_reg_example}
+% \end{table}
 
-\noindent Suppose we are given the dataset illustrated in \autoref{tab:lin_reg_example} pertaining to a set of patients' ages, BMIs and cholesterol levels and that we would like to predict the cholesterol levels of some other set of patients based on their ages and heights. In this context we have two features, age and BMI, which will correspond to the parameters $\theta_1$ and $\theta_2$ respectively. As such, our model's output function will be of the form
-$$
-f_{\theta}(\x)=\theta_0+\theta_1x_1+\theta_2x_2
-$$
-where $x_1$ and $x_2$ correspond to the input sample patient's age and BMI level respectively. Before fitting a linear regression model to our dataset, it's a good idea to see if a linear underlying relationship exists in the first place. To do this, we can plot the given dataset to obtain \autoref{fig:not_at_all_the_same}.
+% \noindent Suppose we are given the dataset illustrated in \autoref{tab:lin_reg_example} pertaining to a set of patients' ages, BMIs and cholesterol levels and that we would like to predict the cholesterol levels of some other set of patients based on their ages and heights. In this context we have two features, age and BMI, which will correspond to the parameters $\theta_1$ and $\theta_2$ respectively. As such, our model's output function will be of the form
+% $$
+% f_{\theta}(\x)=\theta_0+\theta_1x_1+\theta_2x_2
+% $$
+% where $x_1$ and $x_2$ correspond to the input sample patient's age and BMI level respectively. Before fitting a linear regression model to our dataset, it's a good idea to see if a linear underlying relationship exists in the first place. To do this, we can plot the given dataset to obtain \autoref{fig:not_at_all_the_same}.
 
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.49\columnwidth]{./figures/supervised_learning/lin_reg_example/age_and_bmi_vs_cholesterol.pdf}
-    \includegraphics[width=0.49\columnwidth]{./figures/supervised_learning/lin_reg_example/age_vs_bmi_vs_cholesterol.pdf}
-    \caption{Each feature against the output (left) and the dataset in the feature space (right).}
-    \label{fig:not_at_all_the_same}
-\end{figure}
+% \begin{figure}[ht]
+%     \centering
+%     \includegraphics[width=0.49\columnwidth]{./figures/supervised_learning/lin_reg_example/age_and_bmi_vs_cholesterol.pdf}
+%     \includegraphics[width=0.49\columnwidth]{./figures/supervised_learning/lin_reg_example/age_vs_bmi_vs_cholesterol.pdf}
+%     \caption{Each feature against the output (left) and the dataset in the feature space (right).}
+%     \label{fig:not_at_all_the_same}
+% \end{figure}
 
-\noindent Looks sufficiently linear to me. We'll split the dataset into training and testing datasets via \autoref{tab:lin_reg_example_train} and \autoref{tab:lin_reg_example_test}.
-\begin{table}[ht]
-    \begin{center}
-        \begin{minipage}{0.49\textwidth}
-            \begin{center}
-                \begin{tabular}{c|c||c}
-                    Age & BMI & Cholesterol\\
-                    \hline
-                    \hline
-                    25 & 22.5 & 180 \\
-                    35 & 26.5 & 210 \\
-                    45 & 29.5 & 240 \\
-                    55 & 31.5 & 260 \\
-                    65 & 33.5 & 280 \\
-                    \hline
-                \end{tabular}
-                \caption{Training dataset.}
-                \label{tab:lin_reg_example_train}
-            \end{center}
-        \end{minipage} \hfill
-        \begin{minipage}{0.49\textwidth}
-            \begin{center}
-                \begin{tabular}{c|c||c}
-                    Age & BMI & Cholesterol\\
-                    \hline
-                    \hline
-                    30 & 24.0 & 190 \\
-                    40 & 28.0 & 220 \\
-                    50 & 30.0 & 250 \\
-                    60 & 32.0 & 270 \\
-                    70 & 34.0 & 290 \\
-                    \hline
-                \end{tabular}
-                \caption{Testing dataset.}
-                \label{tab:lin_reg_example_test}
-            \end{center}
-        \end{minipage}
-    \end{center}
-\end{table}
-Since $\Dtrain$ consists of only five samples, it's feasible to compute the optimal parameters $\thetaOpt$ by hand. We have
-$$
-y=
-\begin{bmatrix}
-    180\\
-    210\\
-    240\\
-    260\\
-    280\\
-\end{bmatrix},
-\hspace{10pt}
-X=
-\begin{bmatrix}
-    1 & 25 & 22.5 \\
-    1 & 35 & 26.5 \\
-    1 & 45 & 29.5 \\
-    1 & 55 & 31.5 \\
-    1 & 65 & 33.5
-\end{bmatrix}
-$$
-from which we obtain
-$$
-\thetaOpt
-=
-\l(X^{\top}X\r)^{-1}X^{\top}y
-=
-\begin{bmatrix}
-    25.68\\
-    0.94\\
-    5.79
-\end{bmatrix}
-$$
-which corresponds to
-$$
-f_{\thetaOpt}(x_1,x_2)=25.68+0.94x_1+5.79x_2.
-$$
+% \noindent Looks sufficiently linear to me. We'll split the dataset into training and testing datasets via \autoref{tab:lin_reg_example_train} and \autoref{tab:lin_reg_example_test}.
+% \begin{table}[ht]
+%     \begin{center}
+%         \begin{minipage}{0.49\textwidth}
+%             \begin{center}
+%                 \begin{tabular}{c|c||c}
+%                     Age & BMI & Cholesterol\\
+%                     \hline
+%                     \hline
+%                     25 & 22.5 & 180 \\
+%                     35 & 26.5 & 210 \\
+%                     45 & 29.5 & 240 \\
+%                     55 & 31.5 & 260 \\
+%                     65 & 33.5 & 280 \\
+%                     \hline
+%                 \end{tabular}
+%                 \caption{Training dataset.}
+%                 \label{tab:lin_reg_example_train}
+%             \end{center}
+%         \end{minipage} \hfill
+%         \begin{minipage}{0.49\textwidth}
+%             \begin{center}
+%                 \begin{tabular}{c|c||c}
+%                     Age & BMI & Cholesterol\\
+%                     \hline
+%                     \hline
+%                     30 & 24.0 & 190 \\
+%                     40 & 28.0 & 220 \\
+%                     50 & 30.0 & 250 \\
+%                     60 & 32.0 & 270 \\
+%                     70 & 34.0 & 290 \\
+%                     \hline
+%                 \end{tabular}
+%                 \caption{Testing dataset.}
+%                 \label{tab:lin_reg_example_test}
+%             \end{center}
+%         \end{minipage}
+%     \end{center}
+% \end{table}
+% Since $\Dtrain$ consists of only five samples, it's feasible to compute the optimal parameters $\thetaOpt$ by hand. We have
+% $$
+% y=
+% \begin{bmatrix}
+%     180\\
+%     210\\
+%     240\\
+%     260\\
+%     280\\
+% \end{bmatrix},
+% \hspace{10pt}
+% X=
+% \begin{bmatrix}
+%     1 & 25 & 22.5 \\
+%     1 & 35 & 26.5 \\
+%     1 & 45 & 29.5 \\
+%     1 & 55 & 31.5 \\
+%     1 & 65 & 33.5
+% \end{bmatrix}
+% $$
+% from which we obtain
+% $$
+% \thetaOpt
+% =
+% \l(X^{\top}X\r)^{-1}X^{\top}y
+% =
+% \begin{bmatrix}
+%     25.68\\
+%     0.94\\
+%     5.79
+% \end{bmatrix}
+% $$
+% which corresponds to
+% $$
+% f_{\thetaOpt}(x_1,x_2)=25.68+0.94x_1+5.79x_2.
+% $$
 
-What's nice about such a low-dimensional problem like this is that visualising the loss landscape is relatively doable. We have three parameters so I'll fix $\theta_0=25.68$ and plot $\theta_1$ and $\theta_2$ against 
-$$
-\text{MSE}(25.68, \theta_1, \theta_2)
-=
-\sum_{i=1}^5 (y_i-25.68-\theta_1\x_{i,1}-\theta_2\x_{i,2})^2
-$$
-where the sum is taken over the training data $\{(\x_i,y_i)\}_{i=1}^5$. \textcolor{red}{TODO: make the loss landscape figure.}
+% What's nice about such a low-dimensional problem like this is that visualising the loss landscape is relatively doable. We have three parameters so I'll fix $\theta_0=25.68$ and plot $\theta_1$ and $\theta_2$ against 
+% $$
+% \text{MSE}(25.68, \theta_1, \theta_2)
+% =
+% \sum_{i=1}^5 (y_i-25.68-\theta_1\x_{i,1}-\theta_2\x_{i,2})^2
+% $$
+% where the sum is taken over the training data $\{(\x_i,y_i)\}_{i=1}^5$. \textcolor{red}{TODO: make the loss landscape figure.}
 
-As for how well the model performs, its MSE on $\Dtrain$ is $1.26$ and its MSE on $\Dtest$ is $12.24$. In this case, such a difference is fine. To get a visual on how well the model does on the training and testing sets, consider \autoref{fig:lin_reg_example_on_train_and_test}. I should improve these at some point. \textcolor{red}{TODO: offer a figure for each projected onto each of the two feature axes?}
+% As for how well the model performs, its MSE on $\Dtrain$ is $1.26$ and its MSE on $\Dtest$ is $12.24$. In this case, such a difference is fine. To get a visual on how well the model does on the training and testing sets, consider \autoref{fig:lin_reg_example_on_train_and_test}. I should improve these at some point. \textcolor{red}{TODO: offer a figure for each projected onto each of the two feature axes?}
 
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.49\columnwidth]{./figures/supervised_learning/lin_reg_example/model_predicts_train.pdf}
-    \includegraphics[width=0.49\columnwidth]{./figures/supervised_learning/lin_reg_example/model_predicts_test.pdf}
-    \caption{Model output for the training set (left) and testing set (right). Hard to appreciate these 3D figures.}
-    \label{fig:lin_reg_example_on_train_and_test}
-\end{figure}
+% \begin{figure}[ht]
+%     \centering
+%     \includegraphics[width=0.49\columnwidth]{./figures/supervised_learning/lin_reg_example/model_predicts_train.pdf}
+%     \includegraphics[width=0.49\columnwidth]{./figures/supervised_learning/lin_reg_example/model_predicts_test.pdf}
+%     \caption{Model output for the training set (left) and testing set (right). Hard to appreciate these 3D figures.}
+%     \label{fig:lin_reg_example_on_train_and_test}
+% \end{figure}
 
-\textcolor{red}{provide $R^2$ for train and test}
-
-\begin{tcolorbox}[colback=c2]
-    \textbf{Funny misuse of linear regression: Momentous sprint at the 2156 Olympics?}
-    \vspace{10pt}
-
-    The following is taken from an answer on Quora\footnote{\url{https://qr.ae/pslbEN}} (the top comment is worth reading) based on a paper\footnote{\url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3173856/}} published in Nature. Related\footnote{\url{https://xkcd.com/1007/}}.
-\end{tcolorbox}
+% \textcolor{red}{provide $R^2$ for train and test}
 
 \subsubsection{Why `regression'?}
 
@@ -437,8 +438,9 @@ Note that, in practice, it's unlikely that any samples will lie on the hyperplan
 \subsection{Support Vector Machines (SVMs)}
 Logistic regression and SVMs both fit a hyperplane to feature space. The distinction is the metric of goodness of said hyperplanes. In logistic regression, the metric of goodness is how much the parameters of said hyperplane maximise the relevant log-likelihood. SVMs, however, look to maximise the distance between the hyperplane and the samples. So in some sense, logistic regression is a probabilistic approach while SVMs take a constraint-based approach.
 
-The authors' insight came from structural risk minimization in which instead of focusing on minimising training error (as neural networks and decision trees were doing at the time), one focuses on minimising an upper bound on the generalisation error. The inclusion of `support vector' is clear from their construction but `machine' stood out to me as a bit odd. It turns out that at time of their development, around 1960, it was common to use `machine' when referring to algorithms that learned from data, i.e. algorithms belonging to statistical learning theory.\\
+The authors' insight came from structural risk minimization in which instead of focusing on minimising training error (as neural networks and decision trees were doing at the time), one focuses on minimising an upper bound on the generalisation error. The inclusion of `support vector' is clear from their construction but `machine' stood out to me as a bit odd. It turns out that at time of their development, around 1960, it was common to use `machine' when referring to algorithms that learned from data, i.e. algorithms belonging to statistical learning theory.
 
+\vspace{14pt}
 \noindent\textbf{Note:} Terminology surrounding SVMs is inconsistent. Some pieces of literature describe the decision boundary learned by an SVM as strictly linear, others allow for a non-linear decision boundary. It'd be nice if authors stuck to the former and explicitly stated `non-linear SVM' when describing the latter. Here, `an SVM' refers to the former and I'll state explicitly when considering the latter.
 
 \subsubsection{Hard-margin SVMs \textcolor{red}{TODO: switch notation from z to y}}
@@ -709,11 +711,7 @@ In brief, if the learned estimate varies a lot as we vary the dataset from which
 
 The flip side of this is an underparameterised model. Since such a model has little hope of fitting the dataset from which it is learned, you'd expect it to rarely overfit (it can't) and to instead be almost invariant to the dataset. That is, no matter which dataset you gave it to learn from, you get a similar model each time. In other words, the learning method (the method of going from dataset to model) is biased. Think of fitting a line to high degree polynomial — no matter what dataset you use, the best fit line will likely not change too much (which is usually a good thing) but the fit itself will never be anything but linear, i.e. always a bad fit. 
 
-With this in mind, when considering which learning method (i.e. model family) to consider when tackling a problem, thought should be given to how complex (i.e. parameter number) the model family should be. Too simple (i.e. too few parameters) and you underfit (high bias, low variance). Too complex (i.e. too many parameters) and you overfit (low bias, high variance). This is nicely illustrated in \autoref{fig:bias_variance} in which we see that there exists a sweet spot in model complexity. A spot in which said model complexity yields some square of bias and some variance but the minimum some of said quantities, i.e. the lowest learning method error. You can think of this plot as the graph of
-$$
-\l(N\l(\mathcal{A}\r),\E_X\l[R\l(\hat{f}_{\D}(X)\r)\r]\r)
-$$
-where $N(\mathcal{A})$ denotes the number of parameters of models given by $\mathcal{A}$.
+With this in mind, when considering which learning method (i.e. model family) to consider when tackling a problem, thought should be given to how complex (i.e. parameter number) the model family should be. Too simple (i.e. too few parameters) and you underfit (high bias, low variance). Too complex (i.e. too many parameters) and you overfit (low bias, high variance). This is nicely illustrated in \autoref{fig:bias_variance} in which we see that there exists a sweet spot in model complexity. A spot in which said model complexity yields some square of bias and some variance but the minimum some of said quantities, i.e. the lowest learning method error.
 
 \subsubsection{\textcolor{red}{TODO:} How it motivates regularisation}
 For ordinary least squares (OLS), methods of regularisation, such as L1 and L2, introduce some bias but reduce variance. The result is better performance according to MSE.
@@ -729,7 +727,7 @@ Double descent refers to a behaviour in which overparameterised models ignore fl
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\columnwidth]{./figures/supervised_learning/double_descent.png}
-    \caption{The double descent phenomenon.}
+    \caption{How double descent typically looks.}
     \label{fig:double_descent}
 \end{figure}
 
@@ -763,33 +761,51 @@ To be honest, I thought a streamline test for this existed. As per this Stack Ex
 
 % gradient descent and optimisation techniques
 \section{Gradient Descent and its Optimisation}
-\dots
+In fitting a parametric model $f_{\theta}:\OX\to\OY$, the loss induced by a choice of model parameters $\theta$ for a sample $(\x,y)$ is given by $\mathcal{L}\l(y,f_{\theta}(\x)\r)$. In line with this, let the empirical risk $R_D$ over a dataset $D=\{(\x_i,y_i)\}_{i=1}^n$ be
+\begin{align*}
+    R_D:\Theta&\to\R_{\geq0}\\
+    \theta&\mapsto\frac{1}{n}\sum_{i=1}^n\mathcal{L}(y_i,f_{\theta}(\x_i))
+\end{align*}
+In fitting our paremtric model $f_{\theta}$, we seek to compute
+$$
+\thetaOpt
+=
+\argmin_{\theta\in\Theta}R_D(\theta),
+$$
+i.e. to minimise the empirical risk over the dataset in the parameters. As such, methods of function minimisation are of interest, of which many exist.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.75\columnwidth]{./figures/gradient_descent/loss_landscape.png}
+    \caption{The graph of a complex loss landscape $\{(\theta,R_D(\theta))|\theta\in\R^2\}$ whose minimiser we seek.}
+    \label{fig:loss_landscape_complex}
+\end{figure}
+
+Tons of function minimisation methods exist: Newton's method, genetic algorithms, gradient descent, etc. but most are horribly slow/unstable in high dimensions; not gradient descent though! As a result, gradient descent is \textit{the} method for computing good parameters numerically in machine learning, hence the inclusion of this section.
+
+\vspace{10pt}
+\noindent\textbf{Note:} When loss landscapes are illustrated, they are really plots of the graph $\{(\theta, R_D(\theta))|\theta\in\Theta\}$. That is, they are shaped by the fixed dataset $D$. As such, computations of the form $R_{D'}(\theta)$ for $D'\subsetneq D$, e.g. computations related to mini-batch gradient descent, don't necessarily correspond exactly with $R_D(\theta)$ but this can be dealt with when it comes to it.
 
 % vanilla gradient descent
-\subsection{Gradient Descent}
-\textbf{Batch learning:} Loss landscape gets smoothed out. Make sure to make a note of what Welch Labs states about projecting loss landscapes: every step you make in the actual high dimensional loss landscape will change its 2D projection. His example of the actual loss landscape being 2D and illustrating its 1D projection makes for a great example (he mentions that this only applies to the case of training on a single sample? I don't understand entirely as of now). He also makes an interesting point of ``if we get stuck in a global minimum then it must be a minima wrt all dimensions, which is less likely to happen the higher the dimension'' whatever that might mean precisely.
+\subsection{Gradient Descent and Batch Learning}
+Since gradient descent is a general function minimisation method and not specific to machine learning, I'll use more general mathsy notation than $\theta$ and $R_D$, etc.
 
-% momentum
-\subsection{Momentum}
-\dots
+Anyway, say we're interested in minimising $f(\x)$. A natural idea is to start with a guess $\x^{(0)}$ and send it in the direction in which $f$ most decsends locally from $\x^{(0)}$, or equivalently the opposite of the direction in which $f$ most ascends locally from $\x^{(0)}$, i.e. computing
+$$
+\argmax_{||\mathbf{v}^{(0)}||=1}f\l(\x^{(0)}+\eta\mathbf{v}^{(0)}\r),
+$$
+for some small $\eta>0$, and updating our guess to $\x^{(1)}=\x^{(0)}-\eta\mathbf{v}^{(0)}$. Iteratively applying this idea yields the usual gradient descent rule
+$$
+\x^{(t+1)}
+=
+\x^{(t)}-\eta\mathbf{v}^{(t)}.
+$$
+Eventually, after taking a ton of these small steps, we should reach the bottom of the mountain, i.e. a minima of $f$.
 
-% hyperparam tuning
-\subsection{Hyperparameter Tuning}
-Cross-validation
+\subsubsection{In which direction does $f$ most ascend locally from $\x^{(t)}$?}
+Note that in the following physicist-like argument, we consider only unit vectors $\mathbf{v}$. This is because we care only about the direction of such vectors, so size does not matter, and an equation later on simplifies quite nicely due to its unit length. 
 
-% misc. questions
-\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
-\subsection{Misc. questions}
-\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
-
-Some questions to challenge one's understanding.
-
-\begin{center}
-    \textbf{\textcolor{blue}{Q1:} Why does $f(\mathbf{x})$ ascend most in the direction of $\nabla f(\mathbf{x})$?}
-\end{center}
-The following is more of a proof \textit{that} $\nabla f(x)$ yields the direction of steepest ascent not an intuition of \textit{why}. For some reason, it is typically taken for granted that $f(\mathbf{x})$ would both ascend and ascend \textit{most} in the direction of $\nabla f(\mathbf{x})$. I do not consider this obvious at all, so here is an informal physicist-like argument. Note that in this argument, we consider only unit vectors $\mathbf{v}$. This is because we care only about the direction of such vectors, so size does not matter, and an equation later on simplifies quite nicely due to its unit length. 
-
-In gradient descent, we are looking for the unit vector $\mathbf{v}$ such that $f(\mathbf{x})$ increases most in the direction of $\mathbf{v}$, i.e. we seek to compute
+In gradient ascent, we are looking for the unit vector $\mathbf{v}$ such that $f(\mathbf{x})$ increases most in the direction of $\mathbf{v}$, i.e. we seek to compute
 $$\argmax_{||\mathbf{v}||=1}\Big[f(\mathbf{x}+\eta\mathbf{v})-f(\mathbf{x})\Big]$$
 where $\eta>0$. If $\eta$ is small then approximating $f(\mathbf{x}+\eta\mathbf{v})$ using its Taylor expansion yields
 $$
@@ -817,14 +833,171 @@ f(\mathbf{x}+\eta\mathbf{v})-f(\mathbf{x})
 >
 0.
 $$
-The edge case where $\nabla f(\mathbf{x})=0$ corresponds to $f(\mathbf{x})$ being a local maximum.
+The edge case in which $\nabla f(\mathbf{x})=0$ corresponds to $f(\mathbf{x})$ being a local maximum.
 
 \vspace{10pt}
-
 \noindent\textbf{Note}: This argument, which utilises a Taylor approximation, relies on a sufficiently small learning rate $\eta>0$. Otherwise, the terms in the Taylor approximation of $f(\mathbf{x}+\eta\mathbf{v})$ beyond $\nabla f(\mathbf{x})\cdot\eta\mathbf{v}$ are not necessarily negligible.
 
+%\textbf{Batch learning:} Loss landscape gets smoothed out. Make sure to make a note of what Welch Labs states about projecting loss landscapes: every step you make in the actual high dimensional loss landscape will change its 2D projection. His example of the actual loss landscape being 2D and illustrating its 1D projection makes for a great example (he mentions that this only applies to the case of training on a single sample? I don't understand entirely as of now). He also makes an interesting point of ``if we get stuck in a global minimum then it must be a minima wrt all dimensions, which is less likely to happen the higher the dimension'' whatever that might mean precisely.
+
+\subsubsection{Sensitivity to $\x^{(0)}$}
+I don't know much about initialisation. I know that it's a bad idea to start at 0 (if symmetries hold then parameters change identically), points of large magnitude (exploding gradients) and points of small magnitude (vanshing gradients). Also, if the function in question is convex then don't worry so much about converging to a nice solution. In practice, empirical risk functions are not convex.
+
+One day when my interest in initialisation sparks up, I'll write this subsubection properly.
+
+\subsubsection{My dataset (i.e. $n$) is too large!!!}
+Do not fear, for it turns out that we can approximate full gradient updates pretty well using many smaller updates over subsets of the dataset. How well mini-batch learning and stochastic gradient descent perform (and even just \textit{that} they perform) surprised me when I first learned them.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\columnwidth]{./figures/gradient_descent/gradient_descent_types.png}
+    \caption{How we might expect the convergence of each method to look.}
+    \label{fig:gradient_descent_types}
+\end{figure}
+
+\subsubsection*{1) Full-batch updates}
+Full-batch gradient descent requires us one parameter update per epoch as in
+$$
+\theta^{(t+1)}
+=
+\theta^{(t)}-\frac{1}{n}\sum_{i=1}^n \nabla_{\theta}\mathcal{L}\l(y_i,f_{\theta^{(t)}}(\x_i)\r).
+$$
+
+\subsubsection*{2) Mini-batch updates}
+All that gradient info might be too much for your PC's VRAM during training. If so, instead perform mini-batch gradient descent in which the $D$ is split into $m$ disjoint subsets $B_1,\dots,B_m$ (i.e. the dataset is split into $m$ batches) and we compute
+$$
+\theta^{(t+j)}
+=
+\theta^{(t+j-1)}-\frac{1}{|B_j|}\sum_{(\x,y)\in B_j} \nabla_{\theta}\mathcal{L}\l(y,f_{\theta^{(t+j-1)}}(\x)\r)
+$$
+for $j=1,\dots,m$. That is, a full epoch consists of approximately $n/m$ parameter updates and each update is with respect to a single batch of the full dataset.
+
+\subsubsection*{3) Stochastic gradient descent (SGD)}
+Turns out that doing mini-batch with $m=n$ (so one sample per update), as in
+$$
+\theta^{(t+j)}
+=
+\theta^{(t+j-1)}-\nabla_{\theta}\mathcal{L}\l(y_j,f_{\theta^{(t+j-1)}}(\x_j)\r)
+$$
+for $j=1,\dots,n$ is viable. Susprising; I would have thought that it'd produce nonsense parameters. In SGD, a full epoch consists of $n$ parameter updates and each is with respect to a single sample. Unsurprisingly, SGD yields relatively unstable convergence, a bit like the steps a drunk man would take in walking down the mountain. It's perhaps unsurprising that mini-batch, and thus SGD, are unbiased but high in variance.
+
+\subsubsection{Batch + Layer normalisation}
+These forms of normalisation typically only apply to learning in neural network settings. There's some piece of advice regarding which you should use when batch number is small; was it to use layer norm?
+
+\subsubsection*{1) Batch norm}
+For a batch $B=\{\x_1,\dots,\x_m\}$, batch normalisation is the act of normalising the post-activation values of some layer of $d$ neurons in our architecture. Denote the $d$ activation values for the sample $\x_i\in B$ as $(a_{i,1},\dots,a_{i,d})$. The entire batch's activation values can be written as a matrix as in
+$$
+\begin{bmatrix}
+    a_{1,1} & \dots  & a_{1,d}\\
+    \vdots  & \ddots & \vdots \\
+    a_{m,1} & \dots  & a_{m,d}
+\end{bmatrix}.
+$$
+Batch norm first normalises the columns of $A$ as in
+$$
+\begin{bmatrix}
+    \hat{a}_{1,1} & \dots  & \hat{a}_{1,d}\\
+    \vdots        & \ddots & \vdots       \\
+    \hat{a}_{m,1} & \dots  & \hat{a}_{m,d}
+\end{bmatrix}
+=
+\begin{bmatrix}
+    (a_{1,1}-\mu_1) / \sqrt{\sigma_1^2+\epsilon} & \dots & (a_{1,d}-\mu_d) / \sqrt{\sigma_d^2+\epsilon}\\
+    \vdots & \ddots & \vdots \\
+    (a_{m,1}-\mu_1) / \sqrt{\sigma_1^2+\epsilon} & \dots & (a_{m,d}-\mu_d) / \sqrt{\sigma_d^2+\epsilon}
+\end{bmatrix}
+$$
+where $\mu_j=\frac{1}{m}\sum_{i=1}^ma_{i,j}$, $\sigma_j^2=\frac{1}{m}\sum_{i=1}^m(a_{i,j}-\mu_j)^2$ and $\epsilon>0$ is tiny. At this point, the columns have mean 0 and variance 1. The output of batch norm for sample $i\in\{1,\dots,m\}$ is given by
+$$
+(\gamma_1\hat{a}_{i,1}+\beta_1,\dots,\gamma_d\hat{a}_{i,d}+\beta_d)
+$$
+where $\gamma_1,\dots,\gamma_d$ and $\beta_1,\dots,\beta_d$ are learnable parameters.
+
+I don't think that the effect of batch norm is immediately clear; perhaps helps avoid exploding/vanishing gradients. It was initially thought to reduce something called covariance shift but the consensus has changed and it's now believed that it simply smoothes out the corresponding loss landscape.
+
+\subsubsection*{2) Layer norm}
+If batch statistics aren't particularly meaningful or batch size is small then layer norm may be preferable. Layer norm applies to individual samples, as opposed to entire batches, and so normalises over the features instead. Given activation values $a_1,\dots,a_d$, layer norm first normalises the activation values as in
+$$
+(\hat{a}_1,\dots,\hat{a}_d)
+=
+\l(\frac{a_1-\mu}{\sqrt{\sigma^2+\epsilon}},\dots,\frac{a_d-\mu}{\sqrt{\sigma^2+\epsilon}}\r)
+$$
+where $\mu=\frac{1}{d}\sum_{j=1}^da_j$ and $\sigma^2=\frac{1}{d}\sum_{j=1}^d(a_j-\mu)^2$. Then, as in batch norm, we scale and shift to obtain
+$$
+(\gamma_1\hat{a}_1+\beta_1,\dots,\gamma_d\hat{a}_d+\beta_d)
+$$
+where $\gamma_1,\dots,\gamma_d$ and $\beta_1,\dots,\beta_d$ are learnable parameters.
+
+% momentum and adaptive learning rates
+\subsection{Momentum and Adaptive Learning Rates}
+There are some intuitive ideas that accelerate gradient descent. One is momentum, which builds up speed if gradients have pointed in the same direction over multiple steps. The other is an adaptive learning rate, where each parameter has its own step size that adapts over time depending on its past gradients.
+
+\subsection*{1) Momentum}
+Think of a ball rolling downhill: momentum lets it keep moving in the same direction which smoothes out noisy gradients. If gradients keep pointing in the same direction then momentum accelerates. If gradients oscillate, e.g. traversing like a ravine, then momentum dampens the motion.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\columnwidth]{./figures/gradient_descent/momentum.png}
+    \caption{How we might expect the convergence to look with momentum.}
+    \label{fig:gradient_descent_momentum}
+\end{figure}
+
+We impose this by introducing a velocity vector
+$$
+\mathbf{v}^{(t+1)}=\mu\mathbf{v}^{(t)}-\eta\nabla R_D\l(\theta^{(t)}\r)
+$$
+with $\mathbf{v}^{(0)}=0$ and switch up the gradient descent update rule to
+$$
+\theta^{(t+1)}
+=
+\theta^{(t)}-\eta\nabla R_D\l(\theta^{(t)}\r)+\mu\mathbf{v}^{(t)}
+$$
+where $\mu\in[0,1)$ is the momentum coefficient. Typically, $\mu\in\{0.9,0.95,0.99\}$ are taken. To get a sense of how this refelcts a momentum-like idea, see that $\mathbf{v}^{(1)}=-\eta\nabla R_D(\theta^{(0)})$ and so
+$$
+\mathbf{v}^{(2)}
+=
+-\eta\l(\mu\nabla R_D(\theta^{(0)})+\nabla R_D(\theta^{(1)})\r).
+$$
+If $\mu\approx1$ and the gradients $\nabla R_D(\theta^{(0)})$ and $\nabla R_D(\theta^{(1)})$ are roughly equal then $\mathbf{v}^{(2)}$ will confidently boost $\theta^{(3)}$ in the direction of the first two gradients. If they oppose one another then, as intuition would suggest, $\mathbf{v}^{(0)}=0$.
+
+\subsection*{2) Adaptive learning rates}
+Why have a fixed learning rate? Why have the same learning rate for each parameter? Adaptive learning rates looks to solve both. Some intuition to fuel how learning rates might change: if up to the $t^{\text{th}}$ parameter update the gradients for a given parameter have been large then it has presumably converged decently so its learning rate would ideally get smaller. The way AdaGrad does this is by storing a per parameter running total of gradients, as in
+$$
+G_i^{(t)}
+=
+\sum_{\tau=1}^t\l(\nabla_{\theta_i}R_D(\theta_i^{(\tau)})\r)^2
+$$
+and switch the parameter update to
+$$
+\theta_i^{(t+1)}
+=
+\theta_i^{(t)}-\eta_i\nabla_{\theta_i}^{(t)}R_D(\theta_i^{(t)})
+$$
+where $\eta_i^{(t)}=\frac{\eta}{\sqrt{G_i^{(t)}}+\epsilon}$ is the $i^{\text{th}}$ parameter's learning rate. There are more elaborate/known adaptive learning rate methods than this, e.g. RMSProp and Adam, but AdaGrad conveys the idea well.
+
+% hyperparam tuning
+\subsection{Hyperparameter Tuning}
+Parameters are learned during training. Hyperparameters are set prior to training. Bad hyperparameters will yield training issues like divergence, overfitting or underfitting. The easiest example of a hyperparameter I can think of is the learning rate in vanilla gradient descent. Some choices of learning rate will yield models which generalise better post-training than other learning rates. For a more sophisticated example, consider architecture-related hyperparameters, e.g. the number of hidden layers in a multi-layer perceptron.
+
+\subsection*{Random search}
+Begin by designating some portion of the training data for validation. Define a finite set of values in which each hyperparmeter may take a value. Since the cardinality of such a set will often be massive, instead of traversing the whole grid of values, consider random search: choose a number of models to train, randomly sample from the finite set for each and choose whichever yielded the lowest validation loss.
+
+\subsection*{$k-$fold cross-validation}
+For a better idea of how a configuration of hyperparameters will help generalise post-training, consider partitioning the training data into $k$ subsets $D_1,\dots,D_k$. Then, for $i=1,\dots,k$, train a model on $k-1$ of them and validate on the remaining. Average the $k$ validation losses. Choose whichever hyperparameter configuration yields the lowest average validation loss.
+
+More elaborate methods of hyperparameter tuning exist, random search is a straightforward one.
+
+\textcolor{red}{why not choose hyperparams which minimise test loss?}
+
+% misc. questions
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+\subsection{Misc. questions}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
+
+Some questions to challenge one's understanding.
+
 \begin{center}
-    \textbf{\textcolor{blue}{Q2:} Which loss function is appropriate for gradient descent?}
+    \textbf{\textcolor{blue}{Q1:} Which loss function is appropraite?}
 \end{center}
 There are a ton of machine learning-related scenarios that would need a specially-chosen loss function but the list below is a fine overview. Most are principled in their motivation due to their minimisation corresponding to maximum likelihood estimation in some way.
 \begin{table}[ht]
@@ -836,7 +1009,7 @@ There are a ton of machine learning-related scenarios that would need a speciall
             Binary classification & Binary cross-entropy\\
             Multi-class classification & Categorical cross-entropy\\
             Regression & Mean square error\\
-            Multi-label classification & Binary cross-entropy over each label\\
+            Multi-label classification & Per-label categorical cross-entropy\\
             \hline
         \end{tabular}
     \end{center}
@@ -846,22 +1019,18 @@ There are a ton of machine learning-related scenarios that would need a speciall
 \end{table}
 
 \begin{center}
-    \textbf{\textcolor{blue}{Q3:} How should we choose the learning rate $\eta$?}
+    \textbf{\textcolor{blue}{Q2:} How might we choose the learning rate $\eta$ in vanilla GD?}
 \end{center}
 This is entirely problem-dependent but $\eta=0.1$ is a great staple choice. If convergence is unstable then try $\eta=0.01$. Other than this line of thinking, there are some `rules of thumb' relating batch number/size to learning rate, otherwise it's a `whatever seems to work best' kind of thing.
 
 It's perhaps also worth mentioning the idea of learning over some number of epochs with $\eta=0.1$ and then for a few more epochs with $\eta=0.01$. There's some name for this idea. It's a pretty intuitive one and I first saw it used in practice by Karpathy.
 
-\begin{center}
-    \textbf{\textcolor{blue}{Q4:} How should we initialise the parameters? \textcolor{red}{TODO}}
-\end{center}
-Xavier initialisation is often-used for neural networks. Maybe things have changed in this regard though; things move fast. Unsure about older architectures.
-
 % neural nets
 \section{Neural Networks}
-It's often the case that someone's intended meaning when stating `neural networks' is more precisely multi-layer perceptrons (MLPs), perhaps the simplest kind of neural network. Rigorously formulating MLPs is one of those things that's useful to do at least once. Formulating more sophisticated architectures, like CNNs, RNNs, etc., can be done in a much less rigorous manner if your use-case is solving tasks in an engineery way.\\
+It's often the case that someone's intended meaning when stating `neural networks' is more precisely multi-layer perceptrons (MLPs), perhaps the simplest kind of neural network. Rigorously formulating MLPs is one of those things that's useful to do at least once. Formulating more sophisticated architectures, like CNNs, RNNs, etc., can be done in a much less rigorous manner if your use-case is solving tasks in an engineery way.
 
-\noindent\textbf{Note:} Throughout, the terms `neuron' and `node' are synonymous. I use both without realising it at the time of writing.
+\vspace{10pt}
+\noindent\textbf{Note:} Throughout, the terms `neuron' and `node' are synonymous. I often use both without realising it.
 
 % neural networks
 \subsection{Multi-Layer Perceptrons (MLPs)}
@@ -1011,8 +1180,9 @@ which is just the scalar value $a_1^{(1)}$. For the output layer, we have
 
 \subsubsection{Constructive example: Subbing values in}
 
-\noindent\textbf{Note}: The weights and biases of a neural network are typically learned during training, i.e. they are parameters to be tweaked and tuned until the corresponding model performs sufficiently well. They are not taken randomly as is done here for the sake of example.\\
+\noindent\textbf{Note}: The weights and biases of a neural network are typically learned during training, i.e. they are parameters to be tweaked and tuned until the corresponding model performs sufficiently well. They are not taken randomly as is done here for the sake of example.
 
+\vspace{10pt}
 \noindent Consider a neural network as in \autoref{fig:neural_nets_simple_example}. For the weights and biases, take
 \begin{align*}
     w_{1,1}^{(1)} & =  0.5 & w_{1,1}^{(2)} &= 0.7 \\
@@ -1117,8 +1287,9 @@ $$
 grows linearly in $L$, the interval length $b-a$ and the reciprocal of the desired level of precision $1/\epsilon$. In practice, you only have control of the desired level of precision $\epsilon$.
 
 \subsubsection*{Extending the idea to $S\subset\R^n$ compact}
-The idea is really not very different. Imagine $S\subset\R^2$ compact. The compactness is very hepful for visualisation. As long as we can create indicator-approximate functions on separate regions of $S$ then use exactly the idea described above: split $S$ into separate regions and approximate $f$ on a single point in each. To see that we can approximate the indicator on regions of $S\subset\R^2$ simply see that we can create wall-like objects using the same idea of creating a 'steep' plane and sigmoiding it. As such, to isolate some region, produce three walls which enclose a region and you're done. If you want a more accurate enclosing of the region then use more walls. Without boundedness, which is given by compactness, this idea wouldn't work. Extend this idea to $\R^n$ and voilà.\\
+The idea is really not very different. Imagine $S\subset\R^2$ compact. The compactness is very hepful for visualisation. As long as we can create indicator-approximate functions on separate regions of $S$ then use exactly the idea described above: split $S$ into separate regions and approximate $f$ on a single point in each. To see that we can approximate the indicator on regions of $S\subset\R^2$ simply see that we can create wall-like objects using the same idea of creating a 'steep' plane and sigmoiding it. As such, to isolate some region, produce three walls which enclose a region and you're done. If you want a more accurate enclosing of the region then use more walls. Without boundedness, which is given by compactness, this idea wouldn't work. Extend this idea to $\R^n$ and voilà.
 
+\vspace{10pt}
 \noindent\textbf{Note:} What this demonstrates is how an MLP \textit{could} approximate functions in $C(S)$ for $S$ compact. It is not at all an indicator of how MLPs learned via gradient descent, in practice, go about approximating functions from data.
 
 An interesting addition to this note is how this formulation gives an idea of how the weights from the hidden layer to the output explicitly encode the evaluation of the to-be-approximated function. Again, this is not what we'd expect MLPs to do in practice, instead they find a much more efficient representation, sharing information between nodes. Reminds me a lot of the research 3Blue1Brown discussed in one of his videos about transfromers and LLMs in which we spoke about how the LLM `knows' to assign a high probability to the token \texttt{Jordan} when given \texttt{My favourite basketballer is Michael} as input. How does it `know' to do that? It isn't at all implied by the grammar/semantics/whatever of the sentence. Said research concluded things about such pieces of knowledge being stored in the weights of the MLPs of the transformer blocks.
@@ -1165,11 +1336,21 @@ There's something to be said about the fact that these are upper bounds and to w
 
 Backpropagation is a method of computing the gradient of a loss function pertaining to an MLP (or more generally some neural network) with respect to its weights and biases. Said gradients are used to learn suitable MLP parameters via gradient descent. We'll soon see why it's called backpropagation: it computes the gradients of interest in a way that requires going forwards through the MLP and then backwards. As with formulating MLPs, it's good to rigorously derive backpropagation at least once. It's sort of strange that I haven't done that yet (August 2025 is time of writing) and have just trusted that it holds up.
 
-Onto the derivation, which makes use of the notation introduced in \autoref{sec:multi_layer_perceptrons}. The dataset from which the MLP is learned is constant, and so in deriving backpropagation the loss function is treated as a function of the weights and biases only, i.e.
+Onto the derivation, which makes use of the notation introduced in \autoref{sec:multi_layer_perceptrons}. Recall that a loss function is of the form
 $$
-\mathcal{L}\l(\mathbf{W}^{(1)},\dots,\mathbf{W}^{(k+1)},\mathbf{b}^{(1)},\dots,\mathbf{b}^{(k+1)}\r)
+\mathcal{L}:\OY\times\OY\to\R_{\geq0}
 $$
-which we denote by just $\mathcal{L}$. Let $\mathbf{z}^{(j)}=\mathbf{W}^{(j)}\mathbf{a}^{(j-1)}+\mathbf{b}^{(j)}$ for $j\in[k+1]$ from which we have $\mathbf{a}^{(j)}=\sigma_{j}\l(\mathbf{z}^{(j)}\r)$. Further, let
+and that the loss induced by a choice of model parameters $\theta$ for a sample $(\x,y)$, which we will henceforth crudely denote by $\mathcal{L}$, is given by
+$$
+\mathcal{L}\l(y,f_{\theta}(\x)\r),
+$$
+where $f_{\theta}$ is the model itself. Note that taking the gradient of $\mathcal{L}(y,f_{\theta}(\x))$ with respect to $\theta$ is perfectly valid even though the function $\mathcal{L}$ itself is not a function of $\theta$. For an MLP,
+$$
+\theta
+=
+\l(\mathbf{W}^{(1)},\dots,\mathbf{W}^{(k+1)},\mathbf{b}^{(1)},\dots,\mathbf{b}^{(k+1)}\r).
+$$
+Let $\mathbf{z}^{(j)}=\mathbf{W}^{(j)}\mathbf{a}^{(j-1)}+\mathbf{b}^{(j)}$ for $j\in[k+1]$ from which we have $\mathbf{a}^{(j)}=\sigma_{j}\l(\mathbf{z}^{(j)}\r)$. Further, let
 $$
 \delta^{(j)}_i
 =
@@ -1256,8 +1437,9 @@ $$
 =
 \sigma_{j+1}'(z_i^{(j)})w_{l,i}^{(j+1)}
 $$
-completing the deduction.\\
+completing the deduction.
 
+\vspace{10pt}
 \noindent\textbf{Statement 3.} This one's a simple application of the chain rule, as in
 $$
 \frac{\partial\mathcal{L}}{\partial b_i^{(j)}}
@@ -1293,8 +1475,9 @@ $$
 \subsection{Convolutional Neural Networks (CNNs)}
 \label{subsec:conv_neural_networks}
 
-\textbf{Note:} The terms `kernel' and `filter' are synonymous in this subsection.\\
+\textbf{Note:} The terms `kernel' and `filter' are synonymous in this subsection.
 
+\vspace{14pt}
 \noindent Convolutional neural networks (CNNs) are neural networks whose architectures are designed to process image data. Illustrated in \autoref{fig:CNN_frog}, their architecture can be described on a high level as consisting of two parts. The first part performs feature extraction through convolutions and pooling. The second part is an MLP which uses the extracted feature values to produce the overall model's output, e.g. the probability that the input object belongs to a given class. Feature extraction into MLP, pretty intuitive.
 
 \begin{figure}[ht]
@@ -1304,7 +1487,7 @@ $$
     \label{fig:CNN_frog}
 \end{figure}
 
-Before these deep learning architectures, researchers would have use handcrafted features and feed the feature values to a given model, e.g. an SVM for classification. Humans turn out to be far worse at knowing what features to use than well-trained machine learning models. So how do these earlier layers in CNN architectures perform feature extraction? Convolution and pooling layers.
+Before these deep learning architectures, researchers would have use handcrafted features and feed the feature values to a given model, e.g. an SVM for classification. Humans turn out to be far worse at knowing what features to use than well-trained machine learning models. So how do these earlier layers in CNN architectures perform feature extraction? Convolution and pooling layers. \textcolor{red}{Feature maps != Filters/kernels}
 
 \subsubsection{Convolutions}
 Convolution operations involve using a square matrix to, in some sense, summarise the information embedded in the parts of the imaage which it traverses over. This square matrix is referred to as a filter. It's sometimes referred to as a kernel and I tend to unconsciously switch which I use. You can think of this convolution operation as a sort of dot product between the filter and the grid of pixel values it is on top of at that point.
@@ -1369,10 +1552,6 @@ It's not too tricky to derive these. It's the kinda thing you do once and never 
 \subsubsection{Gated Recurrent Units (GRUs)}
 \dots
 
-% graph neural networks
-\subsection{Graph Neural Networks (GNNs)}
-I know pretty much nothing about these ;( Will look into them some day.
-
 % transformer models
 \subsection{Transformers}
 Stand at attention! Many think of transformers as necessarily generative but nope!
@@ -1414,8 +1593,9 @@ Some questions to challenge one's understanding.
     \label{fig:early_stopping}
 \end{figure}
 
-\noindent If you observe this for sufficiently many consecutive epochs then you can stop training and use the parameters pertaining to the epoch at which the validation loss was lowest. To do this, at each epoch during training, save the parameters of the current epoch if they offer a lower validation loss than at any epoch before. This is often referred to as a checkpoint within the training process and the parameters are saved in a \texttt{.ckpt} file.\\
+If you observe this for sufficiently many consecutive epochs then you can stop training and use the parameters pertaining to the epoch at which the validation loss was lowest. To do this, at each epoch during training, save the parameters of the current epoch if they offer a lower validation loss than at any epoch before. This is often referred to as a checkpoint within the training process and the parameters are saved in a \texttt{.ckpt} file.
 
+\vspace{10pt}
 \noindent\textbf{2) Dropout:} We don't want to be overly-reliant on any given subset of neurons. To prevent such dependencies, at each epoch, independently set the activation of each neuron to 0 with probability $p$. This way some portion of neurons are silenced during the training epoch. As a result, its corresponding parameters (weights and bias) are not updated during backpropagation — it is truly silenced. This idea is illustrated in \autoref{fig:dropout}. Do not perform dropout at test time.
 
 \begin{figure}[ht]
@@ -1843,6 +2023,9 @@ $$
 \E[X]
 $$
 
+\subsection{The Central Limit Theorem (CLT)}
+\dots
+
 \subsection{Entropy}
 \label{app:entropy}
 
@@ -1858,16 +2041,17 @@ H(X)
 $$
 
 \noindent More precisely, Claude Shannon wanted such a surprise function to satisfy three intuitive properties. Firstly, the surprise of an event with probability $1$ should be $0$. Secondly, the surprise of two independent events occurring should be the sum of the surprises of the events individually. Thirdly, the surprise of a given event should be higher than the surprise of any less probable event. So, for all $E_1,E_2\in\Omega_X$, $S:\Omega_X\rightarrow[0,\infty)$ must satisfy
-\begin{itemize}
+\begin{enumerate}
     \item $S(1)=0$
     \item $\P(E_1,E_2)=\P(E_1)\cdot\P(E_2)\implies S(E_1,E_2)=S(E_1)+S(E_2)$
     \item $\P(E_1)>\P(E_2)\implies S(E_1)<S(E_2)$
-\end{itemize}
+\end{enumerate}
+It's straightforward to see that $S(E)=-\log(\P(E))$ satisfies these three properties but it turns out that it is unique in satisfying these properties, up to its base.
 
-\noindent It's straightforward to see that $S(E)=-\log(\P(E))$ satisfies these three properties but it turns out that it is unique in satisfying these properties, up to its base.\\
+\vspace{10pt}
+\noindent\textbf{Note 1:} It's clear from the second condition that this surprise function is actually a function whose domain is the powerset of $\Omega_X$ but addressing this detail isn't worth it — the idea being conveyed is hopefully clear regardless.
 
-\noindent\textbf{Note 1:} It's clear from the second condition that this surprise function is actually a function whose domain is the powerset of $\Omega_X$ but addressing this detail isn't worth it — the idea being conveyed is hopefully clear regardless.\\
-
+\vspace{10pt}
 \noindent\textbf{Note 2:} You can see entropy as pertaining to a random variable or of a distribution of said random variable. I should formalise this at some point.
 
 \subsubsection{Kullback–Leibler Divergence (KL-divergence)}
@@ -1980,9 +2164,6 @@ k_{\text{MLE}}\xrightarrow{n\to\infty}\E[K]=1.
 $$
 From what I understand, the fact that minimising cross-entropy yields the same estimate as MLE with $n\to\infty$ here is a special case of things learned in generalised linear models. Some sort of result about distributions from exponential families. Sadly, I never took the GLMs course at my university by Wim Krijnen so it isn't obvious to me.
 
-\subsection{The Central Limit Theorem (CLT)}
-\dots
-
 \subsection{Quality of distribution fitting = Ability to encode?}
 \dots
 
@@ -1996,7 +2177,6 @@ Suppose we'd like to get an idea of the average height of men and women in our p
 This is important because when performing maximum likelihood, the assumption of independence of samples is key to writing the likelihood of the set as a product of individual probabilities. Without this independence, the likelihood would be a horribly complex function that we would not be able to utilise. Independence is also assumed in a ton of other statistics-related things like t-tests, ANOVA, etc.
 
 \subsection{Pearson Correlation}
-\textcolor{red}{TODO: not to be pedantic but Pearson correlation is really a property of a joint distribution over X and Y, not of the RVs themselves; distributions over X and Y individaully are marginals...}
 Let $\bar{X}$ and $\bar{Y}$ denote the centres of scalar random variables $X$ and $Y$ repsectively. The Pearson correlation of $X$ and $Y$ is given by
 $$
 \rho_{X,Y}
@@ -2011,7 +2191,8 @@ where the expectation in the numerator is over $p(x,y)$. The overall quantity yi
 \subsection{Mutual Information \textcolor{red}{TODO: belongs in prob theory section?}}
 What if we want to know about non-linear dependence between random variables, i.e. what if Pearson correlation doesn't suffice? Mutual information to the rescue.
 
-\subsection{Clarifying likelihoods, especially MLE}
+\subsection{The EM Algorithm}
+Why have I never gone through the effort to understand it, I don't know. Important for latent variable models.
 
 % philosophy things
 \section{Philosophy Things}
@@ -2025,6 +2206,9 @@ At the time of writing, machine learning, as a term, is used almost interchangea
 Right now, I'm unaware of any machine learning model that can `reason' by any agreed upon definition of the term. I suspect that while current models can simulate `reasoning' to the extent of being able to effectively solve tasks which require some sort of underlying understanding, they do not `reason' in the human sense, which is grounded in embodied experience. Let's say that an LLM (e.g. GPT-4o) concludes that a continuous real-valued function $f:\R\rightarrow\R$ has a root in some interval $(a, b)$ using the intermediate value theorem (IVT) by noting that $f(a)<0$ and $f(b)>0$. Did the LLM `reason' in its application of the IVT or do we instead brush this off as the LLM having been trained many examples of the application of the IVT? Does it `understand' what it's concluding? As of right now I'd say that it doesn't. This of course isn't something unique to the IVT — we can construct many such examples. What I think makes IVT interesting is that we can effectively express what it means to `understand' its correctness as a human. I'd say that the distinction between the LLM's `understanding' and a human's here is that a human knows that if they trace their finger on a piece of paper starting from the bottom half, crossing a horizontal line cutting through the middle of the paper, to the top half of the paper without removing their finger then their finger must have touched the horizontal line at some point (ignore the fact that such a traversal is not necessarily a function, you get the idea). You don't need any mathematical training to know and, more importantly, understand why your finger crosses through the horizontal line on the page. LLMs certainly do not `understand' the correctness of the IVT in this way, or really any way that isn't purely symbolic. Maybe multimodal LLMs will alleviate this.
 
 A separate but related question is to what extent it matters that a model `understands' why it arrived at its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. From a purely problem solving point of view, these philosophical debates regarding what constitutes reasoning, understand and knowing aren't too important in the short term. It'd be funny if 50 years from now we're well-taken care of by a fleet of machine learning-powered robots and we still complain that they aren't truly capable of reasoning like us.
+
+\subsection{The Principled Measure-Explainability Tradeoff}
+\dots
 
 \end{appendices}
 
