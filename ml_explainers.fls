@@ -330,6 +330,11 @@ INPUT ./figures/supervised_learning/SVMs/SVM_non_linear.pdf
 INPUT ./figures/supervised_learning/SVMs/SVM_non_linear.pdf
 INPUT ./figures/supervised_learning/SVMs/SVM_non_linear.pdf
 INPUT ./figures/supervised_learning/SVMs/SVM_non_linear.pdf
+INPUT ./figures/supervised_learning/regularisation_two_plots_zero_test_error.png
+INPUT ./figures/supervised_learning/regularisation_two_plots_zero_test_error.png
+INPUT ./figures/supervised_learning/regularisation_two_plots_zero_test_error.png
+INPUT ./figures/supervised_learning/regularisation_two_plots_zero_test_error.png
+INPUT ./figures/supervised_learning/regularisation_two_plots_zero_test_error.png
 INPUT ./figures/supervised_learning/laplace_pdf.png
 INPUT ./figures/supervised_learning/laplace_pdf.png
 INPUT ./figures/supervised_learning/laplace_pdf.png

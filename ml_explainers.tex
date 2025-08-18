@@ -550,7 +550,16 @@ One nice thing about decision trees is that understanding them forces you to lea
 
 % regularisation
 \subsection{Regularisation}
-Helps reduce overfitting. The most well known regularisation techniques are L1 and L2 regularisation. They both correspond to adding some term to loss functions which encourage some sort of learning behaviour. A million ways of motivating them. The most intuitive for are Bayesian approaches: assume independence of parameters and impose a prior distribution on them according to whatever bias we hope to bake in. Then, instead of regular maximum likelihood, compute
+Helps reduce overfitting.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\columnwidth]{./figures/supervised_learning/regularisation_two_plots_zero_test_error.png}
+    \caption{Two fits, both yielding 0 test error.}
+    \label{fig:regularisation_two_plots}
+\end{figure}
+
+The most well known regularisation techniques are L1 and L2 regularisation. They both correspond to adding some term to loss functions which encourage some sort of learning behaviour. A million ways of motivating them. The most intuitive for are Bayesian approaches: assume independence of parameters and impose a prior distribution on them according to whatever bias we hope to bake in. Then, instead of regular maximum likelihood, compute
 \begin{align*}
     \argmax_{\theta\in\R^{q+1}}\log(p(\theta|D))
     &=
@@ -2164,6 +2173,9 @@ k_{\text{MLE}}\xrightarrow{n\to\infty}\E[K]=1.
 $$
 From what I understand, the fact that minimising cross-entropy yields the same estimate as MLE with $n\to\infty$ here is a special case of things learned in generalised linear models. Some sort of result about distributions from exponential families. Sadly, I never took the GLMs course at my university by Wim Krijnen so it isn't obvious to me.
 
+\subsection{Mutual Information}
+What if we want to know about non-linear dependence between random variables, i.e. what if Pearson correlation doesn't suffice? Mutual information to the rescue.
+
 \subsection{Quality of distribution fitting = Ability to encode?}
 \dots
 
@@ -2176,6 +2188,9 @@ Suppose we'd like to get an idea of the average height of men and women in our p
 
 This is important because when performing maximum likelihood, the assumption of independence of samples is key to writing the likelihood of the set as a product of individual probabilities. Without this independence, the likelihood would be a horribly complex function that we would not be able to utilise. Independence is also assumed in a ton of other statistics-related things like t-tests, ANOVA, etc.
 
+\subsection{Overfitting and underfitting}
+\dots
+
 \subsection{Pearson Correlation}
 Let $\bar{X}$ and $\bar{Y}$ denote the centres of scalar random variables $X$ and $Y$ repsectively. The Pearson correlation of $X$ and $Y$ is given by
 $$
@@ -2187,9 +2202,6 @@ $$
 \in[-1,1]
 $$
 where the expectation in the numerator is over $p(x,y)$. The overall quantity yields the linear dependence between $X$ and $Y$ and the denominator is for normalisation.
-
-\subsection{Mutual Information \textcolor{red}{TODO: belongs in prob theory section?}}
-What if we want to know about non-linear dependence between random variables, i.e. what if Pearson correlation doesn't suffice? Mutual information to the rescue.
 
 \subsection{The EM Algorithm}
 Why have I never gone through the effort to understand it, I don't know. Important for latent variable models.

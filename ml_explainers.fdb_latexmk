@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1755481565.51032 "ml_explainers.tex" "ml_explainers.pdf" "ml_explainers" 1755481567.86098 0
+["pdflatex"] 1755482639.51325 "ml_explainers.tex" "ml_explainers.pdf" "ml_explainers" 1755482641.87202 0
   "/Users/dewibatista/Library/texlive/2024/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk" 1755178945.25807 7808 c82ce01f248e795d39c6854999a6f077 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -237,11 +237,12 @@
   "figures/supervised_learning/bias_variance.png" 1754866980.37606 156968 46369a95566ab4c6230fdd2f02a65a9f ""
   "figures/supervised_learning/double_descent.png" 1754957031.77901 121589 feb538f6396bb9445d62757010feb16b ""
   "figures/supervised_learning/laplace_pdf.png" 1755290038.80274 37025 334f5a3f30b1196ac8397d47b28f8f0c ""
+  "figures/supervised_learning/regularisation_two_plots_zero_test_error.png" 1755482175.46034 52247 99d6354d03b1361f41cd33eb4162f952 ""
   "header.tex" 1755178933.4977 2428 5612625f105e7e49634763f9adbb7ae8 ""
-  "ml_explainers.aux" 1755481567.74759 21992 528f4afa4e90381aec42174d82be9405 "pdflatex"
-  "ml_explainers.out" 1755481566.09524 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "ml_explainers.tex" 1755481565.28608 154644 98d86a11c0ecdad6717f523cf1eadcfd ""
-  "ml_explainers.toc" 1755481567.74977 8416 82afbf12e87a5d74687300ac32ab08b0 "pdflatex"
+  "ml_explainers.aux" 1755482641.75743 22342 dff8b009516959769e08e360673faecc "pdflatex"
+  "ml_explainers.out" 1755482640.02161 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "ml_explainers.tex" 1755482636.74531 154900 d99aa2117441c51ee86824d3af1b6044 ""
+  "ml_explainers.toc" 1755482641.7595 8457 cc735b287a63a8b89f3a921f540e3766 "pdflatex"
   (generated)
   "ml_explainers.aux"
   "ml_explainers.log"
