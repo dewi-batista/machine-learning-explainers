@@ -171,8 +171,6 @@ INPUT /usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftp
 INPUT /usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
 INPUT /usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
 INPUT /usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
-INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/enumitem/enumitem.sty
-INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/enumitem/enumitem.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
@@ -224,6 +222,8 @@ INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/tools/verbatim.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/tools/verbatim.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/environ/environ.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/environ/environ.sty
+INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/enumitem/enumitem.sty
+INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/enumitem/enumitem.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/base/ifthen.sty
@@ -308,7 +308,6 @@ INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam1
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmti7.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt9.tfm
-INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/bbm-macros/ubbm.fd
@@ -335,11 +334,11 @@ INPUT ./figures/supervised_learning/regularisation_two_plots_zero_test_error.png
 INPUT ./figures/supervised_learning/regularisation_two_plots_zero_test_error.png
 INPUT ./figures/supervised_learning/regularisation_two_plots_zero_test_error.png
 INPUT ./figures/supervised_learning/regularisation_two_plots_zero_test_error.png
-INPUT ./figures/supervised_learning/laplace_pdf.png
-INPUT ./figures/supervised_learning/laplace_pdf.png
-INPUT ./figures/supervised_learning/laplace_pdf.png
-INPUT ./figures/supervised_learning/laplace_pdf.png
-INPUT ./figures/supervised_learning/laplace_pdf.png
+INPUT ./figures/supervised_learning/laplace_pdf.pdf
+INPUT ./figures/supervised_learning/laplace_pdf.pdf
+INPUT ./figures/supervised_learning/laplace_pdf.pdf
+INPUT ./figures/supervised_learning/laplace_pdf.pdf
+INPUT ./figures/supervised_learning/laplace_pdf.pdf
 INPUT ./figures/supervised_learning/bias_variance.png
 INPUT ./figures/supervised_learning/bias_variance.png
 INPUT ./figures/supervised_learning/bias_variance.png
@@ -386,6 +385,7 @@ INPUT ./figures/neural_nets/MLP_2.pdf
 INPUT ./figures/neural_nets/MLP_2.pdf
 INPUT ./figures/neural_nets/MLP_2.pdf
 INPUT ./figures/neural_nets/MLP_2.pdf
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
 INPUT ./figures/neural_nets/CNN_frog.pdf
 INPUT ./figures/neural_nets/CNN_frog.pdf
 INPUT ./figures/neural_nets/CNN_frog.pdf
@@ -461,6 +461,11 @@ INPUT ./figures/generative_models/unet.png
 INPUT ./figures/generative_models/unet.png
 INPUT ./figures/generative_models/unet.png
 INPUT ./figures/generative_models/unet.png
+INPUT ./figures/appendix/poi_geo_plot.pdf
+INPUT ./figures/appendix/poi_geo_plot.pdf
+INPUT ./figures/appendix/poi_geo_plot.pdf
+INPUT ./figures/appendix/poi_geo_plot.pdf
+INPUT ./figures/appendix/poi_geo_plot.pdf
 INPUT ml_explainers.aux
 INPUT ./ml_explainers.out
 INPUT ./ml_explainers.out

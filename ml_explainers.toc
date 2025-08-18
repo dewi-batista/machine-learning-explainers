@@ -1,13 +1,13 @@
-\contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
+\contentsline {section}{\numberline {1}What is Machine Learning?}{1}{section.1}%
 \contentsline {section}{\numberline {2}Supervised Learning}{2}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Linear Regression}{3}{subsection.2.1}%
 \contentsline {subsubsection}{\numberline {2.1.1}Statistical Motivation}{6}{subsubsection.2.1.1}%
 \contentsline {subsubsection}{\numberline {2.1.2}Goodness of fit: $R^2$}{7}{subsubsection.2.1.2}%
 \contentsline {subsubsection}{\numberline {2.1.3}Why `regression'?}{8}{subsubsection.2.1.3}%
-\contentsline {subsection}{\numberline {2.2}Logistic Regression}{9}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.2}Logistic Regression}{8}{subsection.2.2}%
 \contentsline {subsubsection}{\numberline {2.2.1}Statistical Motivation}{10}{subsubsection.2.2.1}%
 \contentsline {subsection}{\numberline {2.3}Support Vector Machines (SVMs)}{11}{subsection.2.3}%
-\contentsline {subsubsection}{\numberline {2.3.1}Hard-margin SVMs \textcolor {red}{TODO: switch notation from z to y}}{12}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.1}Hard-margin SVMs}{12}{subsubsection.2.3.1}%
 \contentsline {subsubsection}{\numberline {2.3.2}Soft-margin SVMs}{14}{subsubsection.2.3.2}%
 \contentsline {subsubsection}{\numberline {2.3.3}Non-linear SVMs}{14}{subsubsection.2.3.3}%
 \contentsline {subsection}{\numberline {2.4}Decision Trees and Random Forests}{16}{subsection.2.4}%
@@ -16,78 +16,73 @@
 \contentsline {subsubsection}{\numberline {2.5.2}L2 regularisation (Ridge regression)}{18}{subsubsection.2.5.2}%
 \contentsline {subsubsection}{\numberline {2.5.3}Visualisation via loss landscapes}{19}{subsubsection.2.5.3}%
 \contentsline {subsection}{\numberline {2.6}The Bias-Variance Tradeoff}{19}{subsection.2.6}%
-\contentsline {subsubsection}{\numberline {2.6.1}Derivation with MSE loss}{19}{subsubsection.2.6.1}%
+\contentsline {subsubsection}{\numberline {2.6.1}Derivation of the tradeoff with MSE loss}{19}{subsubsection.2.6.1}%
 \contentsline {subsubsection}{\numberline {2.6.2}\textcolor {red}{TODO:} How it motivates regularisation}{23}{subsubsection.2.6.2}%
-\contentsline {subsubsection}{\numberline {2.6.3}Beyond MSE}{23}{subsubsection.2.6.3}%
+\contentsline {subsubsection}{\numberline {2.6.3}Beyond MSE}{24}{subsubsection.2.6.3}%
 \contentsline {subsubsection}{\numberline {2.6.4}Double descent}{24}{subsubsection.2.6.4}%
 \setcounter {tocdepth}{1}
-\contentsline {subsection}{\numberline {2.7}Misc. questions}{24}{subsection.2.7}%
+\contentsline {subsection}{\numberline {2.7}Misc. questions}{25}{subsection.2.7}%
 \setcounter {tocdepth}{2}
 \contentsline {section}{\numberline {3}Gradient Descent and its Optimisation}{26}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Gradient Descent and Batch Learning}{27}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.1}Gradient Descent}{27}{subsection.3.1}%
 \contentsline {subsubsection}{\numberline {3.1.1}In which direction does $f$ most ascend locally from $\mathbf {x}^{(t)}$?}{27}{subsubsection.3.1.1}%
 \contentsline {subsubsection}{\numberline {3.1.2}Sensitivity to $\mathbf {x}^{(0)}$}{28}{subsubsection.3.1.2}%
-\contentsline {subsubsection}{\numberline {3.1.3}My dataset (i.e. $n$) is too large!!!}{28}{subsubsection.3.1.3}%
+\contentsline {subsubsection}{\numberline {3.1.3}My dataset (i.e. $n$) is too large!!!}{29}{subsubsection.3.1.3}%
 \contentsline {subsubsection}{\numberline {3.1.4}Batch + Layer normalisation}{30}{subsubsection.3.1.4}%
 \contentsline {subsection}{\numberline {3.2}Momentum and Adaptive Learning Rates}{31}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Hyperparameter Tuning}{32}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.3}Hyperparameter Tuning}{33}{subsection.3.3}%
 \setcounter {tocdepth}{1}
-\contentsline {subsection}{\numberline {3.4}Misc. questions}{33}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.4}Misc. questions}{34}{subsection.3.4}%
 \setcounter {tocdepth}{2}
 \contentsline {section}{\numberline {4}Neural Networks}{34}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Multi-Layer Perceptrons (MLPs)}{34}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.1}Multi-Layer Perceptrons (MLPs)}{35}{subsection.4.1}%
 \contentsline {subsubsection}{\numberline {4.1.1}Constructive example: The algebra}{37}{subsubsection.4.1.1}%
 \contentsline {subsubsection}{\numberline {4.1.2}Constructive example: Subbing values in}{38}{subsubsection.4.1.2}%
-\contentsline {subsubsection}{\numberline {4.1.3}Universal Function Approximation for MLPs}{38}{subsubsection.4.1.3}%
+\contentsline {subsubsection}{\numberline {4.1.3}Universal Function Approximation for MLPs}{39}{subsubsection.4.1.3}%
 \contentsline {subsubsection}{\numberline {4.1.4}Advocating for depth $>$ width}{42}{subsubsection.4.1.4}%
 \contentsline {subsection}{\numberline {4.2}Backpropagation for MLPs}{43}{subsection.4.2}%
 \contentsline {subsection}{\numberline {4.3}Convolutional Neural Networks (CNNs)}{46}{subsection.4.3}%
-\contentsline {subsubsection}{\numberline {4.3.1}Convolutions}{46}{subsubsection.4.3.1}%
-\contentsline {subsubsection}{\numberline {4.3.2}Pooling}{47}{subsubsection.4.3.2}%
+\contentsline {subsubsection}{\numberline {4.3.1}Convolutions}{47}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.2}Pooling}{48}{subsubsection.4.3.2}%
 \contentsline {subsubsection}{\numberline {4.3.3}Output dimensions after convolving and pooling}{48}{subsubsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.4}Recurrent Neural Networks (RNNs)}{48}{subsection.4.4}%
-\contentsline {subsubsection}{\numberline {4.4.1}Long Short-Term Memory (LSTMs)}{48}{subsubsection.4.4.1}%
-\contentsline {subsubsection}{\numberline {4.4.2}Gated Recurrent Units (GRUs)}{48}{subsubsection.4.4.2}%
-\contentsline {subsection}{\numberline {4.5}Transformers}{48}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.4}Recurrent Neural Networks (RNNs)}{49}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Long Short-Term Memory (LSTMs)}{49}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}Gated Recurrent Units (GRUs)}{49}{subsubsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.5}Transformers}{49}{subsection.4.5}%
 \contentsline {subsubsection}{\numberline {4.5.1}Token embedding}{49}{subsubsection.4.5.1}%
 \contentsline {subsubsection}{\numberline {4.5.2}Positional encoding}{49}{subsubsection.4.5.2}%
 \setcounter {tocdepth}{1}
-\contentsline {subsection}{\numberline {4.6}Misc. questions}{49}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.6}Misc. questions}{50}{subsection.4.6}%
 \setcounter {tocdepth}{2}
-\contentsline {section}{\numberline {5}Deep Generative Models}{53}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Variational Autoencoders (VAEs)}{54}{subsection.5.1}%
-\contentsline {subsubsection}{\numberline {5.1.1}Autoencoders: no variation yet!}{54}{subsubsection.5.1.1}%
-\contentsline {subsubsection}{\numberline {5.1.2}Backpropagation for VAEs}{61}{subsubsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.2}Generative Adversarial Networks (GANs)}{61}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Flow-based Models}{61}{subsection.5.3}%
-\contentsline {subsection}{\numberline {5.4}Diffusion Models}{62}{subsection.5.4}%
-\contentsline {subsubsection}{\numberline {5.4.1}U-Net denoisers}{63}{subsubsection.5.4.1}%
+\contentsline {section}{\numberline {5}Deep Generative Models}{54}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Variational Autoencoders (VAEs)}{55}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Autoencoders: no variation yet!}{55}{subsubsection.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.2}Backpropagation for VAEs (reparameterisation trick)}{62}{subsubsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.2}Generative Adversarial Networks (GANs)}{62}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Flow-based Models}{63}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Diffusion Models}{63}{subsection.5.4}%
+\contentsline {subsubsection}{\numberline {5.4.1}U-Net denoisers}{64}{subsubsection.5.4.1}%
 \setcounter {tocdepth}{1}
-\contentsline {subsection}{\numberline {5.5}Misc. questions}{64}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.5}Misc. questions}{65}{subsection.5.5}%
 \setcounter {tocdepth}{2}
-\contentsline {section}{\numberline {6}Object Detection Models}{64}{section.6}%
-\contentsline {subsection}{\numberline {6.1}(Fast/Faster) R-CNN}{64}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}YOLO}{65}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}DETR}{65}{subsection.6.3}%
-\contentsline {section}{Appendices}{66}{section*.41}%
+\contentsline {section}{\numberline {6}Object Detection Models}{65}{section.6}%
+\contentsline {subsection}{\numberline {6.1}(Fast/Faster) R-CNN}{65}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}YOLO}{66}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}DETR}{66}{subsection.6.3}%
+\contentsline {section}{Appendices}{67}{section*.41}%
 \setcounter {tocdepth}{0}
-\contentsline {section}{\numberline {A}Probability Theory Things}{66}{appendix.a.A}%
-\contentsline {subsection}{\numberline {A.1}From Bernoulli to Binomial}{66}{subsection.a.A.1}%
-\contentsline {subsection}{\numberline {A.2}From Categorical to Multinomial}{66}{subsection.a.A.2}%
-\contentsline {subsection}{\numberline {A.3}Negative Binomial and Geometric}{68}{subsection.a.A.3}%
-\contentsline {subsection}{\numberline {A.4}The Law of Large Numbers \textcolor {red}{TODO}}{68}{subsection.a.A.4}%
-\contentsline {subsection}{\numberline {A.5}The Central Limit Theorem (CLT)}{69}{subsection.a.A.5}%
-\contentsline {subsection}{\numberline {A.6}Entropy}{69}{subsection.a.A.6}%
-\contentsline {subsubsection}{\numberline {A.6.1}Kullback–Leibler Divergence (KL-divergence)}{70}{subsubsection.a.A.6.1}%
-\contentsline {subsubsection}{\numberline {A.6.2}Distribution fitting via cross-entropy}{70}{subsubsection.a.A.6.2}%
-\contentsline {subsubsection}{\numberline {A.6.3}Distribution fitting via maximum likelihood estimation \textcolor {red}{TODO: move this to stats part?}}{72}{subsubsection.a.A.6.3}%
-\contentsline {subsection}{\numberline {A.7}Mutual Information}{73}{subsection.a.A.7}%
-\contentsline {subsection}{\numberline {A.8}Quality of distribution fitting = Ability to encode?}{73}{subsection.a.A.8}%
-\contentsline {section}{\numberline {B}Classical Statistics Things}{73}{appendix.a.B}%
-\contentsline {subsection}{\numberline {B.1}Sample Independence}{73}{subsection.a.B.1}%
-\contentsline {subsection}{\numberline {B.2}Overfitting and underfitting}{73}{subsection.a.B.2}%
-\contentsline {subsection}{\numberline {B.3}Pearson Correlation}{74}{subsection.a.B.3}%
-\contentsline {subsection}{\numberline {B.4}The EM Algorithm}{74}{subsection.a.B.4}%
-\contentsline {section}{\numberline {C}Philosophy Things}{74}{appendix.a.C}%
-\contentsline {subsection}{\numberline {C.1}Thoughts on reasoning (Summer 2024)}{74}{subsection.a.C.1}%
-\contentsline {subsection}{\numberline {C.2}The Principled Measure-Explainability Tradeoff}{75}{subsection.a.C.2}%
+\contentsline {section}{\numberline {A}Probability Theory Things}{67}{appendix.a.A}%
+\contentsline {subsection}{\numberline {A.1}Derivations Related to Common Distributions}{67}{subsection.a.A.1}%
+\contentsline {subsection}{\numberline {A.2}The Law of Large Numbers}{69}{subsection.a.A.2}%
+\contentsline {subsection}{\numberline {A.3}The Central Limit Theorem (CLT)}{70}{subsection.a.A.3}%
+\contentsline {subsection}{\numberline {A.4}Entropy and its Friends}{70}{subsection.a.A.4}%
+\contentsline {subsubsection}{\numberline {A.4.1}Kullback–Leibler Divergence (KL-divergence)}{71}{subsubsection.a.A.4.1}%
+\contentsline {subsubsection}{\numberline {A.4.2}Mutual Information}{74}{subsubsection.a.A.4.2}%
+\contentsline {subsection}{\numberline {A.5}Quality of fit $\approx $ Encoding quality?}{74}{subsection.a.A.5}%
+\contentsline {section}{\numberline {B}Classical Statistics Things}{74}{appendix.a.B}%
+\contentsline {subsection}{\numberline {B.1}Sample Independence}{74}{subsection.a.B.1}%
+\contentsline {subsection}{\numberline {B.2}Pearson Correlation}{75}{subsection.a.B.2}%
+\contentsline {subsection}{\numberline {B.3}The EM Algorithm}{75}{subsection.a.B.3}%
+\contentsline {section}{\numberline {C}Philosophy Things}{75}{appendix.a.C}%
+\contentsline {subsection}{\numberline {C.1}Thoughts on reasoning (Summer 2024)}{75}{subsection.a.C.1}%
+\contentsline {subsection}{\numberline {C.2}The Principled Measure-Explainability Tradeoff}{76}{subsection.a.C.2}%

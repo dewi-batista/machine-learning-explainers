@@ -25,31 +25,30 @@
 \newpage
 
 % intro
-\section{Introduction}
+\section{What is Machine Learning?}
+I think of machine learning as the broad discipline of studying methods of fitting models to data — like statistics, as a discipline, if it demanded far less rigor. For a description of machine learning which helps to clarify why it is difficult to define as a term, consider the following excerpt from Herbert Jaeger's lecture notes for his Machine Learning course at the University of Groningen for the academic year 2023/24:
+\begin{quotation}
+    ML as a ﬁeld, which perceives itself as a ﬁeld under this name, is relatively young, say, about 40 years (related research was called “pattern recognition” earlier). It is interdisciplinary and has historical and methodological connections to neuroscience, cognitive science, linguistics, mathematical statistics, AI, signal processing and control; it uses mathematical methods from statistics (of course), information theory, signal processing and control, dynamical systems theory, mathematical logic and numerical mathematics; and it has a very wide span of applications. This diversity in traditions, methods and applications makes it diﬃcult to study ``Machine Learning". Any given textbook, even if it is very thick, will reﬂect the author's individual view and knowledge of the ﬁeld and will be partially blind to other perspectives. This is quite diﬀerent from other areas in computer science, say for example formal languages/theory of computation/computational complexity where a widely shared repertoire of standard themes and methods cleanly deﬁne the ﬁeld.
+\end{quotation}
 
-\textcolor{red}{TODO: fix the use of the term fit/modelled here, perhaps formally state what's meant before hand mentioning that their use is relaxes kinda}
-
-I think of machine learning as the discipline of studying methods of fitting parameterised models from data. Why I find machine learning so interesting interesting is due to its rapid development since the era of deep learning began in 2012. At their core, many methods in machine learning are statistically-principled in nature, corresponding to maximum likelihood estimation. The fact that something as simple as maximum likelihood estimation can be used to fit very complex distributions, in practice, to at least a small extent isn't too surprising. What amazes me is how well such complex distributions can be modelled using maximum likelihood estimation to fit deep architectures. So well that we are now able to produce models which take a natural language description as input and output a photo-realistic image matching said description. What right do such simple methods have to fit such complex distributions? What right do the architectures we use have to facilitate such effective learning? The more I've learned, the more I'm amazed that contemporary methods work as well as they do.
-
-For a description of machine learning which clarifies why it is difficult to define as a term, consider the following description written by Herbert Jaeger: ``ML as a ﬁeld, which perceives itself as a ﬁeld under this name, is relatively young, say, about 40 years (related research was called “pattern recognition” earlier). It is interdisciplinary and has historical and methodological connections to neuroscience, cognitive science, linguistics, mathematical statistics, AI, signal processing and control; it uses mathematical methods from statistics (of course), information theory, signal processing and control, dynamical systems theory, mathematical logic and numerical mathematics; and it has a very wide span of applications. This diversity in traditions, methods and applications makes it diﬃcult to study ``Machine Learning". Any given textbook, even if it is very thick, will reﬂect the author's individual view and knowledge of the ﬁeld and will be partially blind to other perspectives. This is quite diﬀerent from other areas in computer science, say for example formal languages/theory of computation/computational complexity where a widely shared repertoire of standard themes and methods cleanly deﬁne the ﬁeld."
+My interests in machine learning lie in its rapid development since the era of deep learning began in 2012 and the mysteries of why its methods are so effective. At their core, many methods in machine learning are statistically-principled in nature, corresponding to maximum likelihood estimation. The fact that something as simple as maximum likelihood estimation can be used to fit very complex distributions to at least a small extent isn't too surprising. What amazes me is the notable extent to which it does so in practice. It performs so well that we are now able to produce models which take natural language as input and output entirely realistic corresponding images or videos. What right does maximum likelihood estimation have to facilitate such effective fitting of complex distributions in practice? Why are deep learning architectures able to encode such rich function classes? The more I've learned, the more I'm amazed that contemporary methods are so effective.
 
 % supervised learning
 \section{Supervised Learning}
+Supervised learning methods are those which fit functions $f_{\theta}:\OX\to\Omega_{\mathbf{Y}}$ from model variables $\X=(X_1,\dots,X_q)$ to output variables $\Y=(Y_1,\dots,Y_r)$ (often $r=1$ and so we often write $Y$) using concrete examples $\{(\x_i,\mathbf{y}_i)\}_{i=1}^n$ of what the to-be-learned function might yield as output $\mathbf{y}=f_{\theta}(\x)$ for a given input $\x$. These model and output variables can be continuous or discrete in nature, or a mix.
 
-Supervised learning algorithms are a class of machine learning algorithms in which a model learns some relationship between model variables $\X$ and output variables $\Y$ from concrete examples $\{(\x_i,\mathbf{y}_i)\}_{i=1}^n$ of what the to-be-learned model should perhaps yield as output $\mathbf{y}=f_{\theta}(\x)$ for the given input $\x$. These model and output variables can be continuous or discrete in nature, or a mix.
+An example of a task which supervised learning is appropriate for includes regression. Regression tasks can be thought of as those in which the output variables $\Y$ are continuous. Other than regression, the other vanilla supervised learning task is classification, in which $\Y$ are discrete. A well known example of binary classification is whether or not a given passenger survived the titanic wreck given their ticket class, sex, age, port of embarkation and a ton more. The bread and butter example of multi-class classification is handwritten digit recognition. It's amazing that something which was difficult as recently as 2005 is trivial now for various levels of machine learing understanding.
 
-An example of a task which supervised learning is appropriate for includes regression predicting life expectancies of a poulation given features such as the population's height, age, BMI etc. You can think of regression tasks as those where the output of the model should belong to some continuously distributed space. Other than regression, the other vanilla supervised learning task is classification. Well known examples of binary classification include whether or not a given passenger survived the titanic wreck given their ticket class, sex, age, port of embarkation and a ton more. The bread and butter example of multi-class classification is handwritten digit recognition. It's amazing that something difficult as recently as 2005 is trivial now for various levels of machine learing understanding.
-
-Other than the types of tasks which we consider in this section, it's worth mentioning how we deal with our data in general. In training a model on some dataset, we need some idea of how well the model generalises to new data. This is done by splitting the given dataset $\D$ into a training set $\Dtrain$ and a testing set $\Dtest$. How exactly this split is done depends on the task at hand but an example is 50/50 uniformly randomly splitting the original dataset $\D$ — chronologically or not. It can be important that this is done uniformly randomly. For example, if one is tackling a binary classification task and $\D$ consists of $1000$ samples with $500$ belonging to class 1 and $500$ belonging to class 2 then it's important that one does not split in a way that causes egregiously imbalanced representations of these classes. Training a model on $500$ samples of class 1 then testing it on $500$ samples of class 2 wouldn't make much sense. Similar idea for regression tasks but with ensuring a reasonable balance in representation of values belonging to given intervals corresponding to the output space. With a reasonable split we train the model on $\Dtrain$. It is all the model knows — $\Dtrain$ is the model's universe. After training, we measure the model's ability to generalise to new samples belonging to the same underlying distribution by seeing how well it performs with respect to the samples in $\Dtest$. Essentially comparing its output given some sample to the ideal/true output value of said sample. Things get a bit more fancy when we consider cross-validation but that'll come later.
+Other than the types of tasks which we consider in this section, it's worth mentioning how we deal with our data in general. In training a model on some dataset, we need some idea of how well the model generalises to new data. This is done by splitting the given dataset $D$ into a training set $D_{\text{train}}$ and a testing set $D_{\text{test}}$. How exactly this split is done depends on the task at hand but an example is 50/50 uniformly randomly splitting the original dataset $D$. It can be important that this is done uniformly randomly. For example, if one is tackling a binary classification task and $D$ consists of $1000$ samples in which $500$ pertain to one of the class labels and the remaining $500$ pertain to the other then it's important to not split in a way that causes egregiously imbalanced representations of these classes. Training a model on $500$ samples which pertain to the first class label then testing it on $500$ samples peratin to the other wouldn't make much sense. Similar idea for regression tasks but with ensuring a reasonable balance in representation of values belonging to given intervals corresponding to the output space. As long as their is sufficient representation of $\Omega_{\Y}$ then splitting $D$ unifromly randomly is no issue. With a reasonable split we train the model on $D_{\text{train}}$. It is all the model knows — $D_{\text{train}}$ is the model's universe. After training, we measure the model's ability to generalise to new samples by seeing how well it performs on $D_{\text{test}}$. Essentially comparing its output given some sample to the ideal/true output value of said sample.
 
 % linear regression
 \subsection{Linear Regression}
 
-Perhaps the simplest example of supervised learning is linear regression. Suppose we are given a dataset $\D=\{(\x_i,y_i)\}_{i=1,\dots,2n}$ where
+Perhaps the simplest example of supervised learning is linear regression. Suppose we are given a dataset $D=\{(\x_i,y_i)\}_{i=1,\dots,2n}$ where
 $$
 \x_i=(x_{i,1},\dots,x_{i, q})\in \Omega_{X_1}\times\dots\times \Omega_{X_q}=:\OX\subseteq\R^q
 $$
-are the feature values of the $i^{\text{th}}$ sample and $y_i\in \OY\subseteq\R$ is the corresponding output. The reason I chose $|\D|=2n$ is that it results in being able to 50/50 split $\D$ into $\Dtrain$ and $\Dtest$ with $|\Dtrain|=|\Dtest|=n$. A linear regression models fits a linear function (in the parameters)
+are the feature values of the $i^{\text{th}}$ sample and $y_i\in \OY\subseteq\R$ is the corresponding output. The reason I chose $|D|=2n$ is that it results in being able to 50/50 split $D$ into $D_{\text{train}}$ and $D_{\text{test}}$ with $|D_{\text{train}}|=|D_{\text{test}}|=n$. A linear regression models fits a linear function (in the parameters)
 \begin{align*}
     f_{\theta}:\OX&\rightarrow \Omega_Y\\
     \x&\mapsto
@@ -61,19 +60,13 @@ are the feature values of the $i^{\text{th}}$ sample and $y_i\in \OY\subseteq\R$
     =
     \theta_0+\theta_1x_1+\dots+\theta_qx_q    
 \end{align*}
-where $\theta=(\theta_0,\theta_1\dots,\theta_q)\in\R^{q+1}$ are the model parameters, i.e. the values we can tweak to our heart's desire until the corresponding model is sufficiently well according to some metric. Some people refer to the paramter $\theta_0$, which dictates the elevation of the hyperplane corresponding to $f_{\theta}(\x)=0$, as the bias of the model which I find very confusing as there are a bunch of other intended meanings of the term `bias' in statistics and machine learning. I prefer to refer to it as the elevation. Anyway, once such a linear function has been fit, given feature values $\tilde{\x}\in\OX$ we can predict the corresponding output as $\tilde{y}=f_{\theta}(\tilde{\x})$.
+where $\theta=(\theta_0,\theta_1\dots,\theta_q)\in\R^{q+1}$ are the model parameters, i.e. the values we can tweak to our heart's desire until the corresponding model is sufficiently well according to some metric. Some people refer to the paramter $\theta_0$, which dictates the elevation of the hyperplane corresponding to $f_{\theta}(\x)=0$, as the bias of the model which I find very confusing as there are a bunch of other intended meanings of the term `bias' in statistics and machine learning. I prefer to refer to it as the elevation. Anyway, once such a linear function has been fit, given feature values $\x\in\OX$ our model predict the corresponding output as $y=f_{\theta}(\x)$.
 
-\begin{tcolorbox}[colback=c2]
-    \textbf{Assumption of normally distributed residuals}
-    \vspace{5pt}
-
+\begin{tcolorbox}[title={\textbf{Assumption of normally distributed residuals}}, colback=c2, colbacktitle=c13, colframe=c13, coltitle=white]
     \footnote{\url{https://en.wikipedia.org/wiki/Central\_limit\_theorem\#Regression}}Central limit theorem to the rescue: ``Regression analysis, and in particular ordinary least squares, specifies that a dependent variable depends according to some function upon one or more independent variables, with an additive error term. Various types of statistical inference on the regression assume that the error term is normally distributed. This assumption can be justified by assuming that the error term is actually the sum of many independent error terms; even if the individual error terms are not normally distributed, by the central limit theorem their sum can be well approximated by a normal distribution."
-
-    \vspace{10pt}
-    Another good link: \url{https://stats.stackexchange.com/a/12266}.
 \end{tcolorbox}
 
-An intuitive approach to finding the `optimal' parameters for a linear regression model, which we denote by $\thetaOpt$, is to split $\D$ into training and testing datasets $\Dtrain$ and $\Dtest$ (each consisting of $n$ sample in our case) and minimising some pre-determined loss function of said parameters over $\Dtrain$. Essentially, minimising something like
+An intuitive approach to finding the `optimal' parameters for a linear regression model, which we denote by $\thetaOpt$, is to split $\D$ into training and testing datasets $D_{\text{train}}$ and $D_{\text{test}}$ (each consisting of $n$ sample in our case) and minimising some pre-determined loss function of said parameters over $D_{\text{train}}$. Essentially, minimising something like
 $$
 \mathcal{L}(\theta)=\sum_{i=1}^nd(f_{\theta}(\x_i), y_i)
 $$
@@ -86,7 +79,7 @@ $$
 \thetaOpt=\argmin_{\theta\in\R^{q+1}}\l[\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\r].
 $$
 
-\noindent We know that in the context of linear regression, the optimal paramters $\thetaOpt$ are typically taken to be those which minimise the mean square error over $\Dtrain$ but how do we actually compute $\thetaOpt$? This could be done through numerical methods, which is often the case in machine learning, e.g. using gradient descent in computing the optimal parameters of a logistic regression model, but linear regression has a closed form solution. This is pretty cool since it's not so common for such closed form solutions to exist. The informal method which I use to remember the closed form solution for the optimal paramters of a linear regression model is
+\noindent We know that in the context of linear regression, the optimal paramters $\thetaOpt$ are typically taken to be those which minimise the mean square error over $D_{\text{train}}$ but how do we actually compute $\thetaOpt$? This could be done through numerical methods, which is often the case in machine learning, e.g. using gradient descent in computing the optimal parameters of a logistic regression model, but linear regression has a closed form solution. This is pretty cool since it's not so common for such closed form solutions to exist. The informal method which I use to remember the closed form solution for the optimal paramters of a linear regression model is
 $$
 X\thetaOpt=y \implies X^{\top}X\thetaOpt=X^{\top}y \implies \thetaOpt=(X^{\top}X)^{-1}X^{\top}y.
 $$
@@ -158,13 +151,13 @@ $$
 \thetaOpt=(X^{\top}X)^{-1}X^{\top}y.
 $$
 
-\begin{tcolorbox}[colback=c1]
-    \textbf{Note:} There are some pieces of literature that define linear regression models as regression models that are linear in their parameters. By this definition, linear regression, as a term, would encompass polynomial regression models and other regression models with non-linear basis functions so long as the model is linear in its parameters. This confuses me as `linear regression' most often refers to models that fit a hyperplane to data. In fairness, from what I understand, using the least squares method derived below for all regression models linear in their parameters is viable.
+\begin{tcolorbox}[colback=c10]
+    \textbf{Note:} Some literature define linear regression models as regression models that are linear in their parameters. By this definition, linear regression, as a term, would encompass polynomial regression models and other regression models with non-linear basis functions. This confuses me as `linear regression' is most often intended to mean models that fit a hyperplane to data.
 \end{tcolorbox}
 
 \subsubsection{Statistical Motivation}
 
-This idea of minimising the mean square error of the model over $\Dtrain$ even has some rigorous statistical motivation. Assume that the residuals corresponding of the model's output over $\Dtrain$ are independent and identically normally distributed with mean 0. That is, assume
+This idea of minimising the mean square error of the model over $D_{\text{train}}$ even has some rigorous statistical motivation. Assume that the residuals corresponding of the model's output over $D_{\text{train}}$ are independent and identically normally distributed with mean 0. That is, assume
 $$
 E_i
 =
@@ -186,13 +179,10 @@ The maximum likelihood estimate $\theta_{\text{MLE}}$ for the parameters of our 
     &=
     \argmin_{\theta\in\R^{q+1}}\l[\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\r].
 \end{align*}
-As such, the maximum likelihood estimator of the parameters of a linear regression model are precisely those which minimise the mean square error of the model over $\Dtrain$.
+As such, the maximum likelihood estimator of the parameters of a linear regression model are precisely those which minimise the mean square error of the model over $D_{\text{train}}$.
 
-\begin{tcolorbox}[colback=c2]
-    \textbf{Funny misuse of linear regression: Momentous sprint at the 2156 Olympics?}
-    \vspace{10pt}
-
-    The following is taken from an answer on Quora\footnote{\url{https://qr.ae/pslbEN}} (the top comment is worth reading) based on a paper\footnote{\url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3173856/}} published in Nature. Related\footnote{\url{https://xkcd.com/1007/}}.
+\begin{tcolorbox}[title={\textbf{Funny misuse of linear regression: Momentous sprint at the 2156 Olympics?}}, colback=c2, colbacktitle=c13, colframe=c13, coltitle=white]
+    Read this Quora answer\footnote{\url{https://qr.ae/pslbEN}} (the top comment is worth reading too) based on a paper\footnote{\url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3173856/}} published in Nature. Related\footnote{\url{https://xkcd.com/1007/}}.
 \end{tcolorbox}
 
 \subsubsection{Goodness of fit: $R^2$}
@@ -299,7 +289,7 @@ where $s_e^2$ and $s_Y^2$ denote the sample variances of the residuals and $Y$ r
 %         \end{minipage}
 %     \end{center}
 % \end{table}
-% Since $\Dtrain$ consists of only five samples, it's feasible to compute the optimal parameters $\thetaOpt$ by hand. We have
+% Since $D_{\text{train}}$ consists of only five samples, it's feasible to compute the optimal parameters $\thetaOpt$ by hand. We have
 % $$
 % y=
 % \begin{bmatrix}
@@ -344,7 +334,7 @@ where $s_e^2$ and $s_Y^2$ denote the sample variances of the residuals and $Y$ r
 % $$
 % where the sum is taken over the training data $\{(\x_i,y_i)\}_{i=1}^5$. \textcolor{red}{TODO: make the loss landscape figure.}
 
-% As for how well the model performs, its MSE on $\Dtrain$ is $1.26$ and its MSE on $\Dtest$ is $12.24$. In this case, such a difference is fine. To get a visual on how well the model does on the training and testing sets, consider \autoref{fig:lin_reg_example_on_train_and_test}. I should improve these at some point. \textcolor{red}{TODO: offer a figure for each projected onto each of the two feature axes?}
+% As for how well the model performs, its MSE on $D_{\text{train}}$ is $1.26$ and its MSE on $D_{\text{test}}$ is $12.24$. In this case, such a difference is fine. To get a visual on how well the model does on the training and testing sets, consider \autoref{fig:lin_reg_example_on_train_and_test}. I should improve these at some point. \textcolor{red}{TODO: offer a figure for each projected onto each of the two feature axes?}
 
 % \begin{figure}[ht]
 %     \centering
@@ -371,17 +361,20 @@ The `linear' part refers to the output variable being linear in the parameters. 
 
 While linear regression is the staple example of regression models, its equivalent for binary classification is logistic regression. The name is a bit confusing at first since it's fair to expect that something with the name regression would be used for regression tasks, i.e. predicting something continuously distributed, as opposed to something discrete like binary classification. Logistic Regression essentially applies a logistic (or sigmoid) transformation to the output of our model to introduce a notion of confidence of the classification. Understandably, this transformation maps all outputs to $(0,1)$. This is what makes it regression-like.
 
-Binary classification is the task of assigning one of two classes to some input sample. For example, given some data pertaining to a patient's health, it might be nice to be able to predict whether they are at risk of suffering from a heart attack or not. With this in mind, how does one classify a sample at all? The idea is to fit a hyperplane to the feature space of the distribution which we wish to model. A hyperplane is an $(n-1)$-dimensional object embedded in $n$-dimensional space. So in 2D space, a hyperplane is just a line and in 3D space it's a plane etc. A hyperplane in $(q+1)-$dimensional space consists of the points $(x_1,\dots,x_q)\in\R^q$ which satisfy
+Binary classification is the task of assigning one of two classes to some input sample. For example, given some data pertaining to a patient's health, it might be nice to be able to predict whether they are at risk of suffering from a heart attack or not. With this in mind, how does one classify a sample at all? The idea is to fit a hyperplane to the feature space of the distribution which we wish to model. A hyperplane is an $(n-1)$-dimensional object embedded in $n$-dimensional space. So in 2D space, a hyperplane is just a line and in 3D space it's a plane etc. A hyperplane in $(q+1)-$dimensional space consists of the points $\x=(x_1,\dots,x_q)\in\R^q$ which satisfy
 $$
-\theta_0+\theta_1x_1+\dots+\theta_px_p=0
+\theta_0+\theta_1x_1+\dots+\theta_px_p
+=
+0
 $$
-where $\theta=(\theta_0,\dots,\theta_p)$ are the hyperplane's coefficients and $\x=(1,x_1,\dots,x_q)$ and we can denote the function corresponding to the hyperplane by
+where $\theta=(\theta_0,\dots,\theta_p)$ are the hyperplane's coefficients. We can denote the function corresponding to the hyperplane by
+
 $$
 f_{\theta}(\x)
 =
 \theta_0+\theta_1x_1+\dots+\theta_qx_q
 =
-\theta^{\text{T}}\x.
+\theta^\top \x.
 $$
 The reason for the additional $1$ appearing at the beginning of $\x$ is similar to as in linear regression: it accounts for the bias term $\theta_0$ and makes notation a lot cleaner. After fitting the parameters of such a hyperplane, we can classify a sample $\x$ according to which side of the hyperplane $f_{\theta}(\x)=0$ it lies. For example, samples `below' the hyperplane, i.e. $f_{\theta}(\x)\leq0$, are classified as $0$ and samples `above', i.e. $f_{\theta}(\x)>0$, are classified as $1$. With this idea in mind, the hard part of this approach is finding an appropriate hyperplane. That is, we want $f_{\theta}(\x)$ to be such that sufficiently many samples of each class lie on the correct side of the hyperplane. To regressionify this approach, we apply a logistic transformation to the output $f_{\theta}(\x)$ for a given sample $\x$ yielding
 $$
@@ -408,7 +401,7 @@ Suppose that the outputs of the logistic function $h_{\theta}$ are Bernoulli dis
 $$
 \P(y|\x;\theta)=(h_{\theta}(\x))^{y}(1-h_{\theta}(\x))^{1-y}.
 $$
-We construct the log-likelihood of $h_{\theta}(\x)$ over $\Dtrain=\{(\x_i,y_i)\}_{i=1}^n$, assuming its samples are i.i.d., as
+We construct the log-likelihood of $h_{\theta}(\x)$ over $D_{\text{train}}=\{(\x_i,y_i)\}_{i=1}^n$, assuming its samples are i.i.d., as
 \begin{align*}
     l(\theta)
     &=
@@ -418,9 +411,9 @@ We construct the log-likelihood of $h_{\theta}(\x)$ over $\Dtrain=\{(\x_i,y_i)\}
     &=
     \sum_{i=1}^ny\log(h_{\theta}(\x_i))+(1-y_i)\log(1-h_{\theta}(\x_i))\\
     &=
-    \sum_{i=1}^n\l[y_i\log\l(\frac{1}{1+\exp(-\theta^{\top}\x_i)}\r)+(1-y_i)\log\l(1-\frac{1}{1+\exp(-\theta^{\top}\x_i)}\r)\r]\\
+    \sum_{i=1}^n\l[y_i\log\l(\frac{1}{1+e^{-\theta^{\top}\x_i}}\r)+(1-y_i)\log\l(1-\frac{1}{1+e^{-\theta^{\top}\x_i}}\r)\r]\\
     &=
-    \sum_{i=1}^n\l[y_i\log\l(\frac{1}{1+\exp(-\theta^{\top}\x_i)}\r)+(1-y_i)\log\l(\frac{\exp(-\theta^{\top}\x_i)}{1+\exp(-\theta^{\top}\x_i)}\r)\r]\\
+    \sum_{i=1}^n\l[y_i\log\l(\frac{1}{1+e^{-\theta^{\top}\x_i}}\r)+(1-y_i)\log\l(\frac{e^{-\theta^{\top}\x_i}}{1+e^{-\theta^{\top}\x_i}}\r)\r]\\
     &=
     \sum_{i=1}^n\l[y_i\log\l(\frac{1}{1+e^{-\theta^{\top}\x_i}}\r)+(1-y_i)\l(-\theta^{\top}\x_i+\log\l(\frac{1}{1+e^{-\theta^{\top}\x_i}}\r)\r)\r]\\
     &=
@@ -440,11 +433,11 @@ Logistic regression and SVMs both fit a hyperplane to feature space. The distinc
 
 The authors' insight came from structural risk minimization in which instead of focusing on minimising training error (as neural networks and decision trees were doing at the time), one focuses on minimising an upper bound on the generalisation error. The inclusion of `support vector' is clear from their construction but `machine' stood out to me as a bit odd. It turns out that at time of their development, around 1960, it was common to use `machine' when referring to algorithms that learned from data, i.e. algorithms belonging to statistical learning theory.
 
-\vspace{14pt}
+\vspace{10pt}
 \noindent\textbf{Note:} Terminology surrounding SVMs is inconsistent. Some pieces of literature describe the decision boundary learned by an SVM as strictly linear, others allow for a non-linear decision boundary. It'd be nice if authors stuck to the former and explicitly stated `non-linear SVM' when describing the latter. Here, `an SVM' refers to the former and I'll state explicitly when considering the latter.
 
-\subsubsection{Hard-margin SVMs \textcolor{red}{TODO: switch notation from z to y}}
-Since we aim to fit a hyperplane in our feature space $\R^{q+1}$, we use the same notation for the function $f_{\theta}(\x)$ corresponding to the linear decision boundary (i.e. hyperplane). To make notation a bit easier, let $\theta_+=(\theta_1,\dots,\theta_q)$ so that $\theta$ is the ordered concatentation of $\theta_0$ and $\theta_+$. Further, let $\x_i$ denote the $i^{\text{th}}$ sample's features and $z_i\in\{-1,1\}$ its class such that $z_i$ is 1 if $\theta_+^{\text{T}}\x_i+\theta_0>0$ and 0 otherwise.
+\subsubsection{Hard-margin SVMs}
+Since we aim to fit a hyperplane in our feature space $\R^{q+1}$, we use the same notation for the function $f_{\theta}(\x)$ corresponding to the linear decision boundary (i.e. hyperplane). To make notation a bit easier, let $\theta_+=(\theta_1,\dots,\theta_q)$ so that $\theta$ is the ordered concatentation of $\theta_0$ and $\theta_+$. Further, let $\x_i$ denote the $i^{\text{th}}$ sample's features and $y_i\in\{-1,1\}$ its class such that $y_i$ is 1 if $\theta_+^\top \x_i+\theta_0>0$ and 0 otherwise.
 
 \begin{figure}[ht]
     \centering
@@ -455,7 +448,7 @@ Since we aim to fit a hyperplane in our feature space $\R^{q+1}$, we use the sam
 
 \noindent Let $\mathbf{p}_i$ denote the projection of $\x_i$ onto the hyperplane and let $d_i$ denote the distance between $\mathbf{p}_i$ and $\x_i$. Noting that the normal to the hyperplane is $\theta_+$, we have $\mathbf{p}_i=\x_i-\frac{\theta_+}{||\theta_+||}d_i$ and so
 $$
-\theta_+^{\text{T}}\l(\x_i-\frac{\theta_+}{||\theta_+||}d_i\r)+\theta_0
+\theta_+^\top \l(\x_i-\frac{\theta_+}{||\theta_+||}d_i\r)+\theta_0
 =
 0
 $$
@@ -463,27 +456,27 @@ which, after some rearranging, yields
 $$
 d_i
 =
-\frac{\theta_+^{\text{T}}\x_i+\theta_0}{||\theta_+||}.
+\frac{\theta_+^\top \x_i+\theta_0}{||\theta_+||}.
 $$
-Taking a point $\x_i$ whose class is $-1$ yields $d_i=-\frac{\theta_+^{\text{T}}\x_i+\theta_0}{||\theta_+||}$ and so a neater way of writing this distance for an arbitrary sample $\x_i$ is $d_i=\frac{z_i(\theta_+^{\text{T}}\x_i+\theta_0)}{||\theta_+||}$. Let $d_{\text{min}}=\min_{i=1,\dots,n}d_i$. The idea behind hard-margin SVMs is only applicable to entirely linearly sparable data and effectively boilds down to finding which parameters maximise $d_{\text{min}}$. That is, we look to compute
+Taking a point $\x_i$ whose class is $-1$ yields $d_i=-\frac{\theta_+^\top \x_i+\theta_0}{||\theta_+||}$ and so a neater way of writing this distance for an arbitrary sample $\x_i$ is $d_i=\frac{y_i(\theta_+^\top \x_i+\theta_0)}{||\theta_+||}$. Let $d_{\text{min}}=\min_{i=1,\dots,n}d_i$. The idea behind hard-margin SVMs is only applicable to entirely linearly sparable data and effectively boilds down to finding which parameters maximise $d_{\text{min}}$. That is, we look to compute
 \begin{align*}
     \thetaOpt
     &=
     \argmax_{(\theta_0,\theta_+)}\l[\min_{i=1,\dots,n}d_i\r]\\
     &=
-    \argmax_{(\theta_0,\theta_+)}\l[\min_{i=1,\dots,n}\frac{z_i(\theta_+^{\text{T}}\x_i+\theta_0)}{||\theta_+||}\r]\\
+    \argmax_{(\theta_0,\theta_+)}\l[\min_{i=1,\dots,n}\frac{y_i(\theta_+^\top \x_i+\theta_0)}{||\theta_+||}\r]\\
 \end{align*}
 which we'd like to translate into a convex optimisation problem. First, notice that computing $\thetaOpt$ is equivalent to solving
 $$
-\max_{(\theta_0,\theta_+)}\frac{r}{||\theta_+||}\text{ s.t. } z_i\l(\theta_+^{\text{T}}\x_i+\theta_0\r)\geq r\text{ } (i=1,\dots,n).
+\max_{(\theta_0,\theta_+)}\frac{r}{||\theta_+||}\text{ s.t. } y_i\l(\theta_+^\top \x_i+\theta_0\r)\geq r\text{ } (i=1,\dots,n).
 $$
 in which $r$ is arbtirarily scalable, so it is equivalent to
 $$
-\max_{(\theta_0,\theta_+)}\frac{1}{||\theta_+||}\text{ s.t. } z_i\l(\theta_+^{\text{T}}\x_i+\theta_0\r)\geq 1\text{ } (i=1,\dots,n).
+\max_{(\theta_0,\theta_+)}\frac{1}{||\theta_+||}\text{ s.t. } y_i\l(\theta_+^\top \x_i+\theta_0\r)\geq 1\text{ } (i=1,\dots,n).
 $$
 This problem is still non-convex so we make a convenient switcheroo in realising that it is equivalent to solving
 $$
-\min_{(\theta_0,\theta_+)}||\theta_+||^2\text{ s.t. } z_i\l(\theta_+^{\text{T}}\x_i+\theta_0\r)\geq 1\text{ } (i=1,\dots,n)
+\min_{(\theta_0,\theta_+)}||\theta_+||^2\text{ s.t. } y_i\l(\theta_+^\top \x_i+\theta_0\r)\geq 1\text{ } (i=1,\dots,n)
 $$
 which is solved in the usual convex problem solving ways.
 
@@ -491,7 +484,7 @@ which is solved in the usual convex problem solving ways.
 
 Hard-margin SVMs are rarely applicable. In practice, classes are not entirely linearly separable, due to noise and outliers, and so allowing for some misclassification is pragmatic. Going from hard-margin to soft-margin is pretty straightforward, just include some slack variables $\xi=(\xi_1,\dots,\xi_n)$ that ultimately allow the model to violate the constraints while penalising said violations. More precisely, it involves solving
 $$
-\min_{(\theta_0,\theta_+,\xi)}\l[||\theta_+||^2+\lambda\sum_{i=1}^n\xi_i\r]\text{s.t. } z_i\l(\theta_+^{\text{T}}\x_i+\theta_0\r)\geq 1-\xi_i,\text{ }\xi_i\geq0
+\min_{(\theta_0,\theta_+,\xi)}\l[||\theta_+||^2+\lambda\sum_{i=1}^n\xi_i\r]\text{s.t. } y_i\l(\theta_+^\top \x_i+\theta_0\r)\geq 1-\xi_i,\text{ }\xi_i\geq0
 $$
 for $i=1,\dots,n$ where $\lambda\geq0$ is a regularisation parameter that influences the tradeoff of margin size and misclassification rate. Larger $\lambda$ corresponds to prioritising a larger margin while smaller $\lambda$ corresponds to prioritising the minimisation of misclassification.
 
@@ -504,7 +497,7 @@ for $i=1,\dots,n$ where $\lambda\geq0$ is a regularisation parameter that influe
 
 \noindent As illustrated in \autoref{fig:SVM_soft_margin}, it allows for samples to be closer to the decision boundary than the margin as well as outright misclassifications. Again, it is typically solved in the usual convex problem solving ways. Going a step further, it turns out that this can be reduced to computing
 $$
-\argmin_{(\theta_0,\theta_+)}\l[||\theta_+||^2+\lambda\sum_{i=1}^n\max\l(0,1-z_i\l(\theta_+^{\text{T}}\x_i+\theta_0\r)\r)\r]
+\argmin_{(\theta_0,\theta_+)}\l[||\theta_+||^2+\lambda\sum_{i=1}^n\max\l(0,1-y_i\l(\theta_+^\top \x_i+\theta_0\r)\r)\r]
 $$
 which can be done using gradient descent.
 
@@ -514,7 +507,7 @@ Motivating non-linear SVMs is straightforward: feature spaces are rarely linearl
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.75\columnwidth]{./figures/supervised_learning/SVMs/SVM_non_linear.pdf}
-    \caption{Non-linearly separable samples being transformed to a space in which they are linearly separable. Almost like punching the curve into a line. I'm unsure why the empty set symbol above the arrow is present.}
+    \caption{Non-linearly separable samples being transformed in such a way that they become linearly separable. Almost like punching the curve into a line. I'm unsure why the empty set symbol above the arrow is present. \TODO{: Make own figure.}}
     \label{fig:SVM_non_linear}
 \end{figure}
 
@@ -522,11 +515,11 @@ With this idea in mind, we seek to solve for
 $$
 \min_{(\theta_0,\theta_+,\xi)}\l[\frac{1}{2}||\theta_+||^2+\lambda\sum_{i=1}^n\xi_i\r]\text{s.t. } y_i\l(\phi(\theta_+)^\top\x_i+\theta_0\r)\geq 1-\xi_i,\text{ }\xi_i\geq0
 $$
-which is difficult if the dimension of the image of $\phi$ is large. To make things easier, the dual of problem is optimised instead. I don't understand optimisation well enough to know about theory surrounding primal problems, their duals, Lagrangians etc., so I'll just give the dual outright without deriving it:
+which is difficult if the dimension of the image of $\phi$ is large. To make things easier, the dual of problem is optimised instead. I don't understand optimisation well enough to know about theory surrounding primal problems, their duals, Lagrangians etc., so I'll just give the dual outright without deriving it
 $$
-\max_{(\alpha_1,\dots,\alpha_n)}\l[\sum_{i=1}^n\alpha_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_jK(\x_i,\x_j)\r]\text{s.t. } 0\leq\alpha_i\leq\lambda,\text{ }\sum_{i=1}^n\alpha_iy_i=0
+\max_{(\alpha_1,\dots,\alpha_n)\in[0,\lambda]^n}\l[\sum_{i=1}^n\alpha_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_jK(\x_i,\x_j)\r]\text{s.t. }\sum_{i=1}^n\alpha_iy_i=0
 $$
-where $K(\x,\z)=\langle\phi(\x),\phi(\z)\rangle$ is a pre-chosen kernel. See how it never requires an explicit computation involving $\phi$. Hence the name `kernel trick' (not the same kernel trick as in variational autoencoders). For some reason, solving the dual is easier. \textcolor{red}{TODO: Why is it easier?}
+where $K(\x,\z)=\langle\phi(\x),\phi(\z)\rangle$ is a pre-chosen kernel. See how it never requires an explicit computation involving $\phi$. Hence the name `kernel trick' (not the same kernel trick as in variational autoencoders). For some reason, solving the dual is easier. \TODO{: explain why it's easier.}
 
 At inference time, given some $\x$, we seek to compute
 \begin{align*}
@@ -544,7 +537,7 @@ The two simplest kernels are polynomial kernels and the RBF kernel. Polynomial k
 \subsection{Decision Trees and Random Forests}
 I find decision trees and random forests so boring that I'm not going to write about them and will instead include plots which act as a brief reminder. This section mostly exists so that the list of subsections in this section form a rounded list of supervised learning methods. 
 
-\textcolor{red}{TODO: include such figures}
+\TODO{: include figures.}
 
 One nice thing about decision trees is that understanding them forces you to learn about entropy but there are other topics which force the same thing, e.g. Variational Autoencoders through the use of KL-divergences. Also, random forests are a nice introduction to ensemble methods which nicely demonstrate how to prevent overfitting through the reduction of variance (directly illustrating the importance of the bias-variance tradeoff). Oh, and bootstrapping. Maybe one day I'll write this subsection properly.
 
@@ -555,7 +548,7 @@ Helps reduce overfitting.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\columnwidth]{./figures/supervised_learning/regularisation_two_plots_zero_test_error.png}
-    \caption{Two fits, both yielding 0 test error.}
+    \caption{Two fits, both yielding 0 test error. \TODO{: Make own figure.}}
     \label{fig:regularisation_two_plots}
 \end{figure}
 
@@ -573,7 +566,7 @@ If we prefer our to-be-learned parameters to be close to 0, then it makes sense 
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\columnwidth]{./figures/supervised_learning/laplace_pdf.png}
+    \includegraphics[width=\columnwidth]{./figures/supervised_learning/laplace_pdf.pdf}
     \caption{Laplace pdf with means 0 and decreasing variances according to $\lambda\in\{0.5,1,2,3\}$.}
     \label{fig:laplace_pdf}
 \end{figure}
@@ -595,124 +588,126 @@ $$
 where $\lambda=1/2\sigma^2$. I don't have much more to add for L2 as I think it's pretty clear.
 
 \subsubsection{Visualisation via loss landscapes}
-There's another nice way to think about these forms of regression in terms of loss landscapes: you're adding the original loss landscape to the loss corresponding to this penalty. It's almost like you sink every points in the loss landscape according to how close it is to the centre. It's clear from this visualisation how L1 and L2 reduce variance and increase bias. \textcolor{red}{TODO: make a before and after pic for 3D loss landscape. Also, is this idea subject to initial conditions I guess? Like if the original loss landscape is already very sensitive to initial conditions then I'm unsure what regularisation does.}
+There's another nice way to think about these forms of regression in terms of loss landscapes: you're adding the original loss landscape to the loss corresponding to this penalty. It's almost like you sink every points in the loss landscape according to how close it is to the centre. It's clear from this visualisation how L1 and L2 reduce variance and increase bias. \TODO{: make a before and after pic for 3D loss landscape. Also, is this idea subject to initial conditions I guess? Like if the original loss landscape is already very sensitive to initial conditions then I'm unsure what regularisation does.}
 
 % the bias-variance tradeoff
 \subsection{The Bias-Variance Tradeoff}
-\textcolor{red}{TODO: check consistency of notation between here and earlier part of this section surrounding X and D}
+\TODO{: First give a subsubsection on under and overfitting.}
+
 The bias-variance tradeoff is a statement pertaining to how well one can perform supervised learning from datasets. Crudely put, if the model family used to fit is too simple to represent the underlying distributions from which the samples were drawn then our learning method is highly-biased: our method is almost dataset-invariant. Think of fitting a line to a high-degree polynomial. On the other end, if the model family is too complex (e.g. overparameterised) then one might expect to more-easily overfit the underlying distribution. There are too many parameters to twink and tweam so fitting the individal samples is too easy.
 
-\subsubsection{Derivation with MSE loss}
-Recall that sample targets pertaining to datasets from which supervised models are learned are effected by noise, i.e. $Y|(X=x)=f(x)+\epsilon(x)$ where $\epsilon(x)\sim\N(0,\sigma^2(x))$ and so
+\subsubsection{Derivation of the tradeoff with MSE loss}
+Recall that sample targets pertaining to datasets from which supervised models are learned are effected by noise, i.e. $Y|(\X=\x)=f(\x)+\epsilon(\x)$ where $\epsilon(\x)\sim\N(0,\sigma^2(\x))$ and so
 $$
-Y|(X=x)
+Y|(\X=\x)
 \sim
-\N\l(f(x), \sigma^2(x)\r).
+\N\l(f(\x), \sigma^2(\x)\r).
 $$
-We seek to learn an estimate $\hat{f}_{D}$ of $f(x)=\E_Y\l[Y|X=x\r]$ from the dataset $D\subset(\Omega_X\times\Omega_Y)^n$. In other words, the model/estimate $\hat{f}_{D}$ is determined by the realisation $D$ of $\D$ where $\D$ is distributed according to $p(x,y)^{\otimes n}$ for some fixed $n$. As is common in supervised learning contexts, we make use of the expected risk of an estimate $\hat{f}_D$ which is given by
+We seek to learn an estimate $\hat{f}_{D}$ of $f(\x)=\E_Y\l[Y|\X=\x\r]$ from the dataset $D\subset(\OX\times\Omega_Y)^n$. In other words, the model/estimate $\hat{f}_{D}$ is determined by the realisation $D$ of $\D$ where $\D$ is distributed according to $p(\x,y)^{\otimes n}$ for some fixed $n$. As is common in supervised learning contexts, we make use of the expected risk of an estimate $\hat{f}_D$ which is given by
 $$
 R\l(\hat{f}_D\r)
 =
-\E_{(X,Y)}\l[\l(Y-\hat{f}_D(X)\r)^2\r]
+\E_{(\X,Y)}\l[\l(Y-\hat{f}_D(\X)\r)^2\r]
 $$
 in which mean square error (MSE) is used as loss. The quantity pertaining to the quality of a learning procedure used to determine $\hat{f}_{D}$ from $D\in\Omega_{\D}$ is given by
 \begin{align*}
-    \E_{\D}\l[R\l(\hat{f}_{\D}\r)\r]
+    &\hspace{14.52pt}
+    \E_{\D}\l[R\l(\hat{f}_{\D}\r)\r]\\
     &=
-    \E_{\D}\l[\E_{(X,Y)}\l[\l(Y-\hat{f}_{\D}(X)\r)^2\r]\r]\nonumber\\
+    \E_{\D}\l[\E_{(\X,Y)}\l[\l(Y-\hat{f}_{\D}(\X)\r)^2\r]\r]\nonumber\\
     &=
-    \E_{\D}\l[\E_{(X,Y)}\l[\l(Y-f(X)+f(X)-\hat{f}_{\D}(X)\r)^2\r]\r]\nonumber\\
+    \E_{\D}\l[\E_{(\X,Y)}\l[\l(Y-f(\X)+f(\X)-\hat{f}_{\D}(\X)\r)^2\r]\r]\nonumber\\
     &=
-    \textcolor{c5}{\E_{\D}\l[\E_{(X,Y)}\l[\l(Y-f(X)\r)^2\r]\r]}+
-    \textcolor{c11}{\E_{\D}\l[\E_X\l[\l(f(X)-\hat{f}_{\D}(X)\r)^2\r]\r]}\\
-    &+\textcolor{c3}{\E_{\D}\l[\E_{(X,Y)}\l[2(Y-f(X))\l(f(X)-\hat{f}_{\D}(X)\r)\r]\r]}.
+    \textcolor{c5}{\E_{\D}\l[\E_{(\X,Y)}\l[\l(Y-f(X)\r)^2\r]\r]}+
+    \textcolor{c11}{\E_{\D}\l[\E_\X\l[\l(f(\X)-\hat{f}_{\D}(\X)\r)^2\r]\r]}\\
+    &+\textcolor{c3}{\E_{\D}\l[\E_{(\X,Y)}\l[2(Y-f(\X))\l(f(\X)-\hat{f}_{\D}(\X)\r)\r]\r]}.
 \end{align*}
 Let's address this term-by-term beginning with the term in red. See that
 \begin{align*}
     &\hspace{14.52pt}
-    \textcolor{c3}{\E_{\D}\l[\E_{(X,Y)}\l[2(Y-f(X))\l(f(X)-\hat{f}_{\D}(X)\r)\r]\r]}\\
+    \textcolor{c3}{\E_{\D}\l[\E_{(\X,Y)}\l[2(Y-f(\X))\l(f(\X)-\hat{f}_{\D}(\X)\r)\r]\r]}\\
     &=
-    2\E_{\D}\l[\E_X\l[\E_{Y}\l[(Y-f(X))\l(f(X)-\hat{f}_{\D}(X)\r)|X\r]\r]\r]\\
+    2\E_{\D}\l[\E_\X\l[\E_{Y}\l[(Y-f(\X))\l(f(\X)-\hat{f}_{\D}(\X)\r)\Big|\X\r]\r]\r]\\
     &=
-    2\E_{\D}\l[\E_X\l[\l(f(X)-\hat{f}_{\D}(X)\r)\E_{Y}\l[Y-f(X)|X\r]\r]\r]\\
+    2\E_{\D}\l[\E_\X\l[\l(f(\X)-\hat{f}_{\D}(\X)\r)\E_{Y}\l[Y-f(\X)\vert\X\r]\r]\r]\\
     &=
-    2\E_{\D}\l[\E_X\l[\l(f(X)-\hat{f}_{\D}(X)\r)\cdot0\r]\r]\\
+    2\E_{\D}\l[\E_\X\l[\l(f(\X)-\hat{f}_{\D}(\X)\r)\cdot0\r]\r]\\
     &=
     0
 \end{align*}
 in which the tower property of conditional expectations
 \begin{align*}
-    \E_{(X,Y)}[g(X,Y)]
+    \E_{(\X,Y)}[g(\X,Y)]
     &=
-    \iint g(x,y)f_{(X,Y)}(x,y)dxdy\\
+    \iint g(\x,y)f_{(\X,Y)}(\x,y)dxdy\\
     &=
-    \int \l(\int g(x,y)f_{Y|X}(y|x)dy\r)f_X(x)dx\\
+    \int \l(\int g(\x,y)f_{Y|\X}(y|\x)dy\r)f_\X(\x)dx\\
     &=
-    \E_X\l[\E_{Y}\l[g(X,Y)|X\r]\r]
+    \E_\X\l[\E_{Y}\l[g(\X,Y)|\X\r]\r]
 \end{align*}
 is applied. As such, the quantity of interest reduces to only two terms as in
 $$
 \E_{\D}\l[R\l(\hat{f}_{\D}\r)\r]
 =
-\textcolor{c5}{\E_{\D}\l[\E_{(X,Y)}\l[\l(Y-f(X)\r)^2\r]\r]}+\textcolor{c11}{\E_{\D}\l[\E_X\l[\l(f(X)-\hat{f}_{\D}(X)\r)^2\r]\r]}
+\textcolor{c5}{\E_{\D}\l[\E_{(\X,Y)}\l[\l(Y-f(\X)\r)^2\r]\r]}+\textcolor{c11}{\E_{\D}\l[\E_\X\l[\l(f(\X)-\hat{f}_{\D}(\X)\r)^2\r]\r]}
 $$
 of which we will now address the first in orange. Noting that
 $$
-\E_{Y}\l[Y-f(x)|X=x\r]
+\E_{Y}\l[Y-f(\x)|X=x\r]
 =
 0
 $$
 for all $x\in\Omega_X$ and that what is inside the expectation over $\D$ is independent of $\D$, we see that the first term reduces to
 \begin{align*}
-    \textcolor{c5}{\E_{\D}\l[\E_{(X,Y)}\l[(Y-f(X))^2\r]\r]}
+    \textcolor{c5}{\E_{\D}\l[\E_{(\X,Y)}\l[(Y-f(\X))^2\r]\r]}
     &=
-    \E_{(X,Y)}\l[(Y-f(X))^2\r]\\
+    \E_{(\X,Y)}\l[(Y-f(\X))^2\r]\\
     &=
-    \E_X\l[\E_{Y}\l[(Y-f(X))^2|X\r]\r]\\
+    \E_\X\l[\E_{Y}\l[(Y-f(\X))^2|\X\r]\r]\\
     &=
-    \E_X\l[\E_{Y}\l[\l(Y-\E_Y[Y|X]\r)^2|X\r]\r]\\
+    \E_\X\l[\E_{Y}\l[\l(Y-\E_Y[Y|\X]\r)^2|\X\r]\r]\\
     &=
-    \E_X\l[\text{Var}_Y\l(Y|X\r)\r]\\
+    \E_\X\l[\text{Var}_Y\l(Y|\X\r)\r]\\
     &=
-    \E_X[\sigma^2(X)]
+    \E_\X[\sigma^2(\X)]
 \end{align*}
 This is simply the expected noise, e.g. due to imperfect calibration in the instruments used to obtain samples, and is typically taken to be constant. Usually, as a constant, it is simply denoted by $\sigma^2$.
 
-For the term in green, let $\bar{f}(x)=\E_{\D}\l[\hat{f}_{\D}(x)\r]$ for all $x\in\Omega_X$ and see that
+For the term in green, let $\bar{f}(\x)=\E_{\D}\l[\hat{f}_{\D}(\x)\r]$ for all $\x\in\Omega_\X$ and see that
 \begin{align*}
     &\hspace{14.52pt}
-    \textcolor{c11}{\E_{\D}\l[\E_X\l[\l(f(X)-\hat{f}_{\D}(X)\r)^2\r]\r]}\\
+    \textcolor{c11}{\E_{\D}\l[\E_\X\l[\l(f(\X)-\hat{f}_{\D}(\X)\r)^2\r]\r]}\\
     &=
-    \E_{\D}\l[\E_X\l[\l(f(X)-\bar{f}(X)+\bar{f}(X)-\hat{f}_{\D}(X)\r)^2\r]\r]\\
+    \E_{\D}\l[\E_\X\l[\l(f(\X)-\bar{f}(\X)+\bar{f}(\X)-\hat{f}_{\D}(\X)\r)^2\r]\r]\\
     &=
-    \E_X\l[\l(f(X)-\bar{f}(X)\r)^2\r]+\E_{\D}\l[\E_X\l[\l(\bar{f}(X)-\hat{f}_{\D}(X)\r)^2\r]\r]\\
+    \E_\X\l[\l(f(\X)-\bar{f}(\X)\r)^2\r]+\E_{\D}\l[\E_\X\l[\l(\bar{f}(\X)-\hat{f}_{\D}(\X)\r)^2\r]\r]\\
     &+
-    2\E_{\D}\l[\E_X\l[\l(f(X)-\bar{f}(X)\r)\l(\bar{f}(X)-\hat{f}_{\D}(X)\r)\r]\r].
+    2\E_{\D}\l[\E_\X\l[\l(f(\X)-\bar{f}(\X)\r)\l(\bar{f}(\X)-\hat{f}_{\D}(\X)\r)\r]\r].
 \end{align*}
-See that the final term vanishes as $\E_{\D}\l[\bar{f(X)}-\hat{f}_{\D}(X)\r]=0$ and so
+See that the final term vanishes as $\E_{\D}\l[\bar{f}(\x)-\hat{f}_{\D}(\x)\r]=0$ for all $\x\in\OX$ and so
 \begin{align*}
     &\hspace{14.52pt}
-    \textcolor{c11}{\E_{\D}\l[\E_X\l[\l(f(X)-\hat{f}_{\D}(X)\r)^2\r]\r]}\\
+    \textcolor{c11}{\E_{\D}\l[\E_\X\l[\l(f(X)-\hat{f}_{\D}(\X)\r)^2\r]\r]}\\
     &=
-    \E_X\l[\l(f(X)-\bar{f}(X)\r)^2\r]+\E_{\D}\l[\E_X\l[\l(\bar{f}(X)-\hat{f}_{\D}(X)\r)^2\r]\r]\\
+    \E_\X\l[\l(f(\X)-\bar{f}(\X)\r)^2\r]+\E_{\D}\l[\E_\X\l[\l(\bar{f}(\X)-\hat{f}_{\D}(\X)\r)^2\r]\r]\\
     &=
-    \E_X\l[\l(f(X)-\bar{f}(X)\r)^2+\E_{\D}\l[\l(\bar{f}(X)-\hat{f}_{\D}(X)\r)^2\r]\r]\\
+    \E_\X\l[\l(f(\X)-\bar{f}(\X)\r)^2+\E_{\D}\l[\l(\bar{f}(\X)-\hat{f}_{\D}(\X)\r)^2\r]\r]\\
     &=
-    \E_X\l[\l(f(X)-\E_{\D}\l[\hat{f}_{\D}(X)\r]\r)^2+\E_{\D}\l[\l(\hat{f}_{\D}(X)-\E_{\D}\l[\hat{f}_{\D}(X)\r]\r)^2\r]\r].
+    \E_\X\l[\l(f(\X)-\E_{\D}\l[\hat{f}_{\D}(X)\r]\r)^2+\E_{\D}\l[\l(\hat{f}_{\D}(\X)-\E_{\D}\l[\hat{f}_{\D}(\X)\r]\r)^2\r]\r].
 \end{align*}
 Put together, we obtain
 \begin{align*}
     &\hspace{14.52pt}
     \E_{\D}\l[R\l(\hat{f}_{\D}\r)\r]\\
     &=
-    \E_X\l[\underbrace{\l(f(X)-\E_{\D}\l[\hat{f}_{\D}(X)\r]\r)^2}_{\text{square of bias of estimator}}+\underbrace{\E_{\D}\l[\l(\hat{f}_{\D}(X)-\E_{\D}\l[\hat{f}_{\D}(X)\r]\r)^2\r]}_{\text{variance of estimator}}\r]+\underbrace{\sigma^2}_{\text{noise}}
+    \E_\X\l[\underbrace{\l(f(\X)-\E_{\D}\l[\hat{f}_{\D}(\X)\r]\r)^2}_{\text{square of bias of estimator}}+\underbrace{\E_{\D}\l[\l(\hat{f}_{\D}(\X)-\E_{\D}\l[\hat{f}_{\D}(\X)\r]\r)^2\r]}_{\text{variance of estimator}}\r]+\underbrace{\sigma^2}_{\text{noise}}
 \end{align*}
-where $\sigma^2=\E_X\l[\sigma^2(X)\r]$ (ignore the poor choice of notation). We can crudely summarise it as the sum of the weighted average, according to $p(x)$, of the square of the bias of the learning method, the variance of the estimate according to the dataset from which it is determined and irreducible noise. The irreducible noise is invariant to the learning method and so it's usually ignored in discussions surrounding the bias-variance tradeoff.
+where $\sigma^2=\E_\X\l[\sigma^2(\X)\r]$ (ignore the poor choice of notation). We can crudely summarise it as the sum of the weighted average, according to $p(x)$, of the square of the bias of the learning method, the variance of the estimate according to the dataset from which it is determined and irreducible noise. The irreducible noise is invariant to the learning method and so it's usually ignored in discussions surrounding the bias-variance tradeoff.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\columnwidth]{./figures/supervised_learning/bias_variance.png}
-    \caption{The graph of learning method error against model complexity in terms of bias and variance.}
+    \caption{The graph of learning method error against model complexity in terms of bias and variance. \TODO{: Make own figure.}}
     \label{fig:bias_variance}
 \end{figure}
 
@@ -736,7 +731,7 @@ Double descent refers to a behaviour in which overparameterised models ignore fl
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\columnwidth]{./figures/supervised_learning/double_descent.png}
-    \caption{How double descent typically looks.}
+    \caption{How double descent typically looks. \TODO{: Make own figure.}}
     \label{fig:double_descent}
 \end{figure}
 
@@ -757,7 +752,7 @@ Mostly because statistical tests can be conducted on parameters, e.g. statistica
 \begin{center}
     \textbf{\textcolor{blue}{Q2:} Why not use mean absolute error instead of MSE?}
 \end{center}
-\textcolor{red}{TODO: corresponds to MLE for normally distributed residuals.}
+\TODO{: Note that it corresponds to MLE for normally distributed residuals.}
 
 Differentiability is a kind of boring answer. There are many reasons for this, one of which is that often in machine learning and statistics-related contexts one would like to be able to compute the derivative(s) of such a loss function, e.g. in gradient descent, and the presence of an absolute value makes this annoying.
 
@@ -786,7 +781,7 @@ i.e. to minimise the empirical risk over the dataset in the parameters. As such,
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.75\columnwidth]{./figures/gradient_descent/loss_landscape.png}
-    \caption{The graph of a complex loss landscape $\{(\theta,R_D(\theta))|\theta\in\R^2\}$ whose minimiser we seek.}
+    \caption{The graph of a complex loss landscape $\{(\theta,R_D(\theta))|\theta\in\R^2\}$ whose minimiser we seek. \TODO{: Make own figure.}}
     \label{fig:loss_landscape_complex}
 \end{figure}
 
@@ -796,7 +791,7 @@ Tons of function minimisation methods exist: Newton's method, genetic algorithms
 \noindent\textbf{Note:} When loss landscapes are illustrated, they are really plots of the graph $\{(\theta, R_D(\theta))|\theta\in\Theta\}$. That is, they are shaped by the fixed dataset $D$. As such, computations of the form $R_{D'}(\theta)$ for $D'\subsetneq D$, e.g. computations related to mini-batch gradient descent, don't necessarily correspond exactly with $R_D(\theta)$ but this can be dealt with when it comes to it.
 
 % vanilla gradient descent
-\subsection{Gradient Descent and Batch Learning}
+\subsection{Gradient Descent}
 Since gradient descent is a general function minimisation method and not specific to machine learning, I'll use more general mathsy notation than $\theta$ and $R_D$, etc.
 
 Anyway, say we're interested in minimising $f(\x)$. A natural idea is to start with a guess $\x^{(0)}$ and send it in the direction in which $f$ most decsends locally from $\x^{(0)}$, or equivalently the opposite of the direction in which $f$ most ascends locally from $\x^{(0)}$, i.e. computing
@@ -852,7 +847,7 @@ The edge case in which $\nabla f(\mathbf{x})=0$ corresponds to $f(\mathbf{x})$ b
 \subsubsection{Sensitivity to $\x^{(0)}$}
 I don't know much about initialisation. I know that it's a bad idea to start at 0 (if symmetries hold then parameters change identically), points of large magnitude (exploding gradients) and points of small magnitude (vanshing gradients). Also, if the function in question is convex then don't worry so much about converging to a nice solution. In practice, empirical risk functions are not convex.
 
-One day when my interest in initialisation sparks up, I'll write this subsubection properly.
+One day when my interest in initialisation sparks up, I'll write this part properly.
 
 \subsubsection{My dataset (i.e. $n$) is too large!!!}
 Do not fear, for it turns out that we can approximate full gradient updates pretty well using many smaller updates over subsets of the dataset. How well mini-batch learning and stochastic gradient descent perform (and even just \textit{that} they perform) surprised me when I first learned them.
@@ -860,7 +855,7 @@ Do not fear, for it turns out that we can approximate full gradient updates pret
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\columnwidth]{./figures/gradient_descent/gradient_descent_types.png}
-    \caption{How we might expect the convergence of each method to look.}
+    \caption{How we might expect the convergence of each method to look. \TODO{: Make own figure.}}
     \label{fig:gradient_descent_types}
 \end{figure}
 
@@ -947,7 +942,7 @@ Think of a ball rolling downhill: momentum lets it keep moving in the same direc
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\columnwidth]{./figures/gradient_descent/momentum.png}
-    \caption{How we might expect the convergence to look with momentum.}
+    \caption{How we might expect the convergence to look with momentum. \TODO{: Make own figure.}}
     \label{fig:gradient_descent_momentum}
 \end{figure}
 
@@ -986,7 +981,7 @@ where $\eta_i^{(t)}=\frac{\eta}{\sqrt{G_i^{(t)}}+\epsilon}$ is the $i^{\text{th}
 
 % hyperparam tuning
 \subsection{Hyperparameter Tuning}
-Parameters are learned during training. Hyperparameters are set prior to training. Bad hyperparameters will yield training issues like divergence, overfitting or underfitting. The easiest example of a hyperparameter I can think of is the learning rate in vanilla gradient descent. Some choices of learning rate will yield models which generalise better post-training than other learning rates. For a more sophisticated example, consider architecture-related hyperparameters, e.g. the number of hidden layers in a multi-layer perceptron.
+Hyperparameters are the tunable parts of our model which are not learned during training. Bad hyperparameters will yield training issues like divergence, overfitting or underfitting. The easiest example of a hyperparameter I can think of is the learning rate in vanilla gradient descent. Some choices of learning rate will yield models which generalise better post-training than other learning rates. For a more sophisticated example, consider architecture-related hyperparameters, e.g. the number of hidden layers in a multi-layer perceptron.
 
 \subsection*{Random search}
 Begin by designating some portion of the training data for validation. Define a finite set of values in which each hyperparmeter may take a value. Since the cardinality of such a set will often be massive, instead of traversing the whole grid of values, consider random search: choose a number of models to train, randomly sample from the finite set for each and choose whichever yielded the lowest validation loss.
@@ -1374,10 +1369,13 @@ for $j\in[k+1]$ and $i\in[n_j]$ where $\l(z_1^{(j)},\dots,z_{n_j}^{(j)}\r)=\math
 \end{enumerate}
 Before deriving each statement in order, we can see already what was meant earlier by propagating backwards through the MLP: to compute the gradients relevant to performing gradient descent, backpropagation requires the computation of $\mathbf{z}^{(1)},\dots,\mathbf{z}^{(k+1)}$ from which $\delta^{(k+1)}$ can be computed. Note that the $\frac{\partial\mathcal{L}}{\partial a_i^{(k+1)}}$ term in the first statement is often easily computed, e.g. for MSE loss we have
 $$
-\frac{\partial\mathcal{L}}{\partial a_i^{(k+1)}}=a_i^{(k+1)}-y_i.
+\frac{\partial\mathcal{L}}{\partial a_i^{(k+1)}}
+=
+a_i^{(k+1)}-y_i.
 $$
-From there, one can compute $\delta^{(k)},\dots,\delta^{(1)}$ in that order, effectively propagating through the MLP backwards. With $\delta^{(1)},\dots,\delta^{(k+1)}$ and $\mathbf{a}^{(0)},\mathbf{a}^{(1)}=\sigma_1\l(\mathbf{z}^{(1)}\r),\dots,\mathbf{a}^{(k+1)}=\sigma_{k+1}\l(\mathbf{z}^{(k+1)}\r)$, computing the relevant gradients is straightforward.\\
+From there, one can compute $\delta^{(k)},\dots,\delta^{(1)}$ in that order, effectively propagating through the MLP backwards. With $\delta^{(1)},\dots,\delta^{(k+1)}$ and $\mathbf{a}^{(0)},\mathbf{a}^{(1)}=\sigma_1\l(\mathbf{z}^{(1)}\r),\dots,\mathbf{a}^{(k+1)}=\sigma_{k+1}\l(\mathbf{z}^{(k+1)}\r)$, computing the relevant gradients is straightforward.
 
+\vspace{10pt}
 \noindent\textbf{Statement 1.} Using the chain rule, see that
 \begin{align*}
     \delta_i^{(k+1)}
@@ -1390,27 +1388,27 @@ From there, one can compute $\delta^{(k)},\dots,\delta^{(1)}$ in that order, eff
 \end{align*}
 
 \noindent\textbf{Statement 2.} First, note that
-$$
-\l(\mathbf{W}^{(j+1)}\r)^\top\delta^{(j+1)}
-=
-\begin{bmatrix}
-    w_{1,1}^{(j+1)}   & \dots  & w_{n_{j+1},1}^{(j+1)}\\
-    \vdots            & \ddots & \vdots               \\
-    w_{1,n_j}^{(j+1)} & \dots  & w_{n_{j+1},n_j}^{(j+1)}
-\end{bmatrix}
-\begin{bmatrix}
-    \delta_1^{(j+1)}\\
-    \vdots\\
-    \delta_{n_{j+1}}^{(j+1)}
-\end{bmatrix}
-=
-\sum_{l=1}^{n_{j+1}}\delta_l^{(j+1)}
-\begin{bmatrix}
-    w_{l,1}^{(j+1)}\\
-    \vdots\\
-    w_{l,n_j}^{(j+1)}
-\end{bmatrix}
-$$
+\begin{align*}
+    \l(\mathbf{W}^{(j+1)}\r)^\top\delta^{(j+1)}
+    &=
+    \begin{bmatrix}
+        w_{1,1}^{(j+1)}   & \dots  & w_{n_{j+1},1}^{(j+1)}\\
+        \vdots            & \ddots & \vdots               \\
+        w_{1,n_j}^{(j+1)} & \dots  & w_{n_{j+1},n_j}^{(j+1)}
+    \end{bmatrix}
+    \begin{bmatrix}
+        \delta_1^{(j+1)}\\
+        \vdots\\
+        \delta_{n_{j+1}}^{(j+1)}
+    \end{bmatrix}\\
+    &=
+    \sum_{l=1}^{n_{j+1}}\delta_l^{(j+1)}
+    \begin{bmatrix}
+        w_{l,1}^{(j+1)}\\
+        \vdots\\
+        w_{l,n_j}^{(j+1)}
+    \end{bmatrix}
+\end{align*}
 and so
 $$
 \l(\l(\mathbf{W}^{(j+1)}\r)^\top\delta^{(j+1)}\r)_i
@@ -1486,7 +1484,7 @@ $$
 
 \textbf{Note:} The terms `kernel' and `filter' are synonymous in this subsection.
 
-\vspace{14pt}
+\vspace{10pt}
 \noindent Convolutional neural networks (CNNs) are neural networks whose architectures are designed to process image data. Illustrated in \autoref{fig:CNN_frog}, their architecture can be described on a high level as consisting of two parts. The first part performs feature extraction through convolutions and pooling. The second part is an MLP which uses the extracted feature values to produce the overall model's output, e.g. the probability that the input object belongs to a given class. Feature extraction into MLP, pretty intuitive.
 
 \begin{figure}[ht]
@@ -1512,7 +1510,7 @@ where $b_c$ is the kernel's bias in channel $c$. Note that this notation is inte
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{./figures/neural_nets/CNN_convolution.png}
-    \caption{Convolution without bias.}
+    \caption{Convolution without bias. \TODO{: Make own figure.}}
     \label{fig:convolution_operation}
 \end{figure}
 
@@ -1524,7 +1522,7 @@ Pooling operations reduce the spatial dimensions of a given feature map by, in s
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{./figures/neural_nets/CNN_pooling.pdf}
-    \caption{The core flavours of pooling.}
+    \caption{The core flavours of pooling. \TODO{: Make own figure.}}
     \label{fig:pooling}
 \end{figure}
 
@@ -1549,7 +1547,7 @@ H'
 \right\rfloor
 +1.
 $$
-It's not too tricky to derive these. It's the kinda thing you do once and never again. \textcolor{red}{TODO: complete.}
+It's not too tricky to derive these. It's the kinda thing you do once and never again. \TODO{: complete.}
 
 % recurrent neural networks
 \subsection{Recurrent Neural Networks (RNNs)}
@@ -1598,7 +1596,7 @@ Some questions to challenge one's understanding.
 \begin{figure}
     \centering
     \includegraphics[width=0.75\textwidth]{./figures/neural_nets/REG_early_stopping.pdf}
-    \caption{Training and validation losses over 50 epochs for some model.}
+    \caption{Training and validation losses over 50 epochs for some model. Best validation obtained at epoch 28.}
     \label{fig:early_stopping}
 \end{figure}
 
@@ -1610,7 +1608,7 @@ If you observe this for sufficiently many consecutive epochs then you can stop t
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.75\textwidth]{./figures/neural_nets/REG_dropout.png}
-    \caption{Dropout to prevent overdependence on given neurons.}
+    \caption{Dropout to prevent overdependence on given neurons. \TODO{: Make own figure.}}
     \label{fig:dropout}
 \end{figure}
 
@@ -1624,7 +1622,7 @@ Without the application of at least one activation function, the values of the o
     \includegraphics[width=0.40\columnwidth]{./figures/neural_nets/NLA_xor.png}
     \hspace{20pt}
     \includegraphics[width=0.40\columnwidth]{./figures/neural_nets/NLA_circle.png}
-    \caption{Examples of samples belonging to classes that are not linearly separable.}
+    \caption{Examples of samples belonging to classes that are not linearly separable. \TODO{: Make properly.}}
     \label{fig:non_linearly_separable}
 \end{figure}
 
@@ -1633,7 +1631,7 @@ The point is that there is no line that would separate the classes in either cas
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.40\columnwidth]{./figures/neural_nets//NLA_non_lin_transform.png}
-    \caption{The image of our non-linear transformation.}
+    \caption{The image of our non-linear transformation. \TODO{: Make properly.}}
     \label{fig:non_lin_transformation}
 \end{figure}
 
@@ -1665,7 +1663,10 @@ Roughly speaking, I wouldn't worry too much about this in practice. The usual ch
 \end{center}
 Suppose we have an MLP and a CNN, both trained to perform binary classification on images of cats and dogs. Further, suppose they perform equally well. It might not be too surprisnig that the MLP will necessarily consist of a number of parameters that is orders of magnitude greater than for the CNN. Also, it's not so clear if a given MLP is translation invariant while various components of a CNN architecture help alleviate fears of translation-related issues.
 
-Also, improved learning-efficiency\footnote{\url{https://ai.stackexchange.com/questions/27407/what-does-statistical-efficiency-mean-in-this-context}}, i.e. fewer samples needed to lean distributions to similar degrees of precision.
+% Also, improved learning-efficiency\footnote{\url{https://ai.stackexchange.com/questions/27407/what-does-statistical-efficiency-mean-in-this-context}}, i.e. fewer samples needed to lean distributions to similar degrees of precision.
+
+Also, improved learning-efficiency\footnote{\href{https://ai.stackexchange.com/questions/27407/what-does-statistical-efficiency-mean-in-this-context}{\texttt{ai.stackexchange.com/questions/27407}}}, i.e. fewer samples needed to learn distributions to similar degrees of precision.
+
 
 \begin{center}
     \textbf{\textcolor{blue}{Q7:} How does one prevent vanishing/exploding gradients?}
@@ -1703,11 +1704,11 @@ An autoencoder $(\Omega_{\X},d,\theta,\phi)$ consists of a sample space $\Omega_
 
 In intuitive terms, one can see the encoder $\theta$ as a compressor of samples in $\Omega_{\X}$ to their compressed (or latent) representation in $\mathbb{R}^d$ and so one might refer to the image of $\theta$ as the latent space $\Omega_{\Z}$. Similarly, the decoder $\phi$ can be seen as a decompressor of compressed representations $\z\in\Omega_{\Z}$ yielding the original sample $\x$. In line with this notion of an autoencoder as a compressor/decompressor, the latent dimension $d$ is typically taken to be far smaller than the dimension of the distribution of interest, i.e. $d\ll n$. Of course, when $d\ll n$, learning such mappings $\theta$ and $\phi$ typically involves some loss of information if $\Omega_{\X}$ is a manifold whose intrinsic dimension is greater than $d$. That is, autoencoders are typically lossy compressors.
 
-\begin{example}
+\begin{tcolorbox}[title={\textbf{Autoencoder example}}, colback=c2, colbacktitle=c13, colframe=c13, coltitle=white]
     Suppose $\Omega_{\X}=\{(a,a,b)\in\mathbb{R}^3:||(a,a,b)||\leq1\}$ and $d=2$. One immediately notices that $\Omega_{\X}$ is a two-dimensional surface embedded in $\mathbb{R}^3$ as it is the intersection of the unit ball and the plane $\{(a,a,b):a,b\in\mathbb{R}\}$. To produce representations of $\x=(a,a,b)\in\Omega_{\X}$ in $\mathbb{R}^2$ (i.e. to compress a sample) one might employ the encoder $\theta_2(x,y,z)=(x,z)$. To reconstruct samples from their latent representation (i.e. to decompress) one might employ the decoder $\phi_2(x,z)=(x,x,z)$. The autoencoder $(\Omega_{\X},2,\theta_2,\phi_2)$ offers lossless compression on the sample space of interest as $(\phi_2\circ\theta_2)(\x)=\x$ for all $\x\in\Omega_{\X}$.
-
-    If we instead desire latent representations of $\x=(a,a,b)\in\Omega_{\X}$ in $\mathbb{R}$, i.e. if $d=1$, one might employ the encoder $\theta_1(x,y,z)=x$ and the decoder $\phi_1(x)=(x,x,x)$. The autoencoder $(\Omega_{\X},1,\theta_1,\phi_1)$ offers lossy compression, i.e. some information pertaining to a sample is lost in compressing and then decompressing it as $(\phi_1\circ\theta_1)(a,a,b)=(a,a,a)$ for all $a,b\in\mathbb{R}$.
-\end{example}
+    
+    \hspace{15pt} If we instead desire latent representations of $\x=(a,a,b)\in\Omega_{\X}$ in $\mathbb{R}$, i.e. if $d=1$, one might employ the encoder $\theta_1(x,y,z)=x$ and the decoder $\phi_1(x)=(x,x,x)$. The autoencoder $(\Omega_{\X},1,\theta_1,\phi_1)$ offers lossy compression, i.e. some information pertaining to a sample is lost in compressing and then decompressing it as $(\phi_1\circ\theta_1)(a,a,b)=(a,a,a)$ for all $a,b\in\mathbb{R}$.
+\end{tcolorbox}
 
 One's tolerance for the loss incurred by a given encoder/decoder pair is task-dependent. Given a dataset $\mathcal{D}=\{\x_1,\dots,\x_M\}\subset\Omega_{\X}$ and a latent dimension $d$, one might compute the pair $(\theta^*,\phi^*)\in\Theta\times\Phi$ which minimises the empirical risk over $\mathcal{D}$ where $\Theta$ and $\Phi$ are chosen function classes. That is, computing
 $$
@@ -1719,12 +1720,12 @@ $$
 If the function classes permit for computing the gradients of $\theta\in\Theta$ and $\phi\in\Phi$ then this computation may be done using gradient descent. For example, one could take $\Theta$ and $\Phi$ to be the classes of MLPs of appropriate input and output dimensions, as illustrated in \autoref{fig:autoencoder}.
 
 \subsubsection*{Motivating VAEs}
-In \autoref{sec:autoencoders}, autoencoders (AEs) were discussed. Autoencoders are great for data compression/decompression, denoising, interpreting complex models, etc. but we haven't seen yet how we might make use of them for generative tasks, i.e. sampling from the nasty/complex underlying distribution of the data they are trained on. An intuitive first idea is to train a compression/decompression autoencoder, randomly generate points in its latent space and feed them through the decoder, as in \autoref{fig:autoencoder_generation_1}. The outputs of the decoder should be similar to the training data, right? No.
+Autoencoders are great for data compression/decompression, denoising, interpreting complex models, etc. but we haven't seen yet how we might make use of them for generative tasks, i.e. sampling from the nasty/complex underlying distribution of the data they are trained on. An intuitive first idea is to train a compression/decompression autoencoder, randomly generate points in its latent space and feed them through the decoder, as in \autoref{fig:autoencoder_generation_1}. The outputs of the decoder should be similar to the training data, right? No.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.60\columnwidth]{./figures/generative_models/AE_gen_1.png}
-    \caption{The output of the decoder of an autoencoder with randomly generated latent points as input. Gibberish output.}
+    \caption{The output of the decoder of an autoencoder with randomly generated latent points as input. Gibberish output. \TODO{: Make own figure.}}
     \label{fig:autoencoder_generation_1}
 \end{figure}
 
@@ -1735,7 +1736,7 @@ New idea: how about we feed the decoder latent points that are pretty close to t
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.75\columnwidth]{./figures/generative_models/AE_gen_2.png}
-    \caption{The output of the decoder of an autoencoder points relatively close to the latent embedding of a given training sample.}
+    \caption{The output of the decoder of an autoencoder points relatively close to the latent embedding of a given training sample. \TODO{: Make own figure.}}
     \label{fig:autoencoder_generation_2}
 \end{figure}
 
@@ -1769,7 +1770,7 @@ Note that one's choice of $\mathcal{Q}_d$ and $\mathcal{P}_n$ should take into a
     \label{fig:VAE_architecture}
 \end{figure}
 
-\begin{example}
+\begin{tcolorbox}[title={\textbf{VAE example}}, colback=c2, colbacktitle=c13, colframe=c13, coltitle=white]
     Suppose $X_1\sim\mathcal{N}(1,2)$ and $X_3\sim\mathcal{N}(-1,1)$ are independent. Let $X_2=X_1+\epsilon$ where $\epsilon\sim\mathcal{N}(0,1)$ is independent of $X_1$ and $X_3$. If $X=(X_1,X_2,X_3)$ then $X\sim\mathcal{N}(\mu,\Sigma)$ with $\mu=(1,1,-1)'$ and
     $$
     \Sigma
@@ -1794,8 +1795,9 @@ Note that one's choice of $\mathcal{Q}_d$ and $\mathcal{P}_n$ should take into a
     \end{align*}
     That is, for the latent sample $\z'=(z_1',z_2')$, the decoder's output would yield the reconstruction distribution $p_{\phi}(\x|\z')=\mathcal{N}((z_1',z_1',z_2'),\sigma^2I_3)$. Ideally, sampling $(x_1',x_2',x_3')\sim p_{\phi}(\x|\z')$ would yield a sample sufficiently similar to the original sample $\x=(x_1,x_2,x_3)$.
 
-    Note that in practice, one does not know the true distribution $p(\x)$ and so hand-picking the encoder and decoder as in this example is infeasible. Typically, the encoder and decoder are learned from a dataset $\mathcal{D}\subset\Omega_{\X}$.
-\end{example}
+    \hspace{15pt} Note that in practice, one does not know the true distribution $p(\x)$ and so hand-picking the encoder and decoder as in this example is infeasible. Typically, the encoder and decoder are learned from a dataset $\mathcal{D}\subset\Omega_{\X}$.
+\end{tcolorbox}
+
 At this point, a natural question arises: for which tasks is learning a VAE more appropriate than learning an autoencoder? The answer lies in the purpose of VAEs which is two-fold: 1) to perform sufficiently-accurate compression/decompression and 2) to produce a sufficiently regularised approximation of the latent space $\Omega_{\Z}$. The latter is ensured by how one learns a VAE from data, which we soon consider. In brief, when learning an autoencoder one never imposes restrictions on the latent space beyond encouraging the model to yield sufficiently-accurate reconstructions. As a result, the latent space of an autoencoder is not well-structured. For example, for latent samples $\z_1,\z_2\in\Omega_{\Z}$ which are `close' in the latent space, their reconstructions are not necessarily `close' in $\mathbb{R}^n$. VAEs seek to remedy this.
 
 To learn a VAE from data, we look to maximise the evidence lower bound (ELBO) over some dataset $\mathcal{D}=\{\x_1,\dots,\x_M\}\subset\Omega_{\X}$. Over a single sample $\x\in\Omega_{\X}$, the ELBO is a tight lower bound of $\log(p(\x))$. As such, maximising the ELBO over $\mathcal{D}$ can be seen as performing approximate maximum-likelihood estimation over $\mathcal{D}$ (sometimes referred to as evidence maximisation). To derive the ELBO, first note that given a decoder $\phi$ (which parameterises the reconstruction distribution $p_{\phi}(\x|\z)$), we may express the marginal distribution $p(\x)$ using $p_{\phi}(\x|\z)$ as
@@ -1845,7 +1847,7 @@ $$
 $$
 In practice, after choosing a latent dimension $d$, we often take $p(\z)=\mathcal{N}(0,I_d)$, $\mathcal{Q}_d=\mathbb{R}^d\times\mathcal{S}_{++}^d$ and $\mathcal{P}_n=\mathbb{R}^n\times\mathcal{S}_{++}^n$, i.e. Gaussians for the latent and reconstruction distribution families and the standard $d-$dimensional Gaussian for the prior. A benefit of these choices is that it yields a differentiable and easy-to-implement closed form for the KL-divergence term in the ELBO. Additionally, the expectation pertaining to the reconstruction term is typically approximated via a single sample, boiling down to a mean square error term\footnote{\url{https://n8python.github.io/mnistLatentSpace/}}.
 
-\subsubsection{Backpropagation for VAEs}
+\subsubsection{Backpropagation for VAEs (reparameterisation trick)}
 The expectation term in the ELBO requires us to sample from $q_{\theta}(\z|\x)$. Back propping through sampling is not a thing, it ain't differentiable. We need the reparameterisation trick!
 
 % general adversarial networks
@@ -1862,7 +1864,7 @@ Turn noise to samples through clever bijections!
 \begin{figure}[ht]
     \centering
     \includegraphics[height=3cm]{./figures/generative_models/diffusion_process.pdf}
-    \caption{Johann Bernoulli being denoised in line with the backward process of a diffusion model.}
+    \caption{Johann Bernoulli being denoised in line with the backward process of a diffusion model. \TODO{: Improve figure.}}
     \label{fig:diffusion_process}
 \end{figure}
 
@@ -1890,7 +1892,7 @@ Despite not being the choice of denoiser made in the seminal paper introducing d
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\columnwidth]{./figures/generative_models/unet.png}
-    \caption{\centering Example U-Net architecture.}
+    \caption{Example U-Net architecture. \TODO{: Make own figure.}}
     \label{fig:u_net_arch}
 \end{figure}
 
@@ -1938,7 +1940,9 @@ R-CNN models has three flavours: R-CNN, Fast R-CNN and Faster R-CNN. R-CNN stand
 \section{Probability Theory Things}
 Here are some probability theory-related things, e.g. long derivations, which are well-suited for an appendix. I wish I knew more probability/measure theory.
 
-\subsection{From Bernoulli to Binomial}
+\subsection{Derivations Related to Common Distributions}
+
+\subsubsection*{1) From Bernoulli to Binomial}
 Let's try to generalise the Bernoulli distribution to the binomial distribution. If $X\sim\text{Ber}(p)$ then $\Omega_X=\{0,1\}$ and $\P(X=x)=p^x(1-p)^{1-x}$, so $\P(X=1)=p$ and $\P(X=0)=1-p$.
 
 Taking $n$ independent Bernoulli trials and summing them yields the random variable $\X=\sum_{i=1}^nX_i\sim\text{Bin}(n,p)$ with $\OX=\{0,\dots,n\}$. Let $k$ denote a realisation of $\X$, i.e. $k=x_1+\dots+x_n$. The corresponding mass function is given by
@@ -1960,10 +1964,10 @@ $$
 \binom{n}{k}p^k(1-p)^{n-k}.
 $$
 
-\subsection{From Categorical to Multinomial}
+\subsubsection*{2) From Categorical to Multinomial}
 The categorical distribution is a generalisation of the Bernoulli distribution and the multinomial distribution is a generalisation of the binomial distribution. In line with this, we'd hope to be able to generalise the categorical distribution to the multinomial distribution.
 
-If $X\sim\text{Cat}(p_1,\dots,p_C)$ then realisations of $X$ can be represented by single integers in $\{1,\dots,C\}$ but I prefer to represent them in terms of their $C-$long one-hot encodings. So I denote the presence of the $c^{\text{th}}$ class in a realisation as the unit row vector $\mathbf{e}_c^{\text{T}}$, e.g. $(0,1,0\dots,0)$ denotes a sample in which only the second class is present. The corresponding mass function is then given by
+If $X\sim\text{Cat}(p_1,\dots,p_C)$ then realisations of $X$ can be represented by single integers in $\{1,\dots,C\}$ but I prefer to represent them in terms of their $C-$long one-hot encodings. So I denote the presence of the $c^{\text{th}}$ class in a realisation as the unit row vector $\mathbf{e}_c^\top $, e.g. $(0,1,0\dots,0)$ denotes a sample in which only the second class is present. The corresponding mass function is then given by
 $$
 \P(X=(x_1,\dots,x_C))
 =
@@ -2004,7 +2008,7 @@ $$
 \frac{n!}{k_1!\cdots k_C!}p_1^{k_1}\cdots p_C^{k_C}.
 $$
 
-\subsection{Negative Binomial and Geometric}
+\subsubsection*{3) Negative Binomial and Geometric}
 We keep flipping our (maybe biased) coin until we observe $r$ successes ($r$ is a parameter) where individual trials are Ber$(p)$ distribured. So if $X\sim\text{NB}(r,p)$ then
 $$
 \P(X=k)
@@ -2017,25 +2021,34 @@ $$
 =
 \binom{k+r-1}{r-1}p^r(1-p)^k.
 $$
-The case $r=1$ yields the shifted geometric distribution, whose PMF is just
+The case $r=1$ yields the shifted geometric distribution, whose pmf is given by
 $$
 \P(X=k)
 =
 p(1-p)^k.
 $$
 
-\subsection{The Law of Large Numbers \textcolor{red}{TODO}}
-Suppose you have some i.i.d. samples $x_1,\dots,x_n\sim p(x)$ then
+\subsection{The Law of Large Numbers}
+If $X_1,\dots,X_n$ are i.i.d. and $\E[X]<\infty$ then
 $$
-\frac{1}{n}\sum_{i=1}^n x_i
+\frac{1}{n}\sum_{i=1}^n X_i
 \xrightarrow{n\to\infty}
 \E[X]
 $$
+with respect to some type of convergence. The law comes in a weak flavour and a stronger one. The weak flavour pertains to convergence in probability and the latter to asmymptotic convergence. Frankly, the details aren't important for my purposes, so I simply think of it as meaning ``The sample mean of a buncha samples is the population mean.''. It's useful for justifying certain approaches though, e.g. Monte Carlo integration.
 
 \subsection{The Central Limit Theorem (CLT)}
-\dots
+If $X_1,\dots,X_n$ are i.i.d. and $\text{Var}(X)<\infty$ then
+$$
+\sqrt{n}\l(\frac{1}{n}\sum_{i=1}^nX_i-\E[X]\r)
+\xrightarrow[d]{n\to\infty}
+\N(0,\text{Var}(X)).
+$$
+It's one of the most important results in probability theory and statistics: it helps explain why the normal distribution appears so often in real world data. I think of it as meaning ``The scaled sum of i.i.d. samples will look normal upon repeatedly sampling.''.
 
-\subsection{Entropy}
+Its clearest use-case to me is in justifying the modelling of residuals in linear regression as normally distributed.
+
+\subsection{Entropy and its Friends}
 \label{app:entropy}
 
 The entropy of a random variable can be motivated by the notion of the surprise of (or information learned from) observing assignments of said random variable. Given a discrete random variable $X$, an event $E\in\Omega_X$ and a surprise function $S:\Omega_X\rightarrow[0,\infty)$, the surprise of observing $E$ is $S(E)$. Before we continue, we need to understand what we want out of our surprise function. Following the use of `surprising' in day-to-day communication, we want events with low probability to be highly surprising and events with high probability to be less surprising, with some extra conditions. So if $\P(E)=0.01$ then we want $S(E)$ to be close to relatively high (strictly speaking it doesn't need to be bounded above) and if $\P(E)=0.99$ then we want $S(E)$ to be close to 0.
@@ -2085,17 +2098,16 @@ The KL-divergence of two distributions can be expressed in terms of self-entropy
 \end{align*}
 where $H(p,q)$ denotes the cross-entropy between $p$ and $q$ while $H(p)$ denotes the self-entropy of $p$. It follows that minimising the KL-divergence $D_{\text{KL}}(p,q)$ in $q$ corresponds to minimising the cross-entropy $H(p,q)$.
 
-\subsubsection{Distribution fitting via cross-entropy}
-\label{subsubsec:dist_fit_CE}
+\subsubsection*{Example: fitting via cross-entropy/KL-divergence}
 
 Suppose we have the geometric distribution with $p=1/2$ and would like to fit it using a Poisson distribution. That is, we would like to best approximate
 \begin{align*}
-    p:\mathbb{N}\backslash\{0\}&\to[0,1]\\
-    k&\mapsto2^{-k}
+    p:\mathbb{N}&\to[0,1]\\
+    k&\mapsto2^{-(k+1)}
 \end{align*}
 by finding a nice $\lambda$ for
 \begin{align*}
-    q:\mathbb{N}\backslash\{0\}&\to[0,1]\\
+    q:\mathbb{N}&\to[0,1]\\
     k&\mapsto\frac{e^{-\lambda}\lambda^k}{k!}.
 \end{align*}
 To find a good $\lambda$, it makes sense to first come up with a metric for how good a given value is. For this, we can use the cross-entropy of the distributions $p$ and $q$ given by
@@ -2126,7 +2138,16 @@ $$
 =
 1-\frac{1}{\lambda}
 $$
-which yields $\lambda=1$. So according cross-entropy, the best-fitting Poisson distribution to our geometric distribution is Poi$(1)$. For $\lambda=1$ we compute a cross-entropy of
+which yields $\lambda=1$. So according cross-entropy, the best-fitting Poisson distribution to our geometric distribution is Poi$(1)$.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\columnwidth]{./figures/appendix/poi_geo_plot.pdf}
+    \caption{The geometric distribution $p$ and our Poisson fit $q$.}
+    \label{fig:poi_geo_plot}
+\end{figure}
+
+For $\lambda=1$ we compute a cross-entropy of
 $$
 H(p,q;1)
 =
@@ -2154,30 +2175,14 @@ $$
 \approx
 2.016-1.386
 =
-0.63
+0.63.
 $$
-which seems pretty low. Good fit! \textcolor{red}{TODO: show graphs of pdfs?}
 
-\subsubsection{Distribution fitting via maximum likelihood estimation \textcolor{red}{TODO: move this to stats part?}}
-Suppose instead of knowing the nice geometric distribution from \autoref{subsubsec:dist_fit_CE} we only had $n$ i.i.d. samples drawn from it denoted $\D=(k_1,\dots,k_n)\in\mathbb{N}^n$. The MLE of the `true' $k$ of $\text{Poi}(k)$ is given by
-$$
-k_{\text{MLE}}
-=
-\frac{1}{n}\sum_{i=1}^n k_i.
-$$
-The reason I write `true' in the previous sentence is that of course we know that these samples were not drawn from a Poisson distribution at all. This is a nice example of imperfections in model assumptions. Is a Poisson distribution what gave rise to our samples? Is the class of functions given by an MLP with a fixed number of layers and nodes in each layer the function that gave rise to our samples? We're not god afterall.
+\subsubsection{Mutual Information}
+Pearson correlation, as discussed in \autoref{app:pearson_correlation}, is a measure of linear dependence between random variables. What if we want to know about non-linear dependence between random variables, i.e. what if Pearson correlation doesn't suffice? Mutual information to the rescue.
 
-Anyway, by the law of large numbers, we know that
-$$
-k_{\text{MLE}}\xrightarrow{n\to\infty}\E[K]=1.
-$$
-From what I understand, the fact that minimising cross-entropy yields the same estimate as MLE with $n\to\infty$ here is a special case of things learned in generalised linear models. Some sort of result about distributions from exponential families. Sadly, I never took the GLMs course at my university by Wim Krijnen so it isn't obvious to me.
-
-\subsection{Mutual Information}
-What if we want to know about non-linear dependence between random variables, i.e. what if Pearson correlation doesn't suffice? Mutual information to the rescue.
-
-\subsection{Quality of distribution fitting = Ability to encode?}
-\dots
+\subsection{Quality of fit $\approx$ Encoding quality?}
+\TODO{}
 
 % statistics things
 \section{Classical Statistics Things}
@@ -2188,11 +2193,9 @@ Suppose we'd like to get an idea of the average height of men and women in our p
 
 This is important because when performing maximum likelihood, the assumption of independence of samples is key to writing the likelihood of the set as a product of individual probabilities. Without this independence, the likelihood would be a horribly complex function that we would not be able to utilise. Independence is also assumed in a ton of other statistics-related things like t-tests, ANOVA, etc.
 
-\subsection{Overfitting and underfitting}
-\dots
-
 \subsection{Pearson Correlation}
-Let $\bar{X}$ and $\bar{Y}$ denote the centres of scalar random variables $X$ and $Y$ repsectively. The Pearson correlation of $X$ and $Y$ is given by
+\label{app:pearson_correlation}
+Let $\bar{X}=X-\E[X]$ and $\bar{Y}=Y-\E[Y]$ where $X$ and $Y$ are scalar. The Pearson correlation of $X$ and $Y$ is given by
 $$
 \rho_{X,Y}
 =
@@ -2204,11 +2207,11 @@ $$
 where the expectation in the numerator is over $p(x,y)$. The overall quantity yields the linear dependence between $X$ and $Y$ and the denominator is for normalisation.
 
 \subsection{The EM Algorithm}
-Why have I never gone through the effort to understand it, I don't know. Important for latent variable models.
+\TODO{}
 
 % philosophy things
 \section{Philosophy Things}
-I don't think about the philosophic side of maching learning very often; I definitely fall in the camp of my interests lying in short-term problem solving. I find some topics from the philosophical side of things interesting though.
+I don't think about the philosophic side of maching learning very often as I'm in the camp of people whose interests lie in solving present problems. I find some topics from the philosophical side of things interesting though.
 
 % thoughts on reasoning
 \subsection{Thoughts on reasoning (Summer 2024)}
@@ -2217,10 +2220,10 @@ At the time of writing, machine learning, as a term, is used almost interchangea
 
 Right now, I'm unaware of any machine learning model that can `reason' by any agreed upon definition of the term. I suspect that while current models can simulate `reasoning' to the extent of being able to effectively solve tasks which require some sort of underlying understanding, they do not `reason' in the human sense, which is grounded in embodied experience. Let's say that an LLM (e.g. GPT-4o) concludes that a continuous real-valued function $f:\R\rightarrow\R$ has a root in some interval $(a, b)$ using the intermediate value theorem (IVT) by noting that $f(a)<0$ and $f(b)>0$. Did the LLM `reason' in its application of the IVT or do we instead brush this off as the LLM having been trained many examples of the application of the IVT? Does it `understand' what it's concluding? As of right now I'd say that it doesn't. This of course isn't something unique to the IVT — we can construct many such examples. What I think makes IVT interesting is that we can effectively express what it means to `understand' its correctness as a human. I'd say that the distinction between the LLM's `understanding' and a human's here is that a human knows that if they trace their finger on a piece of paper starting from the bottom half, crossing a horizontal line cutting through the middle of the paper, to the top half of the paper without removing their finger then their finger must have touched the horizontal line at some point (ignore the fact that such a traversal is not necessarily a function, you get the idea). You don't need any mathematical training to know and, more importantly, understand why your finger crosses through the horizontal line on the page. LLMs certainly do not `understand' the correctness of the IVT in this way, or really any way that isn't purely symbolic. Maybe multimodal LLMs will alleviate this.
 
-A separate but related question is to what extent it matters that a model `understands' why it arrived at its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. From a purely problem solving point of view, these philosophical debates regarding what constitutes reasoning, understand and knowing aren't too important in the short term. It'd be funny if 50 years from now we're well-taken care of by a fleet of machine learning-powered robots and we still complain that they aren't truly capable of reasoning like us.
+A separate but related question is to what extent it matters that a model `understands' why it arrived at its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. From a purely problem solving point of view, these philosophical debates regarding what constitutes reasoning, understanding and knowing aren't too important in the short term. It'd be funny if 50 years from now we're well-taken care of by a fleet of machine learning-powered robots and we still complain that they aren't truly capable of reasoning.
 
 \subsection{The Principled Measure-Explainability Tradeoff}
-\dots
+\TODO{}
 
 \end{appendices}
 

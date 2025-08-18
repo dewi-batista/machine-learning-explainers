@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1755482639.51325 "ml_explainers.tex" "ml_explainers.pdf" "ml_explainers" 1755482641.87202 0
+["pdflatex"] 1755558853.06692 "ml_explainers.tex" "ml_explainers.pdf" "ml_explainers" 1755558855.502 0
   "/Users/dewibatista/Library/texlive/2024/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk" 1755178945.25807 7808 c82ce01f248e795d39c6854999a6f077 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -211,6 +211,7 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1718735009.84166 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1718734899 8221429 70ab63879ef089a700279eb4c23839b7 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
+  "figures/appendix/poi_geo_plot.pdf" 1755550078.60854 25670 43001ce29415f1ef666ea26293c29dd6 ""
   "figures/generative_models/AE_gen_1.png" 1749499506.88165 212734 9e5a297e360dcee93c645e2d4e455543 ""
   "figures/generative_models/AE_gen_2.png" 1749499506.88646 176005 fe96d0a24c3ba67f64bc6891ed67ef2e ""
   "figures/generative_models/VAE_decoder.pdf" 1754437118.02176 80650 62d6ed2eace108eb6a423eedf34a02f0 ""
@@ -236,13 +237,13 @@
   "figures/supervised_learning/SVMs/SVM_soft_margin.pdf" 1749499504.53167 15192 e094051b0f29fb6df18e974d1afff91c ""
   "figures/supervised_learning/bias_variance.png" 1754866980.37606 156968 46369a95566ab4c6230fdd2f02a65a9f ""
   "figures/supervised_learning/double_descent.png" 1754957031.77901 121589 feb538f6396bb9445d62757010feb16b ""
-  "figures/supervised_learning/laplace_pdf.png" 1755290038.80274 37025 334f5a3f30b1196ac8397d47b28f8f0c ""
+  "figures/supervised_learning/laplace_pdf.pdf" 1755555435.36956 51034 9cabe77115382cd7d43635c9f37597b2 ""
   "figures/supervised_learning/regularisation_two_plots_zero_test_error.png" 1755482175.46034 52247 99d6354d03b1361f41cd33eb4162f952 ""
-  "header.tex" 1755178933.4977 2428 5612625f105e7e49634763f9adbb7ae8 ""
-  "ml_explainers.aux" 1755482641.75743 22342 dff8b009516959769e08e360673faecc "pdflatex"
-  "ml_explainers.out" 1755482640.02161 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "ml_explainers.tex" 1755482636.74531 154900 d99aa2117441c51ee86824d3af1b6044 ""
-  "ml_explainers.toc" 1755482641.7595 8457 cc735b287a63a8b89f3a921f540e3766 "pdflatex"
+  "header.tex" 1755558163.8492 2456 54de683bc7c0d31773f2f8ea327428c1 ""
+  "ml_explainers.aux" 1755558855.388 23148 5985e1737e9ce5d4e033cdf7cbf7d33c "pdflatex"
+  "ml_explainers.out" 1755558853.63997 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "ml_explainers.tex" 1755558852.84589 155511 1e8905351998d2c6ae9aa15116fa3220 ""
+  "ml_explainers.toc" 1755558855.39016 7857 cd57f3a746759a79c80e1c3a4f0e8d04 "pdflatex"
   (generated)
   "ml_explainers.aux"
   "ml_explainers.log"
