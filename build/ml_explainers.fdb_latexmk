@@ -1,5 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1755637004.1074 "ml_explainers.tex" "ml_explainers.pdf" "ml_explainers" 1755637008.33962 0
+["pdflatex"] 1755638930.54442 "/Users/dewibatista/Documents/public-github/machine-learning-explainers/ml_explainers.tex" "build/ml_explainers.pdf" "ml_explainers" 1755638933.48432 0
+  "/Users/dewibatista/Documents/public-github/machine-learning-explainers/ml_explainers.tex" 1755638930.33106 146640 0cfbd96a1a3954bae16739d86a301af7 ""
   "/Users/dewibatista/Library/texlive/2024/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk" 1755178945.25807 7808 c82ce01f248e795d39c6854999a6f077 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -206,6 +207,9 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1718735009.84166 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1718734899 8221429 70ab63879ef089a700279eb4c23839b7 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
+  "build/ml_explainers.aux" 1755638933.33273 21436 bdd03fb37a8674a6fd744c40ebec974b "pdflatex"
+  "build/ml_explainers.out" 1755638931.29551 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "build/ml_explainers.toc" 1755638933.33524 6899 c11fd5049bdb467b1dd7265be75df7fe "pdflatex"
   "figures/appendix/poi_geo_plot.pdf" 1755550078.60854 25670 43001ce29415f1ef666ea26293c29dd6 ""
   "figures/generative_models/AE_gen_1.png" 1749499506.88165 212734 9e5a297e360dcee93c645e2d4e455543 ""
   "figures/generative_models/AE_gen_2.png" 1749499506.88646 176005 fe96d0a24c3ba67f64bc6891ed67ef2e ""
@@ -235,14 +239,11 @@
   "figures/supervised_learning/laplace_pdf.pdf" 1755555435.36956 51034 9cabe77115382cd7d43635c9f37597b2 ""
   "figures/supervised_learning/regularisation_two_plots_zero_test_error.png" 1755482175.46034 52247 99d6354d03b1361f41cd33eb4162f952 ""
   "header.tex" 1755631999.97798 1925 c3afcb0b4d2d30742d089d3aace063d9 ""
-  "ml_explainers.aux" 1755637008.11419 21436 bdd03fb37a8674a6fd744c40ebec974b "pdflatex"
-  "ml_explainers.out" 1755637005.23483 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "ml_explainers.tex" 1755637003.91057 146640 0cfbd96a1a3954bae16739d86a301af7 ""
-  "ml_explainers.toc" 1755637008.1172 6899 c11fd5049bdb467b1dd7265be75df7fe "pdflatex"
+  "ml_explainers.tex" 1755638930.33106 146640 0cfbd96a1a3954bae16739d86a301af7 ""
   (generated)
-  "ml_explainers.aux"
-  "ml_explainers.log"
-  "ml_explainers.out"
-  "ml_explainers.pdf"
-  "ml_explainers.toc"
+  "build/ml_explainers.aux"
+  "build/ml_explainers.log"
+  "build/ml_explainers.out"
+  "build/ml_explainers.pdf"
+  "build/ml_explainers.toc"
   (rewritten before read)
