@@ -1,12 +1,16 @@
-%% generic
-\usepackage{amsfonts, amsmath, amssymb}
+% PART 1: packages
+\usepackage{amsfonts, amsmath, amssymb}       %% for maths things
 \usepackage[toc,page]{appendix}
-\usepackage{float}
-% \usepackage{geometry}
-\usepackage{hyperref}
-\usepackage[utf8]{inputenc}
-\usepackage{setspace}
+\usepackage{bbm}                              %% for the indicator function
+\usepackage{enumitem}                         %% for customising bullet point lists
+\usepackage{float, graphicx, svg, subcaption} %% for figure things
+\usepackage{hyperref}                         %% for in-document references
+\usepackage[utf8]{inputenc}                   %% for the compiler to interpret the .tex file, DO NOT MODIFY
+\usepackage{setspace}                         %% for setting vspace between lines of text
+\usepackage{tcolorbox}                        %% for tcolorboxes
+\usepackage{xcolor}                           %% for pre-set colours
 
+%% for the minimisation of margins
 \usepackage[pass]{geometry}
 \newlength\DX
 \DX=3.0in
@@ -17,79 +21,33 @@
 \paperheight=\dimexpr\paperheight-\DY\relax
 \voffset=\dimexpr\voffset-.5\DY-.5\footskip\relax
 
-%% for the indicator function
-\usepackage{bbm}
-
-%% for figures
-\usepackage{graphicx}
-\usepackage{subcaption}
-\usepackage{svg}
-
-%% for tcolorboxes
-\usepackage{tcolorbox}
-
-%% for customising bullet point lists
-\usepackage{enumitem}
-
-%% colour presets
-\usepackage{xcolor}
-\definecolor{c1}{RGB}{255,240,200}
-\definecolor{c2}{RGB}{173,216,230}
-\definecolor{c3}{RGB}{255,99,71}
-\definecolor{c4}{RGB}{144,238,144}
-\definecolor{c5}{RGB}{255,165,0}
-\definecolor{c6}{RGB}{216,191,216}
-\definecolor{c7}{RGB}{255,182,193}
-\definecolor{c8}{RGB}{211,211,211}
-\definecolor{c9}{RGB}{224,255,255}
-\definecolor{c10}{RGB}{255,215,0}
-\definecolor{c11}{RGB}{0,128,128}
-\definecolor{c12}{RGB}{255,255,255}
-\definecolor{c13}{RGB}{15,61,138}
-
-%% for displaying algorithms
-\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
-\SetKwInput{KwInput}{Input}
-\SetKwInput{KwOutput}{Output}
-
-%% for bold caption labels
-\captionsetup{labelfont=bf}
-
-%% math commands/operators
+% PART 2: commands/operators (self-explanatory)
 \newcommand{\D}{\mathcal{D}}
 \newcommand{\E}{\mathbb{E}}
-\newcommand{\N}{\mathcal{N}}
-\newcommand{\OX}{\Omega_{\X}}
-\newcommand{\OY}{\Omega_{Y}}
-\renewcommand{\P}{\mathbb{P}}
 \newcommand{\R}{\mathbb{R}}
-\newcommand{\T}{\text{T}}
 \newcommand{\X}{\mathbf{X}}
-\newcommand{\Y}{\mathbf{Y}}
 \newcommand{\Z}{\mathbf{Z}}
 
-\newcommand{\thetaOpt}{\theta^{*}}
-\newcommand{\w}{\mathbf{w}}
 \newcommand{\x}{\mathbf{x}}
 \newcommand{\z}{\mathbf{z}}
 
 \renewcommand{\l}{\left}
 \renewcommand{\r}{\right}
 
-%% is this for tables?
-\newcommand{\HRule}{\noindent\hspace*{\fill}\rule{0.95\linewidth}{0.1pt}\hspace*{\fill}}
-
-%% for TODO command
 \newcommand{\TODO}[1]{\textcolor{red}{\textbf{TODO}#1}}
 
-%% for example environments
-% \newtheorem{example}{Example}[section]
-
-%% for argmax and argmin notation
-\DeclareMathOperator*{\argmax}{arg\,max}
-\DeclareMathOperator*{\argmin}{arg\,min}
-
-%% for capitalised 'S' when auto-reffing sections
+%% for capitalised leading letters when auto-reffing
 \renewcommand{\sectionautorefname}{Section}
 \renewcommand{\subsectionautorefname}{Subsection}
 \renewcommand{\subsubsectionautorefname}{Subsubsection}
+
+% PART 3: miscellaneous things
+\definecolor{myDarkBlue} {RGB}{ 15, 61,138}
+\definecolor{myGreen}    {RGB}{  0,128,128}
+\definecolor{myLightBlue}{RGB}{173,216,230}
+\definecolor{myLightRed} {RGB}{255, 99, 71}
+\definecolor{myYellow}   {RGB}{255,165,  0}
+
+\captionsetup{labelfont=bf}              %% for bold caption labels
+\DeclareMathOperator*{\argmax}{arg\,max} %% for argmax notation
+\DeclareMathOperator*{\argmin}{arg\,min} %% for argmin notation
