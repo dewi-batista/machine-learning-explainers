@@ -26,7 +26,7 @@
 
 % intro
 \section{What is Machine Learning?}
-I think of machine learning as the broad discipline of studying methods of fitting models to data — like statistics, as a discipline, if it demanded far less rigor. For a description of machine learning which helps to clarify why it is difficult to define as a term, consider the following excerpt from Herbert Jaeger's lecture notes for his Machine Learning course at the University of Groningen during the academic year 2023/24:
+I think of machine learning as the broad discipline of studying methods of fitting models to data — like statistics, as a discipline, if it demanded far less rigor. For a description of machine learning which helps to clarify why it's difficult to define as a term, consider the following excerpt from Herbert Jaeger's lecture notes for his Machine Learning course at the University of Groningen during the academic year 2023/24:
 \begin{quotation}
     ML as a ﬁeld, which perceives itself as a ﬁeld under this name, is relatively young, say, about 40 years (related research was called “pattern recognition” earlier). It is interdisciplinary and has historical and methodological connections to neuroscience, cognitive science, linguistics, mathematical statistics, AI, signal processing and control; it uses mathematical methods from statistics (of course), information theory, signal processing and control, dynamical systems theory, mathematical logic and numerical mathematics; and it has a very wide span of applications. This diversity in traditions, methods and applications makes it diﬃcult to study ``Machine Learning". Any given textbook, even if it is very thick, will reﬂect the author's individual view and knowledge of the ﬁeld and will be partially blind to other perspectives. This is quite diﬀerent from other areas in computer science, say for example formal languages/theory of computation/computational complexity where a widely shared repertoire of standard themes and methods cleanly deﬁne the ﬁeld.
 \end{quotation}
@@ -62,8 +62,8 @@ are the feature values of the $i^{\text{th}}$ sample and $y_i\in \Omega_{Y}\subs
 \end{align*}
 where $\theta=(\theta_0,\theta_1\dots,\theta_q)\in\R^{q+1}$ are the model parameters, i.e. the values we can tweak to our heart's desire until the corresponding model is sufficiently well according to some metric. Some people refer to the paramter $\theta_0$, which dictates the elevation of the hyperplane corresponding to $f_{\theta}(\x)=0$, as the bias of the model which I find very confusing as there are a bunch of other intended meanings of the term `bias' in statistics and machine learning. I prefer to refer to it as the elevation. Anyway, once such a linear function has been fit, given feature values $\x\in\Omega_{\X}$ our model predict the corresponding output as $y=f_{\theta}(\x)$.
 
-\begin{tcolorbox}[title={\centering\textbf{Are residuals really normally distributed?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    \footnote{\url{https://en.wikipedia.org/wiki/Central\_limit\_theorem\#Regression}}Central limit theorem to the rescue: ``Regression analysis, and in particular ordinary least squares, specifies that a dependent variable depends according to some function upon one or more independent variables, with an additive error term. Various types of statistical inference on the regression assume that the error term is normally distributed. This assumption can be justified by assuming that the error term is actually the sum of many independent error terms; even if the individual error terms are not normally distributed, by the central limit theorem their sum can be well approximated by a normal distribution."
+\begin{tcolorbox}[title={\centering\textbf{What does the `linear' in linear regression acrually refer to?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    Casella Berger, as well as other pieces of literature, define linear regressionin a way that ensures linearity in parameters. By this definition, linear regression, as a term, would encompass polynomial regression models and other regression models with non-linear basis functions. This confuses me as `linear regression' is most often intended to mean models that fit a hyperplane to data.
 \end{tcolorbox}
 
 An intuitive approach to finding the `optimal' parameters for a linear regression model, which we denote by $\theta^{*}$, is to split $\D$ into training and testing datasets $D_{\text{train}}$ and $D_{\text{test}}$ (each consisting of $n$ sample in our case) and minimising some pre-determined loss function of said parameters over $D_{\text{train}}$. Essentially, minimising something like
@@ -151,8 +151,8 @@ $$
 \theta^{*}=(X^{\top}X)^{-1}X^{\top}y.
 $$
 
-\begin{tcolorbox}[title={\centering\textbf{What does the `linear' in linear regression really refer to?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Some literature define linear regression models as regression models that are linear in their parameters. By this definition, linear regression, as a term, would encompass polynomial regression models and other regression models with non-linear basis functions. This confuses me as `linear regression' is most often intended to mean models that fit a hyperplane to data.
+\begin{tcolorbox}[title={\textbf{Funny misuse of linear regression: Momentous sprint at the 2156 Olympics?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    Read this Quora answer\footnote{\url{https://qr.ae/pslbEN}} (the top comment is worth reading too) based on a paper\footnote{\url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3173856/}} published in Nature. Related\footnote{\url{https://xkcd.com/1007/}}.
 \end{tcolorbox}
 
 \subsubsection{Statistical Motivation}
@@ -181,8 +181,8 @@ The maximum likelihood estimate $\theta_{\text{MLE}}$ for the parameters of our 
 \end{align*}
 As such, the maximum likelihood estimator of the parameters of a linear regression model are precisely those which minimise the mean square error of the model over $D_{\text{train}}$.
 
-\begin{tcolorbox}[title={\textbf{Funny misuse of linear regression: Momentous sprint at the 2156 Olympics?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Read this Quora answer\footnote{\url{https://qr.ae/pslbEN}} (the top comment is worth reading too) based on a paper\footnote{\url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3173856/}} published in Nature. Related\footnote{\url{https://xkcd.com/1007/}}.
+\begin{tcolorbox}[title={\centering\textbf{Are residuals really normally distributed?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    \footnote{\url{https://en.wikipedia.org/wiki/Central\_limit\_theorem\#Regression}}Central limit theorem to the rescue: ``Regression analysis, and in particular ordinary least squares, specifies that a dependent variable depends according to some function upon one or more independent variables, with an additive error term. Various types of statistical inference on the regression assume that the error term is normally distributed. This assumption can be justified by assuming that the error term is actually the sum of many independent error terms; even if the individual error terms are not normally distributed, by the central limit theorem their sum can be well approximated by a normal distribution."
 \end{tcolorbox}
 
 \subsubsection{Goodness of fit: $R^2$}
@@ -209,6 +209,10 @@ R^2
 1-\frac{s_e^2}{s_Y^2}
 $$
 where $s_e^2$ and $s_Y^2$ denote the sample variances of the residuals and $Y$ respectively. I prefer the ratio of explained variance to underlying model variance though; is more intuitive to me, especially in terms of how its motivated and doesn't feel like it comes outta nowhere. Note that this notion of the portion of explained variance can be extended to logistic regression but the details are a bit much for this document.
+
+\begin{tcolorbox}[title={\centering\textbf{How can we get an idea of the extent to which our features and output are linearly related without plotting?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    To be honest, I thought a streamline test for this existed. As per this Stack Exchange answer\footnote{\url{https://stats.stackexchange.com/a/239142}}, a good method for this is to simply fit a linear and a non-linear model (e.g. a cubic spline smoother model) and see which explains a larger amount of the variance of the output via ANOVA tests.
+\end{tcolorbox}
 
 \subsubsection{Why `regression'?}
 Nowadays, regression models are those which predict a value belonging to some continuous space but from where did the term originate? In 1886, Francis Galton authored ``Regression Towards Mediocrity in Hereditary Stature'' which is where the `regression towards the mean' term comes from. Galton noticed that tall fathers have short sons, short fathers have tall sons and average height fathers have average height sons. Taken from a Stack Exchange comment: ``Galton derived a linear approximation to estimate a son's height from the father's height in that paper. His equation was fitted so an average height father would have an average height son, but a taller than average father would have a son that is taller than average by 2/3 the amount his father is. Same with shorter than average. This could be argued to be a simple linear regression."
@@ -290,7 +294,7 @@ Logistic regression and SVMs both fit a hyperplane to feature space. The distinc
 
 The authors' insight came from structural risk minimization in which instead of focusing on minimising training error (as neural networks and decision trees were doing at the time), one focuses on minimising an upper bound on the generalisation error. The inclusion of `support vector' is clear from their construction but `machine' stood out to me as a bit odd. It turns out that at time of their development, around 1960, it was common to use `machine' when referring to algorithms that learned from data, i.e. algorithms belonging to statistical learning theory.
 
-\begin{tcolorbox}[title={\centering\centering\textbf{Inconsistent terminology surrounding SVMs}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+\begin{tcolorbox}[title={\centering\textbf{Inconsistent terminology surrounding SVMs}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
     Some pieces of literature describe the decision boundary learned by an SVM as strictly linear, others allow for a non-linear decision boundary. It'd be nice if authors stuck to the former and explicitly stated `non-linear SVM' when describing the latter. Here, `an SVM' refers to the former and I'll state explicitly when considering the latter.
 \end{tcolorbox}
 
@@ -377,7 +381,7 @@ which is difficult if the dimension of the image of $\phi$ is large. To make thi
 $$
 \max_{(\alpha_1,\dots,\alpha_n)\in[0,\lambda]^n}\l[\sum_{i=1}^n\alpha_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_jK(\x_i,\x_j)\r]\text{s.t. }\sum_{i=1}^n\alpha_iy_i=0
 $$
-where $K(\x,\z)=\langle\phi(\x),\phi(\z)\rangle$ is a pre-chosen kernel. See how it never requires an explicit computation involving $\phi$. Hence the name `kernel trick' (not the same kernel trick as in variational autoencoders). For some reason, solving the dual is easier. \TODO{: explain why it's easier.}
+where $K(\x,\z)=\langle\phi(\x),\phi(\z)\rangle$ is a pre-chosen kernel. See how it never requires an explicit computation involving $\phi$. Hence the name `kernel trick' (not the same kernel trick as in variational autoencoders). For some reason, solving the dual is easier. \TODO{: Explain why it's easier.}
 
 At inference time, given some $\x$, we seek to compute
 \begin{align*}
@@ -389,7 +393,7 @@ At inference time, given some $\x$, we seek to compute
 \end{align*}
 where $b_k=y_k-\sum_{i=1}^n\alpha_iy_iK(\x_i,\x_k)$ for some $(\x_k,y_k)$ that satisfies $0<\alpha_k<\lambda$. Note that the simplifcation made in the equation above is due to an argument used in deriving the dual.
 
-The two simplest kernels are polynomial kernels and the RBF kernel. Polynomial kernels are of the form \dots
+The two simplest kernels are polynomial kernels and the RBF kernel. Polynomial kernels are of the form \dots \TODO{: Complete.}
 
 % decision trees and random forests
 \subsection{Decision Trees and Random Forests}
@@ -399,13 +403,19 @@ I find decision trees and random forests so boring that I'm not going to write a
 
 One nice thing about decision trees is that understanding them forces you to learn about entropy but there are other topics which force the same thing, e.g. Variational Autoencoders through the use of KL-divergences. Also, random forests are a nice introduction to ensemble methods which nicely demonstrate how to prevent overfitting through the reduction of variance (directly illustrating the importance of the bias-variance tradeoff). Oh, and bootstrapping. Maybe one day I'll write this subsection properly.
 
+
+\begin{tcolorbox}[title={\textbf{What benefits does logistic regression offer over more sophisticated methods, e.g. SVMs or random forests?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    This is a pretty natural question once shown more sophisticated methods. The largest benefit is that it allows for statistical tests on parameters, e.g. statistical significance tests. It also helps that its implementation and interpretation are straightforward.
+\end{tcolorbox}
+
 % the bias-variance tradeoff
 \subsection{The Bias-Variance Tradeoff}
-\TODO{: First give a subsubsection on under and overfitting.}
-
 The bias-variance tradeoff is a statement pertaining to how well one can perform supervised learning from datasets. Crudely put, if the model family used to fit is too simple to represent the underlying distributions from which the samples were drawn then our learning method is highly-biased: our method is almost dataset-invariant. Think of fitting a line to a high-degree polynomial. On the other end, if the model family is too complex (e.g. overparameterised) then one might expect to more-easily overfit the underlying distribution. There are too many parameters to twink and tweam so fitting the individal samples is too easy.
 
-\subsubsection{Derivation of the tradeoff with MSE loss}
+\subsubsection{Underfitting and Overfitting}
+\dots
+
+\subsubsection{Derivation with MSE loss}
 Recall that sample targets pertaining to datasets from which supervised models are learned are effected by noise, i.e. $Y|(\X=\x)=f(\x)+\epsilon(\x)$ where $\epsilon(\x)\sim\mathcal{N}(0,\sigma^2(\x))$ and so
 $$
 Y|(\X=\x)
@@ -526,11 +536,6 @@ The flip side of this is an underparameterised model. Since such a model has lit
 
 With this in mind, when considering which learning method (i.e. model family) to consider when tackling a problem, thought should be given to how complex (i.e. parameter number) the model family should be. Too simple (i.e. too few parameters) and you underfit (high bias, low variance). Too complex (i.e. too many parameters) and you overfit (low bias, high variance). This is nicely illustrated in \autoref{fig:bias_variance} in which we see that there exists a sweet spot in model complexity. A spot in which said model complexity yields some square of bias and some variance but the minimum some of said quantities, i.e. the lowest learning method error.
 
-\subsubsection{How it motivates regularisation \TODO{}}
-For ordinary least squares (OLS), methods of regularisation, such as L1 and L2, introduce some bias but reduce variance. The result is better performance according to MSE.
-
-For classification, as the quantity of data increases, the variance of learned models decreases. As such, if we get more and more data, it might be more tempting to use methods which knowingly have minimal bias as the variance will be taken care of by increased amounts of data. On the other hand, if you have few samples then perhaps consider methods with knowingly little variance, e.g. Bayesian methods.
-
 \subsubsection{Beyond MSE}
 Natural question: MSE is a common choice of loss when dealing with regression but not classification, in which cross-entropies are used for loss, so why does every derivation of the bias-variance tradeoff only use MSE? The quick answer is that it's the only choice which yields a relatively simple derivation of this nice decomposition of learning method error into two orthogonal characteristics of the learning method: bias and variance. It turns out that if you instead consider specifically probabilistic classification methods then using expected cross-entropy as loss yields a decomposition into bias and variance but with a different form.
 
@@ -546,34 +551,15 @@ Double descent refers to a behaviour in which overparameterised models ignore fl
 
 A consequence of this is that very deep neural networks learned using gradient descent do exceptionally well. It flies in the face of conventional wisdom. I'm unaware of anyone that this doesn't surprise. It isn't well-understood. It's related to grokking.
 
-% misc. questions
-\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
-\subsection{Misc. questions}
-\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
+\begin{tcolorbox}[title={\centering\textbf{What makes MSE so special in general?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    Differentiability is a common but unsatisfying answer to this question. Exponents of $2.05, 3$ or $\pi$ would yield a differentiable loss function but we never see those, so what's up? A more satisfying answer is given by this answer to a Stack Exchange\footnote{\url{https://math.stackexchange.com/a/63245}}:`'
+    \begin{quote}
+        The variance is the mean squared deviation from the average. The variance of the sum of 10,000 random variables is the sum of their variances. That doesn't work for other powers of the absolute value of the deviation. That means if you roll a die 6,000 times, so that the expected number of 1s you get is 1,000, then you also know that the variance of 1s is $6000\cdot\frac{1}{6}\cdot\frac{5}{6}$ so if you want the probability that the numbner of 1s is between 990 and 1,020, you can approximate the distribution by the normal distribution with the same mean and variance. You couldn't do that if you didn't know the variance, and you couldn't know the variances without additivity of variances, and if the exponent were anything besides 2, then you don't have that. (Oddly, you do have additivity with cubes of the deviations, but not cubes of the absolute values of the deviations).
+    \end{quote}
+\end{tcolorbox}
 
-Some questions to challenge one's understanding.
-
-\begin{center}
-    \textbf{\textcolor{blue}{Q1:} What benefits does logistic regression offer over more sophisticated methods, e.g. SVMs or random forests?}
-\end{center}
-The largest benefit is that it allows for statistical tests on parameters, e.g. statistical significance tests. It also helps that its implementation and interpretation are straightforward.
-
-\begin{center}
-    \textbf{\textcolor{blue}{Q2:} Why not use mean absolute error instead of MSE?}
-\end{center}
-\TODO{: Note that it corresponds to MLE for normally distributed residuals.}
-
-Differentiability is a kind of boring answer. There are many reasons for this, one of which is that often in machine learning and statistics-related contexts one would like to be able to compute the derivative(s) of such a loss function, e.g. in gradient descent, and the presence of an absolute value makes this annoying.
-
-As to why it's useful that the MSE involves the squares of the errors, instead of exponents like $2.05, 3$ or $\pi$, it was best put by this answer to a Stack Exchange answer about the same question\footnote{\url{https://math.stackexchange.com/a/63245}}: ``The variance is the mean squared deviation from the average. The variance of the sum of 10,000 random variables is the sum of their variances. That doesn't work for other powers of the absolute value of the deviation. That means if you roll a die 6,000 times, so that the expected number of 1s you get is 1,000, then you also know that the variance of 1s is $6000\cdot\frac{1}{6}\cdot\frac{5}{6}$ so if you want the probability that the numbner of 1s is between 990 and 1,020, you can approximate the distribution by the normal distribution with the same mean and variance. You couldn't do that if you didn't know the variance, and you couldn't know the variances without additivity of variances, and if the exponent were anything besides 2, then you don't have that. (Oddly, you do have additivity with cubes of the deviations, but not cubes of the absolute values of the deviations)."
-
-\begin{center}
-    \textbf{\textcolor{blue}{Q3:} How can we get an idea of the extent to which our features and output are linearly related without plotting?}
-\end{center}
-To be honest, I thought a streamline test for this existed. As per this Stack Exchange answer\footnote{\url{https://stats.stackexchange.com/a/239142}}, a good method for this is to simply fit a linear and a non-linear model (e.g. a cubic spline smoother model) and see which explains a larger amount of the variance of the output via ANOVA tests.
-
-% parameter learning and its optimisation
-\section{Parameter Learning and its Optimisation}
+% parameter exploration and its optimisation
+\section{Parameter Exploration and its Optimisation}
 In fitting a parametric model $f_{\theta}:\Omega_{\X}\to\Omega_{Y}$, the loss induced by a choice of model parameters $\theta$ for a sample $(\x,y)$ is given by $\mathcal{L}\l(y,f_{\theta}(\x)\r)$. In line with this, let the empirical risk $R_D$ over a dataset $D=\{(\x_i,y_i)\}_{i=1}^n$ be
 \begin{align*}
     R_D:\Theta&\to\R_{\geq0}\\
@@ -596,7 +582,7 @@ i.e. to minimise the empirical risk over the dataset in the parameters. As such,
 
 Tons of function minimisation methods exist: Newton's method, genetic algorithms, gradient descent, etc. but most are horribly slow/unstable in high dimensions; not gradient descent though! As a result, gradient descent is \textit{the} method for computing good parameters numerically in machine learning, hence the inclusion of this section.
 
-\begin{tcolorbox}[title={\centering\centering\textbf{Loss landscapes are dataset-dependent!}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+\begin{tcolorbox}[title={\centering\textbf{Loss landscapes are dataset-dependent!}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
     When loss landscapes are illustrated, they are really plots of the graph $\{(\theta, R_D(\theta))|\theta\in\Theta\}$. That is, they are shaped by the fixed dataset $D$. As such, computations of the form $R_{D'}(\theta)$ for $D'\subsetneq D$, e.g. computations related to mini-batch gradient descent, don't necessarily correspond exactly with $R_D(\theta)$ but this isn't usually an issue.
 \end{tcolorbox}
 
@@ -621,11 +607,7 @@ In the following physicist-like argument, we consider only unit vectors $\mathbf
 
 In gradient ascent, we are looking for the unit vector $\mathbf{v}$ such that $f(\mathbf{x})$ increases most in the direction of $\mathbf{v}$, i.e. we seek to compute
 $$\argmax_{||\mathbf{v}||=1}\Big[f(\mathbf{x}+\eta\mathbf{v})-f(\mathbf{x})\Big]$$
-where $\eta>0$. If $\eta$ is small then approximating $f(\mathbf{x}+\eta\mathbf{v})$ using its Taylor expansion yields
-$$
-\nabla f(\mathbf{x})\cdot\mathbf{v}\approx\frac{f(\mathbf{x}+\eta\mathbf{v})-f(\mathbf{x})}{\eta},
-$$
-from which we obtain
+where $\eta>0$. If $\eta$ is small then approximating $f(\mathbf{x}+\eta\mathbf{v})$ using its Taylor expansion about $\x$ yields
 $$
 f(\mathbf{x}+\eta\mathbf{v})-f(\mathbf{x})
 \approx
@@ -649,8 +631,13 @@ f(\mathbf{x}+\eta\mathbf{v})-f(\mathbf{x})
 $$
 The edge case in which $\nabla f(\mathbf{x})=0$ corresponds to $f(\mathbf{x})$ being a local maximum.
 
-\begin{tcolorbox}[title={\centering\centering\textbf{A note on using Taylor approximations}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    This argument, which utilises a Taylor approximation, relies on a sufficiently small learning rate $\eta>0$. Otherwise, the terms in the Taylor approximation of $f(\mathbf{x}+\eta\mathbf{v})$ beyond $\nabla f(\mathbf{x})\cdot\eta\mathbf{v}$ are not necessarily negligible.
+\begin{tcolorbox}[title={\centering\textbf{Multivariate Taylor expansion}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    Recall that if $f:\R^q\to\R$ then its second order Taylor expansion about $\mathbf{a}\in\R^q$ is given by
+    $$
+    f(\x)
+    =
+    f(\mathbf{a})+\nabla f(\mathbf{a})\cdot(\x-\mathbf{a})+\frac{1}{2}(\x-\mathbf{a})\cdot\nabla^2 f(\mathbf{a})(\x-\mathbf{a}).
+    $$
 \end{tcolorbox}
 
 \subsubsection{Sensitivity to $\x^{(0)}$}
@@ -871,18 +858,6 @@ For a better idea of how a configuration of hyperparameters will help generalise
 More elaborate methods of hyperparameter tuning exist, random search is a straightforward one.
 
 \TODO{: Why not choose hyperparams which minimise test loss?}
-
-% misc. questions
-\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
-\subsection{Misc. questions}
-\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
-
-Some questions to challenge one's understanding.
-
-\begin{center}
-    \textbf{\textcolor{blue}{Q1:} \dots?}
-\end{center}
-\dots
 
 % neural nets
 \section{Neural Networks}
@@ -1141,7 +1116,7 @@ grows linearly in $L$, the interval length $b-a$ and the reciprocal of the desir
 \subsubsection*{Step 3: Extending the idea to $S\subset\R^q$ compact}
 The idea is really not very different. Imagine $S\subset\R^2$ compact. The compactness is very hepful for visualisation. As long as we can create indicator-approximate functions on separate regions of $S$ then use exactly the idea described above: split $S$ into separate regions and approximate $f$ on a single point in each. To see that we can approximate the indicator on regions of $S\subset\R^2$ simply see that we can create wall-like objects using the same idea of creating a 'steep' plane and sigmoiding it. As such, to isolate some region, produce three walls which enclose a region and you're done. If you want a more accurate enclosing of the region then use more walls. Without boundedness, which is given by compactness, this idea wouldn't work. Extend this idea to $\R^q$ and voilà.
 
-\begin{tcolorbox}[title={\centering\centering\textbf{Is this idea practical?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+\begin{tcolorbox}[title={\centering\textbf{Is this idea practical?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
     What the idea conveyed shows is \textit{that} (and even \textit{how}) an MLP can approximate any function in $C(S)$ for $S\in\R^q$ compact. It is not at all an indicator of how MLPs learned via gradient descent, in practice, go about approximating functions from data.
 
     \hspace{14pt} An interesting addition to this note is how this formulation gives an idea of how the weights from the hidden layer to the output explicitly encode the evaluation of the to-be-approximated function. Again, this is not what we'd expect MLPs to do in practice, instead they find a much more efficient representation, sharing information between neurons. Reminds me a lot of the research 3Blue1Brown discussed in one of his videos about transfromers and LLMs in which we spoke about how the LLM `knows' to assign a high probability to the token \texttt{Jordan} when given \texttt{My favourite basketballer is Michael} as input. How does it `know' to do that? It isn't at all implied by the grammar/semantics/whatever of the sentence. Said research concluded things about such pieces of knowledge being stored in the weights of the MLPs of the transformer blocks.
@@ -1358,6 +1333,12 @@ H'
 $$
 It's not too tricky to derive these. It's the kinda thing you do once and never again. \TODO{: complete.}
 
+\begin{tcolorbox}[title={\centering\textbf{Why use a CNN over an MLP?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    Suppose we have an MLP and a CNN, both trained to perform binary classification on images of cats and dogs. Further, suppose they perform equally well. It might not be too surprising that the MLP will necessarily consist of a number of parameters that is orders of magnitude greater than for the CNN. Also, it's not so clear if a given MLP is translation invariant while various components of a CNN architecture help alleviate fears of translation-related issues.
+
+    Also, improved learning-efficiency\footnote{\href{https://ai.stackexchange.com/questions/27407/what-does-statistical-efficiency-mean-in-this-context}{\texttt{ai.stackexchange.com/questions/27407}}}, i.e. fewer samples needed to learn distributions to similar degrees of precision.
+\end{tcolorbox}
+
 % recurrent neural networks
 \subsection{Recurrent Neural Networks (RNNs)}
 \TODO{} 
@@ -1372,20 +1353,20 @@ It's not too tricky to derive these. It's the kinda thing you do once and never 
 \subsection{Transformers}
 \TODO{} Stand at attention! Many think of transformers as necessarily generative but nope!
 
-\subsubsection{Token embedding}
-\TODO{} Embed the semantics of tokens in high-dimensional space:
+\subsubsection{Tokens and Embedding}
+Tokenisation is the process of slicing a sample up into tokens. Think of splitting a $512\times512$ image into its four $256\times256$ quadrants or the sentence `The chef cooked a meal for the critic.' into
 $$
-E(\text{Germany})
-+E(\text{fascist})
--E(\text{Mussolini})
+\colorbox{purple}{The}\colorbox{green}{ chef}\colorbox{brown}{ cooked}\colorbox{red}{ a}\colorbox{teal}{ meal}\colorbox{blue}{ for}\colorbox{green}{ the}\colorbox{brown}{ critic}\colorbox{purple}{.}
+$$
+The purpose of tokenisation is self-explanatory: we'd like an idea of dependence between different parts of the input as to aid our output prediction.
+
+An embedding function $E:\{1,\dots,|S|\}\to\mathbb{R}^d$, where $d\in\mathbb{N}$ is the embedding dimension, offers high dimensional numeric representations of tokens. What makes token embedding functions interesting is how well they can capture underlying semantics, e.g. of natural language. For example, an embedding function learned on pieces of text might satisfy
+$$
+E(\text{Germany})+E(\text{fascist})-E(\text{Mussolini})
 \approx
-E(\text{Hitler}).
+E(\text{Hitler})
 $$
-So the embedding function $E$ maps from the token vocabulary $S$ to some high-dimensional space. If you first encode the tokens in the token vocabulary, e.g. via enumeration, then
-$$
-E:\{1,\dots,|S|\}\to\mathbb{R}^d
-$$
-where $d\in\mathbb{N}\backslash\{0\}$ is the embedding dimension. What makes token embedding functions interesting is how well they can capture semantics of language.
+for which the tokenisations occur.
 
 \subsubsection{Positional encoding}
 \TODO{} Use sinusoids to form a position vector $P_k$ for the $k$th token in an input sequence of length $L$. Add $P_k$ to the word embedding $E_k$ for $k=0,\dots,L-1$ to obtain the input $[E_0+P_0,\dots,E_{L-1}+P_{L-1}]$ fed to the model.
@@ -1441,18 +1422,10 @@ Nope, it just makes things related to optimisation easier while having a suffici
 \begin{center}
     \textbf{\textcolor{blue}{Q4:} Which activation functions should be used when?}
 \end{center}
-Roughly speaking, I wouldn't worry too much about this in practice. The usual choices are all nice and differentiable (with small caveats here and there, like with ReLU) facilitating backpropagation. You should sometimes care about the output given the problem at hand. For example, if you need outputs in $[-1,1]$ then $\tanh$ is a natural choice. Note that some choices, like Leaky ReLU, introduce hyperparameters to the model which is sometimes undesirable, e.g. if one seeks a hyperparameterless model.
+Roughly speaking, I wouldn't worry too much about this in practice. The usual choices are all nice and differentiable (with small caveats, like with ReLU at 0) facilitating backpropagation. You should sometimes care about the output given the problem at hand. For example, if you need outputs in $[-1,1]$ then $\tanh$ is a natural choice. Note that some choices, like Leaky ReLU, introduce hyperparameters to the model which is sometimes undesirable, e.g. if one seeks to minimise the number of hyperparameters for a strength of their result (if there's no hyperparameter to cherry pick then your result is more trustworthy).
 
 \begin{center}
-    \textbf{\textcolor{blue}{Q5:} Why use a CNN over an MLP?}
-\end{center}
-Suppose we have an MLP and a CNN, both trained to perform binary classification on images of cats and dogs. Further, suppose they perform equally well. It might not be too surprisnig that the MLP will necessarily consist of a number of parameters that is orders of magnitude greater than for the CNN. Also, it's not so clear if a given MLP is translation invariant while various components of a CNN architecture help alleviate fears of translation-related issues.
-
-Also, improved learning-efficiency\footnote{\href{https://ai.stackexchange.com/questions/27407/what-does-statistical-efficiency-mean-in-this-context}{\texttt{ai.stackexchange.com/questions/27407}}}, i.e. fewer samples needed to learn distributions to similar degrees of precision.
-
-
-\begin{center}
-    \textbf{\textcolor{blue}{Q7:} How does one prevent vanishing/exploding gradients?}
+    \textbf{\textcolor{blue}{Q5:} How does one prevent vanishing/exploding gradients?}
 \end{center}
 
 \noindent Skip connections help. Architectures which use them are sometimes called residual networks.
@@ -1697,14 +1670,6 @@ In the context of denoising, the contraction branch takes a noised image as inpu
     \item Proposing regions of interest within the image
     \item Classifying what is in each region (if there is something in the region)
 \end{enumerate}
-
-% YOLO
-\subsection{YOLO}
-\TODO{}
-
-% DETR
-\subsection{DETR}
-\TODO{}
 
 % appendices
 \newpage
@@ -1953,10 +1918,16 @@ $$
 $$
 
 \subsubsection{Mutual Information}
-\TODO{} Pearson correlation, as discussed in \autoref{app:pearson_correlation}, is a measure of linear dependence between random variables. What if we want to know about non-linear dependence between random variables, i.e. what if Pearson correlation doesn't suffice? Mutual information to the rescue.
+Pearson correlation, as discussed in \autoref{app:pearson_correlation}, is a measure of linear dependence between random variables. What if we want to know about non-linear dependence between random variables, i.e. what if Pearson correlation doesn't suffice? Mutual information to the rescue. It's a property of a joint distribution but is often described as a statement of two random variables $X$ and $Y$ and is denoted as such as in
+$$
+I(X;Y)
+=
+D_{\text{KL}}(p_{X,Y}||p_X\otimes p_Y).
+$$
+I'm a big fan of writing it as a KL-divergence as its meaning is immediately clear: its a measure of divergence between the joint and the product of the marginals. Informally, I see it as asking ``How independent are $X$ and $Y$?'' which is precisely the question we seek to answer when utilising things like Pearson correlation and mutual information.
 
 \subsection{Quality of fit $\approx$ Encoding quality?}
-\TODO{}
+\TODO{: Perhaps this is worthy of its own section, unsure\dots}
 
 % statistics things
 \section{Classical Statistics Things}
