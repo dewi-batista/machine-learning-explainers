@@ -1,17 +1,20 @@
-% PART 1: packages
-\usepackage{amsfonts, amsmath, amssymb}       %% for maths things
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Structured as three parts: Packages, Commands and Miscellaneous
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%=== PART 1: Packages
+\usepackage{amsfonts, amsmath, amssymb}       %% for general notation
 \usepackage[toc,page]{appendix}
-\usepackage{bbm}                              %% for the indicator function
+\usepackage{bbm}                              %% for indicator function notation
 \usepackage{enumitem}                         %% for customising bullet point lists
-\usepackage{float, graphicx, svg, subcaption} %% for figure things
+\usepackage{float, graphicx, svg, subcaption} %% for figures
 \usepackage{hyperref}                         %% for in-document references
-\usepackage[utf8]{inputenc}                   %% for the compiler to interpret the .tex file, DO NOT MODIFY
-\usepackage{setspace}                         %% for setting vspace between lines of text
+\usepackage[utf8]{inputenc}                   %% for compiler to interpret .tex file
+\usepackage{setspace}                         %% for setting vspace between sentences
 \usepackage{tcolorbox}                        %% for tcolorboxes
 \usepackage{xcolor}                           %% for pre-set colours
 
-%% for the minimisation of margins
-\usepackage[pass]{geometry}
+\usepackage[pass]{geometry} %% for the minimisation of margins
 \newlength\DX
 \DX=3.0in
 \paperwidth=\dimexpr\paperwidth-\DX\relax
@@ -21,33 +24,30 @@
 \paperheight=\dimexpr\paperheight-\DY\relax
 \voffset=\dimexpr\voffset-.5\DY-.5\footskip\relax
 
-% PART 2: commands/operators (self-explanatory)
+%%%=== PART 2: Commands
 \newcommand{\D}{\mathcal{D}}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\X}{\mathbf{X}}
 \newcommand{\Z}{\mathbf{Z}}
-
 \newcommand{\x}{\mathbf{x}}
 \newcommand{\z}{\mathbf{z}}
+\newcommand{\TODO}[1]{\textcolor{red}{\textbf{TODO}#1}}
 
 \renewcommand{\l}{\left}
 \renewcommand{\r}{\right}
-
-\newcommand{\TODO}[1]{\textcolor{red}{\textbf{TODO}#1}}
-
-%% for capitalised leading letters when auto-reffing
 \renewcommand{\sectionautorefname}{Section}
 \renewcommand{\subsectionautorefname}{Subsection}
 \renewcommand{\subsubsectionautorefname}{Subsubsection}
 
-% PART 3: miscellaneous things
+%%%=== PART 3: Miscellaneous
 \definecolor{myDarkBlue} {RGB}{ 15, 61,138}
 \definecolor{myGreen}    {RGB}{  0,128,128}
 \definecolor{myLightBlue}{RGB}{173,216,230}
 \definecolor{myLightRed} {RGB}{255, 99, 71}
 \definecolor{myYellow}   {RGB}{255,165,  0}
 
-\captionsetup{labelfont=bf}              %% for bold caption labels
-\DeclareMathOperator*{\argmax}{arg\,max} %% for argmax notation
-\DeclareMathOperator*{\argmin}{arg\,min} %% for argmin notation
+\captionsetup{labelfont=bf} %% for bold caption labels
+
+\DeclareMathOperator*{\argmax}{arg\,max} %% for argmax/argmin notation
+\DeclareMathOperator*{\argmin}{arg\,min}
