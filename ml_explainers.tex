@@ -965,7 +965,7 @@ If we fix the structure and choice of activation functions of an MLP then all th
     \label{fig:neural_nets_simple_example}
 \end{figure}
 
-\TODO{: Give visuals of what the hidden layer is doing to the input space.} Consider the neural network in \autoref{fig:neural_nets_simple_example} whose input, hidden and output layers consist of two, one and two neurons respectively. With such a simple neural network, we may explicitly express the output neurons $a_1^{(2)}$ and $a_2^{(2)}$ in terms of the input neurons $a_1^{(0)}$ and $a_2^{(0)}$. We see that $n_0=2$, $n_1=1$ and $n_2=2$ and so
+Consider the neural network in \autoref{fig:neural_nets_simple_example} whose input, hidden and output layers consist of two, one and two neurons respectively. With such a simple neural network, we may explicitly express the output neurons $a_1^{(2)}$ and $a_2^{(2)}$ in terms of the input neurons $a_1^{(0)}$ and $a_2^{(0)}$. We see that $n_0=2$, $n_1=1$ and $n_2=2$ and so
 $\mathbf{W}^{(1)}=
 \begin{bmatrix}
     w_{1,1}^{(1)} & w_{1,2}^{(1)}
@@ -1121,6 +1121,20 @@ The idea is really not very different. Imagine $S\subset\R^2$ compact. The compa
 
     \hspace{14pt} An interesting addition to this note is how this formulation gives an idea of how the weights from the hidden layer to the output explicitly encode the evaluation of the to-be-approximated function. Again, this is not what we'd expect MLPs to do in practice, instead they find a much more efficient representation, sharing information between neurons. Reminds me a lot of the research 3Blue1Brown discussed in one of his videos about transfromers and LLMs in which we spoke about how the LLM `knows' to assign a high probability to the token \texttt{Jordan} when given \texttt{My favourite basketballer is Michael} as input. How does it `know' to do that? It isn't at all implied by the grammar/semantics/whatever of the sentence. Said research concluded things about such pieces of knowledge being stored in the weights of the MLPs of the transformer blocks.
 \end{tcolorbox}
+
+\subsubsection{Classification via neural networks}
+Which space does one transform their samples into in order to linearly separate them? In the case of neural net approaches, for $K-$classification, it's the $(K-1)$-probability simplex given by
+$$
+\l\{(x_1,\dots,x_K)\in[0,1]^K|x_1+\dots+x_K=1\r\}.
+$$
+The $2-$probability simpelx coloured according to argmax is illustrated in \autoref{fig:2_prob_simplex}.
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=1\textwidth]{./figures/neural_nets/MLP_simplex_argmax.png}
+    \caption{The $2-$probability simplex coloured according to argmax.}
+    \label{fig:2_prob_simplex}
+\end{figure}
+From the figure, it is clear how argmax can computed by splitting the $2$-probability simplex via two planes, e.g. the intersection of $x>y$ and $x>z$ on the simplex yield the red region. As such, neural nets used for classification can be seen as learning performing regression, as in learning $p(Y|\X=\x)$.
 
 % backprop
 \subsection{Backpropagation for MLPs}
