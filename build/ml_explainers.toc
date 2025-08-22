@@ -35,9 +35,10 @@
 \contentsline {subsubsection}{\numberline {4.3.1}Convolutions}{47}{subsubsection.4.3.1}%
 \contentsline {subsubsection}{\numberline {4.3.2}Pooling}{48}{subsubsection.4.3.2}%
 \contentsline {subsubsection}{\numberline {4.3.3}Output dimensions after convolving and pooling}{49}{subsubsection.4.3.3}%
+\contentsline {subsubsection}{\numberline {4.3.4}Inductive biase}{49}{subsubsection.4.3.4}%
 \contentsline {subsection}{\numberline {4.4}Recurrent Neural Networks (RNNs)}{49}{subsection.4.4}%
 \contentsline {subsubsection}{\numberline {4.4.1}Long Short-Term Memory (LSTMs)}{49}{subsubsection.4.4.1}%
-\contentsline {subsubsection}{\numberline {4.4.2}Gated Recurrent Units (GRUs)}{50}{subsubsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.2}Gated Recurrent Units (GRUs)}{49}{subsubsection.4.4.2}%
 \contentsline {subsection}{\numberline {4.5}Transformers}{50}{subsection.4.5}%
 \contentsline {subsubsection}{\numberline {4.5.1}Tokens and Embedding}{50}{subsubsection.4.5.1}%
 \contentsline {subsubsection}{\numberline {4.5.2}Positional encoding}{50}{subsubsection.4.5.2}%
@@ -50,13 +51,13 @@
 \contentsline {subsubsection}{\numberline {5.1.2}Motivating VAEs}{56}{subsubsection.5.1.2}%
 \contentsline {subsubsection}{\numberline {5.1.3}Formulating VAEs}{57}{subsubsection.5.1.3}%
 \contentsline {subsubsection}{\numberline {5.1.4}Backpropagation for VAEs}{61}{subsubsection.5.1.4}%
-\contentsline {subsection}{\numberline {5.2}Generative Adversarial Networks (GANs)}{62}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.2}Generative Adversarial Networks (GANs)}{61}{subsection.5.2}%
 \contentsline {subsection}{\numberline {5.3}Flow-based Models}{62}{subsection.5.3}%
 \contentsline {subsection}{\numberline {5.4}Diffusion Models}{62}{subsection.5.4}%
 \contentsline {subsubsection}{\numberline {5.4.1}U-Net denoisers}{63}{subsubsection.5.4.1}%
 \contentsline {subsection}{\numberline {5.5}Model Evaluation}{64}{subsection.5.5}%
 \contentsline {section}{\numberline {6}Object Detection Models}{64}{section.6}%
-\contentsline {subsection}{\numberline {6.1}(Fast/Faster) R-CNN}{65}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.1}(Fast/Faster) R-CNN}{64}{subsection.6.1}%
 \contentsline {section}{Appendices}{66}{section*.45}%
 \setcounter {tocdepth}{0}
 \contentsline {section}{\numberline {A}Probability Theory Things}{66}{appendix.a.A}%

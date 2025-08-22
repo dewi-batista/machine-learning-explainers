@@ -1348,10 +1348,11 @@ $$
 It's not too tricky to derive these. It's the kinda thing you do once and never again. \TODO{: complete.}
 
 \begin{tcolorbox}[title={\centering\textbf{Why use a CNN over an MLP?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Suppose we have an MLP and a CNN, both trained to perform binary classification on images of cats and dogs. Further, suppose they perform equally well. It might not be too surprising that the MLP will necessarily consist of a number of parameters that is orders of magnitude greater than for the CNN. Also, it's not so clear if a given MLP is translation invariant while various components of a CNN architecture help alleviate fears of translation-related issues.
-
-    Also, improved learning-efficiency\footnote{\href{https://ai.stackexchange.com/questions/27407/what-does-statistical-efficiency-mean-in-this-context}{\texttt{ai.stackexchange.com/questions/27407}}}, i.e. fewer samples needed to learn distributions to similar degrees of precision.
+    Improved parameter-efficiency, translation invariance and learning-efficiency\footnote{\href{https://ai.stackexchange.com/questions/27407/what-does-statistical-efficiency-mean-in-this-context}{\texttt{ai.stackexchange.com/questions/27407}}}, i.e. fewer samples needed to learn distributions to similar degrees of precision.
 \end{tcolorbox}
+
+\subsubsection{Inductive biase}
+Seems like a good point in the document to talk about inductive bias\dots
 
 % recurrent neural networks
 \subsection{Recurrent Neural Networks (RNNs)}
