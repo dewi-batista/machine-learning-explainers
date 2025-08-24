@@ -704,6 +704,13 @@ for $j=1,\dots,n$ is viable. Susprising; I would have thought that it'd produce 
 \subsubsection{Batch + Layer normalisation}
 These forms of normalisation typically only apply to learning in neural network settings. There's some piece of advice regarding which you should use when batch number is small; was it to use layer norm?
 
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{./figures/gradient_descent/batch_norm.png}
+    \caption{An effect of Batch normalisation. \TODO{: Make own figure.}}
+    \label{fig:batch_norm}
+\end{figure}
+
 \subsubsection*{1) Batch norm}
 For a batch $B=\{\x_1,\dots,\x_m\}$, batch normalisation is the act of normalising the post-activation values of some layer of $d$ neurons in our architecture. Denote the $d$ activation values for the sample $\x_i\in B$ as $(a_{i,1},\dots,a_{i,d})$. The entire batch's activation values can be written as a matrix as in
 $$

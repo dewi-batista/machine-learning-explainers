@@ -349,6 +349,11 @@ INPUT ./figures/gradient_descent/gradient_descent_types.png
 INPUT ./figures/gradient_descent/gradient_descent_types.png
 INPUT ./figures/gradient_descent/gradient_descent_types.png
 INPUT ./figures/gradient_descent/gradient_descent_types.png
+INPUT ./figures/gradient_descent/batch_norm.png
+INPUT ./figures/gradient_descent/batch_norm.png
+INPUT ./figures/gradient_descent/batch_norm.png
+INPUT ./figures/gradient_descent/batch_norm.png
+INPUT ./figures/gradient_descent/batch_norm.png
 INPUT ./figures/supervised_learning/regularisation_two_plots_zero_test_error.png
 INPUT ./figures/supervised_learning/regularisation_two_plots_zero_test_error.png
 INPUT ./figures/supervised_learning/regularisation_two_plots_zero_test_error.png

@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1755981414.58459 "/Users/dewibatista/Documents/public-github/machine-learning-explainers/ml_explainers.tex" "build/ml_explainers.pdf" "ml_explainers" 1755981417.0849 0
-  "/Users/dewibatista/Documents/public-github/machine-learning-explainers/ml_explainers.tex" 1755981411.75883 148895 4b1b482f82179a30ee797cb74a748c57 ""
+["pdflatex"] 1756079721.21842 "/Users/dewibatista/Documents/public-github/machine-learning-explainers/ml_explainers.tex" "build/ml_explainers.pdf" "ml_explainers" 1756079723.77262 0
+  "/Users/dewibatista/Documents/public-github/machine-learning-explainers/ml_explainers.tex" 1756079718.10339 149127 a2fc5dc75bd4da2e01cf8c8f50a1601e ""
   "/Users/dewibatista/Library/texlive/2024/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk" 1755178945.25807 7808 c82ce01f248e795d39c6854999a6f077 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -210,9 +210,9 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1718735009.84166 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1718734899 8221429 70ab63879ef089a700279eb4c23839b7 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "build/ml_explainers.aux" 1755981416.96978 23061 bc0c4810b39c687c4630b37839e698dc "pdflatex"
-  "build/ml_explainers.out" 1755981415.11326 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "build/ml_explainers.toc" 1755981416.97231 7796 4ebb6f289bb92e7d1e069f386c833be2 "pdflatex"
+  "build/ml_explainers.aux" 1756079723.64915 23387 01dea864055a357a4b9453595ea13531 "pdflatex"
+  "build/ml_explainers.out" 1756079721.73592 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "build/ml_explainers.toc" 1756079723.65123 7796 1fb96c56e44ec29169d338f2a45aa5fb "pdflatex"
   "figures/appendix/poi_geo_plot.pdf" 1755550078.60854 25670 43001ce29415f1ef666ea26293c29dd6 ""
   "figures/generative_models/AE_gen_1.png" 1749499506.88165 212734 9e5a297e360dcee93c645e2d4e455543 ""
   "figures/generative_models/AE_gen_2.png" 1749499506.88646 176005 fe96d0a24c3ba67f64bc6891ed67ef2e ""
@@ -220,6 +220,7 @@
   "figures/generative_models/VAE_encoder.pdf" 1754437115.7534 72717 ff4491906311b6c03b26db67d4f8f5ba ""
   "figures/generative_models/diffusion_process.pdf" 1754582875.56353 90574 a359346efa8896b5601a4f69cc47856e ""
   "figures/generative_models/unet.png" 1754582718.71376 86116 d1b06f17d046d217fa5ce76ff5b7d038 ""
+  "figures/gradient_descent/batch_norm.png" 1756079643.90675 40256 10d48e06fc856552ee94246dd10510c1 ""
   "figures/gradient_descent/gradient_descent_types.png" 1755459806.22714 40430 db474ad5cb24e09de5a10b2a5fe2f9fe ""
   "figures/gradient_descent/loss_landscape.png" 1755450382.3466 836552 601ee6b9e35c1997d7b7d7c5b150376f ""
   "figures/gradient_descent/momentum.png" 1755471438.43196 30872 3b26334949bf8e884b620a6ed07d559f ""
@@ -244,7 +245,7 @@
   "figures/supervised_learning/random_forest.pdf" 1755980049.61744 25867 744f6f0f4a7bc34bd52be60abf7b505a ""
   "figures/supervised_learning/regularisation_two_plots_zero_test_error.png" 1755482175.46034 52247 99d6354d03b1361f41cd33eb4162f952 ""
   "header.tex" 1755967284.68769 1990 ab22960cf464de4853e656b8923aa8cd ""
-  "ml_explainers.tex" 1755981411.75883 148895 4b1b482f82179a30ee797cb74a748c57 ""
+  "ml_explainers.tex" 1756079718.10339 149127 a2fc5dc75bd4da2e01cf8c8f50a1601e ""
   (generated)
   "build/ml_explainers.aux"
   "build/ml_explainers.log"
