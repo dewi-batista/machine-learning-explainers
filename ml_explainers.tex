@@ -1159,7 +1159,7 @@ The $2-$probability simpelx coloured according to argmax is illustrated in \auto
     \caption{The $2-$probability simplex coloured according to argmax.}
     \label{fig:2_prob_simplex}
 \end{figure}
-From the figure, it is clear how argmax can computed by splitting the $2$-probability simplex via two planes, e.g. the intersection of $x>y$ and $x>z$ on the simplex yield the red region. As such, neural nets used for classification can be seen as learning performing regression, as in learning $p(Y|\X=\x)$.
+From the figure, it is clear how argmax can computed by splitting the $2$-probability simplex via two planes, e.g. the intersection of $x>y$ and $x>z$ on the simplex yield the red region. As such, neural nets used for classification can be seen as performing regression on the $2-$simplex, as in learning $p(y|\X=\x)$.
 
 % backprop
 \subsection{Backpropagation for MLPs}
@@ -1750,8 +1750,13 @@ R-CNN models has evolved significantly since its proposal in 2013 with three evo
 \addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
 
 % probability things
-\section{Probability Theory Things}
-Here are some probability theory-related things, e.g. long derivations, which are well-suited for an appendix. I wish I knew more probability/measure theory.
+\section{Probability Theory and Statistics Things}
+Here are some probability theory and statistics-related things, e.g. brief statements, long derivations, and so on, which are better-suited for an appendix. I wish I knew more probability/measure theory and classical statistics. In another life.
+
+\subsection{Sample Independence}
+Suppose we'd like to get an idea of the average height of men and women in our population. If we randomly sample 100 men and 100 women then we're good to go: we have independent samples. If instead we randomly sample 100 couples then our samples would not be independent since couples' heights correlate.
+
+This is important because when performing maximum likelihood, the assumption of independence of samples is key to writing the likelihood of the set as a product of individual probabilities. Without this independence, the likelihood would be a horribly complex function that we would not be able to utilise. Independence is also assumed in a ton of other statistics-related things like t-tests, ANOVA, etc.
 
 \subsection{Derivations Related to Common Distributions}
 
@@ -1828,7 +1833,7 @@ $$
 =
 Z\cdot p^r(1-p)^k.
 $$
-An assignment must be of the form $(x_1,\dots,x_{k+r-1},1)$ which means that $r-1$ of the first $k+r-1$ elements must be a success of which there are $\binom{k+r-1}{r-1}$ possibilities, thus
+A trial must be of the form $(x_1,\dots,x_{k+r-1},1)$ which means that $r-1$ of the first $k+r-1$ elements must be a success of which there are $\binom{k+r-1}{r-1}$ possibilities, thus
 $$
 \mathbb{P}(X=k)
 =
@@ -1841,6 +1846,42 @@ $$
 p(1-p)^k.
 $$
 
+\subsubsection*{4) From Binomial to Poisson}
+Let $X_n\sim\text{Bin}(n,p)$ and $\lambda=np$. How might $X_n$ look as $n\to\infty$? Why might we be interested in this at all? It can be thought of as \dots
+
+To see what $X_n$ converges to in distribution, note that for all $x\in\{0,\dots,n\}$
+\begin{align*}
+    p(X_n=x)
+    &=
+    \binom{n}{x}\l(\frac{\lambda}{n}\r)^x\l(1-\frac{\lambda}{n}\r)^{n-x}\\
+    &\approx
+    \frac{n!}{x!(n-x)!}\frac{\lambda^x}{n^x}e^{-\lambda}e^{\lambda x/n}\\
+    &=
+    e^{\lambda x/n}\frac{n(n-1)\cdots(n-x+1)}{n\cdots n}e^{-\lambda}\frac{\lambda^x}{x!}\\
+    & \xrightarrow{n\to\infty}
+    e^{-\lambda}\frac{\lambda^x}{x!}.
+\end{align*}
+Showing this statement more rigorously might make use of Stirling's approximation of $n!$. Since $X_n$ is discrete for all $n\in\mathbb{N}$ we conclude that
+$$
+X_n
+\xrightarrow[d]{n\to\infty}
+\text{Poi}(\lambda).
+$$
+
+\subsubsection*{5) From Poisson to Exponential}
+When working with a Poisson process, a natural question is the distribution of time between the occurence of events. Let $T$ denote the time at which the first event occurs, so $\Omega_T=[0,\infty)$. See that if $N(t)\sim\text{Poi}(\lambda t)$ is a Poisson process then $p(N(t)=x)$ is the probability of $x$ events occuring in $[0,t]$. We have
+\begin{align*}
+    p(T<t)
+    &=
+    \sum_{x=1}^{\infty}p(N(t)=x)\\
+    &=
+    1-p(N(t)=0)\\
+    &=
+    1-e^{-\lambda t}
+\end{align*}
+and so
+$p(t)=\lambda e^{-\lambda t}$.
+
 \subsection{The Law of Large Numbers}
 If $X_1,\dots,X_n$ are i.i.d. and $\E[X]<\infty$ then
 $$
@@ -1848,7 +1889,9 @@ $$
 \xrightarrow{n\to\infty}
 \E[X]
 $$
-with respect to some type of convergence. The law comes in a weak flavour and a stronger one. The weak flavour pertains to convergence in probability and the latter to asmymptotic convergence. Frankly, the details aren't important for my purposes, so I simply think of it as meaning ``The sample mean of a buncha samples is the population mean.''. It's useful for justifying certain approaches though, e.g. Monte Carlo integration.
+with respect to some type of convergence. The law comes in a weak flavour and a stronger one. The weak flavour pertains to convergence in probability and the latter to asmymptotic convergence.
+
+Frankly, the details aren't important for my purposes, so I simply think of it as meaning ``The sample mean of a buncha samples is the population mean.''. It's useful for justifying certain approaches, e.g. Monte Carlo integration.
 
 \subsection{The Central Limit Theorem (CLT)}
 If $X_1,\dots,X_n$ are i.i.d. and $\text{Var}(X)<\infty$ then
@@ -1857,11 +1900,21 @@ $$
 \xrightarrow[d]{n\to\infty}
 \mathcal{N}(0,\text{Var}(X)).
 $$
-It's one of the most important results in probability theory and statistics: it helps explain why the normal distribution appears so often in real world data. I think of it as meaning ``The scaled sum of i.i.d. samples will look normal upon repeatedly sampling.''.
+It's one of the most important results in probability theory and statistics: it helps explain why the normal distribution appears so often in real world data. I think of it as meaning ``The scaled sum of i.i.d. samples will look normal upon repeatedly sampling.".
 
 Its clearest use-case to me is in justifying the modelling of residuals in linear regression as normally distributed.
 
-\subsection{Entropy and its Friends}
+\subsection{Jensen's Inequality}
+If $f:\mathbb{R}\to\mathbb{R}$ is convex and $\E[X]$ is finite then
+$$
+f(\E[X])\leq\E[f(X)].
+$$
+If $f$ is concave then
+$$
+f(\E[X])\geq\E[f(X)].
+$$
+
+\subsection{Entropy and its Friend KL-divergence}
 \label{app:entropy}
 
 The entropy of a distribution can be motivated by the notion of the surprise of (or information learned from) observing realisations of said random variable. Given a discrete random variable $X$, an event $x\in\Omega_X$ and a surprise function $S:\Omega_X\rightarrow[0,\infty)$, the surprise of observing $x$ is $S(x)$. Before we continue, we need to understand what we want out of our surprise function. Following the use of `surprising' in day-to-day communication, we want events with low probability to be highly surprising and events with high probability to be less surprising, with some extra conditions. So if $p(x)=0.01$ then we want $S(x)$ to be close to relatively high (strictly speaking it doesn't need to be bounded above) and if $p(x)=0.99$ then we want $S(x)$ to be close to 0.
@@ -1955,7 +2008,7 @@ which yields $\lambda=1$. So according cross-entropy, the best-fitting Poisson d
 \begin{figure}[t]
     \centering
     \includegraphics[width=\columnwidth]{./figures/appendix/poi_geo_plot.pdf}
-    \caption{The geometric distribution $p$ and our Poisson fit $q$.}
+    \caption{Our geometric distribution $p$ and Poisson fit $q$.}
     \label{fig:poi_geo_plot}
 \end{figure}
 
@@ -1990,28 +2043,7 @@ $$
 0.63.
 $$
 
-\subsubsection{Mutual Information}
-Pearson correlation, as discussed in \autoref{app:pearson_correlation}, is a measure of linear dependence between random variables. What if we want to know about non-linear dependence between random variables, i.e. what if Pearson correlation doesn't suffice? Mutual information to the rescue. It's a property of a joint distribution but is often described as a statement of two random variables $X$ and $Y$ and is denoted as such as in
-$$
-I(X;Y)
-=
-D_{\text{KL}}(p_{X,Y}||p_X\otimes p_Y).
-$$
-I'm a big fan of writing it as a KL-divergence as its meaning is immediately clear: its a measure of divergence between the joint and the product of the marginals. Informally, I see it as asking ``How independent are $X$ and $Y$?'' which is precisely the question we seek to answer when utilising things like Pearson correlation and mutual information.
-
-\subsection{Quality of fit $\approx$ Encoding quality?}
-\TODO{: Perhaps this is worthy of its own section, unsure\dots}
-
-% statistics things
-\section{Classical Statistics Things}
-I should have a far more concrete understanding of classical statistics tbh. Such is life.
-
-\subsection{Sample Independence}
-Suppose we'd like to get an idea of the average height of men and women in our population. If we randomly sample 100 men and 100 women then we're good to go: we have independent samples. If instead we randomly sample 100 couples then our samples would not be independent since couples' heights correlate.
-
-This is important because when performing maximum likelihood, the assumption of independence of samples is key to writing the likelihood of the set as a product of individual probabilities. Without this independence, the likelihood would be a horribly complex function that we would not be able to utilise. Independence is also assumed in a ton of other statistics-related things like t-tests, ANOVA, etc.
-
-\subsection{Pearson Correlation}
+\subsection{Pearson Correlation and Mutual Information}
 \label{app:pearson_correlation}
 Let $\bar{X}=X-\E[X]$ and $\bar{Y}=Y-\E[Y]$ where $X$ and $Y$ are scalar. The Pearson correlation of $X$ and $Y$ is given by
 $$
@@ -2023,6 +2055,17 @@ $$
 \in[-1,1]
 $$
 where the expectation in the numerator is over $p(x,y)$. The overall quantity yields the linear dependence between $X$ and $Y$ and the denominator is for normalisation.
+
+Pearson correlation is a measure of linear dependence between random variables. What if we want to know about non-linear dependence between random variables, i.e. what if Pearson correlation doesn't suffice? Mutual information to the rescue. It's a property of a joint distribution but is often described as a statement of two random variables $X$ and $Y$ and is denoted as such as in
+$$
+I(X;Y)
+=
+D_{\text{KL}}(p_{X,Y}||p_X\otimes p_Y).
+$$
+I'm a big fan of writing it as a KL-divergence as its meaning is immediately clear: its a measure of divergence between the joint and the product of the marginals. Informally, I see it as asking ``How well does the product of distributions model the joint?'' which is precisely the question we seek to answer when utilising things like Pearson correlation and mutual information.
+
+\subsection{Quality of fit $\approx$ Encoding quality?}
+\TODO{: Perhaps worthy of its own section, unsure}
 
 \subsection{The EM Algorithm}
 \url{https://teng-gao.github.io/blog/2022/ems/}
@@ -2039,6 +2082,9 @@ At the time of writing, machine learning, as a term, is used almost interchangea
 Right now, I'm unaware of any machine learning model that can `reason' by any agreed upon definition of the term. I suspect that while current models can simulate `reasoning' to the extent of being able to effectively solve tasks which require some sort of underlying understanding, they do not `reason' in the human sense, which is grounded in embodied experience. Let's say that an LLM (e.g. GPT-4o) concludes that a continuous real-valued function $f:\R\rightarrow\R$ has a root in some interval $(a, b)$ using the intermediate value theorem (IVT) by noting that $f(a)<0$ and $f(b)>0$. Did the LLM `reason' in its application of the IVT or do we instead brush this off as the LLM having been trained many examples of the application of the IVT? Does it `understand' what it's concluding? As of right now I'd say that it doesn't. This of course isn't something unique to the IVT — we can construct many such examples. What I think makes IVT interesting is that we can effectively express what it means to `understand' its correctness as a human. I'd say that the distinction between the LLM's `understanding' and a human's here is that a human knows that if they trace their finger on a piece of paper starting from the bottom half, crossing a horizontal line cutting through the middle of the paper, to the top half of the paper without removing their finger then their finger must have touched the horizontal line at some point (ignore the fact that such a traversal is not necessarily a function, you get the idea). You don't need any mathematical training to know and, more importantly, understand why your finger crosses through the horizontal line on the page. LLMs certainly do not `understand' the correctness of the IVT in this way, or really any way that isn't purely symbolic. Maybe multimodal LLMs will alleviate this.
 
 A separate but related question is to what extent it matters that a model `understands' why it arrived at its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. From a purely problem solving point of view, these philosophical debates regarding what constitutes reasoning, understanding and knowing aren't too important in the short term. It'd be funny if 50 years from now we're well-taken care of by a fleet of machine learning-powered robots and we still complain that they aren't truly capable of reasoning.
+
+\subsection{Sufficiency of Internet-Scraped Data}
+\TODO{}
 
 \subsection{The Principled Measure-Explainability Tradeoff}
 \TODO{}

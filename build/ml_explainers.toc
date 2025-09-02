@@ -63,18 +63,18 @@
 \contentsline {subsection}{\numberline {6.3}DETR}{66}{subsection.6.3}%
 \contentsline {section}{Appendices}{67}{section*.47}%
 \setcounter {tocdepth}{0}
-\contentsline {section}{\numberline {A}Probability Theory Things}{67}{appendix.a.A}%
-\contentsline {subsection}{\numberline {A.1}Derivations Related to Common Distributions}{67}{subsection.a.A.1}%
-\contentsline {subsection}{\numberline {A.2}The Law of Large Numbers}{69}{subsection.a.A.2}%
-\contentsline {subsection}{\numberline {A.3}The Central Limit Theorem (CLT)}{70}{subsection.a.A.3}%
-\contentsline {subsection}{\numberline {A.4}Entropy and its Friends}{70}{subsection.a.A.4}%
-\contentsline {subsubsection}{\numberline {A.4.1}Kullback–Leibler Divergence (KL-divergence)}{71}{subsubsection.a.A.4.1}%
-\contentsline {subsubsection}{\numberline {A.4.2}Mutual Information}{74}{subsubsection.a.A.4.2}%
-\contentsline {subsection}{\numberline {A.5}Quality of fit $\approx $ Encoding quality?}{74}{subsection.a.A.5}%
-\contentsline {section}{\numberline {B}Classical Statistics Things}{74}{appendix.a.B}%
-\contentsline {subsection}{\numberline {B.1}Sample Independence}{75}{subsection.a.B.1}%
-\contentsline {subsection}{\numberline {B.2}Pearson Correlation}{75}{subsection.a.B.2}%
-\contentsline {subsection}{\numberline {B.3}The EM Algorithm}{75}{subsection.a.B.3}%
-\contentsline {section}{\numberline {C}Philosophy Things}{75}{appendix.a.C}%
-\contentsline {subsection}{\numberline {C.1}Thoughts on reasoning (Summer 2024)}{75}{subsection.a.C.1}%
-\contentsline {subsection}{\numberline {C.2}The Principled Measure-Explainability Tradeoff}{77}{subsection.a.C.2}%
+\contentsline {section}{\numberline {A}Probability Theory and Statistics Things}{67}{appendix.a.A}%
+\contentsline {subsection}{\numberline {A.1}Sample Independence}{67}{subsection.a.A.1}%
+\contentsline {subsection}{\numberline {A.2}Derivations Related to Common Distributions}{67}{subsection.a.A.2}%
+\contentsline {subsection}{\numberline {A.3}The Law of Large Numbers}{71}{subsection.a.A.3}%
+\contentsline {subsection}{\numberline {A.4}The Central Limit Theorem (CLT)}{71}{subsection.a.A.4}%
+\contentsline {subsection}{\numberline {A.5}Jensen's Inequality}{72}{subsection.a.A.5}%
+\contentsline {subsection}{\numberline {A.6}Entropy and its Friend KL-divergence}{72}{subsection.a.A.6}%
+\contentsline {subsubsection}{\numberline {A.6.1}Kullback–Leibler Divergence (KL-divergence)}{73}{subsubsection.a.A.6.1}%
+\contentsline {subsection}{\numberline {A.7}Pearson Correlation and Mutual Information}{76}{subsection.a.A.7}%
+\contentsline {subsection}{\numberline {A.8}Quality of fit $\approx $ Encoding quality?}{76}{subsection.a.A.8}%
+\contentsline {subsection}{\numberline {A.9}The EM Algorithm}{76}{subsection.a.A.9}%
+\contentsline {section}{\numberline {B}Philosophy Things}{76}{appendix.a.B}%
+\contentsline {subsection}{\numberline {B.1}Thoughts on reasoning (Summer 2024)}{77}{subsection.a.B.1}%
+\contentsline {subsection}{\numberline {B.2}Sufficiency of Internet-Scraped Data}{78}{subsection.a.B.2}%
+\contentsline {subsection}{\numberline {B.3}The Principled Measure-Explainability Tradeoff}{78}{subsection.a.B.3}%
