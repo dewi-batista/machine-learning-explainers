@@ -166,12 +166,12 @@ $$
 $$
 
 \begin{tcolorbox}[title={\textbf{Funny misuse of linear regression: Momentous sprint at the 2156 Olympics?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Read this Quora answer\footnote{\url{https://qr.ae/pslbEN}} (the top comment is worth reading too) based on a paper\footnote{\url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3173856/}} published in Nature. Related\footnote{\url{https://xkcd.com/1007/}}.
+    Read this Quora answer\footnote{\url{https://qr.ae/pslbEN}} based on a paper\footnote{\url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3173856/}} published in Nature. The top comment is worth reading too. Related xkcd comic\footnote{\url{https://xkcd.com/1007/}}.
 \end{tcolorbox}
 
 \subsubsection{Statistical Motivation}
 
-This idea of minimising the mean square error of the model over $D_{\text{train}}$ even has some rigorous statistical motivation. Assume that the residuals corresponding of the model's output over $D_{\text{train}}$ are independent and identically normally distributed with mean 0. That is, assume
+The idea of minimising the mean square error of the model over $D_{\text{train}}$ has a rigorous statistical motivation, corresponding to maximum likelihood estimation. Assume that the residuals corresponding of the model's output over $D_{\text{train}}$ are independent and identically normally distributed with mean 0. That is, assume
 $$
 E_i
 =
@@ -302,26 +302,26 @@ $$
 Note that, in practice, it's unlikely that any samples will lie on the hyperplane $f_{\theta^*}(\x)=0$ itself.
 
 % support vector machines
-\subsection{\REV{: }Support Vector Machines (SVMs)}
-Logistic regression and SVMs both fit a hyperplane to feature space. The distinction is the metric of goodness of said hyperplanes. In logistic regression, the metric of goodness is how much the parameters of said hyperplane maximise the relevant log-likelihood. SVMs, however, look to maximise the distance between the hyperplane and the samples. So in some sense, logistic regression is a probabilistic approach while SVMs take a constraint-based approach.
+\subsection{Support Vector Machines (SVMs)}
+Logistic regression and SVMs both fit a hyperplane to feature space. The distinction is the metric of goodness of said hyperplanes. In logistic regression, the metric of goodness is how much the parameters of said hyperplane maximise the relevant log-likelihood. SVMs, however, look to maximise the distance between the hyperplane and the nearest samples. So in some sense, logistic regression is a probabilistic approach while SVMs take a raw constraint-based approach.
 
-The authors' insight came from structural risk minimization in which instead of focusing on minimising training error (as neural networks and decision trees were doing at the time), one focuses on minimising an upper bound on the generalisation error. The inclusion of `support vector' is clear from their construction but `machine' stood out to me as a bit odd. It turns out that at time of their development, around 1960, it was common to use `machine' when referring to algorithms that learned from data, i.e. algorithms belonging to statistical learning theory.
+The authors' insight came from structural risk minimization in which instead of focusing on minimising training error (as neural networks and decision trees were doing at the time), one focuses on minimising an upper bound on the generalisation error. The inclusion of `support vector' becomes clear from their construction but `machine' stood out to me as a bit odd. It turns out that at time of their development, around 1960, it was common to use `machine' when referring to algorithms that learned from data, i.e. algorithms belonging to statistical learning theory. This reflects Arthur Samuel's coining of machine learning as a term in 1959 while working at IBM.
 
 \begin{tcolorbox}[title={\centering\textbf{Inconsistent terminology surrounding SVMs}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Some pieces of literature describe the decision boundary learned by an SVM as strictly linear, others allow for a non-linear decision boundary. It'd be nice if authors stuck to the former and explicitly stated `non-linear SVM' when describing the latter. Here, `an SVM' refers to the former and I'll state explicitly when considering the latter.
+    Some pieces of literature describe the decision boundary learned by an SVM as strictly linear, others allow for a non-linear decision boundary. It'd be nice if authors stuck to the former and explicitly stated `non-linear SVM' when describing the latter. In this section, the term refers to those which correspond to linear decision boundaries. I'll state explicitly when considering non-linear SVMs.
 \end{tcolorbox}
 
 \subsubsection{Hard-margin SVMs}
-Since we aim to fit a hyperplane in our feature space $\R^{q+1}$, we use the same notation for the function $f_{\theta}(\x)$ corresponding to the linear decision boundary (i.e. hyperplane). To make notation a bit easier, let $\theta_+=(\theta_1,\dots,\theta_q)$ so that $\theta$ is the ordered concatentation of $\theta_0$ and $\theta_+$. Further, let $\x_i$ denote the $i^{\text{th}}$ sample's features and $y_i\in\{-1,1\}$ its class such that $y_i$ is 1 if $\theta_+^\top \x_i+\theta_0>0$ and 0 otherwise.
+Since we aim to fit a hyperplane to feature space, i.e. $\R^{q+1}$, we use the same notation for the function $f_{\theta}(\x)$ corresponding to the linear decision boundary (i.e. hyperplane) used to motivate logistic regression. To make notation a bit easier, let $\theta_+=(\theta_1,\dots,\theta_q)$ so that $\theta$ is the ordered concatentation of $\theta_0$ and $\theta_+$. Further, let $\x_i$ denote the $i^{\text{th}}$ sample's features and $y_i\in\{-1,1\}$ its class such that $y_i$ is 1 if $\theta_+^\top \x_i+\theta_0>0$ and $-1$ otherwise.
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.75\columnwidth]{./figures/supervised_learning/SVM_hard_margin.pdf}
-    \caption{A hard-margin SVM in two dimensions.}
+    \caption{A hard-margin SVM in two dimensions. Samples lying on the margin are referred to as support vectors.}
     \label{fig:SVM_hard_margin}
 \end{figure}
 
-\noindent Let $\mathbf{p}_i$ denote the projection of $\x_i$ onto the hyperplane and let $d_i$ denote the distance between $\mathbf{p}_i$ and $\x_i$. Noting that the normal to the hyperplane is $\theta_+$, we have $\mathbf{p}_i=\x_i-\frac{\theta_+}{||\theta_+||}d_i$ and so
+Let $\mathbf{p}_i$ denote the projection of $\x_i$ onto the hyperplane and let $d_i$ denote the distance between $\mathbf{p}_i$ and $\x_i$. Noting that the normal to the hyperplane is $\theta_+$, we have $\mathbf{p}_i=\x_i-\frac{\theta_+}{||\theta_+||}d_i$ and so
 $$
 \theta_+^\top \l(\x_i-\frac{\theta_+}{||\theta_+||}d_i\r)+\theta_0
 =
@@ -333,19 +333,19 @@ d_i
 =
 \frac{\theta_+^\top \x_i+\theta_0}{||\theta_+||}.
 $$
-Taking a point $\x_i$ whose class is $-1$ yields $d_i=-\frac{\theta_+^\top \x_i+\theta_0}{||\theta_+||}$ and so a neater way of writing this distance for an arbitrary sample $\x_i$ is $d_i=\frac{y_i(\theta_+^\top \x_i+\theta_0)}{||\theta_+||}$. The idea behind hard-margin SVMs is only applicable to entirely linearly sparable data and effectively boilds down to finding which parameters maximise $\min_{i=1,\dots,n}d_i$. That is, we look to compute
+Similarly, taking a point $\x_i$ whose class is $-1$ yields $d_i=-\frac{\theta_+^\top \x_i+\theta_0}{||\theta_+||}$ and so a neater way of writing this distance for an arbitrary sample $\x_i$ is $d_i=\frac{y_i(\theta_+^\top \x_i+\theta_0)}{||\theta_+||}$. Hard-margin SVMs are only applicable to linearly sparable data and their construction, from data, effectively boils down to finding which parameters maximise $\min_{i=1,\dots,n}d_i$. That is, we seek to compute
 \begin{align*}
     \theta^{*}
     &=
     \argmax_{(\theta_0,\theta_+)}\l[\min_{i=1,\dots,n}d_i\r]\\
     &=
-    \argmax_{(\theta_0,\theta_+)}\l[\min_{i=1,\dots,n}\frac{y_i(\theta_+^\top \x_i+\theta_0)}{||\theta_+||}\r]\\
+    \argmax_{(\theta_0,\theta_+)}\l[\min_{i=1,\dots,n}\frac{y_i(\theta_+^\top \x_i+\theta_0)}{||\theta_+||}\r]
 \end{align*}
 which we'd like to translate into a convex optimisation problem. First, notice that computing $\theta^{*}$ is equivalent to solving
 $$
 \max_{(\theta_0,\theta_+)}\frac{r}{||\theta_+||}\text{ s.t. } y_i\l(\theta_+^\top \x_i+\theta_0\r)\geq r\text{ } (i=1,\dots,n).
 $$
-in which $r$ is arbtirarily scalable, so it is equivalent to
+in which $r$ may be scaled arbitrarily by positives, so it is equivalent to
 $$
 \max_{(\theta_0,\theta_+)}\frac{1}{||\theta_+||}\text{ s.t. } y_i\l(\theta_+^\top \x_i+\theta_0\r)\geq 1\text{ } (i=1,\dots,n).
 $$
@@ -357,7 +357,7 @@ which is solved in the usual convex problem solving ways.
 
 \subsubsection{Soft-margin SVMs}
 
-Hard-margin SVMs are rarely applicable. In practice, classes are not entirely linearly separable, due to noise and outliers, and so allowing for some misclassification is pragmatic. Going from hard-margin to soft-margin is pretty straightforward, just include some slack variables $\xi=(\xi_1,\dots,\xi_n)$ that ultimately allow the model to violate the constraints while penalising said violations. More precisely, it involves solving
+Hard-margin SVMs are rarely applicable. In practice, samples are not entirely linearly separable and so allowing for some misclassification is pragmatic. Going from hard-margin to soft-margin is pretty straightforward, just include some slack variables $\xi=(\xi_1,\dots,\xi_n)$ that ultimately allow the model to violate the constraints while penalising said violations. More precisely, it involves solving
 $$
 \min_{(\theta_0,\theta_+,\xi)}\l[||\theta_+||^2+\lambda\sum_{i=1}^n\xi_i\r]\text{s.t. } y_i\l(\theta_+^\top \x_i+\theta_0\r)\geq 1-\xi_i,\text{ }\xi_i\geq0
 $$
@@ -370,14 +370,14 @@ for $i=1,\dots,n$ where $\lambda\geq0$ is a regularisation parameter that influe
     \label{fig:SVM_soft_margin}
 \end{figure}
 
-\noindent As illustrated in \autoref{fig:SVM_soft_margin}, it allows for samples to be closer to the decision boundary than the margin as well as outright misclassifications. Again, it is typically solved in the usual convex problem solving ways. Going a step further, it turns out that this can be reduced to computing
+As illustrated in \autoref{fig:SVM_soft_margin}, it allows for samples to be closer to the decision boundary than the margin as well as outright misclassifications. Again, it is typically solved in the usual convex problem solving ways. Going a step further, it turns out that this can be reduced to computing
 $$
 \argmin_{(\theta_0,\theta_+)}\l[||\theta_+||^2+\lambda\sum_{i=1}^n\max\l(0,1-y_i\l(\theta_+^\top \x_i+\theta_0\r)\r)\r]
 $$
 which can be done using gradient descent.
 
 \subsubsection{Non-linear SVMs}
-Motivating non-linear SVMs is straightforward: feature spaces are rarely linearly separable. With this in mind, a super intuitive approach is to find a transformation $\phi$ which maps samples to a space in which they are linearly separable. In said space, employ a linear SVM. 
+Motivating non-linear SVMs is straightforward: we'd sometimes like to separate samples by a non-linear decision boundary. With this in mind, a super intuitive approach is to find a transformation $\phi$ which maps samples to a space in which they are linearly separable. In said space, employ a linear SVM.
 
 \begin{figure}[t]
     \centering
@@ -386,15 +386,15 @@ Motivating non-linear SVMs is straightforward: feature spaces are rarely linearl
     \label{fig:SVM_non_linear}
 \end{figure}
 
-With this idea in mind, we seek to solve for
+With this idea in mind, we seek to solve
 $$
 \min_{(\theta_0,\theta_+,\xi)}\l[\frac{1}{2}||\theta_+||^2+\lambda\sum_{i=1}^n\xi_i\r]\text{s.t. } y_i\l(\phi(\theta_+)^\top\x_i+\theta_0\r)\geq 1-\xi_i,\text{ }\xi_i\geq0
 $$
-which is difficult if the dimension of the image of $\phi$ is large. To make things easier, the dual of problem is optimised instead. I don't understand optimisation well enough to know about theory surrounding primal problems, their duals, Lagrangians etc., so I'll just give the dual outright without deriving it
+which is difficult if the dimension of the image of $\phi$ is large. To make things easier, the dual of problem is optimised instead. My understanding of primal problems and their dual problems isn't great, so I'll just give the dual outright without deriving it:
 $$
 \max_{(\alpha_1,\dots,\alpha_n)\in[0,\lambda]^n}\l[\sum_{i=1}^n\alpha_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_jK(\x_i,\x_j)\r]\text{s.t. }\sum_{i=1}^n\alpha_iy_i=0
 $$
-where $K(\x,\z)=\langle\phi(\x),\phi(\z)\rangle$ is a pre-chosen kernel. See how it never requires an explicit computation involving $\phi$ as long as a closed form of $K(\x,\z)$ is available. It's referred to as the kernel trick and reduces having to solve an optimisation problem in a space whose dimension is the number of features to a space whose dimension is the number of training samples.
+where $K(\x,\z)=\langle\phi(\x),\phi(\z)\rangle$ is a pre-chosen kernel. See how it never requires an explicit computation involving $\phi$ as long as a closed form of $K(\x,\z)$ not involving $\phi$ is available. This is referred to as the kernel trick and reduces having to solve an optimisation problem in a space whose dimension is the number of features to a space whose dimension is the number of training samples.
 
 At inference time, given some $\x$, we seek to compute
 \begin{align*}
@@ -404,9 +404,9 @@ At inference time, given some $\x$, we seek to compute
     &=
     \text{sign}\l(\sum_{i=1}^n\alpha_iy_iK(\x_i,\x)+b_k\r)
 \end{align*}
-where $b_k=y_k-\sum_{i=1}^n\alpha_iy_iK(\x_i,\x_k)$ for some $(\x_k,y_k)$ that satisfies $\alpha_k\in(0,\lambda)$. Note that the simplifcation made in the equation above is due to an argument used in deriving the dual.
+where $b_k=y_k-\sum_{i=1}^n\alpha_iy_iK(\x_i,\x_k)$ for some $(\x_k,y_k)$ that satisfies $\alpha_k\in(0,\lambda)$. Note that the second line in the equation above is derived using to argument made in deriving the dual.
 
-The two simplest kernels are polynomial kernels and the RBF kernel. Polynomial kernels are of the form \dots \TODO{: Complete.}
+The two simplest kernels are polynomial kernels and the RBF kernel. \TODO{: Complete a paragraph on common kernels.}
 
 % decision trees and random forests
 \subsection{Decision Trees and Random Forests}
@@ -419,19 +419,18 @@ I find decision trees and random forests so boring that I'm not going to write a
     \label{fig:random_forest}
 \end{figure}
 
-One nice thing about decision trees is that understanding them forces you to learn about entropy but there are other topics which force the same thing, e.g. Variational Autoencoders through the use of KL-divergences. Also, random forests are a nice introduction to ensemble methods which nicely demonstrate how to prevent overfitting through the reduction of variance (directly illustrating the importance of the bias-variance tradeoff). Oh, and bootstrapping. Maybe one day I'll write this subsection properly.
+Despite my disinterest in them, learning about decision trees encourages you to understand entropy which is good. There are other topics which encourage the same thing though, e.g. Variational Autoencoders, through the use of KL-divergences. Also, random forests are a nice introduction to ensemble methods which nicely demonstrate how to prevent overfitting by reducing variance — directly illustrating the importance of the bias-variance tradeoff! Oh, and bootstrapping. One day I'll write this subsection properly.
 
-
-\begin{tcolorbox}[title={\textbf{What benefits does logistic regression offer over more sophisticated methods, e.g. SVMs or random forests?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+\begin{tcolorbox}[title={\centering\textbf{LR $>$ SVM/RF when?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
     This is a pretty natural question once shown more sophisticated methods which deal with linearly separable and non-linearly separable data. The largest benefit is that it allows for statistical tests on parameters, e.g. statistical significance tests. It also helps that its implementation and interpretation are straightforward.
 \end{tcolorbox}
 
 % the bias-variance tradeoff
 \subsection{\REV{: }The Bias-Variance Tradeoff}
-The bias-variance tradeoff is a statement pertaining to how well one can perform supervised learning from datasets. Crudely put, if the model family used to fit is too simple to represent the underlying distributions from which the samples were drawn then our learning method is highly-biased: our method is almost dataset-invariant. Think of fitting a line to a high-degree polynomial. On the other end, if the model family is too complex (e.g. overparameterised) then one might expect to more-easily overfit the underlying distribution. There are too many parameters to twink and tweam so fitting the individal samples is too easy.
+The bias-variance tradeoff is a statement pertaining to how well one can perform supervised learning from data. Crudely put, if the model family used to fit is too simple to represent the underlying distribution to which the samples belong then the learning method is highly-biased, i.e. the outcome of the learning method is almost invariant with respect to the training data. Think of fitting a line to a high-degree polynomial. On the other end, if the model family is too complex (e.g. overparameterised) then the excess parameters cause the model to fit the noise present in the training data as opposed to the underlying structure. In this case, the learning method is highly-variant with respect to the training data. Think of polynomial regression models trained on noisy samples.
 
 \subsubsection{\TODO{: }Underfitting and Overfitting}
-\dots
+I was unable to find rigorous definitions in books like Casella Berger but The Cambridge Dictionary of Statistics offers them. That said, in practice, over and underfitting are often spoken about in terms of the training and validation losses observed during training for a given problem.
 
 \subsubsection{Derivation with MSE loss}
 Recall that sample targets pertaining to datasets from which supervised models are learned are effected by noise, i.e. $Y|(\X=\x)=f(\x)+\epsilon(\x)$ where $\epsilon(\x)\sim\mathcal{N}(0,\sigma^2(\x))$ and so
@@ -548,7 +547,7 @@ where $\sigma^2=\E_\X\l[\sigma^2(\X)\r]$ (ignore the poor choice of notation). W
     \label{fig:bias_variance}
 \end{figure}
 
-In brief, if the learned estimate varies a lot as we vary the dataset from which it is determined then the learning method has high variance. This is often due to the estimates in question overfitting the dataset on which they were learned which itself is often due to overparameterisation. If the number of parameters of a model is far higher than is needed then one can easily fit the individal samples from the dataset used during learning. Think of fitting a high degree polynomial to a line. The dataset will consist of points which roughly form a line but the high degree polynomial, if not regularised, can easily fit the samples present in the dataset used to learn (and in doing so fits the noise) resulting in an overfit model.
+In brief, if the learned estimate varies a lot as we vary the dataset from which it is determined then the learning method has high variance. This is often due to the estimates in question overfitting the dataset on which they were learned which itself is often due to overparameterisation. If the number of parameters of a model is far higher than is needed then one can easily fit the individual samples from the dataset used during learning. Think of fitting a high degree polynomial to a line. The dataset will consist of points which roughly form a line but the high degree polynomial, if not regularised, can easily fit the samples present in the dataset used to learn (and in doing so fits the noise) resulting in an overfit model.
 
 The flip side of this is an underparameterised model. Since such a model has little hope of fitting the dataset from which it is learned, you'd expect it to rarely overfit (it can't) and to instead be almost invariant to the dataset. That is, no matter which dataset you gave it to learn from, you get a similar model each time. In other words, the learning method (the method of going from dataset to model) is biased. Think of fitting a line to high degree polynomial — no matter what dataset you use, the best fit line will likely not change too much (which is usually a good thing) but the fit itself will never be anything but linear, i.e. always a bad fit. 
 
@@ -661,10 +660,10 @@ The edge case in which $\nabla f(\mathbf{x})=0$ corresponds to $f(\mathbf{x})$ b
 \subsubsection{Sensitivity to $\x^{(0)}$}
 I don't know much about initialisation. I know that it's a bad idea to start at 0 (if symmetries hold then parameters change identically), points of large magnitude (exploding gradients) and points of small magnitude (vanshing gradients). Also, if the function in question is convex then don't worry so much about converging to a nice solution. In practice, empirical risk functions are not convex.
 
-One day when my interest in initialisation sparks up, I'll write this part properly.
+One day when my interest in initialisation sparks up, I'll write this part properly. Simon Price offers an interesting point regarding the importance of parameter initialisation around 01:08:00 in \href{https://www.youtube.com/watch?v=sJXn4Cl4oww&list=PLwFLAA-F1PgpU9lgxOdhjILkMXUagGnea&ab_channel=MachineLearningStreetTalk}{this YouTube video}.
 
 \subsubsection{My dataset (i.e. $n$) is too large!!!}
-Do not fear, for it turns out that we can approximate full gradient updates pretty well using many smaller updates over subsets of the dataset. How well mini-batch learning and stochastic gradient descent perform (and even just \textit{that} they perform) surprised me when I first learned them.
+Do not fear, for it turns out that we can approximate full gradient updates reasonably well using many smaller updates over subsets of the dataset. How well mini-batch learning and stochastic gradient descent perform (and even just \textit{that} they perform) surprised me when I first learned about them.
 
 \begin{figure}[t]
     \centering
@@ -871,7 +870,7 @@ where $\eta_i^{(t)}=\frac{\eta}{\sqrt{G_i^{(t)}}+\epsilon}$ is the $i^{\text{th}
 
 % hyperparam tuning
 \subsection{Hyperparameter Tuning}
-\TODO{: Review.}
+\TODO{: Review. Mention that the only real reason I included this subsection was to remind myself of cross val}
 Hyperparameters are the tunable parts of our model which are not learned during training. Bad hyperparameters will yield training issues like divergence, overfitting or underfitting. The easiest example of a hyperparameter I can think of is the learning rate in vanilla gradient descent. Some choices of learning rate will yield models which generalise better post-training than other learning rates. For a more sophisticated example, consider architecture-related hyperparameters, e.g. the number of hidden layers in a multi-layer perceptron.
 
 \subsection*{1) Random search}
@@ -1388,7 +1387,7 @@ Seems like a good point in the document to talk about inductive bias\dots
 
 % transformer models
 \subsection{\TODO{: }Transformers}
-Stand at attention! Many think of transformers as necessarily generative but nope!
+Just another (very effective) architecture for correlation extraction.
 
 \subsubsection{Tokens and Embedding}
 Tokenisation is the process of slicing a sample up into tokens. Think of splitting a $512\times512$ image into its four $256\times256$ quadrants or the sentence `The chef cooked a meal for the critic.' into
@@ -1406,7 +1405,10 @@ $$
 for which the tokenisations occur.
 
 \subsubsection{Positional encoding}
-\TODO{} Use sinusoids to form a position vector $P_k$ for the $k$th token in an input sequence of length $L$. Add $P_k$ to the word embedding $E_k$ for $k=0,\dots,L-1$ to obtain the input $[E_0+P_0,\dots,E_{L-1}+P_{L-1}]$ fed to the model.
+Use sinusoids to form a position vector $P_k$ for the $k$th token in an input sequence of length $L$. Add $P_k$ to the word embedding $E_k$ for $k=0,\dots,L-1$ to obtain the input $[E_0+P_0,\dots,E_{L-1}+P_{L-1}]$ fed to the model.
+
+\subsubsection{Architecture}
+\dots
 
 % misc. questions
 \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
@@ -1473,12 +1475,20 @@ Roughly speaking, I wouldn't worry too much about this in practice. The usual ch
     \item Takes pressure off parameter initialisation: if you set parameters to zero then initially model is just the identity and learning from there is feasible
 \end{itemize}
 
-% generative models
-\section{Deep Generative Vision Models}
+Worth mentioning that said vanishing behaviour is also somtimes observed in forward passes.
+
+% generative models (any other section name i've come up with has been due to overthinking)
+\section{Generative Models}
+
+How is a mention of modelling the joint not in here? E.g. GPT models sequentially sample from conditional distributions. Almost feels like classification\dots
 
 \TODO{: Re-word paragraph and emphasise that it's all about modelling the joint distribution. Also get in how this is what most of the sciences most often do. Also, mention how these approaches are more generally deep generative models but my interests are in vision generative things.} Since the era of deep learning began in 2012, tons of generative image, video and text models have arisen. The general idea of these generative models is that if we have a model that fits the data generating process, e.g. the relevant distribution if taking a probabilistic approach, then samples from the model should be sufficiently convincing. That is, if I get a nice fit for the distribution of images of cats lounging in the sun then samples from my fit distirubtion should look convincingly like cats lounging in the sun.
 
 The problem with fitting such a distribution is that it is not at all clear what the distribution function would be. These distributions are complex and generally very hard to get right. Most ways to fit the underlying distribution is to perfrom maximum likelihood in some way. Performing maximum likelihood directly without access to any sort of direct distribution function is pretty hard, so it is often done indirectly. For example, when training a variatioanl autoencoder (VAE), you look to maximise a lower bound of the likelihood. The idea is that if this lower bound is sufficiently tight then maximising it in some sense pushes up the true likelihood, maximising it.
+
+% bayesian nets
+\subsection{\TODO{ }Bayesian networks}
+Probabilistic circuits should get an honourable mention
 
 % variational autoencoders
 \subsection{Variational Autoencoders (VAEs)}
@@ -1648,7 +1658,7 @@ In practice, after choosing a latent dimension $d$, we often take $p(\z)=\mathca
 \subsection{\TODO{: }Generative Adversarial Networks (GANs)}
 
 % normalising flow models
-\subsection{\TODO{: }Flow-based Models}
+\subsection{\TODO{: }Normalising Flows}
 
 % diffusion models
 \subsection{Diffusion Models}
@@ -1689,10 +1699,6 @@ Despite not being the choice of denoiser made in the seminal paper introducing d
 
 In the context of denoising, the contraction branch takes a noised image as input and iteratively completes a series of convolution operations followed by max pooling until reaching the bottleneck layer. At the bottleneck, the model has heavily reduced the spatial dimension of the input image while extracting varying levels of feature abstractions. For example, after the first iteration of convolution and max pooling, the spatial dimension of the input image may be reduced from $1024\times1024$ to $512\times512$ but edges and textures within the original image may be encoded in the feature maps at this stage. Then, during expansion, the model looks to upscale from the bottleneck in a way that retains the underlying image while removing noise. This is done by iteratively completing a series of deconvolutions, which correspond to upscaling, and using skip connections from its corresponding component in the contraction branch, seen in \autoref{fig:u_net_arch}, in order to retain the underlying image. With this in mind, it is clear why U-Net has been the go to choice of denoiser when developing a diffusion model.
 
-% autoregressive models
-\subsection{\TODO{: } Autoregressive Models}
-PixelCNN is an example
-
 % model evaluation
 \subsection{\TODO{: }Evaluating Generative Models}
 Since samples are not labeled, how does one evaluate a generative model? What does under/overfitting mean for generative models?
@@ -1711,10 +1717,10 @@ R-CNN models has evolved significantly since its proposal in 2013 with three evo
 \end{enumerate}
 
 % YOLO
-\subsection{YOLO}
+\subsection{\TODO{: }YOLO}
 
 % DETR
-\subsection{DETR}
+\subsection{\TODO{: }DETR}
 
 % % future sections
 % \section{To-be-included sections, one day}
@@ -1751,19 +1757,19 @@ R-CNN models has evolved significantly since its proposal in 2013 with three evo
 
 % probability things
 \section{Probability Theory and Statistics Things}
-Here are some probability theory and statistics-related things, e.g. brief statements, long derivations, and so on, which are better-suited for an appendix. I wish I knew more probability/measure theory and classical statistics. In another life.
+Here are some probability theory and statistics-related things, e.g. brief statements, long derivations, and so on, which belong in an appendix. I wish I knew more probability/measure theory and classical statistics. In another life.
 
 \subsection{Sample Independence}
-Suppose we'd like to get an idea of the average height of men and women in our population. If we randomly sample 100 men and 100 women then we're good to go: we have independent samples. If instead we randomly sample 100 couples then our samples would not be independent since couples' heights correlate.
+Suppose we'd like to get an idea of the mean population height of men and women. If we randomly sample 100 men and 100 women then we're good to go. This could be done by independently sampling, without replacement, from the categorical corresponding to the ID numbers of individuals. If we instead randomly sample 100 couples then our samples would not be independent since couples' heights correlate.
 
-This is important because when performing maximum likelihood, the assumption of independence of samples is key to writing the likelihood of the set as a product of individual probabilities. Without this independence, the likelihood would be a horribly complex function that we would not be able to utilise. Independence is also assumed in a ton of other statistics-related things like t-tests, ANOVA, etc.
+Sample independence is massively important, e.g. for maximum likelihood estimation. Independence is also assumed in a ton of other statistics-related things like t-tests, ANOVA, etc.
 
 \subsection{Derivations Related to Common Distributions}
 
 \subsubsection*{1) From Bernoulli to Binomial}
-Let's try to generalise the Bernoulli distribution to the binomial distribution. If $X\sim\text{Ber}(p)$ then $\Omega_X=\{0,1\}$ and $\mathbb{P}(X=x)=p^x(1-p)^{1-x}$, so $\mathbb{P}(X=1)=p$ and $\mathbb{P}(X=0)=1-p$.
+Let's try to extend the Bernoulli distribution to the binomial distribution. If $X\sim\text{Ber}(p)$ then $\Omega_X=\{0,1\}$ and $\mathbb{P}(X=x)=p^x(1-p)^{1-x}$, so $\mathbb{P}(X=1)=p$ and $\mathbb{P}(X=0)=1-p$.
 
-Taking $n$ independent Bernoulli trials and summing them yields the random variable $\X=\sum_{i=1}^nX_i\sim\text{Bin}(n,p)$ with $\Omega_{\X}=\{0,\dots,n\}$. Let $k$ denote a realisation of $\X$, i.e. $k=x_1+\dots+x_n$. The corresponding mass function is given by
+Taking $n$ independent Bernoulli random variables and summing them yields the random variable $\X=\sum_{i=1}^nX_i\sim\text{Bin}(n,p)$ with $\Omega_{\X}=\{0,\dots,n\}$. Let $k$ denote a realisation of $\X$, i.e. $k=x_1+\dots+x_n$. The corresponding mass function is given by
 \begin{align*}
     \mathbb{P}(\X=k)
     &=
@@ -1775,7 +1781,7 @@ Taking $n$ independent Bernoulli trials and summing them yields the random varia
     &=
     Z\cdot p^k(1-p)^{n-k}
 \end{align*}
-where $Z$ is a normalising constant accounting for the number of ways one can permute the tuple of realisations $(x_1,\dots,x_n)\in\Omega_{X}^n$. So $Z$ is just the number of ways of placing $k$-many $1$s among a series of $n>k$ digits, i.e. $Z=\binom{n}{k}$, so
+where $Z$ is a normalising constant such that $\sum_{k=0}^nZp^k(1-p)^{n-k}=1$. It's more intuitively seen as the number of ways of placing $k$-many $1$s among a series of $n\geq k$ bits, i.e. $Z=\binom{n}{k}$, so
 $$
 \mathbb{P}(\X=k)
 =
@@ -1783,7 +1789,7 @@ $$
 $$
 
 \subsubsection*{2) From Categorical to Multinomial}
-The categorical distribution is a generalisation of the Bernoulli distribution and the multinomial distribution is a generalisation of the binomial distribution. In line with this, we'd hope to be able to generalise the categorical distribution to the multinomial distribution.
+The categorical distribution is a generalisation of the Bernoulli distribution and the multinomial distribution is a generalisation of the binomial distribution. In line with this, we'd hope to be able to extend the categorical distribution to the multinomial distribution.
 
 If $X\sim\text{Cat}(p_1,\dots,p_C)$ then realisations of $X$ can be represented by single integers in $\{1,\dots,C\}$ but I prefer to represent them in terms of their $C-$long one-hot encodings. So I denote the presence of the $c^{\text{th}}$ class in a realisation as the unit row vector $\mathbf{e}_c^\top $, e.g. $(0,1,0\dots,0)$ denotes a sample in which only the second class is present. The corresponding mass function is then given by
 $$
@@ -1793,7 +1799,7 @@ $$
 $$
 Note that, in this notation, all but one of these $x_j$ terms are zero, so it really boils down to just a single probability value, e.g. $\mathbb{P}(X=(0,1,\dots,0))=p_2$. The mass function can also be written using indicator functions but the form offered above is easiest to understand for me.
 
-Applying the same idea used to generalise Bernoulli to binomial, consider the random variable $\X=\sum_{i=1}^nX_i$ pertaining to $n$ independent categorical trials. Each realisation of $X_1,\dots,X_n$ can be represented by a $C-$long one-hot encoded vector and so $n$ realisations of $X\sim\text{Cat}(p)$ can be thought of as a matrix $\x\in\{0,1\}^{n\times C}$ whose rows are unit vectors in $\R^C$. As such, letting $k_1,\dots,k_C$ denote the number of $1$s in the columns of $\x$ (so $k_1+\dots+k_C=n$) we see immediately that $(k_1,\dots,k_C)$ is a realisation of $\X$. So what is the corresponding mass function? Let $x_{ij}$ denote the element in the $i^{\text{th}}$ row and $j^{\text{th}}$ column of $\x$ and let $k_j=x_{1j}+\dots+x_{nj}$ denote the sum of all elements in the $j^{\text{th}}$ column of $\x$. Note that $k_j$ is the number of realisations of $X_1,\dots,X_n$ in which the $j^{\text{th}}$ class is present. We have
+Applying the same idea used to extend Bernoulli to binomial, consider the random variable $\X=\sum_{i=1}^nX_i$ pertaining to $n$ independent categorical trials. Each realisation of $X_1,\dots,X_n$ can be represented by a $C-$long one-hot encoded vector and so $n$ realisations of $X\sim\text{Cat}(p)$ can be thought of as a matrix $\x\in\{0,1\}^{n\times C}$ whose rows are unit vectors in $\R^C$. As such, letting $k_1,\dots,k_C$ denote the number of $1$s in the columns of $\x$ (so $k_1+\dots+k_C=n$) we see immediately that $(k_1,\dots,k_C)$ is a realisation of $\X$. So what is the corresponding mass function? Let $x_{ij}$ denote the element in the $i^{\text{th}}$ row and $j^{\text{th}}$ column of $\x$ and let $k_j=x_{1j}+\dots+x_{nj}$ denote the sum of all elements in the $j^{\text{th}}$ column of $\x$. Note that $k_j$ is the number of realisations of $X_1,\dots,X_n$ in which the $j^{\text{th}}$ class is present. We have
 \begin{align*}
     \mathbb{P}(\X=(k_1,\dots,k_C))
     &=
@@ -1883,17 +1889,17 @@ and so
 $p(t)=\lambda e^{-\lambda t}$.
 
 \subsection{The Law of Large Numbers}
-If $X_1,\dots,X_n$ are i.i.d. and $\E[X]<\infty$ then
+If $\X_1,\dots,\X_n$ are i.i.d. and $\E[\X]<\infty$ then
 $$
-\frac{1}{n}\sum_{i=1}^n X_i
+\frac{1}{n}\sum_{i=1}^n\X_i
 \xrightarrow{n\to\infty}
-\E[X]
+\E[\X]
 $$
 with respect to some type of convergence. The law comes in a weak flavour and a stronger one. The weak flavour pertains to convergence in probability and the latter to asmymptotic convergence.
 
 Frankly, the details aren't important for my purposes, so I simply think of it as meaning ``The sample mean of a buncha samples is the population mean.''. It's useful for justifying certain approaches, e.g. Monte Carlo integration.
 
-\subsection{The Central Limit Theorem (CLT)}
+\subsection{The (univariate) Central Limit Theorem (CLT)}
 If $X_1,\dots,X_n$ are i.i.d. and $\text{Var}(X)<\infty$ then
 $$
 \sqrt{n}\l(\frac{1}{n}\sum_{i=1}^nX_i-\E[X]\r)
@@ -1905,64 +1911,67 @@ It's one of the most important results in probability theory and statistics: it 
 Its clearest use-case to me is in justifying the modelling of residuals in linear regression as normally distributed.
 
 \subsection{Jensen's Inequality}
-If $f:\mathbb{R}\to\mathbb{R}$ is convex and $\E[X]<\infty$ then
+If $f:\mathbb{R}\to\mathbb{R}$ is convex and $\E[\X]<\infty$ then
 $$
-f(\E[X])\leq\E[f(X)].
+f(\E[\X])\leq\E[f(\X)].
 $$
 If $f$ is concave then
 $$
-f(\E[X])\geq\E[f(X)].
+f(\E[\X])\geq\E[f(\X)].
 $$
-I've never come across a particularly interesting proof for it, so I won't include one.
+I've never come across a particularly inciteful proof of it, so I won't include one.
+
+\subsection{Motivating Variance and the Bias of Sample Variance}
+\TODO{}
 
 \subsection{Entropy and its Friend KL-divergence}
 \label{app:entropy}
 
-The entropy of a distribution can be motivated by the notion of the surprise of (or information learned from) observing realisations of said random variable. Given a discrete random variable $X$, an event $x\in\Omega_X$ and a surprise function $S:\Omega_X\rightarrow[0,\infty)$, the surprise of observing $x$ is $S(x)$. Before we continue, we need to understand what we want out of our surprise function. Following the use of `surprising' in day-to-day communication, we want events with low probability to be highly surprising and events with high probability to be less surprising, with some extra conditions. So if $p(x)=0.01$ then we want $S(x)$ to be close to relatively high (strictly speaking it doesn't need to be bounded above) and if $p(x)=0.99$ then we want $S(x)$ to be close to 0.
+The entropy of a distribution can be motivated by the notion of the surprise of (or information learned from) observing realisations of said random variable. Given a discrete random variable $\X$, an event $\x\in\Omega_{\X}$ and a surprise function $S:\Omega_{\X}\rightarrow[0,\infty)$, the surprise of observing $\x$ is $S(\x)$. Before we continue, we need to understand what we want out of our surprise function. Following the use of `surprising' in day-to-day communication, we want events with low probability to be highly surprising and events with high probability to be less surprising, with some extra conditions. So if $p(\x)=0.01$ then we want $S(\x)$ to be close to relatively high (strictly speaking it doesn't need to be bounded above) and if $p(\x)=0.99$ then we want $S(\x)$ to be close to 0.
 
-An easy way to achieve this is to take $S(x)=-\log(p(x))$ where $\log$ denotes the natural logarithm unless stated otherwise. Quickly see that $\log(0.01)=4.61$ and $\log(0.99)=0.01$. From here, we define the entropy of a random variable as its expected surprise
+An easy way to achieve this is to take $S(\x)=-\log(p(\x))$ where $\log$ denotes the natural logarithm unless stated otherwise. Quickly see that $\log(0.01)=4.61$ and $\log(0.99)=0.01$. From here, we define the entropy of a random variable as its expected surprise
 $$
 H(p)
 =
-\E[-\log(p(X))]
+\E[-\log(p(\X))]
 =
--\sum_{x\in \Omega_X}p(x)\log(p(x)).
+-\sum_{\x\in \Omega_{\X}}p(\x)\log(p(\x)).
 $$
-More precisely, Claude Shannon wanted such a surprise function to satisfy three intuitive properties. Firstly, the surprise of an event with probability $1$ should be $0$. Secondly, the surprise of two independent events occurring should be the sum of the surprises of the events individually. Thirdly, the surprise of a given event should be higher than the surprise of any less probable event. So, for all $x_1,x_2\in\Omega_X$, $S$ must satisfy
+More precisely, Claude Shannon wanted such a surprise function to satisfy three intuitive properties. Firstly, the surprise of an event with probability $1$ should be $0$. Secondly, the surprise of two independent events occurring should be the sum of the surprises of the events individually. Thirdly, the surprise of a given event should be higher than the surprise of any less probable event. So, for all $\x_1,\x_2\in\Omega_{\X}$, we desire
 \begin{enumerate}
-    \item $p(x)=1\implies S(x)=0$
-    \item $p(x_1,x_2)=p(x_1)\cdot p(x_2)\implies S(x_1,x_2)=S(x_1)+S(x_2)$
-    \item $p(x_1)>p(x_2)\implies S(x_1)<S(x_2)$
+    \item $p(\x)=1\implies S(\x)=0$
+    \item $p(\x_1,\x_2)=p(\x_1)\cdot p(\x_2)\implies S(\x_1,\x_2)=S(\x_1)+S(\x_2)$
+    \item $p(\x_1)>p(\x_2)\implies S(\x_1)<S(\x_2)$
 \end{enumerate}
-It's straightforward to see that $S(x)=-\log(p(x))$ satisfies these three properties but it turns out that it is unique in satisfying these properties, up to its base.
+It's straightforward to see that $S(\x)=-\log(p(\x))$ satisfies these three properties but it turns out that it is unique in satisfying these properties, up to its base.
 
-In literature, entropies are measured in nats (natural unit) if the natural logarithm is used for their computation and bits if $\log_2$ is used.
+In literature, entropies are measured in nats (natural unit of information) if the natural logarithm is used for their computation and bits if $\log_2$ is used.
 
 \begin{tcolorbox}[title={\centering\textbf{Technical note regarding} $\text{dom}(S)$}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    It's clear from the second condition that $S$ is actually a function whose domain is the powerset of $\Omega_X$ but accommodating this detail isn't worth it — the idea being conveyed is clear without.
+    It's clear from the second condition that $S$ is actually a function whose domain is the powerset of $\Omega_{\X}$ but accommodating this detail isn't worth it — the idea being conveyed is clear without.
 \end{tcolorbox}
 
-\subsubsection{Kullback–Leibler Divergence (KL-divergence)}
+\subsubsection{Kullback-Leibler Divergence (KL-divergence)}
 
-Given probability density/mass functions $p$ and $q$ on the same space $\Omega$, their Kullback–Leibler divergence (KL-divergence) is given by
+Given probability density/mass functions $p$ and $q$ on the same space $\Omega_{\X}$, their Kullback-Leibler divergence (KL-divergence) is given by
 $$
 D_{\text{KL}}(p||q)
 =
-\E_{X\sim p}\left[\log\left(\frac{p(X)}{q(X)}\right)\right].
+\E_{\X\sim p}\left[\log\left(\frac{p(\X)}{q(\X)}\right)\right].
 $$
-It is often used as a measure of similarity between two distributions: it follows from Gibbs' inequality that it is non-zero and it is often proposed as a loss function when assessing how well a model $q$ encodes an underlying distribution $p$.
+It is often used as a measure of similarity between two distributions: it follows from Gibbs' inequality that it is non-zero and it is often proposed as a loss function when assessing how well a model $q$ encodes an underlying distribution $p$. In many cases, a loss function is chosen whose minimisation is equivalent to minimising the relevant KL-divergence.
 
-The KL-divergence of two distributions can be expressed in terms of self-entropy and cross-entropy terms as
+The KL-divergence of two distributions can be expressed in terms of a self-entropy and a cross-entropy as in
 \begin{align*}
     D_{\text{KL}}(p||q)
     &=
-    \E_{X\sim p}\left[\log\left(\frac{p(X)}{q(X)}\right)\right]\\
+    \E_{\X\sim p}\left[\log\left(\frac{p(\X)}{q(\X)}\right)\right]\\
     &=
-    \E_{X\sim p}\left[-\log(q(X))\right]-\E_{X\sim p}\left[-\log(p(X))\right]\\
+    \E_{\X\sim p}\left[-\log(q(\X))\right]-\E_{\X\sim p}\left[-\log(p(\X))\right]\\
     &=
     H(p,q)-H(p)
 \end{align*}
-where $H(p,q)$ denotes the cross-entropy between $p$ and $q$ while $H(p)$ denotes the self-entropy of $p$. It follows that minimising the KL-divergence $D_{\text{KL}}(p,q)$ in $q$ corresponds to minimising the cross-entropy $H(p,q)$.
+where $H(p,q)$ denotes the cross-entropy between $p$ and $q$ and $H(p)$ denotes the self-entropy of $p$. It follows that minimising the KL-divergence $D_{\text{KL}}(p,q)$ in $q$ corresponds to minimising the cross-entropy $H(p,q)$.
 
 \subsubsection*{Example: fitting via cross-entropy/KL-divergence}
 
@@ -2071,9 +2080,9 @@ I'm a big fan of writing it as a KL-divergence as its meaning is immediately cle
 \subsection{The Expectation-Maximisation (EM) Algorithm}
 Maximum likelihood estimation (MLE) is great but what do we do when the data generating process is not determined entirely by model variables $\X=(X_1,\dots,X_q)$, i.e. hidden variables $\Z=(Z_1,\dots,Z_{q'})$ are involved? That is, what if $p(\x)$ is simply the marginal of the true joint $p(\x,\z)$?
 
-It turns out that there's a clever way of perfmorming MLE while accounting for hidden variables called the expectation-maximisation (EM) algorithm. It involves obtaining a lower bound for the log-likelihood of a given sample and instead maximising the lower bound. If said bound can be made into an equality then the application of EM is MLE itself. If the bound is not exact then we refer to the process as variational EM.
+It turns out that there's a clever way of perfmorming MLE while accounting for hidden variables called the expectation-maximisation (EM) algorithm. It involves obtaining a lower bound for the log-likelihood of a given sample and instead maximising the lower bound in the model's parameters. If the conditions are met for said lower bound to in fact equal to the sample's log-likelihood then the application of EM is MLE itself. If the bound is not exact then we refer to the process as variational EM.
 
-In obtaining said lower bound, let $\theta$ denote the parameters of the true joint $p_{\theta}(\x,\z)$. If $q$ is a distribution over $\Omega_{\Z}$ then
+In obtaining a lower bound, let $\theta$ denote the parameters of the true joint $p_{\theta}(\x,\z)$ and see that if $q$ is a probability mass function with domain $\Omega_{\Z}$ then
 \begin{align*}
     \log(p_{\theta}(\x))
     &=
@@ -2089,7 +2098,9 @@ In obtaining said lower bound, let $\theta$ denote the parameters of the true jo
     &=:
     \text{ELBO}(q,\theta).
 \end{align*}
-The EM algorithm seeks to perform coordinate ascent (component-wise equivalent of gradient ascent): iteratively maximise $\text{ELBO}(q,\theta)$ in $q$ and then $\theta$ until convergence. With $q$ fixed, \textbf{maximising the ELBO in} $\theta$ amounts to computing
+Here, the latent variables are assumed to be discrete for convenient notation. Note that ELBO stands for evidence lower bound. You find similar terminally when learning about variational autoencoders (VAEs).
+
+The EM algorithm performs coordinate ascent (component-wise equivalent of gradient ascent) on the ELBO: iteratively maximise $\text{ELBO}(q,\theta)$ in $q$ (with $\theta$ fixed) and then in $\theta$ (with $q$ fixed) until some convergence crtieria is met. With $q$ fixed, maximising the ELBO in $\theta$ amounts to computing
 \begin{align*}
     \argmax_{\theta}\text{ELBO}(q,\theta)
     &=
@@ -2097,37 +2108,38 @@ The EM algorithm seeks to perform coordinate ascent (component-wise equivalent o
     &=
     \argmax_{\theta}\Big(\E_{\Z\sim q}\l[\log\l(p_{\theta}(\x|\Z)\r)\r]+\E_{\Z\sim q}\l[\log\l(p_{\theta}(\Z)\r)\r]\Big)\\
     &=
-    \argmax_{\theta}Q(\theta)
+    \argmax_{\theta}Q(\theta;q)
 \end{align*}
-where $Q(\theta)=\E_{\Z\sim q}\l[\log\l(p_{\theta}(\x|\Z)\r)\r]+\E_{\Z\sim q}\l[\log\l(p_{\theta}(\Z)\r)\r]$. Note that equality is offered by the bound precisely when $q(\z)=p_{\theta}(\z|\x)$ and so fixing the parameters and \textbf{maximising the ELBO in} $q$ amounts to computing
+where $Q(\theta;q)=\E_{\Z\sim q}\l[\log\l(p_{\theta}(\x|\Z)\r)\r]+\E_{\Z\sim q}\l[\log\l(p_{\theta}(\Z)\r)\r]$. Note that equality is offered by the bound precisely when $q(\z)=p_{\theta}(\z|\x)$ and maximising the ELBO in $q$ with $\theta$ fixed amounts to computing
 $$
 \argmax_{q}\text{ELBO}(q,\theta)
 =
 p_{\theta}(\z|\x),
 $$
-i.e. matching the true posterior.
+i.e. computing the posterior.
 
-With these in mind, the EM algorithm involves initialising the parameters $\theta^{(0)}$ and repeating the following two steps until some pre-determined stopping criteria is met:
+With both statements in mind, the EM algorithm amounts to initialising the parameters $\theta^{(0)}$ and repeating the following two steps until some pre-determined stopping criteria is met:
 \begin{enumerate}
-    \item (E step) Obtain a closed form for $q_t(\z)=p_{\theta^{(t)}}(\z|\x)$ and in turn a closed form for $Q(\theta)$ (the expectations are with respect to $q_t$)
-    \item (M step) Compute $\theta^{(t+1)}=\argmax_{\theta}Q(\theta)$
+    \item (E step: $\theta^{(t)}\to q_t$) Obtain a closed form for $q_t(\z)=p_{\theta^{(t)}}(\z|\x)$ and in turn a closed form for $Q(\theta;q_t)$
+    \item (M step: $q_t\to\theta^{(t+1)}$) Compute $\theta^{(t+1)}=\argmax_{\theta}Q(\theta;q_t)$
 \end{enumerate}
 
 \begin{tcolorbox}[title={\centering\textbf{Variational EM}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Computing the posterior exactly is often infeasible. \textbf{Varational EM} alleviates this difficulty by restricting $q$ to a family of functions $\mathcal{F}$, e.g. some family of MLPs, and replacing the E-step with the computation
+    Computing the posterior exactly is often infeasible in practice. Varational EM seeks to alleviate this issue by instead restricting $q$ to a family of functions $\mathcal{F}$, e.g. some family of MLPs, and replacing the E-step with computing
     $$
     q_t
     =
     \argmax_{q\in\mathcal{F}}\text{ELBO}\l(q,\theta^{(t)}\r).
     $$
+    If the posterior $p_{\theta^{(t)}}(\z|\x)$ belongs to $\mathcal{F}$ for all relevant $t\in\mathbb{N}$ then variational EM is simply EM.
 \end{tcolorbox}
-Regarding the \textbf{correctness} of the EM algorithm, we seek whether or not this coordinate ascent method converges \TODO{: does this need more?}, i.e.
+Regarding the correctness of the EM algorithm, we seek to show that
 $$
-\log(p_{\theta^{(t)}}(\x))
-\leq
 \log(p_{\theta^{(t+1)}}(\x))
+\geq
+\log(p_{\theta^{(t)}}(\x))
 $$
-for all $t\in\mathbb{N}$. To see this, note that
+for all $t\in\mathbb{N}$, i.e. individual steps in the loss landscape are neglible at worst and otherwise increase the likelihood of the data. Showing this turns out to be elegant, as in
 $$
 \log(p_{\theta^{(t+1)}}(\x))
 \geq
@@ -2137,26 +2149,26 @@ $$
 =
 \log(p_{\theta^{(t)}}(\x)).
 $$
-The leftmost inequality is simply by how the ELBO is defined. The second inequality is due to
+The leftmost inequality is simply due to how the ELBO is defined. The second inequality is seen from
 $$
 \theta^{(t+1)}
 =
 \argmax_{\theta}\text{ELBO}\l(q_t,\theta\r).
 $$
-The final inequality follows from the `match the true posterior' argument above.
+Finally, the equality follows from the `matching the true posterior with $q_t$' argument offered earlier. That is, $q_t$ is such that this equality is ensured, by definition.
 
 % philosophy things
 \section{Philosophy Things}
-I don't think about the philosophic side of maching learning very often as I'm in the camp of people whose interests lie in solving present problems. I find some topics from the philosophical side of things interesting though.
+I don't think about the philosophic aspects of maching learning very often as I'm in the camp of people whose interests lie in solving present problems. I find some topics interesting though.
 
 % thoughts on reasoning
 \subsection{Thoughts on reasoning (Summer 2024)}
 
-At the time of writing, machine learning, as a term, is used almost interchangeably with artificial intelligence (AI). AI isn't particularly well-defined in itself, even in academic settings, so its use in day-to-day things, e.g. in the news, often causes confusion and debate. I'm not sure how I would define AI in a way that'd satisfy most. Maybe the discipline of studying things that can `reason', as a human does, given some agreed upon notion of `reasoning'. A common issue found in discussions surrounding this topic is that a definition of `reasoning' is left out. This is probably because it's a tricky term to arrive at an agreed upon definition of.
+At the time of writing, machine learning, as a term, is used almost interchangeably with artificial intelligence (AI). AI isn't particularly well-defined in itself, even in academic settings, so its use in day-to-day things, e.g. in the news, often causes confusion and debate. I'm not sure how I would define AI in a way that'd satisfy most. Maybe the discipline of studying things that can `reason', as a human does, given some agreed upon notion of `reasoning'. A common issue found in discussions surrounding this topic is that a definition of `reasoning' is left out.
 
-Right now, I'm unaware of any machine learning model that can `reason' by any agreed upon definition of the term. I suspect that while current models can simulate `reasoning' to the extent of being able to effectively solve tasks which require some sort of underlying understanding, they do not `reason' in the human sense, which is grounded in embodied experience. Let's say that an LLM (e.g. GPT-4o) concludes that a continuous real-valued function $f:\R\rightarrow\R$ has a root in some interval $(a, b)$ using the intermediate value theorem (IVT) by noting that $f(a)<0$ and $f(b)>0$. Did the LLM `reason' in its application of the IVT or do we instead brush this off as the LLM having been trained many examples of the application of the IVT? Does it `understand' what it's concluding? As of right now I'd say that it doesn't. This of course isn't something unique to the IVT — we can construct many such examples. What I think makes IVT interesting is that we can effectively express what it means to `understand' its correctness as a human. I'd say that the distinction between the LLM's `understanding' and a human's here is that a human knows that if they trace their finger on a piece of paper starting from the bottom half, crossing a horizontal line cutting through the middle of the paper, to the top half of the paper without removing their finger then their finger must have touched the horizontal line at some point (ignore the fact that such a traversal is not necessarily a function, you get the idea). You don't need any mathematical training to know and, more importantly, understand why your finger crosses through the horizontal line on the page. LLMs certainly do not `understand' the correctness of the IVT in this way, or really any way that isn't purely symbolic. Maybe multimodal LLMs will alleviate this.
+Right now, I'm unaware of any machine learning model that can `reason' by any agreed upon definition of the term. I suspect that while current models can simulate `reasoning' to the extent of being able to effectively solve tasks which require some sort of underlying understanding, they do not `reason' in the human sense, which is grounded in embodied experience. Let's say that an LLM (e.g. GPT-4o) concludes that a continuous real-valued function $f:\R\rightarrow\R$ has a root in some interval $(a, b)$ using the intermediate value theorem (IVT) by noting that $f(a)<0$ and $f(b)>0$. Did the LLM `reason' in its application of the IVT or do we instead brush this off as the LLM having been trained on many examples of the application of the IVT? Does it `understand' what it's concluding? As of right now I'd say that it doesn't. This of course isn't something unique to the IVT — we can construct many such examples. What I think makes the IVT interesting is that we can effectively express what it means to `understand' its correctness as a human. I'd say that the distinction between the LLM's `understanding' and a human's here is that a human knows that if they trace their finger on a piece of paper starting from the bottom half, crossing a horizontal line cutting through the middle of the paper, to the top half of the paper without removing their finger then their finger must have touched the horizontal line at some point (ignore the fact that such a traversal is not necessarily a function, you get the idea). You don't need any mathematical training to know and, more importantly, understand why your finger crosses through the horizontal line on the page. LLMs certainly do not `understand' the correctness of the IVT in this way, or really any way that isn't purely symbolic. Maybe multimodal LLMs will alleviate this.
 
-A separate but related question is to what extent it matters that a model `understands' why it arrived at its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. From a purely problem solving point of view, these philosophical debates regarding what constitutes reasoning, understanding and knowing aren't too important in the short term. It'd be funny if 50 years from now we're well-taken care of by a fleet of machine learning-powered robots and we still complain that they aren't truly capable of reasoning.
+A separate but related question is to what extent it matters that a model `reasons' in order to arrive its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. From a purely problem solving point of view, these philosophical debates regarding what constitutes reasoning, understanding and knowing aren't too important in the short term. It'd be funny if 50 years from now we're well-taken care of by a fleet of machine learning-powered robots and we still look down on them for not being capable of true reasoning.
 
 \subsection{Sufficiency of Internet-Scraped Data}
 \TODO{}
