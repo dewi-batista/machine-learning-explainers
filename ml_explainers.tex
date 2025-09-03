@@ -1905,7 +1905,7 @@ It's one of the most important results in probability theory and statistics: it 
 Its clearest use-case to me is in justifying the modelling of residuals in linear regression as normally distributed.
 
 \subsection{Jensen's Inequality}
-If $f:\mathbb{R}\to\mathbb{R}$ is convex and $\E[X]$ is finite then
+If $f:\mathbb{R}\to\mathbb{R}$ is convex and $\E[X]<\infty$ then
 $$
 f(\E[X])\leq\E[f(X)].
 $$
@@ -1913,6 +1913,7 @@ If $f$ is concave then
 $$
 f(\E[X])\geq\E[f(X)].
 $$
+I've never come across a particularly interesting proof for it, so I won't include one.
 
 \subsection{Entropy and its Friend KL-divergence}
 \label{app:entropy}
@@ -1985,7 +1986,7 @@ H(p,q)
 $$
 which can be seen as the incurred cost of using the model $q$ in place of the true underlying model $p$. There are a bunch of different ways of describing/interpreting this quantity. The most interesting is perhaps the one related to encodings. Anyway, in our case, if we can find a closed form of this expression in terms of $\lambda$ then we can look to compute which value of $\lambda$ it's minimised by. In line with this, we compute
 \begin{align*}
-    H(p,q;\lambda)
+    H(p,q)
     &=
     -\E_{K\sim p}\l[\log(q(K))\r]\\
     &=
@@ -1997,9 +1998,9 @@ which can be seen as the incurred cost of using the model $q$ in place of the tr
     &=
     \lambda-\log(\lambda)+C
 \end{align*}
-where $C=\sum_{k=1}^{\infty}\frac{\log(k!)}{2^k}$ is independent of $\lambda$. In computing the minmum of $H(p,q;\lambda)$ in $\lambda$ we compute
+where $C=\sum_{k=1}^{\infty}\frac{\log(k!)}{2^k}$ is independent of $\lambda$. In computing the minmum of $H(p,q)$ in $\lambda$ we obtain
 $$
-\frac{\partial}{\partial \lambda}H(p,q;\lambda)
+\frac{\partial}{\partial \lambda}H(p,q)
 =
 1-\frac{1}{\lambda}
 $$
@@ -2067,8 +2068,82 @@ I'm a big fan of writing it as a KL-divergence as its meaning is immediately cle
 \subsection{Quality of fit $\approx$ Encoding quality?}
 \TODO{: Perhaps worthy of its own section, unsure}
 
-\subsection{The EM Algorithm}
-\url{https://teng-gao.github.io/blog/2022/ems/}
+\subsection{The Expectation-Maximisation (EM) Algorithm}
+Maximum likelihood estimation (MLE) is great but what do we do when the data generating process is not determined entirely by model variables $\X=(X_1,\dots,X_q)$, i.e. hidden variables $\Z=(Z_1,\dots,Z_{q'})$ are involved? That is, what if $p(\x)$ is simply the marginal of the true joint $p(\x,\z)$?
+
+It turns out that there's a clever way of perfmorming MLE while accounting for hidden variables called the expectation-maximisation (EM) algorithm. It involves obtaining a lower bound for the log-likelihood of a given sample and instead maximising the lower bound. If said bound can be made into an equality then the application of EM is MLE itself. If the bound is not exact then we refer to the process as variational EM.
+
+In obtaining said lower bound, let $\theta$ denote the parameters of the true joint $p_{\theta}(\x,\z)$. If $q$ is a distribution over $\Omega_{\Z}$ then
+\begin{align*}
+    \log(p_{\theta}(\x))
+    &=
+    \log\l(\sum_{\z\in\Omega_{\Z}}p_{\theta}(\x,\z)\r)\\
+    &=
+    \log\l(\sum_{\z\in\Omega_{\Z}}q(\z)\frac{p_{\theta}(\x,\z)}{q(\z)}\r)\\
+    &=
+    \log\l(\E_{\Z\sim q}\l[\frac{p_{\theta}(\x,\Z)}{q(\Z)}\r]\r)\\
+    &\geq
+    \E_{\Z\sim q}\l[\log\l(\frac{p_{\theta}(\x,\Z)}{q(\Z)}\r)\r]\\
+    &=
+    \E_{\Z\sim q}\l[\log\l(p_{\theta}(\x,\Z)\r)\r]+H(q)\\
+    &=:
+    \text{ELBO}(q,\theta).
+\end{align*}
+The EM algorithm seeks to perform coordinate ascent (component-wise equivalent of gradient ascent): iteratively maximise $\text{ELBO}(q,\theta)$ in $q$ and then $\theta$ until convergence. With $q$ fixed, \textbf{maximising the ELBO in} $\theta$ amounts to computing
+\begin{align*}
+    \argmax_{\theta}\text{ELBO}(q,\theta)
+    &=
+    \argmax_{\theta}\E_{\Z\sim q}\l[\log\l(p_{\theta}(\x,\Z)\r)\r]\\
+    &=
+    \argmax_{\theta}\Big(\E_{\Z\sim q}\l[\log\l(p_{\theta}(\x|\Z)\r)\r]+\E_{\Z\sim q}\l[\log\l(p_{\theta}(\Z)\r)\r]\Big)\\
+    &=
+    \argmax_{\theta}Q(\theta)
+\end{align*}
+where $Q(\theta)=\E_{\Z\sim q}\l[\log\l(p_{\theta}(\x|\Z)\r)\r]+\E_{\Z\sim q}\l[\log\l(p_{\theta}(\Z)\r)\r]$. Note that equality is offered by the bound precisely when $q(\z)=p_{\theta}(\z|\x)$ and so fixing the parameters and \textbf{maximising the ELBO in} $q$ amounts to computing
+$$
+\argmax_{q}\text{ELBO}(q,\theta)
+=
+p_{\theta}(\z|\x),
+$$
+i.e. matching the true posterior.
+
+With these in mind, the EM algorithm involves initialising the parameters $\theta^{(0)}$ and repeating the following two steps until some pre-determined stopping criteria is met:
+\begin{enumerate}
+    \item (E step) Obtain a closed form for $q_t(\z)=p_{\theta^{(t)}}(\z|\x)$ and in turn a closed form for $Q(\theta)$ (the expectations are with respect to $q_t$)
+    \item (M step) Compute $\theta^{(t+1)}=\argmax_{\theta}Q(\theta)$
+\end{enumerate}
+
+\begin{tcolorbox}[title={\centering\textbf{Variational EM}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    Computing the posterior exactly is often infeasible. \textbf{Varational EM} alleviates this difficulty by restricting $q$ to a family of functions $\mathcal{F}$, e.g. some family of MLPs, and replacing the E-step with the computation
+    $$
+    q_t
+    =
+    \argmax_{q\in\mathcal{F}}\text{ELBO}\l(q,\theta^{(t)}\r).
+    $$
+\end{tcolorbox}
+Regarding the \textbf{correctness} of the EM algorithm, we seek whether or not this coordinate ascent method converges \TODO{: does this need more?}, i.e.
+$$
+\log(p_{\theta^{(t)}}(\x))
+\leq
+\log(p_{\theta^{(t+1)}}(\x))
+$$
+for all $t\in\mathbb{N}$. To see this, note that
+$$
+\log(p_{\theta^{(t+1)}}(\x))
+\geq
+\text{ELBO}\l(q_t,\theta^{(t+1)}\r)
+\geq
+\text{ELBO}\l(q_t,\theta^{(t)}\r)
+=
+\log(p_{\theta^{(t)}}(\x)).
+$$
+The leftmost inequality is simply by how the ELBO is defined. The second inequality is due to
+$$
+\theta^{(t+1)}
+=
+\argmax_{\theta}\text{ELBO}\l(q_t,\theta\r).
+$$
+The final inequality follows from the `match the true posterior' argument above.
 
 % philosophy things
 \section{Philosophy Things}

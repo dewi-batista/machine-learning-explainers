@@ -73,8 +73,8 @@
 \contentsline {subsubsection}{\numberline {A.6.1}Kullback–Leibler Divergence (KL-divergence)}{73}{subsubsection.a.A.6.1}%
 \contentsline {subsection}{\numberline {A.7}Pearson Correlation and Mutual Information}{76}{subsection.a.A.7}%
 \contentsline {subsection}{\numberline {A.8}Quality of fit $\approx $ Encoding quality?}{76}{subsection.a.A.8}%
-\contentsline {subsection}{\numberline {A.9}The EM Algorithm}{76}{subsection.a.A.9}%
-\contentsline {section}{\numberline {B}Philosophy Things}{76}{appendix.a.B}%
-\contentsline {subsection}{\numberline {B.1}Thoughts on reasoning (Summer 2024)}{77}{subsection.a.B.1}%
-\contentsline {subsection}{\numberline {B.2}Sufficiency of Internet-Scraped Data}{78}{subsection.a.B.2}%
-\contentsline {subsection}{\numberline {B.3}The Principled Measure-Explainability Tradeoff}{78}{subsection.a.B.3}%
+\contentsline {subsection}{\numberline {A.9}The Expectation-Maximisation (EM) Algorithm}{76}{subsection.a.A.9}%
+\contentsline {section}{\numberline {B}Philosophy Things}{78}{appendix.a.B}%
+\contentsline {subsection}{\numberline {B.1}Thoughts on reasoning (Summer 2024)}{79}{subsection.a.B.1}%
+\contentsline {subsection}{\numberline {B.2}Sufficiency of Internet-Scraped Data}{80}{subsection.a.B.2}%
+\contentsline {subsection}{\numberline {B.3}The Principled Measure-Explainability Tradeoff}{80}{subsection.a.B.3}%
