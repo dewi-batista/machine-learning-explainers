@@ -51,9 +51,9 @@ My interests in machine learning lie in its rapid development since the era of d
 \section{Supervised Learning}
 Supervised learning methods are those which fit functions $f_{\theta}:\Omega_{\X}\to\Omega_{\mathbf{Y}}$ from model variables $\X=(X_1,\dots,X_q)$ to output variables $\mathbf{Y}=(Y_1,\dots,Y_r)$ (often $r=1$ in which case we write $\mathbf{Y}=Y$) using concrete examples $\{(\x_i,\mathbf{y}_i)\}_{i=1}^n$ of what the to-be-learned function might yield as output $\mathbf{y}=f_{\theta}(\x)$ for a given input $\x$. These model and output variables can be continuous or discrete in nature, or a mix.
 
-An example of a task which supervised learning is appropriate for includes regression. Regression tasks can be thought of as those in which the output variables $\mathbf{Y}$ are continuous. Other than regression, the other vanilla supervised learning task is classification, in which $\mathbf{Y}$ are discrete. A well known example of binary classification is whether or not a given passenger survived the titanic wreck given their ticket class, sex, age, port of embarkation and a ton more. The bread and butter example of multi-class classification is handwritten digit recognition. It's amazing that something which was difficult as recently as 2005 is trivial now for various levels of machine learing understanding.
+An example of a task for which supervised learning is appropriate is regression. Regression tasks can be thought of as those in which the output variables $\mathbf{Y}$ are continuous. Other than regression, the other vanilla supervised learning task is classification, in which $\mathbf{Y}$ are discrete. A well known example of binary classification is whether or not a given passenger survived the titanic wreck given their ticket class, sex, age, port of embarkation and a ton more. The bread and butter example of multi-class classification is handwritten digit recognition.
 
-Other than the types of tasks which we consider in this section, it's worth mentioning how we deal with our data in general. In training a model on some dataset, we need some idea of how well the model generalises to new data. This is done by splitting the given dataset $D$ into a training set $D_{\text{train}}$ and a testing set $D_{\text{test}}$. How exactly this split is done depends on the task at hand but an example is 50/50 uniformly randomly splitting the original dataset $D$. It can be important that this is done uniformly randomly. For example, if one is tackling a binary classification task and $D$ consists of $1000$ samples in which $500$ pertain to one of the class labels and the remaining $500$ pertain to the other then it's important to not split in a way that causes egregiously imbalanced representations of these classes. Training a model on $500$ samples which pertain to the first class label then testing it on $500$ samples peratin to the other wouldn't make much sense. Similar idea for regression tasks but with ensuring a reasonable balance in representation of values belonging to given intervals corresponding to the output space. As long as their is sufficient representation of $\Omega_{\mathbf{Y}}$ then splitting $D$ unifromly randomly is no issue. With a reasonable split we train the model on $D_{\text{train}}$. It is all the model knows — $D_{\text{train}}$ is the model's universe. After training, we measure the model's ability to generalise to new samples by seeing how well it performs on $D_{\text{test}}$. Essentially comparing its output given some sample to the ideal/true output value of said sample.
+Other than the types of tasks which we consider in this section, it's worth mentioning how we deal with our data in general. In training a model on some dataset, we need some idea of how well the model generalises to new data. This is done by splitting the given dataset $D$ into a training set $D_{\text{train}}$ and a testing set $D_{\text{test}}$. How exactly this split is done depends on the task at hand but an example is 50/50 uniformly randomly splitting the original dataset $D$. It can be important that this is done uniformly randomly, e.g. for proper representation of class labels during training. Similar idea for regression tasks but with ensuring a reasonable balance in representation of values belonging to given intervals corresponding to the output space. Think of approximating a piecewise linear function but training only on a region in which it is linear. As long as their is sufficient representation of $\Omega_{\mathbf{Y}}$ then splitting $D$ unifromly randomly is no issue. With a reasonable split we train the model on $D_{\text{train}}$. It is all the model knows — $D_{\text{train}}$ is the model's universe. After training, we measure the model's ability to generalise to new samples by seeing how well it performs on $D_{\text{test}}$. Essentially comparing its output given some sample to the ideal/true output value of said sample.
 
 % linear regression
 \subsection{Linear Regression}
@@ -92,8 +92,7 @@ which pertains to taking $d(f_{\theta}(\x_i), y_i)=(y_i-f_{\theta}(\x_i))^2$. No
 $$
 \theta^{*}=\argmin_{\theta\in\R^{q+1}}\l[\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\r].
 $$
-
-\noindent We know that in the context of linear regression, the optimal paramters $\theta^{*}$ are typically taken to be those which minimise the mean square error over $D_{\text{train}}$ but how do we actually compute $\theta^{*}$? This could be done through numerical methods, which is often the case in machine learning, e.g. using gradient descent in computing the optimal parameters of a logistic regression model, but linear regression has a closed form solution. This is pretty cool since it's not so common for such closed form solutions to exist. The informal method which I use to remember the closed form solution for the optimal paramters of a linear regression model is
+We know that in the context of linear regression, the optimal paramters $\theta^{*}$ are typically taken to be those which minimise the mean square error over $D_{\text{train}}$ but how do we actually compute $\theta^{*}$? This could be done through numerical methods, which is often the case in machine learning, e.g. using gradient descent in computing the optimal parameters of a logistic regression model, but linear regression has a closed form solution. This is pretty cool since it's not so common for such closed form solutions to exist. The informal method which I use to remember the closed form solution for the optimal paramters of a linear regression model is
 $$
 X\theta^{*}=y \implies X^{\top}X\theta^{*}=X^{\top}y \implies \theta^{*}=(X^{\top}X)^{-1}X^{\top}y.
 $$
@@ -236,6 +235,13 @@ Put mathematically, suppose random variables $X$ and $Y$ are related via $Y=\alp
 To see why this does not apply to all modern `regression' models, consider logistic regression in which one, roughly speaking, predicts probabilities of binary outcomes. In such cases, the dependent variable is binary, so `regressing towards the mean' has no meaningful interpretation.
 
 The `linear' part refers to the output variable being linear in the parameters. This is sometimes confusing in linear regression we typically deal with basis functions that give line-like surfaces (lines, planes, etc.) but we could always have non-linear basis functions. For example, $y=\beta_0+\beta_1 e^x$ is linear in $\beta=(\beta_0,\beta_1)$ but $y=\beta_0+e^{\beta_1}x$ is not. A consequence is that an estimate $\hat{\beta}$ of the model parameters can be written as $\hat{\beta}=\sum_{i=1}^k w_iy_i$ where $w_i$ are the determined weights and $y_i$ are the chosen basis functions.
+
+\begin{tcolorbox}[title={\centering\textbf{What makes MSE so special in general?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    Differentiability is a common but unsatisfying answer to this question. Exponents of $2.05, 3$ or $\pi$ would yield a differentiable loss function but we never see those, so what's up? A more satisfying answer is given by this answer to a Stack Exchange\footnote{\url{https://math.stackexchange.com/a/63245}}:
+    \begin{quote}
+        The variance is the mean squared deviation from the average. The variance of the sum of 10,000 random variables is the sum of their variances. That doesn't work for other powers of the absolute value of the deviation. That means if you roll a die 6,000 times, so that the expected number of 1s you get is 1,000, then you also know that the variance of 1s is $6000\cdot\frac{1}{6}\cdot\frac{5}{6}$ so if you want the probability that the number of 1s is between 990 and 1,020, you can approximate the distribution by the normal distribution with the same mean and variance. You couldn't do that if you didn't know the variance, and you couldn't know the variances without additivity of variances, and if the exponent were anything besides 2, then you don't have that. (Oddly, you do have additivity with cubes of the deviations, but not cubes of the absolute values of the deviations).
+    \end{quote}
+\end{tcolorbox}
 
 % logistic regression
 \subsection{Logistic Regression}
@@ -427,10 +433,16 @@ Despite my disinterest in them, learning about decision trees encourages you to 
 
 % the bias-variance tradeoff
 \subsection{\REV{: }The Bias-Variance Tradeoff}
-The bias-variance tradeoff is a statement pertaining to how well one can perform supervised learning from data. Crudely put, if the model family used to fit is too simple to represent the underlying distribution to which the samples belong then the learning method is highly-biased, i.e. the outcome of the learning method is almost invariant with respect to the training data. Think of fitting a line to a high-degree polynomial. On the other end, if the model family is too complex (e.g. overparameterised) then the excess parameters cause the model to fit the noise present in the training data as opposed to the underlying structure. In this case, the learning method is highly-variant with respect to the training data. Think of polynomial regression models trained on noisy samples.
+The bias-variance tradeoff is a statement pertaining to the goodness of a learning method with respect to its architecture and the data. Ideally, given a fixed architecture, its post-training parameters would vary somewhat with respect to the training data but not too much. This idea leads naturally to underfitting and overfitting.
 
 \subsubsection{\TODO{: }Underfitting and Overfitting}
-I was unable to find rigorous definitions in books like Casella Berger but The Cambridge Dictionary of Statistics offers them. That said, in practice, over and underfitting are often spoken about in terms of the training and validation losses observed during training for a given problem.
+Crudely put, if the model family used to fit is too simple to represent the underlying distribution to which the samples belong then the learning method is highly-biased, i.e. the outcome of the learning method is almost invariant with respect to the training data. This is underfitting. Think of fitting a line to a high-degree polynomial.
+
+At the other extreme, if the model family used is too complex (e.g. overparameterised) then the excess parameters often\footnote{See the double-descent phenomenon in \autoref{fig:double_descent}.} cause the model to fit the noise present in the training data as opposed to the underlying structure. In this case, the outcome of the learning method varies heavily with respect to the training data. Think of polynomial regression models trained on noisy samples.
+
+\begin{tcolorbox}[title={\centering\textbf{Finding rigorous definitions of both}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    I was unable to find rigorous definitions in books like Casella Berger but The Cambridge Dictionary of Statistics offers them. That said, in practice, over and underfitting are often spoken about in terms of the training and validation losses observed during training for a given problem.
+\end{tcolorbox}
 
 \subsubsection{Derivation with MSE loss}
 Recall that sample targets pertaining to datasets from which supervised models are learned are effected by noise, i.e. $Y|(\X=\x)=f(\x)+\epsilon(\x)$ where $\epsilon(\x)\sim\mathcal{N}(0,\sigma^2(\x))$ and so
@@ -439,7 +451,7 @@ Y|(\X=\x)
 \sim
 \mathcal{N}\l(f(\x), \sigma^2(\x)\r).
 $$
-We seek to learn an estimate $\hat{f}_{D}$ of $f(\x)=\E_Y\l[Y|\X=\x\r]$ from the dataset $D\subset(\Omega_{\X}\times\Omega_Y)^n$. In other words, the model/estimate $\hat{f}_{D}$ is determined by the realisation $D$ of $\D$ where $\D$ is distributed according to $p(\x,y)^{\otimes n}$ for some fixed $n$. As is common in supervised learning contexts, we make use of the expected risk of an estimate $\hat{f}_D$ which is given by
+We seek to learn an estimate $\hat{f}_{D}$ of $f(\x)=\E_Y\l[Y|\X=\x\r]$ from the dataset $D\subset(\Omega_{\X}\times\Omega_Y)^n$. In other words, the model/estimate $\hat{f}_{D}$ is determined by the realisation $D$ of $\D$ which is distributed according to $p(\x,y)^{\otimes n}$ for some fixed $n$. As is common in supervised learning contexts, we make use of the expected risk of an estimate $\hat{f}_D$ which is given by
 $$
 R\l(\hat{f}_D\r)
 =
@@ -489,11 +501,11 @@ $$
 $$
 of which we will now address the first in orange. Noting that
 $$
-\E_{Y}\l[Y-f(\x)|X=x\r]
+\E_{Y}\l[Y-f(\x)|\X=\x\r]
 =
 0
 $$
-for all $x\in\Omega_X$ and that what is inside the expectation over $\D$ is independent of $\D$, we see that the first term reduces to
+for all $\x\in\Omega_{\X}$ and that what is inside the expectation over $\D$ is independent of $\D$, we see that the first term reduces to
 \begin{align*}
     \textcolor{myYellow}{\E_{\D}\l[\E_{(\X,Y)}\l[(Y-f(\X))^2\r]\r]}
     &=
@@ -507,7 +519,7 @@ for all $x\in\Omega_X$ and that what is inside the expectation over $\D$ is inde
     &=
     \E_\X[\sigma^2(\X)]
 \end{align*}
-This is simply the expected noise, e.g. due to imperfect calibration in the instruments used to obtain samples, and is typically taken to be constant. Usually, as a constant, it is simply denoted by $\sigma^2$.
+This is simply the expected noise, e.g. due to imperfect calibration in the instruments used to obtain samples. It is simply denoted by $\sigma^2$.
 
 For the term in green, let $\bar{f}(\x)=\E_{\D}\l[\hat{f}_{\D}(\x)\r]$ for all $\x\in\Omega_\X$ and see that
 \begin{align*}
@@ -538,7 +550,7 @@ Put together, we obtain
     &=
     \E_\X\l[\underbrace{\l(f(\X)-\E_{\D}\l[\hat{f}_{\D}(\X)\r]\r)^2}_{\text{square of bias of estimator}}+\underbrace{\E_{\D}\l[\l(\hat{f}_{\D}(\X)-\E_{\D}\l[\hat{f}_{\D}(\X)\r]\r)^2\r]}_{\text{variance of estimator}}\r]+\underbrace{\sigma^2}_{\text{noise}}
 \end{align*}
-where $\sigma^2=\E_\X\l[\sigma^2(\X)\r]$ (ignore the poor choice of notation). We can crudely summarise it as the sum of the weighted average, according to $p(x)$, of the square of the bias of the learning method, the variance of the estimate according to the dataset from which it is determined and irreducible noise. The irreducible noise is invariant to the learning method and so it's usually ignored in discussions surrounding the bias-variance tradeoff.
+where $\sigma^2=\E_\X\l[\sigma^2(\X)\r]$ (ignore the poor choice of notation). With this in mind, it's clear that the learning method should not seek to minimise square bias or variance individually. Instead, it should seek to find a sweet spot in minimising their sum. An illustration of this idea is given in \autoref{fig:bias_variance}.
 
 \begin{figure}[t]
     \centering
@@ -547,17 +559,12 @@ where $\sigma^2=\E_\X\l[\sigma^2(\X)\r]$ (ignore the poor choice of notation). W
     \label{fig:bias_variance}
 \end{figure}
 
-In brief, if the learned estimate varies a lot as we vary the dataset from which it is determined then the learning method has high variance. This is often due to the estimates in question overfitting the dataset on which they were learned which itself is often due to overparameterisation. If the number of parameters of a model is far higher than is needed then one can easily fit the individual samples from the dataset used during learning. Think of fitting a high degree polynomial to a line. The dataset will consist of points which roughly form a line but the high degree polynomial, if not regularised, can easily fit the samples present in the dataset used to learn (and in doing so fits the noise) resulting in an overfit model.
+\begin{tcolorbox}[title={\centering\textbf{Beyond MSE}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    Natural question: MSE is a common choice of loss when dealing with regression but not classification, in which cross-entropies are used for loss, so why does every derivation of the bias-variance tradeoff only use MSE? The quick answer is that it's the only choice which yields a relatively simple derivation of this nice decomposition of learning method error into two orthogonal characteristics of the learning method: bias and variance. It turns out that if you instead consider specifically probabilistic classification methods then using expected cross-entropy as loss yields a decomposition into bias and variance but with a different form.
+\end{tcolorbox}
 
-The flip side of this is an underparameterised model. Since such a model has little hope of fitting the dataset from which it is learned, you'd expect it to rarely overfit (it can't) and to instead be almost invariant to the dataset. That is, no matter which dataset you gave it to learn from, you get a similar model each time. In other words, the learning method (the method of going from dataset to model) is biased. Think of fitting a line to high degree polynomial — no matter what dataset you use, the best fit line will likely not change too much (which is usually a good thing) but the fit itself will never be anything but linear, i.e. always a bad fit. 
-
-With this in mind, when considering which learning method (i.e. model family) to consider when tackling a problem, thought should be given to how complex (i.e. parameter number) the model family should be. Too simple (i.e. too few parameters) and you underfit (high bias, low variance). Too complex (i.e. too many parameters) and you overfit (low bias, high variance). This is nicely illustrated in \autoref{fig:bias_variance} in which we see that there exists a sweet spot in model complexity. A spot in which said model complexity yields some square of bias and some variance but the minimum some of said quantities, i.e. the lowest learning method error.
-
-\subsubsection{\REV{: }Beyond MSE}
-Natural question: MSE is a common choice of loss when dealing with regression but not classification, in which cross-entropies are used for loss, so why does every derivation of the bias-variance tradeoff only use MSE? The quick answer is that it's the only choice which yields a relatively simple derivation of this nice decomposition of learning method error into two orthogonal characteristics of the learning method: bias and variance. It turns out that if you instead consider specifically probabilistic classification methods then using expected cross-entropy as loss yields a decomposition into bias and variance but with a different form.
-
-\subsubsection{\REV{: }Double descent}
-Double descent refers to a behaviour in which overparameterised models ignore fly in the face of the bias-variance tradeoff. As the number of parameters (i.e. the model complexity) increases beyond a certain point the test error begins to drop. What makes this a phenomenon is that it seems that this threshold is the number of samples used to determine the model. This is illustrated nicely in \autoref{fig:double_descent}.
+\subsubsection{Double descent}
+Double descent refers to a behaviour observed in select set ups in which overparameterised models seemingly fly in the face of the bias-variance tradeoff. As the number of parameters (i.e. the model complexity) increases beyond a certain point, the test error begins to drop. What makes this a phenomenon is that it seems that said threshold is the number of samples used to train the model. This is illustrated nicely in \autoref{fig:double_descent}.
 
 \begin{figure}[t]
     \centering
@@ -566,14 +573,9 @@ Double descent refers to a behaviour in which overparameterised models ignore fl
     \label{fig:double_descent}
 \end{figure}
 
-A consequence of this is that very deep neural networks learned using gradient descent do exceptionally well. It flies in the face of conventional wisdom. I'm unaware of anyone that this doesn't surprise. It isn't well-understood. It's related to grokking.
+I like to imagine fitting a third degree polynomial by a polynomial of higher and higher degree. One would expect overfitting with a degree as low as 9. If double descent were observed in this set up, one might expect the learned polynomial to act wildly (as expected) until reaching a degree equal to the number of training samples. At which point, the model begins to fit the third degree polynomial better and better until it truly fits something very close to a third degree polynomial. Strange.
 
-\begin{tcolorbox}[title={\centering\textbf{What makes MSE so special in general?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Differentiability is a common but unsatisfying answer to this question. Exponents of $2.05, 3$ or $\pi$ would yield a differentiable loss function but we never see those, so what's up? A more satisfying answer is given by this answer to a Stack Exchange\footnote{\url{https://math.stackexchange.com/a/63245}}:`'
-    \begin{quote}
-        The variance is the mean squared deviation from the average. The variance of the sum of 10,000 random variables is the sum of their variances. That doesn't work for other powers of the absolute value of the deviation. That means if you roll a die 6,000 times, so that the expected number of 1s you get is 1,000, then you also know that the variance of 1s is $6000\cdot\frac{1}{6}\cdot\frac{5}{6}$ so if you want the probability that the numbner of 1s is between 990 and 1,020, you can approximate the distribution by the normal distribution with the same mean and variance. You couldn't do that if you didn't know the variance, and you couldn't know the variances without additivity of variances, and if the exponent were anything besides 2, then you don't have that. (Oddly, you do have additivity with cubes of the deviations, but not cubes of the absolute values of the deviations).
-    \end{quote}
-\end{tcolorbox}
+I'm unaware of anyone who has a good idea of why double descent is sometimes observed. The most intuitive guess I've heard is that gradient descent, as a process, is inherently regulatory.
 
 % parameter exploration and its optimisation
 \section{Parameter Exploration and its Optimisation}
@@ -605,9 +607,9 @@ Tons of function minimisation methods exist: Newton's method, genetic algorithms
 
 % vanilla gradient descent
 \subsection{Gradient Descent}
-Since gradient descent is a general function minimisation method and not specific to machine learning, I'll use more general mathsy notation than $\theta$ and $R_D$, etc.
+Since gradient descent is a general function minimisation method and not specific to machine learning, I'll use more general mathsy notation than $\theta$, $R_D$, etc.
 
-Anyway, say we're interested in minimising $f(\x)$. A natural idea is to start with a guess $\x^{(0)}$ and send it in the direction in which $f$ most decsends locally from $\x^{(0)}$, or equivalently the opposite of the direction in which $f$ most ascends locally from $\x^{(0)}$, i.e. computing
+Say we're interested in minimising $f(\x)$. A natural idea is to start with a guess $\x^{(0)}$ and send it in the direction in which $f$ most decsends locally from $\x^{(0)}$, or equivalently the opposite of the direction in which $f$ most ascends locally from $\x^{(0)}$, i.e. computing
 $$
 \argmax_{||\mathbf{v}^{(0)}||=1}f\l(\x^{(0)}+\eta\mathbf{v}^{(0)}\r),
 $$
@@ -622,9 +624,18 @@ Eventually, after taking a ton of these small steps, we should reach the bottom 
 \subsubsection{In which direction does $f$ most ascend locally from $\x^{(t)}$?}
 In the following physicist-like argument, we consider only unit vectors $\mathbf{v}$. This is because we care only about the direction of the vector in question and an equation later on simplifies quite nicely due to its unit length. 
 
-In gradient ascent, we are looking for the unit vector $\mathbf{v}$ such that $f(\mathbf{x})$ increases most in the direction of $\mathbf{v}$, i.e. we seek to compute
+\begin{tcolorbox}[title={\centering\textbf{Multivariate Taylor expansion}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    Recall that if $f:\R^q\to\R$ then its second order Taylor expansion about $\mathbf{a}\in\R^q$ is given by
+    $$
+    f(\x)
+    =
+    f(\mathbf{a})+\nabla f(\mathbf{a})\cdot(\x-\mathbf{a})+\frac{1}{2}(\x-\mathbf{a})\cdot\nabla^2 f(\mathbf{a})(\x-\mathbf{a}).
+    $$
+\end{tcolorbox}
+
+In gradient ascent, we are looking for the unit vector $\mathbf{v}$ such that $f(\mathbf{x})$ increases most locally in the direction of $\mathbf{v}$, i.e. we seek to compute
 $$\argmax_{||\mathbf{v}||=1}\Big[f(\mathbf{x}+\eta\mathbf{v})-f(\mathbf{x})\Big]$$
-where $\eta>0$. If $\eta$ is small then approximating $f(\mathbf{x}+\eta\mathbf{v})$ using its Taylor expansion about $\x$ yields
+where $\eta>0$ is small. Approximating $f(\mathbf{x}+\eta\mathbf{v})$ using its Taylor expansion about $\x$ yields
 $$
 f(\mathbf{x}+\eta\mathbf{v})-f(\mathbf{x})
 \approx
@@ -634,7 +645,7 @@ Thus, the problem translates to finding the unit vector $\mathbf{v}$ that maximi
 $$
 \nabla f(\mathbf{x})\cdot\eta\mathbf{v}=||\nabla f(\mathbf{x})||\cdot||\eta\mathbf{v}||\cdot\cos(\theta)=\eta||\nabla f(\mathbf{x})||\cdot\cos(\theta)
 $$
-where $\theta\in[0,\pi)$ denotes the angle between $\nabla f(\mathbf{x})$ and $\mathbf{v}$. This expression is maximised when $\cos(\theta)=1$, i.e. when $\theta=0$, which necessitates $\mathbf{v}$ having the same direction as $\nabla f(\mathbf{x})$. So $\mathbf{v}$ is a unit vector in the direction of $\nabla f(\mathbf{x})$, i.e. $\mathbf{v}=\frac{\nabla f(\mathbf{x})}{||\nabla f(\mathbf{x})||}$. To see that $f$ ascends after being sent in the direction of $\mathbf{v}=\frac{\nabla f(\mathbf{x})}{||\nabla f(\mathbf{x})||}$ from $\mathbf{x}$ by a distance $\eta>0$, note that
+where $\theta\in[0,\pi)$ denotes the angle between $\nabla f(\mathbf{x})$ and $\mathbf{v}$. This expression is maximised when $\cos(\theta)=1$, i.e. when $\theta=0$, which necessitates $\mathbf{v}$ having the same direction as $\nabla f(\mathbf{x})$. So $\mathbf{v}$ is a unit vector in the direction of $\nabla f(\mathbf{x})$, i.e. $\mathbf{v}=\frac{\nabla f(\mathbf{x})}{||\nabla f(\mathbf{x})||}$. To see that $f$ ascends after being sent in the direction of $\mathbf{v}=\frac{\nabla f(\mathbf{x})}{||\nabla f(\mathbf{x})||}$ from $\mathbf{x}$, note that
 $$
 f(\mathbf{x}+\eta\mathbf{v})-f(\mathbf{x})
 \approx
@@ -648,22 +659,13 @@ f(\mathbf{x}+\eta\mathbf{v})-f(\mathbf{x})
 $$
 The edge case in which $\nabla f(\mathbf{x})=0$ corresponds to $f(\mathbf{x})$ being a local maximum.
 
-\begin{tcolorbox}[title={\centering\textbf{Multivariate Taylor expansion}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Recall that if $f:\R^q\to\R$ then its second order Taylor expansion about $\mathbf{a}\in\R^q$ is given by
-    $$
-    f(\x)
-    =
-    f(\mathbf{a})+\nabla f(\mathbf{a})\cdot(\x-\mathbf{a})+\frac{1}{2}(\x-\mathbf{a})\cdot\nabla^2 f(\mathbf{a})(\x-\mathbf{a}).
-    $$
-\end{tcolorbox}
-
 \subsubsection{Sensitivity to $\x^{(0)}$}
-I don't know much about initialisation. I know that it's a bad idea to start at 0 (if symmetries hold then parameters change identically), points of large magnitude (exploding gradients) and points of small magnitude (vanshing gradients). Also, if the function in question is convex then don't worry so much about converging to a nice solution. In practice, empirical risk functions are not convex.
+I don't know much about initialisation. I know that it's a bad idea to start at 0 (if symmetries hold then parameters change identically), points of large magnitude (exploding gradients) and points of small magnitude (vanshing gradients). Also, if the function in question is convex then convergence guarantees are held. That said, empirical risk functions are not convex in practice. Simon Price offers an interesting point regarding some quirks of parameter initialisation around 01:08:00 in one of his \href{https://www.youtube.com/watch?v=sJXn4Cl4oww&list=PLwFLAA-F1PgpU9lgxOdhjILkMXUagGnea&ab_channel=MachineLearningStreetTalk}{YouTube interviews}.
 
-One day when my interest in initialisation sparks up, I'll write this part properly. Simon Price offers an interesting point regarding the importance of parameter initialisation around 01:08:00 in \href{https://www.youtube.com/watch?v=sJXn4Cl4oww&list=PLwFLAA-F1PgpU9lgxOdhjILkMXUagGnea&ab_channel=MachineLearningStreetTalk}{this YouTube video}.
+One day when my interest in initialisation sparks up, I'll write this part properly.
 
-\subsubsection{My dataset (i.e. $n$) is too large!!!}
-Do not fear, for it turns out that we can approximate full gradient updates reasonably well using many smaller updates over subsets of the dataset. How well mini-batch learning and stochastic gradient descent perform (and even just \textit{that} they perform) surprised me when I first learned about them.
+\subsubsection{Batch learning}
+If your training dataset is huge and you don't have enough memory to store things pertaining to your gradients: do not fear! It turns out that we can approximate full gradient updates reasonably well using many smaller updates over subsets of the dataset. How well mini-batch learning and stochastic gradient descent perform (and even just \textit{that} they perform) surprised me when I first learned about them.
 
 \begin{figure}[t]
     \centering
@@ -672,8 +674,12 @@ Do not fear, for it turns out that we can approximate full gradient updates reas
     \label{fig:gradient_descent_types}
 \end{figure}
 
+\begin{tcolorbox}[title={\centering\textbf{Epoch terminology}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    During training, the model tweaks its parameters in line with being shown the training data. In practice, the model is often shown the data multiple times. Each full cycle of the model having learned from the training data is called an epoch.
+\end{tcolorbox}
+
 \subsubsection*{1) Full-batch updates}
-Full-batch gradient descent requires us one parameter update per epoch as in
+Full-batch gradient descent involves one parameter update per epoch as in
 $$
 \theta^{(t+1)}
 =
@@ -681,13 +687,13 @@ $$
 $$
 
 \subsubsection*{2) Mini-batch updates}
-All that gradient info might be too much for your PC's VRAM during training. If so, instead perform mini-batch gradient descent in which the $D$ is split into $m$ disjoint subsets $B_1,\dots,B_m$ (i.e. the dataset is split into $m$ batches) and we compute
+The information stored in order to compute gradients during training might be too much for your PC's VRAM. If so, instead perform mini-batch gradient descent in which the dataset $D$ is split into $m$ disjoint subsets $B_1,\dots,B_m$, referred to as batches, and $m$ updates are made to the parameters according to
 $$
 \theta^{(t+j)}
 =
-\theta^{(t+j-1)}-\frac{1}{|B_j|}\sum_{(\x,y)\in B_j} \nabla_{\theta}\mathcal{L}\l(y,f_{\theta^{(t+j-1)}}(\x)\r)
+\theta^{(t+j-1)}-\frac{1}{|B_j|}\sum_{(\x,y)\in B_j} \nabla_{\theta}\mathcal{L}\l(y,f_{\theta^{(t+j-1)}}(\x)\r).
 $$
-for $j=1,\dots,m$. That is, a full epoch consists of approximately $n/m$ parameter updates and each update is with respect to a single batch of the full dataset.
+We see that if we split into $m$ batches then a full epoch during training corresponds to $m$ parameter updates (or optimisation steps).
 
 \subsubsection*{3) Stochastic gradient descent (SGD)}
 Turns out that doing mini-batch with $m=n$ (so one sample per update), as in
@@ -696,7 +702,11 @@ $$
 =
 \theta^{(t+j-1)}-\nabla_{\theta}\mathcal{L}\l(y_j,f_{\theta^{(t+j-1)}}(\x_j)\r)
 $$
-for $j=1,\dots,n$ is viable. Susprising; I would have thought that it'd produce nonsense parameters. In SGD, a full epoch consists of $n$ parameter updates and each is with respect to a single sample. Unsurprisingly, SGD yields relatively unstable convergence, a bit like the steps a drunk man would take in walking down the mountain. It's perhaps unsurprising that mini-batch, and thus SGD, are unbiased but high in variance.
+for $j=1,\dots,n$ is viable. Susprising; I would have thought that it'd produce nonsense parameters. As such, a full epoch during training using SGD corresponds to $n$ parameter updates. Unsurprisingly, SGD yields relatively unstable convergence, a bit like the steps a drunk man would take in walking down the mountain. It's perhaps unsurprising that mini-batch, and thus SGD, are unbiased but high in variance.
+
+\begin{tcolorbox}[title={\centering\textbf{Confusing use of terminology}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    Beware: some refer to what is called mini-batch here as SGD.
+\end{tcolorbox}
 
 \subsubsection{Batch + Layer normalisation}
 These forms of normalisation typically only apply to learning in neural network settings. There's some piece of advice regarding which you should use when batch number is small; was it to use layer norm?
@@ -754,7 +764,7 @@ where $\gamma_1,\dots,\gamma_d$ and $\beta_1,\dots,\beta_d$ are learnable parame
 
 % regularisation
 \subsection{Regularisation}
-Helps reduce overfitting. This subsection feels awkwardly placed but I'm unsure where it'd be better placed.
+Overfitting is a pain. How might we regulate the learning procedure in a way that seeks to avoid overfitting? Regularisation!
 
 \begin{figure}[t]
     \centering
@@ -763,7 +773,7 @@ Helps reduce overfitting. This subsection feels awkwardly placed but I'm unsure 
     \label{fig:regularisation_two_plots}
 \end{figure}
 
-The most well known regularisation techniques are L1 and L2 regularisation. They both correspond to adding some term to loss functions which encourage some sort of learning behaviour. A million ways of motivating them. The most intuitive for are Bayesian approaches: assume independence of parameters and impose a prior distribution on them according to whatever bias we hope to bake in. Then, instead of regular maximum likelihood, compute
+The most well known regularisation techniques are L1 and L2 regularisation. Both involve adding a penalty term to the loss function used during training with the intention of encouraging some behaviour in the learning process. There are tons of ways of motivating both L1 and L2 but the most intuitive to me (by a long shot) is a Bayesian approach: assume independence of parameters and impose a prior distribution on them according to whatever bias we hope to bake into the learning process. Then, instead of regular maximum likelihood, compute
 \begin{align*}
     \argmax_{\theta\in\R^{q+1}}\log(p(\theta|D))
     &=
@@ -773,7 +783,7 @@ The most well known regularisation techniques are L1 and L2 regularisation. They
 \end{align*}
 
 \subsubsection*{1) L1 regularisation (LASSO)}
-If we prefer our to-be-learned parameters to be close to 0, then it makes sense to choose a prior which has a lot of mass around 0. A great choice for this is the Laplace distribution with mean 0 and variance $2/\lambda$ which yields L1 regularisation. The corresponding density function is given by $p(z)=\lambda\exp(-2\lambda|z|)$ illustrated in \autoref{fig:laplace_pdf}.
+If we would like our to-be-learned parameters to be sparse, then it makes sense to choose a prior which has a lot of mass around 0 and tapers off rather harshly at the tails. A great choice for this is a Laplace prior with mean 0 and variance $2/\lambda$ which yields L1 regularisation. The corresponding density function is given by $p(\theta_j)=\lambda\exp(-2\lambda|\theta_j|)$ illustrated in \autoref{fig:laplace_pdf}.
 
 \begin{figure}[t]
     \centering
@@ -782,26 +792,30 @@ If we prefer our to-be-learned parameters to be close to 0, then it makes sense 
     \label{fig:laplace_pdf}
 \end{figure}
 
-See how $\lambda$ increases, the variance of the corresponding Laplace distribution decreases and more of the mass becomes centred around 0. The result is that the to-be-learned parameters are further encouraged to flatten out around 0. Anyway, with this prior we obtain an expression for the quantity we seek to compute in
+See how as $\lambda$ increases, the variance of the corresponding Laplace distribution decreases and more of the mass becomes centred around 0. The result is that the to-be-learned parameters are further encouraged to flatten out around 0. In line with this, assuming $\theta_1,\dots,\theta_q\overset{\text{i.i.d.}}{\sim}\text{Lap}(0, 2/\lambda)$, the quantity we seek to compute is given by
 $$
 \argmax_{\theta\in\R^{q+1}}\log(p(\theta|D))
 =
-\argmin_{\theta\in\R^{q+1}}\l[-\sum_{i=1}^n\log(p(y_i|\x_i,\theta))+\lambda\sum_{j=1}^q|\theta_j|\r]
+\argmin_{\theta\in\R^{q+1}}\l[-\sum_{i=1}^n\log(p(y_i|\x_i,\theta))+\lambda\sum_{j=1}^q|\theta_j|\r].
 $$
 
 \subsubsection*{2) L2 regularisation (Ridge)}
-If we prefer no given parameter to be too large then imposing some sort of MSE penalty on the parameters makes sense. This is achieved by imposing a normal prior and yields L2 regularisation. That is, if $\theta_1,\dots,\theta_q\sim\mathcal{N}(0,\sigma^2)$ i.i.d. then the quantity we seek to compute is given by
+If we would like no given parameter to be too large then imposing some sort of MSE penalty on the parameters makes sense. This is achieved by imposing a normal prior and yields L2 regularisation. That is, if $\theta_1,\dots,\theta_q\overset{\text{i.i.d.}}{\sim}\mathcal{N}(0,\sigma^2)$ then the quantity we seek to compute is given by
 $$
 \argmax_{\theta\in\R^{q+1}}\log(p(\theta|D))
 =
 \argmin_{\theta\in\R^{q+1}}\l[-\sum_{i=1}^n\log(p(y_i|\x_i,\theta))+\lambda\sum_{j=1}^q \theta_j^2\r]
 $$
-where $\lambda=1/2\sigma^2$. I don't have much more to add for L2 as I think it's pretty clear.
+where $\lambda=1/2\sigma^2$.
 
-\subsubsection*{Visualising L1 and L2}
-There's another nice way to think about these forms of regression in terms of loss landscapes: you're adding the original loss landscape to the loss corresponding to this penalty. It's almost like you sink every points in the loss landscape according to how close it is to the centre. It's clear from this visualisation how L1 and L2 reduce variance and increase bias. \TODO{: make a before and after pic for 3D loss landscape. Also, is this idea subject to initial conditions I guess? Like if the original loss landscape is already very sensitive to initial conditions then I'm unsure what regularisation does.}
+\subsubsection*{Visualising L1 and L2 regularisation}
+There's a particularly elegant way to visualise the effects of L1 and L2 reglularisation in terms of how they change the shape of the corresponding loss landscape. After reading the loss function with L1 or L2 regularisation, it's immediately seen how adding either penalty term effectively \dots.
 
-\subsubsection*{3) Early stopping} Split training into training and validation sets. After each epoch (or every few), compute both training and validation losses. If training loss is decreasing while validation loss is not decreasing then you're at risk of overfitting. For illustration, consider \autoref{fig:early_stopping} in which the training loss continues to decrease in the number of epochs while the validation loss seems to reach its lowest value around epoch 28.
+\TODO{: make a before and after pic for 3D loss landscape.}
+
+It's almost as if you sink every point in the loss landscape according to how far away it is from the origin. The amount by which you sink depends on the hyperparameter $\lambda$. It's hopefully clear from the illustration how L1 and L2 reduce variance and increase bias.
+
+\subsubsection*{3) Early stopping} Split training into training and validation sets. After each epoch (or every few), compute both training and validation losses. If training loss is decreasing while validation loss is not then the model may be overfitting the training data. As illustration, consider \autoref{fig:early_stopping} in which the training loss continues to decrease in the number of epochs while the validation loss seems to reach its lowest value around epoch 28.
 
 \begin{figure}[t]
     \centering
@@ -810,9 +824,11 @@ There's another nice way to think about these forms of regression in terms of lo
     \label{fig:early_stopping}
 \end{figure}
 
-If you observe this for sufficiently many consecutive epochs then you can stop training and use the parameters pertaining to the epoch at which the validation loss was lowest. To do this, at each epoch during training, save the parameters of the current epoch if they offer a lower validation loss than at any epoch before. This is often referred to as a checkpoint within the training process and the parameters are saved in a \texttt{.ckpt} file.
+If you observe this for sufficiently many consecutive epochs (the pre-determind patience of your early stopping procedure) then you can stop training and use the parameters pertaining to the epoch at which the validation loss was lowest. To do this, at each epoch during training, save the parameters of the current epoch if they offer a lower validation loss than at any epoch before. This is often referred to as a checkpoint within the training process and the parameters are saved in a \texttt{.ckpt} file. Alternatively, pick a threshold $\delta>0$ by which the validation error must have decreased by during the previous however many epochs.
 
-\subsubsection*{4) Dropout} We don't want to be overly-reliant on any given subset of neurons. To prevent such dependencies, at each epoch, independently set the activation of each neuron to 0 with probability $p$. This way some portion of neurons are silenced during the training epoch. As a result, its corresponding parameters (weights and bias) are not updated during backpropagation — it is truly silenced. This idea is illustrated in \autoref{fig:dropout}. Do not perform dropout at test time.
+\subsubsection*{4) Dropout} Dropout is a form of regularisation specific to neural network architectures (I think). Its rough motivation is that we'd prefer not to be overly-reliant on any given subset of neurons at inference time. To prevent such an over-reliance, during each epoch, independently set the activation of each neuron to 0 with some probability $p$. This way some portion of neurons are silenced during training for said epoch. As a result, its corresponding parameters (weights and bias) are not updated during backpropagation. This idea is illustrated in \autoref{fig:dropout}.
+
+Make sure to not apply dropout at ineference time!
 
 \begin{figure}[t]
     \centering
@@ -910,8 +926,7 @@ For brevity, given $m,n\in\mathbb{N}$ with $m\leq n$ let $[n]_m=\{m,\dots,n\}$ a
     \item Let $b_i^{(j)}\in\mathbb{R}$ denote the bias of neuron $i$ in layer $j\in[k+1]$.
     \item Let $\sigma_j:\mathbb{R}\rightarrow\mathbb{R}$ denote the non-linear activation function of layer $j\in[k+1]$.
 \end{itemize}
-
-\noindent From here we can express the activation value of any neuron in a non-input layer in terms of the activation values of the neurons in the layer which precedes it as
+From here we can express the activation value of any neuron in a non-input layer in terms of the activation values of the neurons in the layer which precedes it as
 \begin{align*}
     a_i^{(j+1)}
     &=
@@ -1041,8 +1056,7 @@ which is just the scalar value $a_1^{(1)}$. For the output layer, we have
     \sigma_2\l(w_{2,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_2^{(2)}\r)
 \end{bmatrix}.
 \end{align*}
-
-\noindent As such, the activations of the output neurons are given by
+As such, the activations of the output neurons are given by
 \begin{align*}
     a_1^{(2)}&=\sigma_2\l(w_{1,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_1^{(2)}\r)\\
     a_2^{(2)}&=\sigma_2\l(w_{2,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_2^{(2)}\r).
@@ -1080,9 +1094,9 @@ First note that for all $x\in[\#S]$,
 \begin{align*}
 f(x)
 &=
-\sum_{s=1}^{\#S}f(k)\mathbbm{1}(x=s)\\
+\sum_{s=1}^{\#S}f(x)\mathbbm{1}(x=s)\\
 &=
-\sum_{s=1}^{\#S}f(k)(\mathbbm{1}(x\geq s)-\mathbbm{1}(x\geq s+1))
+\sum_{s=1}^{\#S}f(x)(\mathbbm{1}(x\geq s)-\mathbbm{1}(x\geq s+1))
 \end{align*}
 so we already see that a single neuron in the ouput layer of a single hidden layer MLP ($2\cdot\#S$ neurons in hidden layer) with weights
 $$
@@ -1104,22 +1118,22 @@ with the absolute error of each approximation bounded by $\epsilon$. Note that t
     &=
     \frac{1}{1+\exp\l(n-x+10^{-9}\r)^{10^{\#S}}}
 \end{align*}
-approximates the Heaviside function $H(x-n)$ well with some tiny leakage. To hit certain levels of precision, i.e. attaining the desired $\epsilon$ bound, simply change the $-9$ exponent to something smaller. You can probably express the exponent in terms of $\epsilon$ explicitly (maybe $\epsilon^{-1}$) but the idea is the point here. So what we want is for the $\l\lceil\frac{s+1}{2}\r\rceil^{\text{th}}$ neuron in the hidden layer to approximate $H\l(x-\l\lceil\frac{s+1}{2}\r\rceil\r)$ for $s\in[\#S]$. This is straightforward using a sigmoid activation function in the hidden layer given the approximation above. Simply set the weights and biases accordingly: $w_{s,1}^{(1)}=10^{\#S}$ and $b_s^{(1)}=-10^{\#S}\l(\l\lceil\frac{s+1}{2}\r\rceil-10^{-9}\r)$ and we're done.
+approximates the Heaviside function $H(x-n)$ with some small leakage. To hit certain levels of precision, i.e. attaining the desired $\epsilon$ bound, simply decrease the exponent in which $-9$ currently lies. You can probably express the exponent in terms of $\epsilon$ explicitly (maybe $\epsilon^{-1}$) but the idea is the point here. So what we want is for the $\l\lceil\frac{s+1}{2}\r\rceil^{\text{th}}$ neuron in the hidden layer to approximate $H\l(x-\l\lceil\frac{s+1}{2}\r\rceil\r)$ for $s\in[\#S]$. This is straightforward using a sigmoid activation function in the hidden layer given the approximation above. Simply set the weights and biases accordingly: $w_{s,1}^{(1)}=10^{\#S}$ and $b_s^{(1)}=-10^{\#S}\l(\l\lceil\frac{s+1}{2}\r\rceil-10^{-9}\r)$ and we're done.
 
 \subsubsection*{Step 2: Extending the idea to $S\subset\R$ compact}
-If $f\in C(S)$ for $S\subset\R$ compact then (uniform continuity) for all $\epsilon>0$ there exists $\delta>0$ such that
+If $f\in C(S)$ for $S\subset\R$ compact then $f$ is uniformly continuous and so for all $\epsilon>0$ there exists $\delta>0$ such that
 $$
 |x-y|<\delta\implies|f(x)-f(y)|<\epsilon.
 $$
-Note that if we have a Lipschitz constant $L$ for a given $f$ then $\delta=\epsilon/L$ suffices. The reason this $\epsilon-\delta$ statement is useful is that if we split $S$ into $N$ subintervals whose width is bounded by $\delta$ then
+Note that if we have a Lipschitz constant $L$ for a given $f$ then $\delta=\epsilon/L$ suffices. The reason this $\epsilon-\delta$ statement is useful is that if we split $S$ into $N$ subintervals whose width is bounded by $\delta$ then for all $c,x$ within the same subinterval we have
 $$
-\l|f(x)-f(c)\r|<\epsilon
+\l|f(x)-f(c)\r|<\epsilon.
 $$
-for all $c,x$ in the same subinterval. To realise this idea, if $S=[a,b]$ then split $S$ according to
+To realise this idea, if $S=[a,b]$ then split $S$ according to
 $$
 a=x_0<x_1<\dots<x_N=b
 $$
-such that $x_{i+1}-x_i<\delta$ and so take $c=(x_i+x_{i+1})/2$ the midpoint of $[x_i,x_{i+1}]$. The number of subintervals $N$ needed depends on $a,b$ and $\delta$, e.g. $N=\l\lceil\frac{b-a}{\delta/2}\r\rceil$ works but the denominator just needs to be less than $\delta$ so $\delta/1.1$ would give a tighter $N$. From this we see that
+such that $x_{i+1}-x_i<\delta$ and take $c=(x_i+x_{i+1})/2$, the midpoint of $[x_i,x_{i+1}]$. The number of subintervals $N$ needed depends on $a,b$ and $\delta$, e.g. $N=\l\lceil\frac{b-a}{\delta/2}\r\rceil$ works but the denominator just needs to be less than $\delta$ so $\delta/1.1$ would give a tighter $N$. From this we see that
 $$
 N
 \approx
@@ -1146,7 +1160,7 @@ The idea is really not very different. Imagine $S\subset\R^2$ compact. The compa
     \hspace{14pt} An interesting addition to this note is how this formulation gives an idea of how the weights from the hidden layer to the output explicitly encode the evaluation of the to-be-approximated function. Again, this is not what we'd expect MLPs to do in practice, instead they find a much more efficient representation, sharing information between neurons. Reminds me a lot of the research 3Blue1Brown discussed in one of his videos about transfromers and LLMs in which we spoke about how the LLM `knows' to assign a high probability to the token \texttt{Jordan} when given \texttt{My favourite basketballer is Michael} as input. How does it `know' to do that? It isn't at all implied by the grammar/semantics/whatever of the sentence. Said research concluded things about such pieces of knowledge being stored in the weights of the MLPs of the transformer blocks.
 \end{tcolorbox}
 
-\subsubsection{Classification via neural networks}
+\subsubsection{Posing classification as a regression problem}
 Which space does one transform their samples into in order to linearly separate them? In the case of neural net approaches, for $K-$classification, it's the $(K-1)$-probability simplex given by
 $$
 \l\{(x_1,\dots,x_K)\in[0,1]^K|x_1+\dots+x_K=1\r\}.
@@ -1348,7 +1362,7 @@ Pooling operations reduce the spatial dimensions of a given feature map by, in s
     \label{fig:pooling}
 \end{figure}
 
-\noindent I typically just pick max pooling and see how it does. A nice benefit of pooling is improved translation-invariance. Ideally, our model would classify an image in a similar enough way to how it'd classify the same image but slightly shifted. What is meant here is very problem-dependent so take it with a grain of salt. Hopefully the idea is clear anyway. Another benefit to pooling the reduced compute.
+A nice benefit of pooling is improved translation-invariance. Ideally, our model would classify an image in a similar enough way to how it'd classify the same image but slightly shifted. What is meant here is very problem-dependent so take it with a grain of salt. Hopefully the idea is clear anyway. Another benefit to pooling the reduced compute.
 
 \subsubsection{Output dimensions after convolving and pooling}
 Given a feature map $F\in\mathbb{R}^{W\times H}$, suppose we compute the convolution $O\in\mathbb{R}^{W'\times H'}$ of the filter $K\in\mathbb{R}^{k\times k}$ over $F$ with uniform padding $P$ and stride $S$. The precise dimensions $W'$ and $H'$ of the new feature map $O$ are given by
@@ -1466,8 +1480,7 @@ Roughly speaking, I wouldn't worry too much about this in practice. The usual ch
 \begin{center}
     \textbf{\textcolor{blue}{Q5:} How does one prevent vanishing/exploding gradients?}
 \end{center}
-
-\noindent Skip connections help. Architectures which use them are sometimes called residual networks.
+Skip connections help. Architectures which use them are sometimes called residual networks.
 \begin{itemize}
     \item Most intuitive benefit: it helps prevent some layer in the architecture from degrading the input entirely. It's like a nice reminder to the model what it was working from before it got to this point
     \item Reduces vanishing or exploding gradients: opens the door to far deeper architectures
@@ -1492,39 +1505,39 @@ Probabilistic circuits should get an honourable mention
 
 % variational autoencoders
 \subsection{Variational Autoencoders (VAEs)}
-\TODO{: re-word whole subsection.} Let's first motivate autoencoders which are essentially dimension reduction machines. From there, we can add some spice in the form of something that allows us to do generative things.
+\TODO{: re-word whole subsection.} In describing variational autoencoders (VAEs), it's natural to first motivate autoencoders and then add some spice in the form of variational inference to be able to do generative things.
 
 % autoencoders
 \subsubsection{Autoencoders: no variation yet!}
 \label{sec:autoencoders}
-An autoencoder $(\Omega_{\X},d,\theta,\phi)$ consists of a sample space $\Omega_{\X}\subset\mathbb{R}^n$, a latent dimension $d\in\mathbb{Z}_{\geq1}$, an encoder $\theta:\mathbb{R}^n\to\mathbb{R}^d$ and a decoder $\phi:\mathbb{R}^d\to\mathbb{R}^n$. Using a subset of $\Omega_{\X}$, one typically learns the encoder $\theta$ and the decoder $\phi$ with the goal of approximating the identity on $\Omega_{\X}$ via $\phi\circ \theta$. That is, roughly put, one seeks to obtain an encoder/decoder pair such that $\phi(\theta(\x))\approx\x$ for all $\x\in\Omega_{\X}$.
+An autoencoder $(\Omega_{\X},d,\theta,\phi)$ consists of a sample space $\Omega_{\X}\subset\mathbb{R}^q$, a latent dimension $d\in\mathbb{Z}_{\geq1}$, an encoder $\theta:\mathbb{R}^q\to\mathbb{R}^d$ and a decoder $\phi:\mathbb{R}^d\to\mathbb{R}^q$. Using a subset of $\Omega_{\X}$, one typically learns the encoder $\theta$ and the decoder $\phi$ with the goal of approximating the identity on $\Omega_{\X}$ via $\phi\circ \theta$. That is, roughly put, one seeks to obtain an encoder/decoder pair such that $\phi(\theta(\x))\approx\x$ for all $\x\in\Omega_{\X}$.
 
 \begin{figure}[t]
     \centering
     \includegraphics{./figures/neural_nets/AE_autoencoder.pdf}
-    \caption{An autoencoder in which $\theta$ and $\phi$ are fit using multi-layer perceptrons (MLPs).}
+    \caption{An autoencoder in which $\theta$ and $\phi$ are fit using multi-layer perceptrons (MLPs). \TODO{: Colour missing in text? Also change $n$ to $q$}}
     \label{fig:autoencoder}
 \end{figure}
 
-In intuitive terms, one can see the encoder $\theta$ as a compressor of samples in $\Omega_{\X}$ to their compressed (or latent) representation in $\mathbb{R}^d$ and so one might refer to the image of $\theta$ as the latent space $\Omega_{\Z}$. Similarly, the decoder $\phi$ can be seen as a decompressor of compressed representations $\z\in\Omega_{\Z}$ yielding the original sample $\x$. In line with this notion of an autoencoder as a compressor/decompressor, the latent dimension $d$ is typically taken to be far smaller than the dimension of the distribution of interest, i.e. $d\ll n$. Of course, when $d\ll n$, learning such mappings $\theta$ and $\phi$ typically involves some loss of information if $\Omega_{\X}$ is a manifold whose intrinsic dimension is greater than $d$. That is, autoencoders are typically lossy compressors.
+In intuitive terms, one can see the encoder $\theta$ as a compressor of samples in $\Omega_{\X}$ to their compressed (or latent) representation in $\mathbb{R}^d$ and so one might refer to the image of $\theta$ as the latent space $\Omega_{\Z}$. Similarly, the decoder $\phi$ can be seen as a decompressor of compressed representations $\z\in\Omega_{\Z}$ yielding the original sample $\x$. In line with this notion of an autoencoder as a compressor/decompressor, the latent dimension $d$ is typically taken to be far smaller than the dimension of the distribution of interest, i.e. $d\ll q$. Of course, when $d\ll q$, learning such mappings $\theta$ and $\phi$ typically involves some loss of information if $\Omega_{\X}$ is a manifold whose intrinsic dimension is greater than $d$. That is, autoencoders are typically lossy compressors.
 
 \begin{tcolorbox}[title={\centering\textbf{Autoencoder example}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
     Suppose $\Omega_{\X}=\{(a,a,b)\in\mathbb{R}^3:||(a,a,b)||\leq1\}$ and $d=2$. One immediately notices that $\Omega_{\X}$ is a two-dimensional surface embedded in $\mathbb{R}^3$ as it is the intersection of the unit ball and the plane $\{(a,a,b):a,b\in\mathbb{R}\}$. To produce representations of $\x=(a,a,b)\in\Omega_{\X}$ in $\mathbb{R}^2$ (i.e. to compress a sample) one might employ the encoder $\theta_2(x,y,z)=(x,z)$. To reconstruct samples from their latent representation (i.e. to decompress) one might employ the decoder $\phi_2(x,z)=(x,x,z)$. The autoencoder $(\Omega_{\X},2,\theta_2,\phi_2)$ offers lossless compression on the sample space of interest as $(\phi_2\circ\theta_2)(\x)=\x$ for all $\x\in\Omega_{\X}$.
     
-    \hspace{15pt} If we instead desire latent representations of $\x=(a,a,b)\in\Omega_{\X}$ in $\mathbb{R}$, i.e. if $d=1$, one might employ the encoder $\theta_1(x,y,z)=x$ and the decoder $\phi_1(x)=(x,x,x)$. The autoencoder $(\Omega_{\X},1,\theta_1,\phi_1)$ offers lossy compression, i.e. some information pertaining to a sample is lost in compressing and then decompressing it as $(\phi_1\circ\theta_1)(a,a,b)=(a,a,a)$ for all $a,b\in\mathbb{R}$.
+    \hspace{15pt} If we instead desire latent representations of $\x=(a,a,b)\in\Omega_{\X}$ in $\mathbb{R}$, i.e. if $d=1$, one might employ the encoder $\theta_1(x,y,z)=x$ and the decoder $\phi_1(x)=(x,x,x)$. The autoencoder $(\Omega_{\X},1,\theta_1,\phi_1)$ offers lossy compression, i.e. some information pertaining to a sample is lost during its compression and decompression as $(\phi_1\circ\theta_1)(a,a,b)=(a,a,a)$ for all $a,b\in\mathbb{R}$.
 \end{tcolorbox}
 
-One's tolerance for the loss incurred by a given encoder/decoder pair is task-dependent. Given a dataset $\mathcal{D}=\{\x_1,\dots,\x_M\}\subset\Omega_{\X}$ and a latent dimension $d$, one might compute the pair $(\theta^*,\phi^*)\in\Theta\times\Phi$ which minimises the empirical risk over $\mathcal{D}$ where $\Theta$ and $\Phi$ are chosen function classes. That is, computing
+One's tolerance for the loss incurred by a given encoder/decoder pair is task-dependent. Given a dataset $D=\{\x_1,\dots,\x_n\}\subset\Omega_{\X}$ and a latent dimension $d$, one might compute the pair $(\theta^*,\phi^*)\in\Theta\times\Phi$ which minimises the empirical risk over $D$ where $\Theta$ and $\Phi$ are chosen function families. That is, computing
 $$
 (\theta^*,\phi^*)
 =
 \argmin_{(\theta,\phi)\in\Theta\times\Phi}
-\sum_{i=1}^M||\x_i-\phi(\theta(\x_i))||^2.
+\sum_{i=1}^n||\x_i-\phi(\theta(\x_i))||^2.
 $$
-If the function classes permit for computing the gradients of $\theta\in\Theta$ and $\phi\in\Phi$ then this computation may be done using gradient descent. For example, one could take $\Theta$ and $\Phi$ to be the classes of MLPs of appropriate input and output dimensions, as illustrated in \autoref{fig:autoencoder}.
+If the function families permit the computation of gradients of $\theta\in\Theta$ and $\phi\in\Phi$ then this computation may be done using gradient descent. For example, one could take $\Theta$ and $\Phi$ to be the family of MLPs of appropriate input and output dimensions, as illustrated in \autoref{fig:autoencoder}.
 
 \subsubsection{Motivating VAEs}
-Autoencoders are great for data compression/decompression, denoising, interpreting complex models, etc. but we haven't seen yet how we might make use of them for generative tasks, i.e. sampling from the nasty/complex underlying distribution of the data they are trained on. An intuitive first idea is to train a compression/decompression autoencoder, randomly generate points in its latent space and feed them through the decoder, as in \autoref{fig:autoencoder_generation_1}. The outputs of the decoder should be similar to the training data, right? No.
+Autoencoders are great for compression, denoising, disecting LLMs (look up sparse autoencoders), etc. but we're yet to see how we might make use of them for generative tasks, i.e. sampling from the complex underlying distribution $p$ from which their training dataset $\{\x_1,\dots,\x_n\}$ was sampled. An intuitive first idea is to train an autoencoder, randomly sample from its latent space and feed them through the decoder, as in \autoref{fig:autoencoder_generation_1}. The outputs of the decoder should be similar to the training data, right? No.
 
 \begin{figure}[t]
     \centering
@@ -1533,7 +1546,7 @@ Autoencoders are great for data compression/decompression, denoising, interpreti
     \label{fig:autoencoder_generation_1}
 \end{figure}
 
-\noindent Disaster strikes and we begin to see just how unstructured the latent space of an autoencoder is: randomly sampling from it (whatever this may mean) results in nonsense outputs from the decoder because most of the latent space itself is meaningless (nothing is encoded to most of it, so in some sense a lot of it is `un-utilised'). This is perhaps unsurprising as at no point during training an autoencoder do we impose any sort of restriction on the structure of its latent space.
+Disaster strikes and we begin to see just how unstructured the latent space of an autoencoder is: randomly sampling from it (whatever this may mean) results in nonsense outputs from the decoder because most of the latent space itself is meaningless (nothing is encoded to most of it, so in some sense a lot of it is `un-utilised'). This is perhaps unsurprising as at no point during training an autoencoder do we explicitly demand that it interpolates nicely between points.
 
 New idea: how about we feed the decoder latent points that are pretty close to the embedding of a given training sample, as in \autoref{fig:autoencoder_generation_2}? This should result in decoder outputs that are similar in structure to the input sample but a bit different, right? No.
 
@@ -1544,10 +1557,11 @@ New idea: how about we feed the decoder latent points that are pretty close to t
     \label{fig:autoencoder_generation_2}
 \end{figure}
 
-\noindent Distaster strikes again. To get decoder outputs that are meaningful using this idea, one must take points in the latent space which are ridiculously close to this chosen sample's latent embedding. So close that you'd be practically reconstructing the original training sample each time — certainly not what we mean when we say that we'd like to generate samples. So how do we do autoencoder-like things in a way that yields well-structured latent spaces? Variational autoencoders (VAEs)!
+Distaster strikes again. To get decoder outputs that are meaningful using this idea, one must take points in the latent space which are ridiculously close to this chosen sample's latent embedding. So close that you'd be practically reconstructing the original training sample each time — certainly not what we mean when we say that we'd like to generate new samples. So how do we do autoencoder-like things in a way that yields well-structured latent spaces? Variational autoencoders (VAEs) to the rescue!
 
 \subsubsection{Formulating VAEs}
-Leaving aside, for now, how to learn one from data, VAEs can informally be seen as an extension of autoencoders in which the encoder and decoder each output parameters of a distribution belonging to some pre-chosen distribution family. Extending the notation used to define autoencoders, a variational autoencoder $(\Omega_{\X},d,\mathcal{Q}_d,\mathcal{P}_n,\theta,\phi)$ consists of the sample space of the distribution of interest $\Omega_{\X}\subset\mathbb{R}^n$, a latent dimension $d\in\mathbb{Z}_{\geq1}$, the parameter space $\mathcal{Q}_d$ of a family of $d-$dimensional conditional distributions denoted $q_{\theta}(\z|\x)$, the parameter space $\mathcal{P}_n$ of a family of $n-$dimensional conditional distributions denoted $p_{\phi}(\x|\z)$, an encoder $\theta:\mathbb{R}^n\to\mathcal{Q}_d$ and a decoder $\phi:\mathbb{R}^d\to\mathcal{P}_n$.
+\TODO{: ensure consistent notation.}
+Leaving aside, for now, how to learn one from data, VAEs can informally be seen as an extension of autoencoders in which the encoder and decoder each output parameters of a distribution belonging to some pre-chosen distribution family. Extending the notation used to define autoencoders, a variational autoencoder $(\Omega_{\X},d,\mathcal{Q}_d,\mathcal{P}_q,\theta,\phi)$ consists of the sample space of the distribution of interest $\Omega_{\X}\subset\mathbb{R}^q$, a latent dimension $d\in\mathbb{Z}_{\geq1}$, the parameter space $\mathcal{Q}_d$ of a family of $d-$dimensional conditional distributions denoted $q_{\theta}(\z|\x)$, the parameter space $\mathcal{P}_n$ of a family of $q-$dimensional conditional distributions denoted $p_{\phi}(\x|\z)$, an encoder $\theta:\mathbb{R}^q\to\mathcal{Q}_d$ and a decoder $\phi:\mathbb{R}^d\to\mathcal{P}_n$.
 
 To illustrate the intended meaning of the newly-introduced parameter spaces $\mathcal{Q}_d$ and $\mathcal{P}_n$, one's encoder might yield the expectation vector and covariance matrix of a $d-$dimensional Gaussian $\mathcal{N}(\mu,\Sigma)$, i.e. $\mathcal{Q}_d$ could be the parameter space of the family of $d-$dimensional Gaussian distributions yielding
 $$
@@ -1561,7 +1575,7 @@ $$
 $$
 where $\mathcal{S}_{++}^d$ denotes the set of all positive-definite matrices in $\mathbb{R}^{d\times d}$.
 
-As the encoder of a VAE yields a $d-$dimensional distribution $q_{\theta}(\z|\x)$ given the sample $\x\in\Omega_{\X}$, to obtain a latent $d-$dimensional representation $\z'\in\mathbb{R}^d$ of $\x$, one computes the parameters $\theta(\x)\in\mathcal{Q}_d$ of $q_{\theta}(\z|\x)$, e.g. a $d-$dimensional Gaussian, via the encoder and samples $\z'\sim q_{\theta}(\z|\x)$. To reconstruct $\x$ from its latent representation $\z'$, one computes the parameters $\phi(\z')\in\mathcal{P}_n$ of the $n-$dimensional reconstruction distribution $p_{\phi}(\x|\z')$ via the decoder. Sampling $\x'\sim p_{\phi}(\x|\z')$ yields (ideally) a sufficiently-accurate reconstruction of the original sample $\x$. Achieving accurate reconstructions is done in a similar manner to autoencoders: by including a penalty term pertaining to reconstruction quality in the loss function used to learn the encoder and decoder.
+As the encoder of a VAE yields a $d-$dimensional distribution $q_{\theta}(\z|\x)$ given the sample $\x\in\Omega_{\X}$, to obtain a latent $d-$dimensional representation $\z'\in\mathbb{R}^d$ of $\x$, one computes the parameters $\theta(\x)\in\mathcal{Q}_d$ of $q_{\theta}(\z|\x)$, e.g. a $d-$dimensional Gaussian, via the encoder and samples $\z'\sim q_{\theta}(\z|\x)$. To reconstruct $\x$ from its latent representation $\z'$, one computes the parameters $\phi(\z')\in\mathcal{P}_n$ of the $q-$dimensional reconstruction distribution $p_{\phi}(\x|\z')$ via the decoder. Sampling $\x'\sim p_{\phi}(\x|\z')$ yields (ideally) a sufficiently-accurate reconstruction of the original sample $\x$. Achieving accurate reconstructions is done in a similar manner to autoencoders: by including a penalty term pertaining to reconstruction quality in the loss function used to learn the encoder and decoder.
 
 Note that one's choice of $\mathcal{Q}_d$ and $\mathcal{P}_n$ should take into account the need to sample efficiently and so they should correspond to families of distributions which offer efficient means of sampling, e.g. Gaussians, as in \autoref{fig:VAE_architecture}.
 
@@ -1599,12 +1613,12 @@ Note that one's choice of $\mathcal{Q}_d$ and $\mathcal{P}_n$ should take into a
     \end{align*}
     That is, for the latent sample $\z'=(z_1',z_2')$, the decoder's output would yield the reconstruction distribution $p_{\phi}(\x|\z')=\mathcal{N}((z_1',z_1',z_2'),\sigma^2I_3)$. Ideally, sampling $(x_1',x_2',x_3')\sim p_{\phi}(\x|\z')$ would yield a sample sufficiently similar to the original sample $\x=(x_1,x_2,x_3)$.
 
-    \hspace{15pt} Note that in practice, one does not know the true distribution $p(\x)$ and so hand-picking the encoder and decoder as in this example is infeasible. Typically, the encoder and decoder are learned from a dataset $\mathcal{D}\subset\Omega_{\X}$.
+    \hspace{15pt} Note that in practice, one does not know the true distribution $p(\x)$ and so hand-picking the encoder and decoder as in this example is infeasible. Typically, the encoder and decoder are learned from a dataset $D\subset\Omega_{\X}$.
 \end{tcolorbox}
 
-At this point, a natural question arises: for which tasks is learning a VAE more appropriate than learning an autoencoder? The answer lies in the purpose of VAEs which is two-fold: 1) to perform sufficiently-accurate compression/decompression and 2) to produce a sufficiently regularised approximation of the latent space $\Omega_{\Z}$. The latter is ensured by how one learns a VAE from data, which we soon consider. In brief, when learning an autoencoder one never imposes restrictions on the latent space beyond encouraging the model to yield sufficiently-accurate reconstructions. As a result, the latent space of an autoencoder is not well-structured. For example, for latent samples $\z_1,\z_2\in\Omega_{\Z}$ which are `close' in the latent space, their reconstructions are not necessarily `close' in $\mathbb{R}^n$. VAEs seek to remedy this.
+At this point, a natural question arises: for which tasks is learning a VAE more appropriate than learning an autoencoder? The answer lies in the purpose of VAEs which is two-fold: 1) to perform sufficiently-accurate compression/decompression and 2) to produce a sufficiently regularised approximation of the latent space $\Omega_{\Z}$. The latter is ensured by how one learns a VAE from data, which we soon consider. In brief, when learning an autoencoder one never imposes restrictions on the latent space beyond encouraging the model to yield sufficiently-accurate reconstructions. As a result, the latent space of an autoencoder is not well-structured. For example, for latent samples $\z_1,\z_2\in\Omega_{\Z}$ which are `close' in the latent space, their reconstructions are not necessarily `close' in $\mathbb{R}^q$. VAEs seek to remedy this.
 
-To learn a VAE from data, we look to maximise the evidence lower bound (ELBO) over some dataset $\mathcal{D}=\{\x_1,\dots,\x_M\}\subset\Omega_{\X}$. Over a single sample $\x\in\Omega_{\X}$, the ELBO is a tight lower bound of $\log(p(\x))$. As such, maximising the ELBO over $\mathcal{D}$ can be seen as performing approximate maximum-likelihood estimation over $\mathcal{D}$ (sometimes referred to as evidence maximisation). To derive the ELBO, first note that given a decoder $\phi$ (which parameterises the reconstruction distribution $p_{\phi}(\x|\z)$), we may express the marginal distribution $p(\x)$ using $p_{\phi}(\x|\z)$ as
+To learn a VAE from data, we look to maximise the evidence lower bound (ELBO) over some dataset $D=\{\x_1,\dots,\x_M\}\subset\Omega_{\X}$. Over a single sample $\x\in\Omega_{\X}$, the ELBO is a tight lower bound of $\log(p(\x))$. As such, maximising the ELBO over $D$ can be seen as performing approximate maximum-likelihood estimation over $D$ (sometimes referred to as evidence maximisation). To derive the ELBO, first note that given a decoder $\phi$ (which parameterises the reconstruction distribution $p_{\phi}(\x|\z)$), we may express the marginal distribution $p(\x)$ using $p_{\phi}(\x|\z)$ as
 \begin{equation}
 \label{eq:marginal_likelihood}
 p(\x)
@@ -1641,7 +1655,7 @@ $$
 $$
 over a dataset is often explained term-by-term. The first term is a principled measure of the VAE's ability to reconstruct latent representations, as with autoencoders. The second term is a principled measure of the similarity of the latent distribution $q_{\theta}(\z|\x)$ and the prior $p(\z)$. The prior is chosen before training and the most common choice is a $d-$dimensional standard Gaussian, i.e. $p(\z)=\mathcal{N}(0,I_d)$. As such, minimising the negative KL-divergence between the latent distribution and said prior is often interpreted as encouraging the learning of the encoder such that latent representations are distributed according to the prior. This is particularly useful in the case that one is learning a VAE to generate new samples from $\Omega_{\X}$: post-training, sample $\z'\sim p(\z)$, compute the parameters $\phi(\z')$ of the reconstruction distribution $p_{\phi}(\x|\z')$ via the decoder and sample from it. Note that using a VAE for generative purposes does not invoke the use of the encoder, only the decoder is required post-training.
 
-Given a dataset $\mathcal{D}=\{\x_1,\dots,\x_M\}\subset\Omega_{\X}$, we learn a VAE by choosing function classes $\Theta$ and $\Phi$ (e.g. MLPs as in \autoref{fig:VAE_architecture}) and computing
+Given a dataset $D=\{\x_1,\dots,\x_M\}\subset\Omega_{\X}$, we learn a VAE by choosing function classes $\Theta$ and $\Phi$ (e.g. MLPs as in \autoref{fig:VAE_architecture}) and computing
 $$
 \argmax_{(\theta,\phi)\in\Theta\times\Phi}
 \l[
@@ -1693,7 +1707,7 @@ Despite not being the choice of denoiser made in the seminal paper introducing d
 \begin{figure}[t]
     \centering
     \includegraphics[width=\columnwidth]{./figures/generative_models/unet.png}
-    \caption{Example U-Net architecture. \TODO{: Make own figure.}}
+    \caption{Example U-Net architecture.}
     \label{fig:u_net_arch}
 \end{figure}
 
@@ -1789,7 +1803,7 @@ $$
 $$
 
 \subsubsection*{2) From Categorical to Multinomial}
-The categorical distribution is a generalisation of the Bernoulli distribution and the multinomial distribution is a generalisation of the binomial distribution. In line with this, we'd hope to be able to extend the categorical distribution to the multinomial distribution.
+The categorical distribution is an extension of the Bernoulli distribution and the multinomial distribution is an extension of the binomial distribution. In line with this, we'd hope to be able to extend the categorical distribution to the multinomial distribution.
 
 If $X\sim\text{Cat}(p_1,\dots,p_C)$ then realisations of $X$ can be represented by single integers in $\{1,\dots,C\}$ but I prefer to represent them in terms of their $C-$long one-hot encodings. So I denote the presence of the $c^{\text{th}}$ class in a realisation as the unit row vector $\mathbf{e}_c^\top $, e.g. $(0,1,0\dots,0)$ denotes a sample in which only the second class is present. The corresponding mass function is then given by
 $$
@@ -1797,9 +1811,9 @@ $$
 =
 \prod_{j=1}^Cp_j^{x_j}.
 $$
-Note that, in this notation, all but one of these $x_j$ terms are zero, so it really boils down to just a single probability value, e.g. $\mathbb{P}(X=(0,1,\dots,0))=p_2$. The mass function can also be written using indicator functions but the form offered above is easiest to understand for me.
+Note that, in this notation, all but one of these $x_j$ terms are zero, so it really boils down to just a single probability value, e.g. $\mathbb{P}(X=(0,1,\dots,0))=p_2$. The mass function can also be written using indicator functions but the form offered above is the one I find easiest to use.
 
-Applying the same idea used to extend Bernoulli to binomial, consider the random variable $\X=\sum_{i=1}^nX_i$ pertaining to $n$ independent categorical trials. Each realisation of $X_1,\dots,X_n$ can be represented by a $C-$long one-hot encoded vector and so $n$ realisations of $X\sim\text{Cat}(p)$ can be thought of as a matrix $\x\in\{0,1\}^{n\times C}$ whose rows are unit vectors in $\R^C$. As such, letting $k_1,\dots,k_C$ denote the number of $1$s in the columns of $\x$ (so $k_1+\dots+k_C=n$) we see immediately that $(k_1,\dots,k_C)$ is a realisation of $\X$. So what is the corresponding mass function? Let $x_{ij}$ denote the element in the $i^{\text{th}}$ row and $j^{\text{th}}$ column of $\x$ and let $k_j=x_{1j}+\dots+x_{nj}$ denote the sum of all elements in the $j^{\text{th}}$ column of $\x$. Note that $k_j$ is the number of realisations of $X_1,\dots,X_n$ in which the $j^{\text{th}}$ class is present. We have
+Applying the same idea used to extend Bernoulli to binomial, consider the random variable $\X=\sum_{i=1}^nX_i$ pertaining to $n$ independent categorical trials. Each realisation of $X_1,\dots,X_n$ can be represented by a $C-$long one-hot encoded vector and so $n$ realisations of $X\sim\text{Cat}(p)$ can be thought of as a matrix $\x\in\{0,1\}^{n\times C}$ whose rows are unit vectors in $\mathbb{Z}_{\geq0}^C$. As such, letting $k_1,\dots,k_C$ denote the number of $1$s in the columns of $\x$ (so $k_1+\dots+k_C=n$) we see immediately that $(k_1,\dots,k_C)$ is a realisation of $\X$. So what is the corresponding mass function? Let $x_{ij}$ denote the element in the $i^{\text{th}}$ row and $j^{\text{th}}$ column of $\x$ and let $k_j=x_{1j}+\dots+x_{nj}$ denote the sum of all elements in the $j^{\text{th}}$ column of $\x$. Note that $k_j$ is the number of realisations of $X_1,\dots,X_n$ in which the $j^{\text{th}}$ class is present. We have
 \begin{align*}
     \mathbb{P}(\X=(k_1,\dots,k_C))
     &=
@@ -1813,11 +1827,9 @@ Applying the same idea used to extend Bernoulli to binomial, consider the random
     &=
     Z\cdot p_1^{k_1}\cdots p_C^{k_C}.
 \end{align*}
-So all that's left to do is derive the normalisation constant $Z$. Note that the realisation $\x$ has $n$ rows of which there are $n!$-many orderings. Additionally note that for each $j\in\{1,\dots,C\}$ we know that there are $k_j$-many $1$s in column $j$ so $k_1$ of these $n$ rows must pertain to the first class for which there are $\binom{n}{k_1}$-many orderings. From here, see that $k_2$ of the $n-k_1$ remaining rows must pertain to the second class for which there are $\binom{n-k_1}{k_2}$-many orderings. Continuing this line of reasoning, we obtain
+So all that's left to do is derive the normalisation constant $Z$. Note that for each $j\in\{1,\dots,C\}$ we know that there are $k_j$-many $1$s in column $j$ so $k_1$ of these $n$ rows must pertain to the first class for which there are $\binom{n}{k_1}$ possible orderings. From here, see that $k_2$ of the $n-k_1$ remaining rows must pertain to the second class for which there are $\binom{n-k_1}{k_2}$-many orderings. Continuing this line of reasoning, we obtain
 \begin{align*}
     Z
-    &=
-    \prod_{i=1}^C\binom{n-\sum_{j=1}^{i-1}k_j}{k_i}\\
     &=
     \binom{n}{k_1}\binom{n-k_1}{k_2}\binom{n-(k_1+k_2)}{k_3}\cdots\binom{n-(k_1+\dots+k_{C-1})}{k_C}\\
     &=
@@ -1927,13 +1939,13 @@ I've never come across a particularly inciteful proof of it, so I won't include 
 \subsection{Entropy and its Friend KL-divergence}
 \label{app:entropy}
 
-The entropy of a distribution can be motivated by the notion of the surprise of (or information learned from) observing realisations of said random variable. Given a discrete random variable $\X$, an event $\x\in\Omega_{\X}$ and a surprise function $S:\Omega_{\X}\rightarrow[0,\infty)$, the surprise of observing $\x$ is $S(\x)$. Before we continue, we need to understand what we want out of our surprise function. Following the use of `surprising' in day-to-day communication, we want events with low probability to be highly surprising and events with high probability to be less surprising, with some extra conditions. So if $p(\x)=0.01$ then we want $S(\x)$ to be close to relatively high (strictly speaking it doesn't need to be bounded above) and if $p(\x)=0.99$ then we want $S(\x)$ to be close to 0.
+The entropy of a distribution can be motivated by the notion of the surprise of (or information learned from) observing samples drawn from it. Given a discrete random variable $\X$, an event $\x\in\Omega_{\X}$ and a surprise function $S:\Omega_{\X}\rightarrow[0,\infty)$, the surprise of observing $\x$ is $S(\x)$. Before continuing, it's useful to lay out what we want out of our surprise function. Following the use of `surprising' in day-to-day communication, we want events with low probability to be highly surprising and events with high probability to be less surprising, with some extra conditions. So if $p(\x)=0.01$ then we want $S(\x)$ to be relatively high (strictly speaking it doesn't need to be bounded above) and if $p(\x)=0.99$ then we want $S(\x)$ to be close to 0.
 
-An easy way to achieve this is to take $S(\x)=-\log(p(\x))$ where $\log$ denotes the natural logarithm unless stated otherwise. Quickly see that $\log(0.01)=4.61$ and $\log(0.99)=0.01$. From here, we define the entropy of a random variable as its expected surprise
+An easy way to achieve this is to take $S(\x)=-\log(p(\x))$ where $\log$ denotes the natural logarithm unless stated otherwise. Quickly see that $\log(0.01)=4.61$ and $\log(0.99)=0.01$. From here, we define the entropy of the distribution $p$ as the expected surprise
 $$
 H(p)
 =
-\E[-\log(p(\X))]
+\E_{\X\sim p}[-\log(p(\X))]
 =
 -\sum_{\x\in \Omega_{\X}}p(\x)\log(p(\x)).
 $$
@@ -1945,7 +1957,7 @@ More precisely, Claude Shannon wanted such a surprise function to satisfy three 
 \end{enumerate}
 It's straightforward to see that $S(\x)=-\log(p(\x))$ satisfies these three properties but it turns out that it is unique in satisfying these properties, up to its base.
 
-In literature, entropies are measured in nats (natural unit of information) if the natural logarithm is used for their computation and bits if $\log_2$ is used.
+In literature, entropies are measured in nats (natural units of information) if the natural logarithm is used for their computation and bits if $\log_2$ is used.
 
 \begin{tcolorbox}[title={\centering\textbf{Technical note regarding} $\text{dom}(S)$}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
     It's clear from the second condition that $S$ is actually a function whose domain is the powerset of $\Omega_{\X}$ but accommodating this detail isn't worth it — the idea being conveyed is clear without.
@@ -2055,32 +2067,32 @@ $$
 
 \subsection{Pearson Correlation and Mutual Information}
 \label{app:pearson_correlation}
-Let $\bar{X}=X-\E[X]$ and $\bar{Y}=Y-\E[Y]$ where $X$ and $Y$ are scalar. The Pearson correlation of $X$ and $Y$ is given by
+If $X$ and $Y$ are scalar random variables then their Pearson correlation of is given by
 $$
 \rho_{X,Y}
 =
-\frac{\E\l[\bar{X}\bar{Y}\r]}{\sqrt{\E\l[\bar{X}^2\r]\E\l[\bar{Y}^2\r]}}
+\frac{\E\l[(X-\E[X])(Y-\E[Y])\r]}{\sqrt{\E\l[(X-\E[X])^2\r]\E\l[(Y-\E[Y])^2\r]}}
 =
 \frac{\text{Cov}(X,Y)}{\sigma_X\sigma_Y}
 \in[-1,1]
 $$
-where the expectation in the numerator is over $p(x,y)$. The overall quantity yields the linear dependence between $X$ and $Y$ and the denominator is for normalisation.
+where the expectation in the numerator is over their joint $p_{(X,Y)}$. The overall quantity yields the linear dependence between $X$ and $Y$ and the denominator is for normalisation.
 
-Pearson correlation is a measure of linear dependence between random variables. What if we want to know about non-linear dependence between random variables, i.e. what if Pearson correlation doesn't suffice? Mutual information to the rescue. It's a property of a joint distribution but is often described as a statement of two random variables $X$ and $Y$ and is denoted as such as in
+What if we want an idea of the non-linear dependence between random variables? This desire motivates mutual information. The mutual information of the joint over $\X$ and $\mathbf{Y}$ is often spoken of as a property of two random variables $\X$ and $\mathbf{Y}$ and is denoted as such as in
 $$
-I(X;Y)
+I(\X;\mathbf{Y})
 =
-D_{\text{KL}}(p_{X,Y}||p_X\otimes p_Y).
+D_{\text{KL}}(p_{\X,\mathbf{Y}}||p_{\X}\otimes p_{\mathbf{Y}}).
 $$
-I'm a big fan of writing it as a KL-divergence as its meaning is immediately clear: its a measure of divergence between the joint and the product of the marginals. Informally, I see it as asking ``How well does the product of distributions model the joint?'' which is precisely the question we seek to answer when utilising things like Pearson correlation and mutual information.
+I'm massively in favour of writing it as a KL-divergence as its meaning is immediately clear: its a measure of divergence between the joint and the product of the marginals. Informally, I see it as asking ``How well does the product of marginals model the joint?'' which is precisely the question we seek to answer when utilising things like Pearson correlation and mutual information.
 
 \subsection{Quality of fit $\approx$ Encoding quality?}
 \TODO{: Perhaps worthy of its own section, unsure}
 
 \subsection{The Expectation-Maximisation (EM) Algorithm}
-Maximum likelihood estimation (MLE) is great but what do we do when the data generating process is not determined entirely by model variables $\X=(X_1,\dots,X_q)$, i.e. hidden variables $\Z=(Z_1,\dots,Z_{q'})$ are involved? That is, what if $p(\x)$ is simply the marginal of the true joint $p(\x,\z)$?
+Maximum likelihood estimation (MLE) is great but what do we do when the data generating process is not determined entirely by observed model variables $\X=(X_1,\dots,X_q)$. That is, what if $p(\x)$ is simply the marginal of the true joint $p(\x,\z)$ where $\Z=(Z_1,\dots,Z_{q'})$ are hidden variables?
 
-It turns out that there's a clever way of perfmorming MLE while accounting for hidden variables called the expectation-maximisation (EM) algorithm. It involves obtaining a lower bound for the log-likelihood of a given sample and instead maximising the lower bound in the model's parameters. If the conditions are met for said lower bound to in fact equal to the sample's log-likelihood then the application of EM is MLE itself. If the bound is not exact then we refer to the process as variational EM.
+It turns out that there's a clever way of perfmorming MLE while accounting for hidden variables called the expectation-maximisation (EM) algorithm. It involves obtaining a lower bound for the log-likelihood of a given sample of the observed variables and instead maximising the lower bound in the model's parameters. If certain conditions are met for said lower bound to in fact reach equality with the sample's log-likelihood then the application of EM is MLE itself. If the bound is not exact then we refer to the process as variational EM.
 
 In obtaining a lower bound, let $\theta$ denote the parameters of the true joint $p_{\theta}(\x,\z)$ and see that if $q$ is a probability mass function with domain $\Omega_{\Z}$ then
 \begin{align*}
@@ -2096,11 +2108,11 @@ In obtaining a lower bound, let $\theta$ denote the parameters of the true joint
     &=
     \E_{\Z\sim q}\l[\log\l(p_{\theta}(\x,\Z)\r)\r]+H(q)\\
     &=:
-    \text{ELBO}(q,\theta).
+    \text{ELBO}(q,\theta)
 \end{align*}
-Here, the latent variables are assumed to be discrete for convenient notation. Note that ELBO stands for evidence lower bound. You find similar terminally when learning about variational autoencoders (VAEs).
+in which `ELBO' stands for evidence lower bound (swap the sums for integrals if you'd like continuously distributed hidden variables). Note that this is not the same ELBO dervied in motivating variational autoencoders (VAEs).
 
-The EM algorithm performs coordinate ascent (component-wise equivalent of gradient ascent) on the ELBO: iteratively maximise $\text{ELBO}(q,\theta)$ in $q$ (with $\theta$ fixed) and then in $\theta$ (with $q$ fixed) until some convergence crtieria is met. With $q$ fixed, maximising the ELBO in $\theta$ amounts to computing
+The EM algorithm performs coordinate ascent (component-wise equivalent of gradient ascent) on the ELBO: iteratively maximising $\text{ELBO}(q,\theta)$ in $q$ (with $\theta$ fixed) and then in $\theta$ (with $q$ fixed) until some convergence crtieria is met. With $q$ fixed, maximising the ELBO in $\theta$ amounts to computing
 \begin{align*}
     \argmax_{\theta}\text{ELBO}(q,\theta)
     &=
@@ -2110,7 +2122,7 @@ The EM algorithm performs coordinate ascent (component-wise equivalent of gradie
     &=
     \argmax_{\theta}Q(\theta;q)
 \end{align*}
-where $Q(\theta;q)=\E_{\Z\sim q}\l[\log\l(p_{\theta}(\x|\Z)\r)\r]+\E_{\Z\sim q}\l[\log\l(p_{\theta}(\Z)\r)\r]$. Note that equality is offered by the bound precisely when $q(\z)=p_{\theta}(\z|\x)$ and maximising the ELBO in $q$ with $\theta$ fixed amounts to computing
+where $Q(\theta;q)=\E_{\Z\sim q}\l[\log\l(p_{\theta}(\x|\Z)\r)\r]+\E_{\Z\sim q}\l[\log\l(p_{\theta}(\Z)\r)\r]$. Note that equality is offered by the bound precisely when $q(\z)=p_{\theta}(\z|\x)$ and so, with $\theta$ fixed, maximising the ELBO in $q$ amounts to computing
 $$
 \argmax_{q}\text{ELBO}(q,\theta)
 =
@@ -2118,20 +2130,20 @@ p_{\theta}(\z|\x),
 $$
 i.e. computing the posterior.
 
-With both statements in mind, the EM algorithm amounts to initialising the parameters $\theta^{(0)}$ and repeating the following two steps until some pre-determined stopping criteria is met:
+With both statements in mind, the EM algorithm amounts to initialising the parameters $\theta^{(0)}$ and repeating the following two steps from $t=0$ until stopping criteria is met:
 \begin{enumerate}
     \item (E step: $\theta^{(t)}\to q_t$) Obtain a closed form for $q_t(\z)=p_{\theta^{(t)}}(\z|\x)$ and in turn a closed form for $Q(\theta;q_t)$
     \item (M step: $q_t\to\theta^{(t+1)}$) Compute $\theta^{(t+1)}=\argmax_{\theta}Q(\theta;q_t)$
 \end{enumerate}
 
 \begin{tcolorbox}[title={\centering\textbf{Variational EM}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Computing the posterior exactly is often infeasible in practice. Varational EM seeks to alleviate this issue by instead restricting $q$ to a family of functions $\mathcal{F}$, e.g. some family of MLPs, and replacing the E-step with computing
+    Computing the posterior exactly is often infeasible in practice. Varational EM seeks to alleviate this by instead restricting $q$ to a family of functions $\mathcal{F}$, e.g. some family of MLPs, and replacing the E-step with the computation
     $$
     q_t
     =
     \argmax_{q\in\mathcal{F}}\text{ELBO}\l(q,\theta^{(t)}\r).
     $$
-    If the posterior $p_{\theta^{(t)}}(\z|\x)$ belongs to $\mathcal{F}$ for all relevant $t\in\mathbb{N}$ then variational EM is simply EM.
+    Of course, if the posterior $p_{\theta^{(t)}}(\z|\x)$ belongs to $\mathcal{F}$ for all relevant $t\in\mathbb{N}$ then variational EM is simply EM.
 \end{tcolorbox}
 Regarding the correctness of the EM algorithm, we seek to show that
 $$
@@ -2139,7 +2151,7 @@ $$
 \geq
 \log(p_{\theta^{(t)}}(\x))
 $$
-for all $t\in\mathbb{N}$, i.e. individual steps in the loss landscape are neglible at worst and otherwise increase the likelihood of the data. Showing this turns out to be elegant, as in
+for all $t\in\mathbb{N}$, i.e. individual steps in the loss landscape are neglible at worst and otherwise increase the likelihood of the observed data. Showing this turns out to be elegant, as in
 $$
 \log(p_{\theta^{(t+1)}}(\x))
 \geq
@@ -2149,13 +2161,18 @@ $$
 =
 \log(p_{\theta^{(t)}}(\x)).
 $$
-The leftmost inequality is simply due to how the ELBO is defined. The second inequality is seen from
+The leftmost inequality is due to how the ELBO is defined. The second inequality is seen from
 $$
 \theta^{(t+1)}
 =
 \argmax_{\theta}\text{ELBO}\l(q_t,\theta\r).
 $$
-Finally, the equality follows from the `matching the true posterior with $q_t$' argument offered earlier. That is, $q_t$ is such that this equality is ensured, by definition.
+Finally, the equality follows from the `matching the true posterior with $q_t$' argument offered earlier, i.e.
+$$
+q_t(\z)=p_{\theta^{(t)}}(\z|\x)
+\implies
+\text{ELBO}\l(q_t,\theta^{(t)}\r)=\log(p_{\theta^{(t)}}(\x)).
+$$
 
 % philosophy things
 \section{Philosophy Things}
