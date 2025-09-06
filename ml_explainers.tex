@@ -77,7 +77,9 @@ are the feature values of the $i^{\text{th}}$ sample and $y_i\in \Omega_{Y}\subs
 where $\theta=(\theta_0,\theta_1\dots,\theta_q)\in\R^{q+1}$ are the model parameters, i.e. the values we can tweak to our heart's desire until the corresponding model is sufficiently well according to some metric. Some people refer to the paramter $\theta_0$, which dictates the elevation of the hyperplane corresponding to $f_{\theta}(\x)=0$, as the bias of the model which I find very confusing as there are a bunch of other intended meanings of the term `bias' in statistics and machine learning. I prefer to refer to it as the elevation. Anyway, once such a linear function has been fit, given feature values $\x\in\Omega_{\X}$ our model predict the corresponding output as $y=f_{\theta}(\x)$.
 
 \begin{tcolorbox}[title={\centering\textbf{What does the `linear' in linear regression acrually refer to?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Casella Berger, as well as other pieces of literature, define linear regression in a way that ensures linearity in parameters. By this definition, linear regression, as a term, would encompass polynomial regression models and other regression models with non-linear basis functions. This confuses me as `linear regression' is most often intended to mean models that fit a hyperplane to data.
+    Casella Berger, as well as other pieces of literature, define linear regression in a way that ensures linearity in parameters. By such a definition, linear regression, as a term, encompasses polynomial regression models and other regression models with non-linear basis functions. This confuses me as `linear regression' is most often intended to mean models that fit a hyperplane to $\Omega_{\X}\times\Omega_Y$.
+    
+    \hspace{14.52pt} The first paragraph of the Wikipedia page\footnote{\url{https://en.wikipedia.org/wiki/Polynomial_regression}} for polynomial regression reiterates this potential confusion.
 \end{tcolorbox}
 
 An intuitive approach to finding the `optimal' parameters for a linear regression model, which we denote by $\theta^{*}$, is to split $\D$ into training and testing datasets $D_{\text{train}}$ and $D_{\text{test}}$ (each consisting of $n$ sample in our case) and minimising some pre-determined loss function of said parameters over $D_{\text{train}}$. Essentially, minimising something like
@@ -901,7 +903,7 @@ More elaborate methods of hyperparameter tuning exist, random search is a straig
 
 % neural nets
 \section{Neural Networks}
-It's often the case that someone's intended meaning when stating `neural networks' is more precisely multi-layer perceptrons (MLPs), perhaps the simplest kind of neural network. Rigorously formulating MLPs is one of those things that's useful to do at least once. Formulating more sophisticated architectures, like CNNs, RNNs, etc., can be done in a much less rigorous manner if your use-case is solving tasks in an engineery way.
+It's often the case that someone's intended meaning when stating `neural networks' is more precisely multi-layer perceptrons (MLPs), perhaps the simplest class of neural networks beyond single-layer perceptrons. Rigorously formulating MLPs is one of those things that's useful to do at least once; consistent notation is 90\% of the effort.
 
 % neural networks
 \subsection{Multi-Layer Perceptrons (MLPs)}
@@ -992,7 +994,7 @@ If we fix the structure and choice of activation functions of an MLP then all th
     $$
     \mathcal{O}((k+1)n^2),
     $$
-    i.e. complexity grows linearly in the number of layers and quadratically in the number of neurons per layer. So we argue for increasing depth over width.
+    i.e. linear growth in the number of layers and quadratic growth in the number of neurons per layer. A super crude argument for increasing depth over width.
 \end{tcolorbox}
 
 \subsubsection{Example}
@@ -1000,7 +1002,7 @@ If we fix the structure and choice of activation functions of an MLP then all th
 \begin{figure}[t]
     \centering
     \includegraphics{./figures/neural_nets/MLP_2.pdf}
-    \caption{A neural network with one hidden layer ($k=1$).}
+    \caption{A neural network with one hidden layer ($k=1$). \TODO{: The figure should read `hidden layer', not plural.}}
     \label{fig:neural_nets_simple_example}
 \end{figure}
 
@@ -1086,7 +1088,7 @@ Note that such a function family can be used to approximate functions whose codo
 The family of polynomials is capable of universal function approximation as shown by Weierstrass in 1885. A directly equivalent statement to a function class satisfying the universal function approximation is the function ckass being dense in $C(S)$ with respect to the supremum norm. Here, $C(S)$ denotes the set of all continuous real-valued functions with compact domain $S\subset\R^q$. Quick note: usually the domain of the to-be-approximated function is denoted by $K$ but I denote the number of layers in an MLP using a $k$ so I'd like to avoid the confusion by using $S$ instead. Instead of offering a rigorous proof, I'll motivate the overall idea in three steps starting with a simpler case: functions of the form $f:S\to\R$ where $S\subset\mathbb{N}$ with $\#S<\infty$.
 
 \subsubsection*{Step 1: Motivating the idea for $S$ finite}
-Without loss of generality, let $S=[\#S]$ and so we seek to show that for all $\epsilon>0$ there exists an MLP with one hidden layer, whose output is denoted by $\hat{f}(x)$, which satisfies
+Without loss of generality, let $S=[\#S]$. We seek to show that for all $\epsilon>0$ there exists an MLP with one hidden layer and one node in its output layer, whose output is denoted by $\hat{f}(x)$, which satisfies
 $$
 \max_{x\in [\#S]}\l|f(x)-\hat{f}(x)\r|<\epsilon.
 $$
@@ -1168,8 +1170,8 @@ $$
 The $2-$probability simpelx coloured according to argmax is illustrated in \autoref{fig:2_prob_simplex}.
 \begin{figure}[t]
     \centering
-    \includegraphics[width=1\textwidth]{./figures/neural_nets/MLP_simplex_argmax.png}
-    \caption{The $2-$probability simplex coloured according to argmax.}
+    \includegraphics[width=0.75\textwidth]{./figures/neural_nets/MLP_simplex_argmax.png}
+    \caption{The $2-$probability simplex coloured according to argmax in the three coordinates.}
     \label{fig:2_prob_simplex}
 \end{figure}
 From the figure, it is clear how argmax can computed by splitting the $2$-probability simplex via two planes, e.g. the intersection of $x>y$ and $x>z$ on the simplex yield the red region. As such, neural nets used for classification can be seen as performing regression on the $2-$simplex, as in learning $p(y|\X=\x)$.
