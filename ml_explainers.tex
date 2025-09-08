@@ -90,7 +90,7 @@ where $f_{\theta}(\x_i)$ is the model's prediction for feature values $\x_i$ and
 $$
 \text{MSE}(\theta)=\frac{1}{n}\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2
 $$
-which pertains to taking $d(f_{\theta}(\x_i), y_i)=(y_i-f_{\theta}(\x_i))^2$. Note that the factor of $1/n$ is often left out when discussing MSE as minimising the expression in $\theta$ is invariant to the inclusion of the factor. Also, leaving the factor out is notationally convenience. So in our case, we seek to compute
+which pertains to taking $d(f_{\theta}(\x_i), y_i)=(y_i-f_{\theta}(\x_i))^2$. Note that the factor of $1/n$ is often left out when discussing MSE as minimising the expression in $\theta$ is invariant to the inclusion of the factor. So in our case, we seek to compute
 $$
 \theta^{*}=\argmin_{\theta\in\R^{q+1}}\l[\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\r].
 $$
