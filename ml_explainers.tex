@@ -1936,7 +1936,11 @@ $$
 I've never come across a particularly inciteful proof of it, so I won't include one.
 
 \subsection{Motivating Variance and the Bias of Sample Variance}
-\TODO{}
+You want some idea of expected deviation from the mean. So something like $\E[|X-\E[X]|^a]$ where $a\geq1$ seems natural. Which exponent is most suitable? $a=2$ turns out to be very convenient:
+\begin{itemize}
+    \item Var$(X+Y)=\text{Var}(X)+\text{Var}(Y)$ for independent $X$ and $Y$. Additivity is useful and intuitive with what we'd want out of our measure of spread
+\end{itemize}
+It's worth noting that some use the mean absolute deviation about the median $\E[|X-\text{med}(X)|]$ in robust contexts.
 
 \subsection{Entropy and its Friend KL-divergence}
 \label{app:entropy}
