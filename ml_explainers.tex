@@ -1775,11 +1775,6 @@ R-CNN models has evolved significantly since its proposal in 2013 with three evo
 \section{Probability Theory and Statistics Things}
 Here are some probability theory and statistics-related things, e.g. brief statements, long derivations, and so on, which belong in an appendix. I wish I knew more probability/measure theory and classical statistics. In another life.
 
-\subsection{Sample Independence}
-Suppose we'd like to get an idea of the mean population height of men and women. If we randomly sample 100 men and 100 women then we're good to go. This could be done by independently sampling, without replacement, from the categorical corresponding to the ID numbers of individuals. If we instead randomly sample 100 couples then our samples would not be independent since couples' heights correlate.
-
-Sample independence is massively important, e.g. for maximum likelihood estimation. Independence is also assumed in a ton of other statistics-related things like t-tests, ANOVA, etc.
-
 \subsection{Derivations Related to Common Distributions}
 
 \subsubsection*{1) From Bernoulli to Binomial}
@@ -1902,6 +1897,79 @@ When working with a Poisson process, a natural question is the distribution of t
 and so
 $p(t)=\lambda e^{-\lambda t}$.
 
+\subsection{Sample Independence and Terminology}
+The intended meaning of the singular `sample' is typically a set of realisations of some random variable. So $\{x_1,\dots,x_n\}\subset\Omega_X$ for some random variable $X$ is a sample. Where things can become confusing is that in machine learning contexts in which a `sample' refers often to refers to a single data point. This was a huge cause of confusion during my first few meetings with my master's thesis supervisor who is a Bayesian statistician.
+
+As for sample independence, suppose we'd like to get an idea of the mean population height of men and women. If we randomly sample 100 men and 100 women then we're good to go. This could be done by independently sampling, without replacement, from the categorical corresponding to the ID numbers of individuals. If we instead randomly sample 100 couples then our samples would not be independent since couples' heights correlate.
+
+Sample independence is massively important, e.g. for maximum likelihood estimation. Independence is also assumed in a ton of other statistics-related things like t-tests, ANOVA, etc.
+
+\subsection{Motivating Variance}
+You want some idea of expected deviation from the mean. So something like $\E[|X-\E[X]|^a]$ where $a\geq1$ seems natural. Which exponent is most suitable? $a=2$ turns out to be convenient as it yields additivity for independently distributed random variables. That is, with $\text{Var}(X)=\E[(X-\E[X])^2]$ we obtain
+\begin{align*}
+    &
+    \text{Var}(X+Y)\\
+    &=
+    \E[(X+Y)^2]-\E[X+Y]^2\\
+    &=
+    \E[X^2]+2\E[XY]+\E[Y^2]-\l(\E[X]^2+2\E[X]\E[Y]+\E[Y]^2\r)\\
+    &=
+    \l(\E[X^2]-\E[X]^2\r)+\l(\E[Y^2]-\E[Y]^2\r)+2\l(\E[XY]-\E[X]\E[Y]\r)\\
+    &=
+    \text{Var}(X)+\text{Var}(Y)+\text{Cov}(X,Y).
+\end{align*}
+If $X$ and $Y$ are independent then $\E[XY]=\E[X]\E[Y]$, i.e. $\text{Cov}(X,Y)=0$, and so
+$$
+\text{Var}(X+Y)
+=
+\text{Var}(X)+\text{Var}(Y).
+$$
+It's worth noting that there are plenty of contexts in statistics in which different measure of distribution spread are more convenient, e.g. the mean absolute deviation about the median $\E[|X-\text{med}(X)|]$ in the context of robust statistics.
+
+
+\subsection{Estimators, Bias and Variance}
+Suppose you have a bunch of i.i.d. random variables $\X_1,\dots,\X_n$, an estimator is a function $\hat{\theta}:\Omega_{\X}^n\to\mathbb{R}^k$. Given the sample $\{\x_1,\dots,\x_n\}\subset\Omega_{\X}$, the value $\hat{\theta}(\x_1,\dots,\x_n)$ is typically denote by $\hat{\theta}$ for shorthand and is referred to as an estimate. The reason that this lack of rigour in notation is allowable is that the contexts in which it is used often make it clear when an estimator is being considered as opposed to an estimate, and vice versa.
+
+The simplest example of a often-used estimator is the estimator of the mean as in
+$$
+\hat{\mu}(\X_1,\dots,\X_n)
+=
+\frac{1}{n}\sum_{i=1}^n \X_i.
+$$
+In this case, the dimension of the codomain of $\hat{\mu}$ is simply the dimension of the sample space of $\X$. Given a sample $\{\x_1,\dots,\x_n\}$, an estimate of the mean of the corresponding distribution is given by $\hat{\mu}=\frac{1}{n}\sum_{i=1}^n\x_i$.
+
+Given that estimators are simply statistics used to approximate some quantity of the corresponding distribution, a natural question is how to measure the goodness of an estimator. The most well known such measure is the bias of an estimator in estimating a quantity $\theta$ given by
+$$
+\text{Bias}(\hat{\theta})
+=
+\E[\hat{\theta}]-\theta
+$$
+where the expectation is with respect to $p_{\X}^{\otimes}$. The need for the precise terminology `in estimating a quantity $\theta$' is because one could, for example, use the sample mean as an estimator of both the population mean and the population variance (as ridiculous as this choice may be for the latter). As an estimator of the population mean, the sample mean is unbiased. Not so much for the latter.
+
+As an example of computing the bias of an estimator, see that the sample mean is an unbiased estimator of the population mean $\mu$ as
+\begin{align*}
+    \text{Bias}(\hat{\mu})
+    &=
+    \E[\hat{\mu}]-\mu\\
+    &=
+    \E\l[\frac{1}{n}\sum_{i=1}^nX_i\r]-\mu\\
+    &=
+    \frac{1}{n}\sum_{i=1}^n\E[X_i]-\mu\\
+    &=
+    0.
+\end{align*}
+It turns out that the most natural estimator of population variance $\sigma^2$, given by
+$$
+\frac{1}{n}\sum_{i=1}^n\l(X_i-\hat{\mu}\r)^2,
+$$
+is biased. This can be seen after a bunch of tedious computations which yield a bias of $-\sigma^2/n$. To account for this, an unbiased estimator of the population variance is given by
+$$
+\hat{\sigma}^2
+=
+\frac{1}{n-1}\sum_{i=1}^n\l(X_i-\hat{\mu}\r)^2.
+$$
+Most of the time, `sample variance' refers to the unbiased estimator.
+
 \subsection{The Law of Large Numbers}
 If $\X_1,\dots,\X_n$ are i.i.d. and $\E[\X]<\infty$ then
 $$
@@ -1934,13 +2002,6 @@ $$
 f(\E[\X])\geq\E[f(\X)].
 $$
 I've never come across a particularly inciteful proof of it, so I won't include one.
-
-\subsection{Motivating Variance and the Bias of Sample Variance}
-You want some idea of expected deviation from the mean. So something like $\E[|X-\E[X]|^a]$ where $a\geq1$ seems natural. Which exponent is most suitable? $a=2$ turns out to be very convenient:
-\begin{itemize}
-    \item Var$(X+Y)=\text{Var}(X)+\text{Var}(Y)$ for independent $X$ and $Y$. Additivity is useful and intuitive with what we'd want out of our measure of spread
-\end{itemize}
-It's worth noting that some use the mean absolute deviation about the median $\E[|X-\text{med}(X)|]$ in robust contexts.
 
 \subsection{Entropy and its Friend KL-divergence}
 \label{app:entropy}
@@ -2073,7 +2134,7 @@ $$
 
 \subsection{Pearson Correlation and Mutual Information}
 \label{app:pearson_correlation}
-If $X$ and $Y$ are scalar random variables then their Pearson correlation of is given by
+If $X$ and $Y$ are scalar random variables then their Pearson correlation is given by
 $$
 \rho_{X,Y}
 =

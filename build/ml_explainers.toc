@@ -64,18 +64,19 @@
 \contentsline {section}{Appendices}{67}{section*.47}%
 \setcounter {tocdepth}{0}
 \contentsline {section}{\numberline {A}Probability Theory and Statistics Things}{67}{appendix.a.A}%
-\contentsline {subsection}{\numberline {A.1}Sample Independence}{67}{subsection.a.A.1}%
-\contentsline {subsection}{\numberline {A.2}Derivations Related to Common Distributions}{67}{subsection.a.A.2}%
-\contentsline {subsection}{\numberline {A.3}The Law of Large Numbers}{71}{subsection.a.A.3}%
-\contentsline {subsection}{\numberline {A.4}The (univariate) Central Limit Theorem (CLT)}{71}{subsection.a.A.4}%
-\contentsline {subsection}{\numberline {A.5}Jensen's Inequality}{72}{subsection.a.A.5}%
-\contentsline {subsection}{\numberline {A.6}Motivating Variance and the Bias of Sample Variance}{72}{subsection.a.A.6}%
-\contentsline {subsection}{\numberline {A.7}Entropy and its Friend KL-divergence}{72}{subsection.a.A.7}%
-\contentsline {subsubsection}{\numberline {A.7.1}Kullback-Leibler Divergence (KL-divergence)}{73}{subsubsection.a.A.7.1}%
-\contentsline {subsection}{\numberline {A.8}Pearson Correlation and Mutual Information}{76}{subsection.a.A.8}%
-\contentsline {subsection}{\numberline {A.9}Quality of fit $\approx $ Encoding quality?}{77}{subsection.a.A.9}%
-\contentsline {subsection}{\numberline {A.10}The Expectation-Maximisation (EM) Algorithm}{77}{subsection.a.A.10}%
-\contentsline {section}{\numberline {B}Philosophy Things}{79}{appendix.a.B}%
-\contentsline {subsection}{\numberline {B.1}Thoughts on reasoning (Summer 2024)}{79}{subsection.a.B.1}%
-\contentsline {subsection}{\numberline {B.2}Sufficiency of Internet-Scraped Data}{80}{subsection.a.B.2}%
-\contentsline {subsection}{\numberline {B.3}The Principled Measure-Explainability Tradeoff}{80}{subsection.a.B.3}%
+\contentsline {subsection}{\numberline {A.1}Derivations Related to Common Distributions}{67}{subsection.a.A.1}%
+\contentsline {subsection}{\numberline {A.2}Sample Independence and Terminology}{70}{subsection.a.A.2}%
+\contentsline {subsection}{\numberline {A.3}Motivating Variance}{71}{subsection.a.A.3}%
+\contentsline {subsection}{\numberline {A.4}Estimators, Bias and Variance}{71}{subsection.a.A.4}%
+\contentsline {subsection}{\numberline {A.5}The Law of Large Numbers}{73}{subsection.a.A.5}%
+\contentsline {subsection}{\numberline {A.6}The (univariate) Central Limit Theorem (CLT)}{73}{subsection.a.A.6}%
+\contentsline {subsection}{\numberline {A.7}Jensen's Inequality}{73}{subsection.a.A.7}%
+\contentsline {subsection}{\numberline {A.8}Entropy and its Friend KL-divergence}{74}{subsection.a.A.8}%
+\contentsline {subsubsection}{\numberline {A.8.1}Kullback-Leibler Divergence (KL-divergence)}{75}{subsubsection.a.A.8.1}%
+\contentsline {subsection}{\numberline {A.9}Pearson Correlation and Mutual Information}{78}{subsection.a.A.9}%
+\contentsline {subsection}{\numberline {A.10}Quality of fit $\approx $ Encoding quality?}{78}{subsection.a.A.10}%
+\contentsline {subsection}{\numberline {A.11}The Expectation-Maximisation (EM) Algorithm}{78}{subsection.a.A.11}%
+\contentsline {section}{\numberline {B}Philosophy Things}{80}{appendix.a.B}%
+\contentsline {subsection}{\numberline {B.1}Thoughts on reasoning (Summer 2024)}{81}{subsection.a.B.1}%
+\contentsline {subsection}{\numberline {B.2}Sufficiency of Internet-Scraped Data}{82}{subsection.a.B.2}%
+\contentsline {subsection}{\numberline {B.3}The Principled Measure-Explainability Tradeoff}{82}{subsection.a.B.3}%
