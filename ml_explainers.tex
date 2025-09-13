@@ -1775,10 +1775,12 @@ R-CNN models has evolved significantly since its proposal in 2013 with three evo
 \section{Probability Theory and Statistics Things}
 Here are some probability theory and statistics-related things, e.g. brief statements, long derivations, and so on, which belong in an appendix. I wish I knew more probability/measure theory and classical statistics. In another life.
 
+I've considered splitting it into two appendix sections — one for probability theory and one for statistics — but I couldn't decide in which I should put certain subsections, e.g. would Pearson correlation belong in the probability theory or statistics section?
+
 \subsection{Derivations Related to Common Distributions}
 
 \subsubsection*{1) From Bernoulli to Binomial}
-Let's try to extend the Bernoulli distribution to the binomial distribution. If $X\sim\text{Ber}(p)$ then $\Omega_X=\{0,1\}$ and $\mathbb{P}(X=x)=p^x(1-p)^{1-x}$, so $\mathbb{P}(X=1)=p$ and $\mathbb{P}(X=0)=1-p$.
+Let's try to extend the Bernoulli distribution to the binomial distribution. If $X\sim\text{Ber}(p)$ then $\Omega_X=\{0,1\}$ and $\mathbb{P}(X=x)=p^x(1-p)^{1-x}$.
 
 Taking $n$ independent Bernoulli random variables and summing them yields the random variable $\X=\sum_{i=1}^nX_i\sim\text{Bin}(n,p)$ with $\Omega_{\X}=\{0,\dots,n\}$. Let $k$ denote a realisation of $\X$, i.e. $k=x_1+\dots+x_n$. The corresponding mass function is given by
 \begin{align*}
@@ -1898,11 +1900,11 @@ and so
 $p(t)=\lambda e^{-\lambda t}$.
 
 \subsection{Sample Independence and Terminology}
-The intended meaning of the singular `sample' is typically a set of realisations of some random variable. So $\{x_1,\dots,x_n\}\subset\Omega_X$ for some random variable $X$ is a sample. Where things can become confusing is that in machine learning contexts in which a `sample' refers often to refers to a single data point. This was a huge cause of confusion during my first few meetings with my master's thesis supervisor who is a Bayesian statistician.
+The intended meaning of the term `sample' in statistics is a set of independently obtained realisations of a random variable, i.e. $\{x_1,\dots,x_n\}\subset\Omega_X$. You could also define a sample as a set of i.i.d. random variables $\{X_1,\dots,X_n\}$. There are times where I reason with the latter but most of the time I think of realisations of random variables when talking about a sample. As a term, `sample' can be especially confusing when context switching since in machine learning contexts, it most often refers to a single data point, which is not its intended meaning in statistics contexts. This was a huge cause of confusion during my first few meetings with my master's thesis supervisor who is a Bayesian statistician.
 
-As for sample independence, suppose we'd like to get an idea of the mean population height of men and women. If we randomly sample 100 men and 100 women then we're good to go. This could be done by independently sampling, without replacement, from the categorical corresponding to the ID numbers of individuals. If we instead randomly sample 100 couples then our samples would not be independent since couples' heights correlate.
+As for sample independence, I was think of the following simple example. Suppose we'd like to estimate the population mean of the heights of men and women. If we randomly sample 100 men and 100 women separately then the sample mean serves as a fine estimate. This could computed by independently sampling, without replacement, from the categorical distribution which corresponds to the ID numbers of all individuals. If we instead randomly sampled 100 couples then the obtained samples would not be independent as couples' heights correlate.
 
-Sample independence is massively important, e.g. for maximum likelihood estimation. Independence is also assumed in a ton of other statistics-related things like t-tests, ANOVA, etc.
+Sample independence is an important assumption for estimation, e.g. for maximum likelihood estimation. It's also important for other statistics-related things like t-tests, ANOVA, etc. but my classical statistics is bad so I won't pretend to know much about it.
 
 \subsection{Motivating Variance}
 You want some idea of expected deviation from the mean. So something like $\E[|X-\E[X]|^a]$ where $a\geq1$ seems natural. Which exponent is most suitable? $a=2$ turns out to be convenient as it yields additivity for independently distributed random variables. That is, with $\text{Var}(X)=\E[(X-\E[X])^2]$ we obtain
@@ -1916,18 +1918,17 @@ You want some idea of expected deviation from the mean. So something like $\E[|X
     &=
     \l(\E[X^2]-\E[X]^2\r)+\l(\E[Y^2]-\E[Y]^2\r)+2\l(\E[XY]-\E[X]\E[Y]\r)\\
     &=
-    \text{Var}(X)+\text{Var}(Y)+\text{Cov}(X,Y).
+    \text{Var}(X)+\text{Var}(Y)+2\text{Cov}(X,Y).
 \end{align*}
-If $X$ and $Y$ are independent then $\E[XY]=\E[X]\E[Y]$, i.e. $\text{Cov}(X,Y)=0$, and so
+I can't be bothered to write the analogous statement for non-scalar random variables but such a statement holds. Anyyway, if $X$ and $Y$ are independent then $\E[XY]=\E[X]\E[Y]$, i.e. $\text{Cov}(X,Y)=0$, and so
 $$
 \text{Var}(X+Y)
 =
 \text{Var}(X)+\text{Var}(Y).
 $$
-It's worth noting that there are plenty of contexts in statistics in which different measure of distribution spread are more convenient, e.g. the mean absolute deviation about the median $\E[|X-\text{med}(X)|]$ in the context of robust statistics.
+It's worth noting that there are plenty of contexts in statistics in which different measure of distribution spread are more convenient, e.g. the mean absolute deviation about the median $\E[|X-\text{median}(X)|]$ in the context of robust statistics.
 
-
-\subsection{Estimators, Bias and Variance}
+\subsection{Estimators and their Bias}
 Suppose you have a bunch of i.i.d. random variables $\X_1,\dots,\X_n$, an estimator is a function $\hat{\theta}:\Omega_{\X}^n\to\mathbb{R}^k$. Given the sample $\{\x_1,\dots,\x_n\}\subset\Omega_{\X}$, the value $\hat{\theta}(\x_1,\dots,\x_n)$ is typically denote by $\hat{\theta}$ for shorthand and is referred to as an estimate. The reason that this lack of rigour in notation is allowable is that the contexts in which it is used often make it clear when an estimator is being considered as opposed to an estimate, and vice versa.
 
 The simplest example of a often-used estimator is the estimator of the mean as in
@@ -1952,21 +1953,21 @@ As an example of computing the bias of an estimator, see that the sample mean is
     &=
     \E[\hat{\mu}]-\mu\\
     &=
-    \E\l[\frac{1}{n}\sum_{i=1}^nX_i\r]-\mu\\
+    \E\l[\frac{1}{n}\sum_{i=1}^n\X_i\r]-\mu\\
     &=
-    \frac{1}{n}\sum_{i=1}^n\E[X_i]-\mu\\
+    \frac{1}{n}\sum_{i=1}^n\E[\X_i]-\mu\\
     &=
     0.
 \end{align*}
 It turns out that the most natural estimator of population variance $\sigma^2$, given by
 $$
-\frac{1}{n}\sum_{i=1}^n\l(X_i-\hat{\mu}\r)^2,
+\frac{1}{n}\sum_{i=1}^n\l(\X_i-\hat{\mu}\r)^2,
 $$
 is biased. This can be seen after a bunch of tedious computations which yield a bias of $-\sigma^2/n$. To account for this, an unbiased estimator of the population variance is given by
 $$
 \hat{\sigma}^2
 =
-\frac{1}{n-1}\sum_{i=1}^n\l(X_i-\hat{\mu}\r)^2.
+\frac{1}{n-1}\sum_{i=1}^n\l(\X_i-\hat{\mu}\r)^2.
 $$
 Most of the time, `sample variance' refers to the unbiased estimator.
 
@@ -2241,24 +2242,24 @@ q_t(\z)=p_{\theta^{(t)}}(\z|\x)
 \text{ELBO}\l(q_t,\theta^{(t)}\r)=\log(p_{\theta^{(t)}}(\x)).
 $$
 
-% philosophy things
-\section{Philosophy Things}
-I don't think about the philosophic aspects of maching learning very often as I'm in the camp of people whose interests lie in solving present problems. I find some topics interesting though.
+% % philosophy things
+% \section{Philosophy Things}
+% I don't think about the philosophic aspects of maching learning very often as I'm in the camp of people whose interests lie in solving present problems. I find some topics interesting though.
 
-% thoughts on reasoning
-\subsection{Thoughts on reasoning (Summer 2024)}
+% % thoughts on reasoning
+% \subsection{Thoughts on reasoning (Summer 2024)}
 
-At the time of writing, machine learning, as a term, is used almost interchangeably with artificial intelligence (AI). AI isn't particularly well-defined in itself, even in academic settings, so its use in day-to-day things, e.g. in the news, often causes confusion and debate. I'm not sure how I would define AI in a way that'd satisfy most. Maybe the discipline of studying things that can `reason', as a human does, given some agreed upon notion of `reasoning'. A common issue found in discussions surrounding this topic is that a definition of `reasoning' is left out.
+% At the time of writing, machine learning, as a term, is used almost interchangeably with artificial intelligence (AI). AI isn't particularly well-defined in itself, even in academic settings, so its use in day-to-day things, e.g. in the news, often causes confusion and debate. I'm not sure how I would define AI in a way that'd satisfy most. Maybe the discipline of studying things that can `reason', as a human does, given some agreed upon notion of `reasoning'. A common issue found in discussions surrounding this topic is that a definition of `reasoning' is left out.
 
-Right now, I'm unaware of any machine learning model that can `reason' by any agreed upon definition of the term. I suspect that while current models can simulate `reasoning' to the extent of being able to effectively solve tasks which require some sort of underlying understanding, they do not `reason' in the human sense, which is grounded in embodied experience. Let's say that an LLM (e.g. GPT-4o) concludes that a continuous real-valued function $f:\R\rightarrow\R$ has a root in some interval $(a, b)$ using the intermediate value theorem (IVT) by noting that $f(a)<0$ and $f(b)>0$. Did the LLM `reason' in its application of the IVT or do we instead brush this off as the LLM having been trained on many examples of the application of the IVT? Does it `understand' what it's concluding? As of right now I'd say that it doesn't. This of course isn't something unique to the IVT — we can construct many such examples. What I think makes the IVT interesting is that we can effectively express what it means to `understand' its correctness as a human. I'd say that the distinction between the LLM's `understanding' and a human's here is that a human knows that if they trace their finger on a piece of paper starting from the bottom half, crossing a horizontal line cutting through the middle of the paper, to the top half of the paper without removing their finger then their finger must have touched the horizontal line at some point (ignore the fact that such a traversal is not necessarily a function, you get the idea). You don't need any mathematical training to know and, more importantly, understand why your finger crosses through the horizontal line on the page. LLMs certainly do not `understand' the correctness of the IVT in this way, or really any way that isn't purely symbolic. Maybe multimodal LLMs will alleviate this.
+% Right now, I'm unaware of any machine learning model that can `reason' by any agreed upon definition of the term. I suspect that while current models can simulate `reasoning' to the extent of being able to effectively solve tasks which require some sort of underlying understanding, they do not `reason' in the human sense, which is grounded in embodied experience. Let's say that an LLM (e.g. GPT-4o) concludes that a continuous real-valued function $f:\R\rightarrow\R$ has a root in some interval $(a, b)$ using the intermediate value theorem (IVT) by noting that $f(a)<0$ and $f(b)>0$. Did the LLM `reason' in its application of the IVT or do we instead brush this off as the LLM having been trained on many examples of the application of the IVT? Does it `understand' what it's concluding? As of right now I'd say that it doesn't. This of course isn't something unique to the IVT — we can construct many such examples. What I think makes the IVT interesting is that we can effectively express what it means to `understand' its correctness as a human. I'd say that the distinction between the LLM's `understanding' and a human's here is that a human knows that if they trace their finger on a piece of paper starting from the bottom half, crossing a horizontal line cutting through the middle of the paper, to the top half of the paper without removing their finger then their finger must have touched the horizontal line at some point (ignore the fact that such a traversal is not necessarily a function, you get the idea). You don't need any mathematical training to know and, more importantly, understand why your finger crosses through the horizontal line on the page. LLMs certainly do not `understand' the correctness of the IVT in this way, or really any way that isn't purely symbolic. Maybe multimodal LLMs will alleviate this.
 
-A separate but related question is to what extent it matters that a model `reasons' in order to arrive its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. From a purely problem solving point of view, these philosophical debates regarding what constitutes reasoning, understanding and knowing aren't too important in the short term. It'd be funny if 50 years from now we're well-taken care of by a fleet of machine learning-powered robots and we still look down on them for not being capable of true reasoning.
+% A separate but related question is to what extent it matters that a model `reasons' in order to arrive its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. From a purely problem solving point of view, these philosophical debates regarding what constitutes reasoning, understanding and knowing aren't too important in the short term. It'd be funny if 50 years from now we're well-taken care of by a fleet of machine learning-powered robots and we still look down on them for not being capable of true reasoning.
 
-\subsection{Sufficiency of Internet-Scraped Data}
-\TODO{}
+% \subsection{Sufficiency of Internet-Scraped Data}
+% \TODO{}
 
-\subsection{The Principled Measure-Explainability Tradeoff}
-\TODO{}
+% \subsection{The Principled Measure-Explainability Tradeoff}
+% \TODO{}
 
 \end{appendices}
 
