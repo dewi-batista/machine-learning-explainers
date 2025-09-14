@@ -418,7 +418,7 @@ The two simplest kernels are polynomial kernels and the RBF kernel. \TODO{: Comp
 
 % decision trees and random forests
 \subsection{Decision Trees and Random Forests}
-I find decision trees and random forests so boring that I'm not going to write about them and will instead include a plot which illustrates random forests well. This section mostly exists so that the list of subsections in this section form a well-rounded list of supervised learning methods.
+I find decision trees and random forests so boring that I'm not going to write about them and will instead point to \autoref{fig:random_forest} which illustrates random forests well. This section mostly exists so that the list of subsections in this section form a well-rounded list of supervised learning methods.
 
 \begin{figure}[t]
     \centering
@@ -437,10 +437,28 @@ Despite my disinterest in them, learning about decision trees encourages you to 
 \subsection{\REV{: }The Bias-Variance Tradeoff}
 The bias-variance tradeoff is a statement pertaining to the goodness of a learning method with respect to its architecture and the data. Ideally, given a fixed architecture, its post-training parameters would vary somewhat with respect to the training data but not too much. This idea leads naturally to underfitting and overfitting.
 
-\subsubsection{\TODO{: }Underfitting and Overfitting}
-Crudely put, if the model family used to fit is too simple to represent the underlying distribution to which the samples belong then the learning method is highly-biased, i.e. the outcome of the learning method is almost invariant with respect to the training data. This is underfitting. Think of fitting a line to a high-degree polynomial.
+\subsubsection{Underfitting and Overfitting}
+Crudely put, if the model family used to fit is too simple to represent the underlying distribution to which the samples belong then the learning method is highly-biased, i.e. the outcome of the learning method is almost invariant with respect to the training data. This is underfitting. Think of fitting a line to a high-degree polynomial. Underfitting is reflected during training by the training and validation errors at each epoch: high training error and high validation error.
 
-At the other extreme, if the model family used is too complex (e.g. overparameterised) then the excess parameters often\footnote{See the double-descent phenomenon in \autoref{fig:double_descent}.} cause the model to fit the noise present in the training data as opposed to the underlying structure. In this case, the outcome of the learning method varies heavily with respect to the training data. Think of polynomial regression models trained on noisy samples.
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.32\columnwidth]{./figures/supervised_learning/fitting_under_M=1.pdf}
+    \includegraphics[width=0.32\columnwidth]{./figures/supervised_learning/fitting_under_M=3.pdf}
+    \includegraphics[width=0.32\columnwidth]{./figures/supervised_learning/fitting_under_M=9.pdf}
+    \caption{Lots of data, little noise.}
+    \label{fig:fitting_under}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.32\columnwidth]{./figures/supervised_learning/fitting_over_M=1.pdf}
+    \includegraphics[width=0.32\columnwidth]{./figures/supervised_learning/fitting_over_M=3.pdf}
+    \includegraphics[width=0.32\columnwidth]{./figures/supervised_learning/fitting_over_M=9.pdf}
+    \caption{Little data, lots of noise.}
+    \label{fig:fitting_over}
+\end{figure}
+
+At the other extreme, if the model family used is too complex (e.g. overparameterised) then the excess parameters often\footnote{See the double-descent phenomenon in \autoref{fig:double_descent}.} cause the model to fit the noise present in the training data as opposed to the underlying structure. In this case, the outcome of the learning method varies heavily with respect to the training data. Think of polynomial regression models trained on noisy samples. Overfitting is also conveniently reflected during training by the training and validation errors at each epoch: low training error and high (relatively speaking) validation error.
 
 \begin{tcolorbox}[title={\centering\textbf{Finding rigorous definitions of both}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
     I was unable to find rigorous definitions in books like Casella Berger but The Cambridge Dictionary of Statistics offers them. That said, in practice, over and underfitting are often spoken about in terms of the training and validation losses observed during training for a given problem.
@@ -562,7 +580,9 @@ where $\sigma^2=\E_\X\l[\sigma^2(\X)\r]$ (ignore the poor choice of notation). W
 \end{figure}
 
 \begin{tcolorbox}[title={\centering\textbf{Beyond MSE}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Natural question: MSE is a common choice of loss when dealing with regression but not classification, in which cross-entropies are used for loss, so why does every derivation of the bias-variance tradeoff only use MSE? The quick answer is that it's the only choice which yields a relatively simple derivation of this nice decomposition of learning method error into two orthogonal characteristics of the learning method: bias and variance. It turns out that if you instead consider specifically probabilistic classification methods then using expected cross-entropy as loss yields a decomposition into bias and variance but with a different form.
+    Natural question: MSE is a common choice of loss when dealing with regression but not classification, in which cross-entropies are typically used as loss, so why do derivations of the bias-variance tradeoff use MSE? The quick answer is that it's the only choice which yields a relatively simple derivation of this nice decomposition of learning method error into two orthogonal characteristics of the learning method: bias and variance.
+    
+    \hspace{14.2pt} Also, interestingly, it turns out that if you instead consider probabilistic classification then using cross-entropy as loss also yields a decomposition into bias and variance but its derivation is less elegant.
 \end{tcolorbox}
 
 \subsubsection{Double descent}
@@ -596,7 +616,7 @@ i.e. to minimise the empirical risk over the dataset in the parameters. As such,
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.75\columnwidth]{./figures/gradient_descent/loss_landscape.png}
+    \includegraphics[width=0.8\columnwidth]{./figures/gradient_descent/loss_landscape.png}
     \caption{The graph of a complex loss landscape $\{(\theta,R_D(\theta))|\theta\in\R^2\}$ whose minimiser we seek. \TODO{: Make own figure.}}
     \label{fig:loss_landscape_complex}
 \end{figure}

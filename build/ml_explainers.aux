@@ -25,129 +25,133 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces A random forest.}}{17}{figure.caption.5}\protected@file@percent }
 \newlabel{fig:random_forest}{{4}{17}{A random forest}{figure.caption.5}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Decision Trees and Random Forests}{17}{subsection.2.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Lots of data, little noise.}}{18}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:fitting_under}{{5}{18}{Lots of data, little noise}{figure.caption.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Little data, lots of noise.}}{18}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:fitting_over}{{6}{18}{Little data, lots of noise}{figure.caption.7}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.5}\textcolor {myYellow}{\textbf  {REVIEW}: }The Bias-Variance Tradeoff}{18}{subsection.2.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.5.1}\textcolor {red}{\textbf  {TODO}: }Underfitting and Overfitting}{18}{subsubsection.2.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.5.2}Derivation with MSE loss}{18}{subsubsection.2.5.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces The graph of learning method error against model complexity in terms of bias and variance. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{21}{figure.caption.6}\protected@file@percent }
-\newlabel{fig:bias_variance}{{5}{21}{The graph of learning method error against model complexity in terms of bias and variance. \TODO {: Make own figure.}}{figure.caption.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces How double descent typically looks. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{22}{figure.caption.7}\protected@file@percent }
-\newlabel{fig:double_descent}{{6}{22}{How double descent typically looks. \TODO {: Make own figure.}}{figure.caption.7}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.5.3}Double descent}{22}{subsubsection.2.5.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces The graph of a complex loss landscape $\{(\theta ,R_D(\theta ))|\theta \in \mathbb  {R}^2\}$ whose minimiser we seek. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{23}{figure.caption.8}\protected@file@percent }
-\newlabel{fig:loss_landscape_complex}{{7}{23}{The graph of a complex loss landscape $\{(\theta ,R_D(\theta ))|\theta \in \R ^2\}$ whose minimiser we seek. \TODO {: Make own figure.}}{figure.caption.8}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Parameter Exploration and its Optimisation}{23}{section.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Gradient Descent}{24}{subsection.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}In which direction does $f$ most ascend locally from $\mathbf  {x}^{(t)}$?}{24}{subsubsection.3.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2}Sensitivity to $\mathbf  {x}^{(0)}$}{25}{subsubsection.3.1.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces How we might expect the convergence of each method to look. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{26}{figure.caption.9}\protected@file@percent }
-\newlabel{fig:gradient_descent_types}{{8}{26}{How we might expect the convergence of each method to look. \TODO {: Make own figure.}}{figure.caption.9}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3}Batch learning}{26}{subsubsection.3.1.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.4}Batch + Layer normalisation}{27}{subsubsection.3.1.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces An effect of Batch normalisation. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{28}{figure.caption.13}\protected@file@percent }
-\newlabel{fig:batch_norm}{{9}{28}{An effect of Batch normalisation. \TODO {: Make own figure.}}{figure.caption.13}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Two fits, both yielding 0 test error. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{29}{figure.caption.16}\protected@file@percent }
-\newlabel{fig:regularisation_two_plots}{{10}{29}{Two fits, both yielding 0 test error. \TODO {: Make own figure.}}{figure.caption.16}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Regularisation}{29}{subsection.3.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Laplace pdf with means 0 and decreasing variances according to $\lambda \in \{0.5,1,2,3\}$.}}{30}{figure.caption.18}\protected@file@percent }
-\newlabel{fig:laplace_pdf}{{11}{30}{Laplace pdf with means 0 and decreasing variances according to $\lambda \in \{0.5,1,2,3\}$}{figure.caption.18}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Training and validation losses over 50 epochs for some model. Best validation obtained at epoch 28.}}{32}{figure.caption.22}\protected@file@percent }
-\newlabel{fig:early_stopping}{{12}{32}{Training and validation losses over 50 epochs for some model. Best validation obtained at epoch 28}{figure.caption.22}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Dropout to prevent overdependence on given neurons. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{33}{figure.caption.24}\protected@file@percent }
-\newlabel{fig:dropout}{{13}{33}{Dropout to prevent overdependence on given neurons. \TODO {: Make own figure.}}{figure.caption.24}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Momentum + Adaptive Learning Rates}{33}{subsection.3.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces How we might expect the convergence to look with momentum. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{34}{figure.caption.26}\protected@file@percent }
-\newlabel{fig:gradient_descent_momentum}{{14}{34}{How we might expect the convergence to look with momentum. \TODO {: Make own figure.}}{figure.caption.26}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Hyperparameter Tuning}{35}{subsection.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4}Neural Networks}{35}{section.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Multi-Layer Perceptrons (MLPs)}{36}{subsection.4.1}\protected@file@percent }
-\newlabel{sec:multi_layer_perceptrons}{{4.1}{36}{Multi-Layer Perceptrons (MLPs)}{subsection.4.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces A multi-layer perceptron (MLP) with $k=3$ hidden layers.}}{37}{figure.caption.30}\protected@file@percent }
-\newlabel{fig:MLP}{{15}{37}{A multi-layer perceptron (MLP) with $k=3$ hidden layers}{figure.caption.30}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}Example}{38}{subsubsection.4.1.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces A neural network with one hidden layer ($k=1$). \textcolor {red}{\textbf  {TODO}: The figure should read `hidden layer', not plural.}}}{39}{figure.caption.31}\protected@file@percent }
-\newlabel{fig:neural_nets_simple_example}{{16}{39}{A neural network with one hidden layer ($k=1$). \TODO {: The figure should read `hidden layer', not plural.}}{figure.caption.31}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}The Universal Function Approximation of MLPs}{40}{subsubsection.4.1.2}\protected@file@percent }
-\newlabel{subsubsec:universal_function_approximation_theorem}{{4.1.2}{40}{The Universal Function Approximation of MLPs}{subsubsection.4.1.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}Posing classification as a regression problem}{43}{subsubsection.4.1.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces The $2-$probability simplex coloured according to argmax in the three coordinates.}}{44}{figure.caption.35}\protected@file@percent }
-\newlabel{fig:2_prob_simplex}{{17}{44}{The $2-$probability simplex coloured according to argmax in the three coordinates}{figure.caption.35}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Backpropagation for MLPs}{44}{subsection.4.2}\protected@file@percent }
-\newlabel{subsec:backprop}{{4.2}{44}{Backpropagation for MLPs}{subsection.4.2}{}}
-\newlabel{eq:back_prop_statement_2}{{4.2}{46}{Backpropagation for MLPs}{Item.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Convolutional Neural Networks (CNNs)}{47}{subsection.4.3}\protected@file@percent }
-\newlabel{subsec:conv_neural_networks}{{4.3}{47}{Convolutional Neural Networks (CNNs)}{subsection.4.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces A binary classification CNN processing an image of a frog.}}{48}{figure.caption.36}\protected@file@percent }
-\newlabel{fig:CNN_frog}{{18}{48}{A binary classification CNN processing an image of a frog}{figure.caption.36}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.1}Convolutions}{48}{subsubsection.4.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.2}Pooling}{48}{subsubsection.4.3.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces Convolution without bias. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{49}{figure.caption.37}\protected@file@percent }
-\newlabel{fig:convolution_operation}{{19}{49}{Convolution without bias. \TODO {: Make own figure.}}{figure.caption.37}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces The core flavours of pooling. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{49}{figure.caption.38}\protected@file@percent }
-\newlabel{fig:pooling}{{20}{49}{The core flavours of pooling. \TODO {: Make own figure.}}{figure.caption.38}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.3}Output dimensions after convolving and pooling}{49}{subsubsection.4.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.4}Inductive biase}{50}{subsubsection.4.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}\textcolor {red}{\textbf  {TODO}: }Recurrent Neural Networks (RNNs)}{50}{subsection.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}Long Short-Term Memory (LSTMs)}{50}{subsubsection.4.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.2}Gated Recurrent Units (GRUs)}{50}{subsubsection.4.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}\textcolor {red}{\textbf  {TODO}: }Transformers}{50}{subsection.4.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.1}Tokens and Embedding}{50}{subsubsection.4.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.2}Positional encoding}{51}{subsubsection.4.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.3}Architecture}{51}{subsubsection.4.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.5.1}Underfitting and Overfitting}{18}{subsubsection.2.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.5.2}Derivation with MSE loss}{19}{subsubsection.2.5.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces The graph of learning method error against model complexity in terms of bias and variance. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{22}{figure.caption.8}\protected@file@percent }
+\newlabel{fig:bias_variance}{{7}{22}{The graph of learning method error against model complexity in terms of bias and variance. \TODO {: Make own figure.}}{figure.caption.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces How double descent typically looks. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{23}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:double_descent}{{8}{23}{How double descent typically looks. \TODO {: Make own figure.}}{figure.caption.9}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.5.3}Double descent}{23}{subsubsection.2.5.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces The graph of a complex loss landscape $\{(\theta ,R_D(\theta ))|\theta \in \mathbb  {R}^2\}$ whose minimiser we seek. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{24}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:loss_landscape_complex}{{9}{24}{The graph of a complex loss landscape $\{(\theta ,R_D(\theta ))|\theta \in \R ^2\}$ whose minimiser we seek. \TODO {: Make own figure.}}{figure.caption.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Parameter Exploration and its Optimisation}{24}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Gradient Descent}{25}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}In which direction does $f$ most ascend locally from $\mathbf  {x}^{(t)}$?}{25}{subsubsection.3.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2}Sensitivity to $\mathbf  {x}^{(0)}$}{26}{subsubsection.3.1.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces How we might expect the convergence of each method to look. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{27}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:gradient_descent_types}{{10}{27}{How we might expect the convergence of each method to look. \TODO {: Make own figure.}}{figure.caption.11}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3}Batch learning}{27}{subsubsection.3.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.4}Batch + Layer normalisation}{28}{subsubsection.3.1.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces An effect of Batch normalisation. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{29}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:batch_norm}{{11}{29}{An effect of Batch normalisation. \TODO {: Make own figure.}}{figure.caption.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Two fits, both yielding 0 test error. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{30}{figure.caption.18}\protected@file@percent }
+\newlabel{fig:regularisation_two_plots}{{12}{30}{Two fits, both yielding 0 test error. \TODO {: Make own figure.}}{figure.caption.18}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Regularisation}{30}{subsection.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Laplace pdf with means 0 and decreasing variances according to $\lambda \in \{0.5,1,2,3\}$.}}{31}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:laplace_pdf}{{13}{31}{Laplace pdf with means 0 and decreasing variances according to $\lambda \in \{0.5,1,2,3\}$}{figure.caption.20}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Training and validation losses over 50 epochs for some model. Best validation obtained at epoch 28.}}{33}{figure.caption.24}\protected@file@percent }
+\newlabel{fig:early_stopping}{{14}{33}{Training and validation losses over 50 epochs for some model. Best validation obtained at epoch 28}{figure.caption.24}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Dropout to prevent overdependence on given neurons. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{34}{figure.caption.26}\protected@file@percent }
+\newlabel{fig:dropout}{{15}{34}{Dropout to prevent overdependence on given neurons. \TODO {: Make own figure.}}{figure.caption.26}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Momentum + Adaptive Learning Rates}{34}{subsection.3.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces How we might expect the convergence to look with momentum. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{35}{figure.caption.28}\protected@file@percent }
+\newlabel{fig:gradient_descent_momentum}{{16}{35}{How we might expect the convergence to look with momentum. \TODO {: Make own figure.}}{figure.caption.28}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Hyperparameter Tuning}{36}{subsection.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Neural Networks}{36}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Multi-Layer Perceptrons (MLPs)}{37}{subsection.4.1}\protected@file@percent }
+\newlabel{sec:multi_layer_perceptrons}{{4.1}{37}{Multi-Layer Perceptrons (MLPs)}{subsection.4.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces A multi-layer perceptron (MLP) with $k=3$ hidden layers.}}{38}{figure.caption.32}\protected@file@percent }
+\newlabel{fig:MLP}{{17}{38}{A multi-layer perceptron (MLP) with $k=3$ hidden layers}{figure.caption.32}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}Example}{39}{subsubsection.4.1.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces A neural network with one hidden layer ($k=1$). \textcolor {red}{\textbf  {TODO}: The figure should read `hidden layer', not plural.}}}{40}{figure.caption.33}\protected@file@percent }
+\newlabel{fig:neural_nets_simple_example}{{18}{40}{A neural network with one hidden layer ($k=1$). \TODO {: The figure should read `hidden layer', not plural.}}{figure.caption.33}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}The Universal Function Approximation of MLPs}{41}{subsubsection.4.1.2}\protected@file@percent }
+\newlabel{subsubsec:universal_function_approximation_theorem}{{4.1.2}{41}{The Universal Function Approximation of MLPs}{subsubsection.4.1.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}Posing classification as a regression problem}{44}{subsubsection.4.1.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces The $2-$probability simplex coloured according to argmax in the three coordinates.}}{45}{figure.caption.37}\protected@file@percent }
+\newlabel{fig:2_prob_simplex}{{19}{45}{The $2-$probability simplex coloured according to argmax in the three coordinates}{figure.caption.37}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Backpropagation for MLPs}{45}{subsection.4.2}\protected@file@percent }
+\newlabel{subsec:backprop}{{4.2}{45}{Backpropagation for MLPs}{subsection.4.2}{}}
+\newlabel{eq:back_prop_statement_2}{{4.2}{47}{Backpropagation for MLPs}{Item.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Convolutional Neural Networks (CNNs)}{48}{subsection.4.3}\protected@file@percent }
+\newlabel{subsec:conv_neural_networks}{{4.3}{48}{Convolutional Neural Networks (CNNs)}{subsection.4.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces A binary classification CNN processing an image of a frog.}}{49}{figure.caption.38}\protected@file@percent }
+\newlabel{fig:CNN_frog}{{20}{49}{A binary classification CNN processing an image of a frog}{figure.caption.38}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.1}Convolutions}{49}{subsubsection.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.2}Pooling}{49}{subsubsection.4.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces Convolution without bias. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{50}{figure.caption.39}\protected@file@percent }
+\newlabel{fig:convolution_operation}{{21}{50}{Convolution without bias. \TODO {: Make own figure.}}{figure.caption.39}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces The core flavours of pooling. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{50}{figure.caption.40}\protected@file@percent }
+\newlabel{fig:pooling}{{22}{50}{The core flavours of pooling. \TODO {: Make own figure.}}{figure.caption.40}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.3}Output dimensions after convolving and pooling}{50}{subsubsection.4.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.4}Inductive biase}{51}{subsubsection.4.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}\textcolor {red}{\textbf  {TODO}: }Recurrent Neural Networks (RNNs)}{51}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}Long Short-Term Memory (LSTMs)}{51}{subsubsection.4.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.2}Gated Recurrent Units (GRUs)}{51}{subsubsection.4.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}\textcolor {red}{\textbf  {TODO}: }Transformers}{51}{subsection.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.1}Tokens and Embedding}{51}{subsubsection.4.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.2}Positional encoding}{52}{subsubsection.4.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.3}Architecture}{52}{subsubsection.4.5.3}\protected@file@percent }
 \@writefile{toc}{\setcounter {tocdepth}{1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Misc. questions}{51}{subsection.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Misc. questions}{52}{subsection.4.6}\protected@file@percent }
 \@writefile{toc}{\setcounter {tocdepth}{2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces Examples of samples belonging to classes that are not linearly separable. \textcolor {red}{\textbf  {TODO}: Make properly.}}}{52}{figure.caption.39}\protected@file@percent }
-\newlabel{fig:non_linearly_separable}{{21}{52}{Examples of samples belonging to classes that are not linearly separable. \TODO {: Make properly.}}{figure.caption.39}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces The image of our non-linear transformation. \textcolor {red}{\textbf  {TODO}: Make properly.}}}{52}{figure.caption.40}\protected@file@percent }
-\newlabel{fig:non_lin_transformation}{{22}{52}{The image of our non-linear transformation. \TODO {: Make properly.}}{figure.caption.40}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Generative Models}{54}{section.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}\textcolor {red}{\textbf  {TODO} }Bayesian networks}{54}{subsection.5.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces An autoencoder in which $\theta $ and $\phi $ are fit using multi-layer perceptrons (MLPs). \textcolor {red}{\textbf  {TODO}: Colour missing in text? Also change $n$ to $q$}}}{55}{figure.caption.41}\protected@file@percent }
-\newlabel{fig:autoencoder}{{23}{55}{An autoencoder in which $\theta $ and $\phi $ are fit using multi-layer perceptrons (MLPs). \TODO {: Colour missing in text? Also change $n$ to $q$}}{figure.caption.41}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Variational Autoencoders (VAEs)}{55}{subsection.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Autoencoders: no variation yet!}{55}{subsubsection.5.2.1}\protected@file@percent }
-\newlabel{sec:autoencoders}{{5.2.1}{55}{Autoencoders: no variation yet!}{subsubsection.5.2.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces The output of the decoder of an autoencoder with randomly generated latent points as input. Gibberish output. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{57}{figure.caption.42}\protected@file@percent }
-\newlabel{fig:autoencoder_generation_1}{{24}{57}{The output of the decoder of an autoencoder with randomly generated latent points as input. Gibberish output. \TODO {: Make own figure.}}{figure.caption.42}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Motivating VAEs}{57}{subsubsection.5.2.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {25}{\ignorespaces The output of the decoder of an autoencoder points relatively close to the latent embedding of a given training sample. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{58}{figure.caption.43}\protected@file@percent }
-\newlabel{fig:autoencoder_generation_2}{{25}{58}{The output of the decoder of an autoencoder points relatively close to the latent embedding of a given training sample. \TODO {: Make own figure.}}{figure.caption.43}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.3}Formulating VAEs}{58}{subsubsection.5.2.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces Left: an encoder which outputs parameters of the latent distribution $q_{\theta }(\mathbf  {z}|\mathbf  {x})=\mathcal  {N}(\mu _{\theta },\Sigma _{\theta })$. Right: a decoder which outputs parameters of the reconstruction distribution $p_{\phi }(\mathbf  {x}|\mathbf  {z}')=\mathcal  {N}(\mu _{\phi },\Sigma _{\phi })$ in which $\mathbf  {z}'\sim q_{\theta }(\mathbf  {z}|\mathbf  {x})$.}}{59}{figure.caption.44}\protected@file@percent }
-\newlabel{fig:VAE_architecture}{{26}{59}{Left: an encoder which outputs parameters of the latent distribution $q_{\theta }(\z |\x )=\mathcal {N}(\mu _{\theta },\Sigma _{\theta })$. Right: a decoder which outputs parameters of the reconstruction distribution $p_{\phi }(\x |\z ')=\mathcal {N}(\mu _{\phi },\Sigma _{\phi })$ in which $\z '\sim q_{\theta }(\z |\x )$}{figure.caption.44}{}}
-\newlabel{eq:marginal_likelihood}{{1}{61}{Formulating VAEs}{equation.5.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.4}Backpropagation for VAEs}{62}{subsubsection.5.2.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces Johann Bernoulli being denoised in line with the backward process of a diffusion model. \textcolor {red}{\textbf  {TODO}: Improve figure.}}}{63}{figure.caption.45}\protected@file@percent }
-\newlabel{fig:diffusion_process}{{27}{63}{Johann Bernoulli being denoised in line with the backward process of a diffusion model. \TODO {: Improve figure.}}{figure.caption.45}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}\textcolor {red}{\textbf  {TODO}: }Generative Adversarial Networks (GANs)}{63}{subsection.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}\textcolor {red}{\textbf  {TODO}: }Normalising Flows}{63}{subsection.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Diffusion Models}{63}{subsection.5.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {28}{\ignorespaces Example U-Net architecture.}}{64}{figure.caption.46}\protected@file@percent }
-\newlabel{fig:u_net_arch}{{28}{64}{Example U-Net architecture}{figure.caption.46}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.1}U-Net denoisers}{64}{subsubsection.5.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}\textcolor {red}{\textbf  {TODO}: }Evaluating Generative Models}{65}{subsection.5.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}Object Detection Models}{65}{section.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}\textcolor {red}{\textbf  {TODO}: }(Fast/Faster) R-CNN}{65}{subsection.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}\textcolor {red}{\textbf  {TODO}: }YOLO}{66}{subsection.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}\textcolor {red}{\textbf  {TODO}: }DETR}{66}{subsection.6.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{Appendices}{67}{section*.47}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces Examples of samples belonging to classes that are not linearly separable. \textcolor {red}{\textbf  {TODO}: Make properly.}}}{53}{figure.caption.41}\protected@file@percent }
+\newlabel{fig:non_linearly_separable}{{23}{53}{Examples of samples belonging to classes that are not linearly separable. \TODO {: Make properly.}}{figure.caption.41}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces The image of our non-linear transformation. \textcolor {red}{\textbf  {TODO}: Make properly.}}}{53}{figure.caption.42}\protected@file@percent }
+\newlabel{fig:non_lin_transformation}{{24}{53}{The image of our non-linear transformation. \TODO {: Make properly.}}{figure.caption.42}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Generative Models}{55}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}\textcolor {red}{\textbf  {TODO} }Bayesian networks}{55}{subsection.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {25}{\ignorespaces An autoencoder in which $\theta $ and $\phi $ are fit using multi-layer perceptrons (MLPs). \textcolor {red}{\textbf  {TODO}: Colour missing in text? Also change $n$ to $q$}}}{56}{figure.caption.43}\protected@file@percent }
+\newlabel{fig:autoencoder}{{25}{56}{An autoencoder in which $\theta $ and $\phi $ are fit using multi-layer perceptrons (MLPs). \TODO {: Colour missing in text? Also change $n$ to $q$}}{figure.caption.43}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Variational Autoencoders (VAEs)}{56}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Autoencoders: no variation yet!}{56}{subsubsection.5.2.1}\protected@file@percent }
+\newlabel{sec:autoencoders}{{5.2.1}{56}{Autoencoders: no variation yet!}{subsubsection.5.2.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces The output of the decoder of an autoencoder with randomly generated latent points as input. Gibberish output. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{58}{figure.caption.44}\protected@file@percent }
+\newlabel{fig:autoencoder_generation_1}{{26}{58}{The output of the decoder of an autoencoder with randomly generated latent points as input. Gibberish output. \TODO {: Make own figure.}}{figure.caption.44}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Motivating VAEs}{58}{subsubsection.5.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces The output of the decoder of an autoencoder points relatively close to the latent embedding of a given training sample. \textcolor {red}{\textbf  {TODO}: Make own figure.}}}{59}{figure.caption.45}\protected@file@percent }
+\newlabel{fig:autoencoder_generation_2}{{27}{59}{The output of the decoder of an autoencoder points relatively close to the latent embedding of a given training sample. \TODO {: Make own figure.}}{figure.caption.45}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.3}Formulating VAEs}{59}{subsubsection.5.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {28}{\ignorespaces Left: an encoder which outputs parameters of the latent distribution $q_{\theta }(\mathbf  {z}|\mathbf  {x})=\mathcal  {N}(\mu _{\theta },\Sigma _{\theta })$. Right: a decoder which outputs parameters of the reconstruction distribution $p_{\phi }(\mathbf  {x}|\mathbf  {z}')=\mathcal  {N}(\mu _{\phi },\Sigma _{\phi })$ in which $\mathbf  {z}'\sim q_{\theta }(\mathbf  {z}|\mathbf  {x})$.}}{60}{figure.caption.46}\protected@file@percent }
+\newlabel{fig:VAE_architecture}{{28}{60}{Left: an encoder which outputs parameters of the latent distribution $q_{\theta }(\z |\x )=\mathcal {N}(\mu _{\theta },\Sigma _{\theta })$. Right: a decoder which outputs parameters of the reconstruction distribution $p_{\phi }(\x |\z ')=\mathcal {N}(\mu _{\phi },\Sigma _{\phi })$ in which $\z '\sim q_{\theta }(\z |\x )$}{figure.caption.46}{}}
+\newlabel{eq:marginal_likelihood}{{1}{62}{Formulating VAEs}{equation.5.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.4}Backpropagation for VAEs}{63}{subsubsection.5.2.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {29}{\ignorespaces Johann Bernoulli being denoised in line with the backward process of a diffusion model. \textcolor {red}{\textbf  {TODO}: Improve figure.}}}{64}{figure.caption.47}\protected@file@percent }
+\newlabel{fig:diffusion_process}{{29}{64}{Johann Bernoulli being denoised in line with the backward process of a diffusion model. \TODO {: Improve figure.}}{figure.caption.47}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}\textcolor {red}{\textbf  {TODO}: }Generative Adversarial Networks (GANs)}{64}{subsection.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}\textcolor {red}{\textbf  {TODO}: }Normalising Flows}{64}{subsection.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Diffusion Models}{64}{subsection.5.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {30}{\ignorespaces Example U-Net architecture.}}{65}{figure.caption.48}\protected@file@percent }
+\newlabel{fig:u_net_arch}{{30}{65}{Example U-Net architecture}{figure.caption.48}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.1}U-Net denoisers}{65}{subsubsection.5.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}\textcolor {red}{\textbf  {TODO}: }Evaluating Generative Models}{66}{subsection.5.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Object Detection Models}{66}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}\textcolor {red}{\textbf  {TODO}: }(Fast/Faster) R-CNN}{66}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}\textcolor {red}{\textbf  {TODO}: }YOLO}{67}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}\textcolor {red}{\textbf  {TODO}: }DETR}{67}{subsection.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{Appendices}{68}{section*.49}\protected@file@percent }
 \@writefile{toc}{\setcounter {tocdepth}{0}}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Probability Theory and Statistics Things}{67}{appendix.a.A}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Derivations Related to Common Distributions}{67}{subsection.a.A.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Sample Independence and Terminology}{71}{subsection.a.A.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Motivating Variance}{71}{subsection.a.A.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.4}Estimators and their Bias}{72}{subsection.a.A.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.5}The Law of Large Numbers}{73}{subsection.a.A.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.6}The (univariate) Central Limit Theorem (CLT)}{74}{subsection.a.A.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.7}Jensen's Inequality}{74}{subsection.a.A.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.8}Entropy and its Friend KL-divergence}{74}{subsection.a.A.8}\protected@file@percent }
-\newlabel{app:entropy}{{A.8}{74}{Entropy and its Friend KL-divergence}{subsection.a.A.8}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {A.8.1}Kullback-Leibler Divergence (KL-divergence)}{75}{subsubsection.a.A.8.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {29}{\ignorespaces Our geometric distribution $p$ and Poisson fit $q$.}}{77}{figure.caption.54}\protected@file@percent }
-\newlabel{fig:poi_geo_plot}{{29}{77}{Our geometric distribution $p$ and Poisson fit $q$}{figure.caption.54}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.9}Pearson Correlation and Mutual Information}{78}{subsection.a.A.9}\protected@file@percent }
-\newlabel{app:pearson_correlation}{{A.9}{78}{Pearson Correlation and Mutual Information}{subsection.a.A.9}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.10}Quality of fit $\approx $ Encoding quality?}{79}{subsection.a.A.10}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.11}The Expectation-Maximisation (EM) Algorithm}{79}{subsection.a.A.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {A}Probability Theory and Statistics Things}{68}{appendix.a.A}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Derivations Related to Common Distributions}{68}{subsection.a.A.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Sample Independence and Terminology}{72}{subsection.a.A.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Motivating Variance}{72}{subsection.a.A.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.4}Estimators and their Bias}{73}{subsection.a.A.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.5}The Law of Large Numbers}{74}{subsection.a.A.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.6}The (univariate) Central Limit Theorem (CLT)}{75}{subsection.a.A.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.7}Jensen's Inequality}{75}{subsection.a.A.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.8}Entropy and its Friend KL-divergence}{75}{subsection.a.A.8}\protected@file@percent }
+\newlabel{app:entropy}{{A.8}{75}{Entropy and its Friend KL-divergence}{subsection.a.A.8}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {A.8.1}Kullback-Leibler Divergence (KL-divergence)}{76}{subsubsection.a.A.8.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {31}{\ignorespaces Our geometric distribution $p$ and Poisson fit $q$.}}{78}{figure.caption.56}\protected@file@percent }
+\newlabel{fig:poi_geo_plot}{{31}{78}{Our geometric distribution $p$ and Poisson fit $q$}{figure.caption.56}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.9}Pearson Correlation and Mutual Information}{79}{subsection.a.A.9}\protected@file@percent }
+\newlabel{app:pearson_correlation}{{A.9}{79}{Pearson Correlation and Mutual Information}{subsection.a.A.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.10}Quality of fit $\approx $ Encoding quality?}{80}{subsection.a.A.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.11}The Expectation-Maximisation (EM) Algorithm}{80}{subsection.a.A.11}\protected@file@percent }
 \gdef\svg@ink@ver@settings{{\m@ne }{inkscape}{\m@ne }}
-\gdef \@abspage@last{82}
+\gdef \@abspage@last{83}
