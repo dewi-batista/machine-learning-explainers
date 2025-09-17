@@ -49,11 +49,7 @@ My interests in machine learning lie in its rapid development since the era of d
 
 % supervised learning
 \section{Supervised Learning}
-Supervised learning methods are those which fit functions $f_{\theta}:\Omega_{\X}\to\Omega_{\mathbf{Y}}$ from model variables $\X=(X_1,\dots,X_q)$ to output variables $\mathbf{Y}=(Y_1,\dots,Y_r)$ (often $r=1$ in which case we write $\mathbf{Y}=Y$) using concrete examples $\{(\x_i,\mathbf{y}_i)\}_{i=1}^n$ of what the to-be-learned function might yield as output $\mathbf{y}=f_{\theta}(\x)$ for a given input $\x$. These model and output variables can be continuous or discrete in nature, or a mix.
-
-An example of a task for which supervised learning is appropriate is regression. Regression tasks can be thought of as those in which the output variables $\mathbf{Y}$ are continuous. Other than regression, the other vanilla supervised learning task is classification, in which $\mathbf{Y}$ are discrete. A well known example of binary classification is whether or not a given passenger survived the titanic wreck given their ticket class, sex, age, port of embarkation and a ton more. The bread and butter example of multi-class classification is handwritten digit recognition.
-
-Other than the types of tasks which we consider in this section, it's worth mentioning how we deal with our data in general. In training a model on some dataset, we need some idea of how well the model generalises to new data. This is done by splitting the given dataset $D$ into a training set $D_{\text{train}}$ and a testing set $D_{\text{test}}$. How exactly this split is done depends on the task at hand but an example is 50/50 uniformly randomly splitting the original dataset $D$. It can be important that this is done uniformly randomly, e.g. for proper representation of class labels during training. Similar idea for regression tasks but with ensuring a reasonable balance in representation of values belonging to given intervals corresponding to the output space. Think of approximating a piecewise linear function but training only on a region in which it is linear. As long as their is sufficient representation of $\Omega_{\mathbf{Y}}$ then splitting $D$ unifromly randomly is no issue. With a reasonable split we train the model on $D_{\text{train}}$. It is all the model knows — $D_{\text{train}}$ is the model's universe. After training, we measure the model's ability to generalise to new samples by seeing how well it performs on $D_{\text{test}}$. Essentially comparing its output given some sample to the ideal/true output value of said sample.
+Supervised learning methods are those which fit functions $f_{\theta}:\Omega_{\X}\to\Omega_{\mathbf{Y}}$ from model variables $\X=(X_1,\dots,X_q)$ to output variables $\mathbf{Y}=(Y_1,\dots,Y_r)$ (often $r=1$ in which case we write $\mathbf{Y}=Y$) by learning from concrete examples $\{(\x_i,\mathbf{y}_i)\}_{i=1}^n$ of how the function can behave in practice. The two most prominent tasks one might apply supervised learning to are regression (continuous output variables) and classification (discrete output variables).
 
 % linear regression
 \subsection{Linear Regression}
@@ -62,7 +58,7 @@ Perhaps the simplest example of supervised learning is linear regression. Suppos
 $$
 \x_i=(x_{i,1},\dots,x_{i, q})\in \Omega_{X_1}\times\dots\times \Omega_{X_q}=:\Omega_{\X}\subseteq\R^q
 $$
-are the feature values of the $i^{\text{th}}$ sample and $y_i\in \Omega_{Y}\subseteq\R$ is the corresponding output. The reason I chose $|D|=2n$ is that it results in being able to 50/50 split $D$ into $D_{\text{train}}$ and $D_{\text{test}}$ with $|D_{\text{train}}|=|D_{\text{test}}|=n$. A linear regression models fits a linear function (in the parameters)
+are the feature values of the $i^{\text{th}}$ sample and $y_i\in \Omega_{Y}\subseteq\R$ is the corresponding output. The reason I chose $|D|=2n$ is that it results in being able to nicely partition $D$ into $D_{\text{train}}$ and $D_{\text{test}}$ with $|D_{\text{train}}|=|D_{\text{test}}|=n$. A linear regression models fits a model of the form
 \begin{align*}
     f_{\theta}:\Omega_{\X}&\rightarrow \Omega_Y\\
     \x&\mapsto
@@ -74,35 +70,45 @@ are the feature values of the $i^{\text{th}}$ sample and $y_i\in \Omega_{Y}\subs
     =
     \theta_0+\theta_1x_1+\dots+\theta_qx_q    
 \end{align*}
-where $\theta=(\theta_0,\theta_1\dots,\theta_q)\in\R^{q+1}$ are the model parameters, i.e. the values we can tweak to our heart's desire until the corresponding model is sufficiently well according to some metric. Some people refer to the paramter $\theta_0$, which dictates the elevation of the hyperplane corresponding to $f_{\theta}(\x)=0$, as the bias of the model which I find very confusing as there are a bunch of other intended meanings of the term `bias' in statistics and machine learning. I prefer to refer to it as the elevation. Anyway, once such a linear function has been fit, given feature values $\x\in\Omega_{\X}$ our model predict the corresponding output as $y=f_{\theta}(\x)$.
+where $\theta=(\theta_0,\theta_1\dots,\theta_q)\in\R^{q+1}$ are the model parameters, i.e. the values we can tweak to our heart's content until testing error is sufficiently low. Some people refer to the paramter $\theta_0$, which dictates the elevation of the hyperplane corresponding to $f_{\theta}(\x)=0$, as the bias of the model which I find very confusing as there are a bunch of other intended meanings of the term `bias' in statistics and machine learning. I prefer to refer to it as the elevation. Anyway, once such a linear function has been fit, given feature values $\x\in\Omega_{\X}$ our model predict the corresponding output as $y=f_{\theta}(\x)$.
 
-\begin{tcolorbox}[title={\centering\textbf{What does the `linear' in linear regression acrually refer to?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+\begin{tcolorbox}[title={\centering\textbf{What does the `linear' in linear regression actually refer to?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
     Casella Berger, as well as other pieces of literature, define linear regression in a way that ensures linearity in parameters. By such a definition, linear regression, as a term, encompasses polynomial regression models and other regression models with non-linear basis functions. This confuses me as `linear regression' is most often intended to mean models that fit a hyperplane to $\Omega_{\X}\times\Omega_Y$.
     
     \hspace{14.52pt} The first paragraph of the Wikipedia page\footnote{\url{https://en.wikipedia.org/wiki/Polynomial_regression}} for polynomial regression reiterates this potential confusion.
 \end{tcolorbox}
 
-An intuitive approach to finding the `optimal' parameters for a linear regression model, which we denote by $\theta^{*}$, is to split $\D$ into training and testing datasets $D_{\text{train}}$ and $D_{\text{test}}$ (each consisting of $n$ sample in our case) and minimising some pre-determined loss function of said parameters over $D_{\text{train}}$. Essentially, minimising something like
+An intuitive approach to finding the `optimal' parameters for a linear regression model, which we denote by $\theta^{*}$, is to split $D$ into training and testing datasets $D_{\text{train}}$ and $D_{\text{test}}$ (each consisting of $n$ sample in our case) and minimising some pre-determined loss function of said parameters over $D_{\text{train}}$. Essentially, minimising something like
 $$
-\mathcal{L}(\theta)=\sum_{i=1}^nd(f_{\theta}(\x_i), y_i)
+\mathcal{L}(\theta)
+=
+\frac{1}{n}\sum_{i=1}^nd(f_{\theta}(\x_i), y_i)
 $$
-where $f_{\theta}(\x_i)$ is the model's prediction for feature values $\x_i$ and $d:\Omega_Y\times\Omega_Y\rightarrow\R_{\geq0}$ is some goodness-of-prediction metric. Said loss function gives one an idea of how well $\theta$ fits the true underlying relationship which we wish to model. A common choice for the loss function is the mean square error
+where $f_{\theta}(\x_i)$ is the model's prediction for feature values $\x_i$ and $d:\Omega_Y\times\Omega_Y\rightarrow\R_{\geq0}$ is some goodness-of-prediction metric or loss function. Said loss function gives one an idea of how well $\theta$ fits the true underlying relationship which we wish to model. A common choice for the loss function is the mean square error
 $$
-\text{MSE}(\theta)=\frac{1}{n}\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2
+\text{MSE}(\theta)
+=
+\frac{1}{n}\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2
 $$
 which pertains to taking $d(f_{\theta}(\x_i), y_i)=(y_i-f_{\theta}(\x_i))^2$. Note that the factor of $1/n$ is often left out when discussing MSE as minimising the expression in $\theta$ is invariant to the inclusion of the factor. So in our case, we seek to compute
 $$
-\theta^{*}=\argmin_{\theta\in\R^{q+1}}\l[\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\r].
+\theta^{*}
+=
+\argmin_{\theta\in\R^{q+1}}\l[\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\r].
 $$
-We know that in the context of linear regression, the optimal paramters $\theta^{*}$ are typically taken to be those which minimise the mean square error over $D_{\text{train}}$ but how do we actually compute $\theta^{*}$? This could be done through numerical methods, which is often the case in machine learning, e.g. using gradient descent in computing the optimal parameters of a logistic regression model, but linear regression has a closed form solution. This is pretty cool since it's not so common for such closed form solutions to exist. The informal method which I use to remember the closed form solution for the optimal paramters of a linear regression model is
+We know that in the context of linear regression, the optimal paramters $\theta^{*}$ are typically taken to be those which minimise the mean square error over $D_{\text{train}}$ but how do we actually compute $\theta^{*}$? This could be done through numerical methods, which is often the case in machine learning, e.g. using gradient descent in computing the optimal parameters of a logistic regression model, but linear regression has a closed form solution. This is pretty cool since it's not so common for such closed form solutions to exist in machine learning-related contexts (though stats people might not like linear regression being referred to as machine learning-related). The informal method which I use to remember the closed form solution for the optimal paramters of a linear regression model is
 $$
-X\theta^{*}=y \implies X^{\top}X\theta^{*}=X^{\top}y \implies \theta^{*}=(X^{\top}X)^{-1}X^{\top}y.
+X\theta^{*}
+=
+y \implies X^{\top}X\theta^{*}=X^{\top}y \implies \theta^{*}=(X^{\top}X)^{-1}X^{\top}y.
 $$
 In practice, if this matrix $X^{\top}X$ is singular then just add some small values to its diagonal. That is, instead compute
 $$
-\theta^{*}=(X^{\top}X+\delta I)^{-1}X^{\top}y
+\theta^{*}
+=
+(X^{\top}X+\delta I)^{-1}X^{\top}y
 $$
-for some small $\delta\in\R$. That said, what's given above is not rigorous, so let's derive it. Note that
+for some small $\delta\in\R$. That said, what's given above is not rigorous as it assumes the existance of $\theta^{*}$ and does not make use of MSE, so let's derive it. Note that
 \begin{align*}
     \text{MSE}(\theta)
     &=
@@ -147,7 +153,7 @@ X
 \end{bmatrix}
 \in\R^{q+1}
 $$
-and $x_{i,j}$ denotes the $j$th element of the $i^{\text{th}}$ sample. To find the minimiser(s) of $\text{MSE}(\theta)$, i.e. the optimal parameters $\theta^{*}$, we compute its gradient with respect to $\theta$, set it to $0$ and solve for $\theta^{*}$. This of course only works when our function is both differentiable and convex, which is the case here. To see convexity, simply compute the Hessian of $\text{MSE}(\theta)$ and see that it is semi-positive definite. On that note, we have
+and $x_{i,j}$ denotes the $j$th element of the $i^{\text{th}}$ sample. To find the minimiser(s) of $\text{MSE}(\theta)$, i.e. the optimal parameters $\theta^{*}$, we compute its gradient with respect to $\theta$ and find its root(s). This of course only works when our function is both differentiable and convex, which is the case here. To see convexity, simply compute the Hessian of $\text{MSE}(\theta)$ and see that it is semi-positive definite. On that note, we have
 \begin{align*}
     \nabla\text{MSE}(\theta)
     &=
@@ -182,7 +188,7 @@ for $i=1,\dots,n$ are i.i.d. This assumption is reasonable in practice due to th
 $$
 p_{\theta}(y_i|\x_i)=\frac{1}{\sqrt{2\pi}\sigma}\exp\l(-\frac{(y_i-f_{\theta}(\x_i))^2}{2\sigma^2}\r).
 $$
-The maximum likelihood estimate $\theta_{\text{MLE}}$ for the parameters of our linear regression model is that which maximise our log-likelihood. That is,
+The maximum likelihood estimate $\theta_{\text{MLE}}$ of the parameters of our linear regression model is that which maximise the relevant log-likelihood. That is,
 \begin{align*}
     \theta_{\text{MLE}}
     &=
@@ -194,7 +200,7 @@ The maximum likelihood estimate $\theta_{\text{MLE}}$ for the parameters of our 
     &=
     \argmin_{\theta\in\R^{q+1}}\l[\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\r].
 \end{align*}
-As such, the maximum likelihood estimator of the parameters of a linear regression model are precisely those which minimise the mean square error of the model over $D_{\text{train}}$.
+As such, the maximum likelihood estimate of the parameters of our linear regression model are precisely those which minimise the mean square error of the model over $D_{\text{train}}$.
 
 \begin{tcolorbox}[title={\centering\textbf{Are residuals really normally distributed?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
     \footnote{\url{https://en.wikipedia.org/wiki/Central\_limit\_theorem\#Regression}}Central limit theorem to the rescue: ``Regression analysis, and in particular ordinary least squares, specifies that a dependent variable depends according to some function upon one or more independent variables, with an additive error term. Various types of statistical inference on the regression assume that the error term is normally distributed. This assumption can be justified by assuming that the error term is actually the sum of many independent error terms; even if the individual error terms are not normally distributed, by the central limit theorem their sum can be well approximated by a normal distribution."
@@ -209,13 +215,13 @@ $$
 =:
 R^2
 $$
-where $\bar{y}=\frac{1}{n}\sum_{i=1}^ny_i$. The reason that this quantity is denoted by $R^2$ is that it can be shown that it is equal to the square of the Pearson/multiple (one predictor/multiple predictors) correlation coefficient between $Y$ and $f_{\theta}(\X)$. So for one predictor, i.e. $q=1$, said Pearson correlation coefficient is given by
+where $\bar{y}=\frac{1}{n}\sum_{i=1}^ny_i$. The reason that this quantity is denoted by $R^2$ is that it can be shown that it is equal to the square of the Pearson correlation between $Y$ and $f_{\theta}(\X)$. For one predictor, i.e. $q=1$, said Pearson correlation coefficient is given by
 $$
 R
 =
 \frac{\sum_{i=1}^n\l(f_{\theta}(\x_i)-\bar{f}_{\theta}\r)(y_i-\bar{y})}{\sqrt{\sum_{i=1}^n\l(f_{\theta}(\x_i)-\bar{f}_{\theta}\r)^2}\sqrt{\sum_{i=1}^n\l(y_i-\bar{y}\r)^2}}.
 $$
-The derivation of this statement is boring, so I'll leave it out. Worth noting that $R^2$ is typically expressed as
+The derivation of this statement is boring, so I'll leave it out. It's worth noting that $R^2$ is typically expressed as
 $$
 R^2
 =
@@ -223,32 +229,23 @@ R^2
 =
 1-\frac{s_e^2}{s_Y^2}
 $$
-where $s_e^2$ and $s_Y^2$ denote the sample variances of the residuals and $Y$ respectively. I prefer the ratio of explained variance to underlying model variance though; is more intuitive to me, especially in terms of how its motivated and doesn't feel like it comes outta nowhere. Note that this notion of the portion of explained variance can be extended to logistic regression but the details are a bit much for this document.
+where $s_e^2$ and $s_Y^2$ denote the sample variances of the residuals and $Y$ respectively. I prefer the ratio of explained variance to underlying model variance. I find it more intuitive, especially its motviation as it doesn't feel like it just comes out of nowhere.
+
+This notion of the portion of explained variance can be extended to logistic regression but the details are a bit much for this document.
 
 \begin{tcolorbox}[title={\centering\textbf{How can we get an idea of the extent to which our features and output are linearly related without plotting?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
     To be honest, I thought a streamline test for this existed. As per this Stack Exchange answer\footnote{\url{https://stats.stackexchange.com/a/239142}}, a good method for this is to simply fit a linear and a non-linear model (e.g. a cubic spline smoother model) and see which explains a larger amount of the variance of the output via ANOVA tests.
 \end{tcolorbox}
 
 \subsubsection{Why call it `regression'?}
-Nowadays, regression models are those which predict a value belonging to some continuous space but from where did the term originate? In 1886, Francis Galton authored ``Regression Towards Mediocrity in Hereditary Stature'' which is where the `regression towards the mean' term comes from. Loosely speaking, Galton noticed that tall fathers tend to have short sons, short fathers tend to have have tall sons and average height fathers tend to have average height sons. Taken from a Stack Exchange comment: ``Galton derived a linear approximation to estimate a son's height from the father's height in that paper. His equation was fitted so an average height father would have an average height son, but a taller than average father would have a son that is taller than average by 2/3 the amount his father is. Same with shorter than average. This could be argued to be a simple linear regression."
+Nowadays, regression models are those which predict a value belonging to some continuous space but where does the term come from? In 1886, Francis Galton authored ``Regression Towards Mediocrity in Hereditary Stature'' which is where the `regression towards the mean' term comes from. Loosely speaking, Galton noticed that tall fathers tend to have sons which are taller than average but shorter than them, short fathers tend to have sons which are shorter than average but taller than them and average height fathers tend to have average height sons. Taken from a Stack Exchange comment: ``Galton derived a linear approximation to estimate a son's height from the father's height in that paper. His equation was fitted so an average height father would have an average height son, but a taller than average father would have a son that is taller than average by 2/3 the amount his father is. Same with shorter than average. This could be argued to be a simple linear regression."
 
-Put mathematically, suppose random variables $X$ and $Y$ are related via $Y=\alpha+\beta X+\epsilon$ where $\alpha,\beta\in\R$ are regression coefficients and $\epsilon$ is noise with mean $0$. Then $\E[Y|X]=\alpha+\beta X$, so if $X$ and $Y$ are centred then $E[Y|X]=\rho X$ where $\rho$ is the correlation coefficient between $X$ and $Y$. Since $|\rho|\leq1$ we know that the expected value of $Y$ is closer to the mean than $X$ unless $\rho=1$. So extreme values of $X$ tend to correspond to values of $Y$ that are closer to the mean, i.e. one has regression towards the mean.
-
-To see why this does not apply to all modern `regression' models, consider logistic regression in which one, roughly speaking, predicts probabilities of binary outcomes. In such cases, the dependent variable is binary, so `regressing towards the mean' has no meaningful interpretation.
-
-The `linear' part refers to the output variable being linear in the parameters. This is sometimes confusing in linear regression we typically deal with basis functions that give line-like surfaces (lines, planes, etc.) but we could always have non-linear basis functions. For example, $y=\beta_0+\beta_1 e^x$ is linear in $\beta=(\beta_0,\beta_1)$ but $y=\beta_0+e^{\beta_1}x$ is not. A consequence is that an estimate $\hat{\beta}$ of the model parameters can be written as $\hat{\beta}=\sum_{i=1}^k w_iy_i$ where $w_i$ are the determined weights and $y_i$ are the chosen basis functions.
-
-\begin{tcolorbox}[title={\centering\textbf{What makes MSE so special in general?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Differentiability is a common but unsatisfying answer to this question. Exponents of $2.05, 3$ or $\pi$ would yield a differentiable loss function but we never see those, so what's up? A more satisfying answer is given by this answer to a Stack Exchange\footnote{\url{https://math.stackexchange.com/a/63245}}:
-    \begin{quote}
-        The variance is the mean squared deviation from the average. The variance of the sum of 10,000 random variables is the sum of their variances. That doesn't work for other powers of the absolute value of the deviation. That means if you roll a die 6,000 times, so that the expected number of 1s you get is 1,000, then you also know that the variance of 1s is $6000\cdot\frac{1}{6}\cdot\frac{5}{6}$ so if you want the probability that the number of 1s is between 990 and 1,020, you can approximate the distribution by the normal distribution with the same mean and variance. You couldn't do that if you didn't know the variance, and you couldn't know the variances without additivity of variances, and if the exponent were anything besides 2, then you don't have that. (Oddly, you do have additivity with cubes of the deviations, but not cubes of the absolute values of the deviations).
-    \end{quote}
-\end{tcolorbox}
+Put mathematically, suppose random variables $X$ and $Y$ are related via $Y=\alpha+\beta X+\epsilon$ where $\alpha,\beta\in\R$ are regression coefficients and $\epsilon$ is noise with mean $0$. Then $\E[Y|X]=\alpha+\beta X$, so if $X$ and $Y$ are centred then $\E[Y|X]=\rho X$ where $\rho$ is the correlation coefficient between $X$ and $Y$. Since $|\rho|\leq1$ we know that the expected value of $Y$ is closer to the mean than $X$ unless $\rho=1$. So extreme values of $X$ tend to correspond to values of $Y$ that are closer to the mean, i.e. regression towards the mean is observed.
 
 % logistic regression
 \subsection{Logistic Regression}
 
-Logistic regression is to binary classification what linear regression is to regression. That is, both are the first method learned when introduced to regression and binary classification. The name might seem strange at first as regression models predict continuously distributed things and binary classification models predict either 0 or 1. The reason regression appears in its name is that it classifies samples by transforming them to $(0,1)$ in some way and imposing a threshold-based decision rule to output either 0 or 1.
+Logistic regression is to binary classification what linear regression is to regression. That is, both are the first method learned when introduced to regression and binary classification. The name might seem strange at first as regression models predict continuously distributed things and binary classification models predict either 0 or 1. The reason regression appears in its name is that it classifies samples by transforming them to $(0,1)$ and imposing a threshold-based decision rule to yield 0 or 1.
 
 Before detailing precisely how a logistic regression model classifies samples, how might one classify a sample at all? A natural idea is to fit a hyperplane to feature space which separates samples of the two classes. A hyperplane is an $(n-1)$-dimensional plane-like object embedded in $n$-dimensional space. For example, a hyperplane in $\R^2$ is a line and in $\R^3$ it is a plane. As an object, a hyperplane in $(q+1)-$dimensional space is the set of points $(x_1,\dots,x_q)\in\R^q$ which satisfy %% for future Dewi: there is a reason we do not write \x=(x_1,\dots,x_q). Read next paragraph to see why
 $$
@@ -324,9 +321,14 @@ Since we aim to fit a hyperplane to feature space, i.e. $\R^{q+1}$, we use the s
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.75\columnwidth]{./figures/supervised_learning/SVM_hard_margin.pdf}
-    \caption{A hard-margin SVM in two dimensions. Samples lying on the margin are referred to as support vectors.}
-    \label{fig:SVM_hard_margin}
+    \begin{minipage}{0.62\linewidth}
+        \includegraphics[width=\linewidth]{./figures/supervised_learning/SVM_hard_margin.pdf}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.35\linewidth}
+        \caption{A hard-margin SVM in two dimensions. Samples lying on the margin are referred to as support vectors.}
+        \label{fig:SVM_hard_margin}
+    \end{minipage}
 \end{figure}
 
 Let $\mathbf{p}_i$ denote the projection of $\x_i$ onto the hyperplane and let $d_i$ denote the distance between $\mathbf{p}_i$ and $\x_i$. Noting that the normal to the hyperplane is $\theta_+$, we have $\mathbf{p}_i=\x_i-\frac{\theta_+}{||\theta_+||}d_i$ and so
@@ -373,9 +375,14 @@ for $i=1,\dots,n$ where $\lambda\geq0$ is a regularisation parameter that influe
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.75\columnwidth]{./figures/supervised_learning/SVM_soft_margin.pdf}
-    \caption{A soft-margin SVM in two dimensions. Samples are labelled according to their true class.}
-    \label{fig:SVM_soft_margin}
+    \begin{minipage}{0.62\linewidth}
+        \includegraphics[width=\linewidth]{./figures/supervised_learning/SVM_soft_margin.pdf}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.35\linewidth}
+        \caption{A soft-margin SVM in two dimensions. Samples are labelled according to their true class.}
+        \label{fig:SVM_soft_margin}
+    \end{minipage}
 \end{figure}
 
 As illustrated in \autoref{fig:SVM_soft_margin}, it allows for samples to be closer to the decision boundary than the margin as well as outright misclassifications. Again, it is typically solved in the usual convex problem solving ways. Going a step further, it turns out that this can be reduced to computing
@@ -387,11 +394,23 @@ which can be done using gradient descent.
 \subsubsection{Non-linear SVMs}
 Motivating non-linear SVMs is straightforward: we'd sometimes like to separate samples by a non-linear decision boundary. With this in mind, a super intuitive approach is to find a transformation $\phi$ which maps samples to a space in which they are linearly separable. In said space, employ a linear SVM.
 
+% \begin{figure}[t]
+%     \centering
+%     \includegraphics[width=0.75\columnwidth]{./figures/supervised_learning/SVM_non_linear.pdf}
+%     \caption{Non-linearly separable data being transformed into linearly separable data.}
+%     \label{fig:SVM_non_linear}
+% \end{figure}
+
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.75\columnwidth]{./figures/supervised_learning/SVM_non_linear.pdf}
-    \caption{Non-linearly separable samples being transformed in such a way that they become linearly separable. Almost like punching the curve into a line. I'm unsure why the empty set symbol above the arrow is present. \TODO{: Make own figure.}}
-    \label{fig:SVM_non_linear}
+    \begin{minipage}{0.55\linewidth}
+        \includegraphics[width=\linewidth]{./figures/supervised_learning/SVM_non_linear.pdf}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.4\linewidth}
+        \caption{Non-linearly separable data being transformed into linearly separable data.}
+        \label{fig:SVM_non_linear}
+    \end{minipage}
 \end{figure}
 
 With this idea in mind, we seek to solve
@@ -429,16 +448,18 @@ I find decision trees and random forests so boring that I'm not going to write a
 
 Despite my disinterest in them, learning about decision trees encourages you to understand entropy which is good. There are other topics which encourage the same thing though, e.g. Variational Autoencoders, through the use of KL-divergences. Also, random forests are a nice introduction to ensemble methods which nicely demonstrate how to prevent overfitting by reducing variance — directly illustrating the importance of the bias-variance tradeoff! Oh, and bootstrapping. One day I'll write this subsection properly.
 
-\begin{tcolorbox}[title={\centering\textbf{LR $>$ SVM/RF when?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    This is a pretty natural question once shown more sophisticated methods which deal with linearly separable and non-linearly separable data. The largest benefit is that it allows for statistical tests on parameters, e.g. statistical significance tests. It also helps that its implementation and interpretation are straightforward.
+\begin{tcolorbox}[title={\centering\textbf{Logistic regression $>$ SVM/RF when?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    This is a pretty natural question once shown more sophisticated methods which deal with linearly separable and non-linearly separable data. The largest benefit of logistic regression is that it allows for statistical significance tests on parameters. It also helps that its implementation and interpretation are straightforward.
 \end{tcolorbox}
 
 % the bias-variance tradeoff
 \subsection{\REV{: }The Bias-Variance Tradeoff}
-The bias-variance tradeoff is a statement pertaining to the goodness of a learning method with respect to its architecture and the data. Ideally, given a fixed architecture, its post-training parameters would vary somewhat with respect to the training data but not too much. This idea leads naturally to underfitting and overfitting.
+The bias-variance tradeoff is a statement pertaining to the goodness of estimators (learning algorithms) in terms of its variance — with respect to training data — and the square of its bias — due to architecture-related assumptions. It turns out that the optimal estimator, according to mean square error, is a careful tradeoff of both. Before deriving the tradeoff, let's consider the consequences of high squared bias and high variance: underfitting and overfitting.
 
 \subsubsection{Underfitting and Overfitting}
-Crudely put, if the model family used to fit is too simple to represent the underlying distribution to which the samples belong then the learning method is highly-biased, i.e. the outcome of the learning method is almost invariant with respect to the training data. This is underfitting. Think of fitting a line to a high-degree polynomial. Underfitting is reflected during training by the training and validation errors at each epoch: high training error and high validation error.
+Crudely put, if the architecture pertaining to an estimator is too simple to represent the underlying function then the estimator's bias (and thus its square) will be high. Such an estimator underfits that which it is intended to model. I like to think of such an estimator as being almost invariant to the training data. As a practical example, think of fitting a line to a very non-linear function as in the leftmost plots of \autoref{fig:fitting_under} and \autoref{fig:fitting_over}. Underfitting is reflected during training by both high training error and high validation error.
+
+At the other extreme, if the architecture pertaining to an estimator is more complex than is necessary (e.g. overparameterised) to represent the underlying function then the excess parameters often\footnote{See the double-descent phenomenon in \autoref{fig:double_descent}.} cause the model to fit the noise in the training data. In this case, the estimator is highly variant with respect to the training data. Such an estimator overfits the training data instead of fitting the underlying function. As a practical example, think of fitting a polynomial to a with a small and heavily-noised training dataset, as in the rightmost plot of \autoref{fig:fitting_over}. Overfitting is reflected during training by low training error and high validation error (relatively speaking).
 
 \begin{figure}[t]
     \centering
@@ -458,26 +479,22 @@ Crudely put, if the model family used to fit is too simple to represent the unde
     \label{fig:fitting_over}
 \end{figure}
 
-At the other extreme, if the model family used is too complex (e.g. overparameterised) then the excess parameters often\footnote{See the double-descent phenomenon in \autoref{fig:double_descent}.} cause the model to fit the noise present in the training data as opposed to the underlying structure. In this case, the outcome of the learning method varies heavily with respect to the training data. Think of polynomial regression models trained on noisy samples. Overfitting is also conveniently reflected during training by the training and validation errors at each epoch: low training error and high (relatively speaking) validation error.
-
-\begin{tcolorbox}[title={\centering\textbf{Finding rigorous definitions of both}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    I was unable to find rigorous definitions in books like Casella Berger but The Cambridge Dictionary of Statistics offers them. That said, in practice, over and underfitting are often spoken about in terms of the training and validation losses observed during training for a given problem.
-\end{tcolorbox}
-
 \subsubsection{Derivation with MSE loss}
-Recall that sample targets pertaining to datasets from which supervised models are learned are effected by noise, i.e. $Y|(\X=\x)=f(\x)+\epsilon(\x)$ where $\epsilon(\x)\sim\mathcal{N}(0,\sigma^2(\x))$ and so
+Recall that target values are often effected by noise, i.e. $Y|(\X=\x)=f(\x)+\epsilon(\x)$ where $\epsilon(\x)\sim\mathcal{N}(0,\sigma^2(\x))$ and so
 $$
 Y|(\X=\x)
 \sim
 \mathcal{N}\l(f(\x), \sigma^2(\x)\r).
 $$
-We seek to learn an estimate $\hat{f}_{D}$ of $f(\x)=\E_Y\l[Y|\X=\x\r]$ from the dataset $D\subset(\Omega_{\X}\times\Omega_Y)^n$. In other words, the model/estimate $\hat{f}_{D}$ is determined by the realisation $D$ of $\D$ which is distributed according to $p(\x,y)^{\otimes n}$ for some fixed $n$. As is common in supervised learning contexts, we make use of the expected risk of an estimate $\hat{f}_D$ which is given by
+Given a fixed architecture, the estimate $\hat{f}_D$ of $f$ is a purely function of the training dataset $D\subset(\Omega_{\X}\times\Omega_Y)^n$. Such a dataset is a realisation of the random variable $\D$ distributed according to $p(\x,y)^{\otimes n}$. In line with this, the bias and variance derived are that of the estimator $f_{\D}$.
+
+As is common in supervised learning contexts, the goodness of an estimate $\hat{f}_D$ is given by its expected risk
 $$
 R\l(\hat{f}_D\r)
 =
 \E_{(\X,Y)}\l[\l(Y-\hat{f}_D(\X)\r)^2\r]
 $$
-in which mean square error (MSE) is used as loss. The quantity pertaining to the quality of a learning procedure used to determine $\hat{f}_{D}$ from $D\in\Omega_{\D}$ is given by
+in which mean square error (MSE) is used as loss. Thus, the quality of the corresponding estimator (or learning algorithm) used to determine $\hat{f}_{D}$ from $D\in\Omega_{\D}$ is given by
 \begin{align*}
     &\hspace{14.52pt}
     \E_{\D}\l[R\l(\hat{f}_{\D}\r)\r]\\
@@ -495,9 +512,9 @@ Let's address this term-by-term beginning with the term in red. See that
     &\hspace{14.52pt}
     \textcolor{myLightRed}{\E_{\D}\l[\E_{(\X,Y)}\l[2(Y-f(\X))\l(f(\X)-\hat{f}_{\D}(\X)\r)\r]\r]}\\
     &=
-    2\E_{\D}\l[\E_\X\l[\E_{Y}\l[(Y-f(\X))\l(f(\X)-\hat{f}_{\D}(\X)\r)\Big|\X\r]\r]\r]\\
+    2\E_{\D}\l[\E_\X\l[\E_{Y|\X}\l[(Y-f(\X))\l(f(\X)-\hat{f}_{\D}(\X)\r)\r]\r]\r]\\
     &=
-    2\E_{\D}\l[\E_\X\l[\l(f(\X)-\hat{f}_{\D}(\X)\r)\E_{Y}\l[Y-f(\X)\vert\X\r]\r]\r]\\
+    2\E_{\D}\l[\E_\X\l[\l(f(\X)-\hat{f}_{\D}(\X)\r)\E_{Y|\X}\l[Y-f(\X)\r]\r]\r]\\
     &=
     2\E_{\D}\l[\E_\X\l[\l(f(\X)-\hat{f}_{\D}(\X)\r)\cdot0\r]\r]\\
     &=
@@ -511,7 +528,7 @@ in which the tower property of conditional expectations
     &=
     \int \l(\int g(\x,y)f_{Y|\X}(y|\x)dy\r)f_\X(\x)dx\\
     &=
-    \E_\X\l[\E_{Y}\l[g(\X,Y)|\X\r]\r]
+    \E_\X\l[\E_{Y|\X}\l[g(\X,Y)\r]\r]
 \end{align*}
 is applied. As such, the quantity of interest reduces to only two terms as in
 $$
@@ -521,7 +538,7 @@ $$
 $$
 of which we will now address the first in orange. Noting that
 $$
-\E_{Y}\l[Y-f(\x)|\X=\x\r]
+\E_{Y|(\X=\x)}\l[Y-f(\x)\r]
 =
 0
 $$
@@ -531,15 +548,15 @@ for all $\x\in\Omega_{\X}$ and that what is inside the expectation over $\D$ is 
     &=
     \E_{(\X,Y)}\l[(Y-f(\X))^2\r]\\
     &=
-    \E_\X\l[\E_{Y}\l[(Y-f(\X))^2|\X\r]\r]\\
+    \E_\X\l[\E_{Y|\X}\l[(Y-f(\X))^2\r]\r]\\
     &=
-    \E_\X\l[\E_{Y}\l[\l(Y-\E_Y[Y|\X]\r)^2|\X\r]\r]\\
+    \E_\X\l[\E_{Y|\X}\l[\l(Y-\E_{Y|\X}[Y]\r)^2\r]\r]\\
     &=
-    \E_\X\l[\text{Var}_Y\l(Y|\X\r)\r]\\
+    \E_\X\l[\text{Var}\l(Y|\X\r)\r]\\
     &=
     \E_\X[\sigma^2(\X)]
 \end{align*}
-This is simply the expected noise, e.g. due to imperfect calibration in the instruments used to obtain samples. It is simply denoted by $\sigma^2$.
+This is simply the expected noise, e.g. due to imperfect calibration in the instruments used to obtain samples.
 
 For the term in green, let $\bar{f}(\x)=\E_{\D}\l[\hat{f}_{\D}(\x)\r]$ for all $\x\in\Omega_\X$ and see that
 \begin{align*}
@@ -570,37 +587,44 @@ Put together, we obtain
     &=
     \E_\X\l[\underbrace{\l(f(\X)-\E_{\D}\l[\hat{f}_{\D}(\X)\r]\r)^2}_{\text{square of bias of estimator}}+\underbrace{\E_{\D}\l[\l(\hat{f}_{\D}(\X)-\E_{\D}\l[\hat{f}_{\D}(\X)\r]\r)^2\r]}_{\text{variance of estimator}}\r]+\underbrace{\sigma^2}_{\text{noise}}
 \end{align*}
-where $\sigma^2=\E_\X\l[\sigma^2(\X)\r]$ (ignore the poor choice of notation). With this in mind, it's clear that the learning method should not seek to minimise square bias or variance individually. Instead, it should seek to find a sweet spot in minimising their sum. An illustration of this idea is given in \autoref{fig:bias_variance}.
+where $\sigma^2=\E_\X\l[\sigma^2(\X)\r]$ (ignore the poor choice of notation). With this in mind, it's clear that we do not seek the estimator $\hat{f}_{\D}$ which minimises expected square bias or expected variance individually. Instead, we seek the estimator which hits the sweet spot in minimising their sum. An illustration of this idea, as the estimator's architecture is made more complex, is given in \autoref{fig:bias_variance}.
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\columnwidth]{./figures/supervised_learning/bias_variance.png}
-    \caption{The graph of learning method error against model complexity in terms of bias and variance. \TODO{: Make own figure.}}
-    \label{fig:bias_variance}
+    \begin{minipage}{0.6\linewidth}
+        \includegraphics[width=\linewidth]{./figures/supervised_learning/bias_variance.pdf}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.35\linewidth}
+        \caption{Expected risk, squared bias and variance against architecture complexity.}
+        \label{fig:bias_variance}
+    \end{minipage}
 \end{figure}
 
 \begin{tcolorbox}[title={\centering\textbf{Beyond MSE}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Natural question: MSE is a common choice of loss when dealing with regression but not classification, in which cross-entropies are typically used as loss, so why do derivations of the bias-variance tradeoff use MSE? The quick answer is that it's the only choice which yields a relatively simple derivation of this nice decomposition of learning method error into two orthogonal characteristics of the learning method: bias and variance.
+    \textbf{Natural question:} MSE is a common choice of loss when dealing with regression but not classification, in which cross-entropies are typically used as loss, so why do derivations of the bias-variance tradeoff use MSE? The quick answer is that it's the only choice which yields a relatively simple derivation of this nice decomposition of learning method error into two orthogonal characteristics of the learning method: bias and variance.
     
-    \hspace{14.2pt} Also, interestingly, it turns out that if you instead consider probabilistic classification then using cross-entropy as loss also yields a decomposition into bias and variance but its derivation is less elegant.
+    \hspace{14.2pt} Also, interestingly, it turns out that if you instead consider probabilistic classification then using cross-entropy as loss also yields a decomposition into squared bias and variance but its derivation is less elegant.
 \end{tcolorbox}
 
 \subsubsection{Double descent}
-Double descent refers to a behaviour observed in select set ups in which overparameterised models seemingly fly in the face of the bias-variance tradeoff. As the number of parameters (i.e. the model complexity) increases beyond a certain point, the test error begins to drop. What makes this a phenomenon is that it seems that said threshold is the number of samples used to train the model. This is illustrated nicely in \autoref{fig:double_descent}.
+Double descent refers to a behaviour observed in select set ups in which overparameterised models seemingly fly in the face of the bias-variance tradeoff. As the number of parameters (i.e. the model complexity) increases, the test error increases in line with the usual bias-variance tradeoff until reaching the number of training samples $n$. At this point, the test error spikes and training error hits 0. That is, the model is able to entirely interpolate the training data. The phenomenon begins as the number of parameters exceeds $n$. Not only does training error remain 0 (expected) but the test error begins to decrease. Not only that, in many set ups the test error reduces to an amount below the minimum test error observed during the usual bias-variance regime.
+
+The phenomenon is illustrated nicely in \autoref{fig:double_descent} and motivates the massively overparameterised contemporary models used these days. AlexNet is an example of an overparameterised model lying in the second descent region with around 60 million parameters but only 1.2 million training samples.
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\columnwidth]{./figures/supervised_learning/double_descent.png}
-    \caption{How double descent typically looks. \TODO{: Make own figure.}}
+    \includegraphics[width=1\columnwidth]{./figures/supervised_learning/double_descent.pdf}
+    \caption{The double descent phenomenon, $n=|D_{\text{train}}|$.}
     \label{fig:double_descent}
 \end{figure}
 
-I like to imagine fitting a third degree polynomial by a polynomial of higher and higher degree. One would expect overfitting with a degree as low as 9. If double descent were observed in this set up, one might expect the learned polynomial to act wildly (as expected) until reaching a degree equal to the number of training samples. At which point, the model begins to fit the third degree polynomial better and better until it truly fits something very close to a third degree polynomial. Strange.
+I like to imagine fitting a third degree polynomial by a polynomial of higher and higher degree. If double descent were observed in this set up, one might expect wild polynomial fits until the polynomial's degree matches the number of training samples. At which point, the model has interoplated the training data perfectly and begins to regulate how it fits what's inbetween.
 
-I'm unaware of anyone who has a good idea of why double descent is sometimes observed. The most intuitive guess I've heard is that gradient descent, as a process, is inherently regulatory.
+There has been a good amount of work investigating the phenomenon and some of the mystery has reduced as a result. The most common explanation is that gradient descent is inherently regulatory. Not only that but the use of explcit regularisation, like SGD and Adam, bias toward `simpler' solutions in weight space which typically generalise better. The second most convincing reason I've come across is that the majority of minima which yield 0 training error yield smooth and generalising models. This isn't so much a reason as much as it is a crude explanation: there's no reason to believe that minima which yields 0 training error necessarily overfit. A third reason is that with a massive dataset, noise is relatively uninfluential compared to the underlying structure, so dominant patterns in data can be extrapolated regardless.
 
 % parameter exploration and its optimisation
-\section{Parameter Exploration and its Optimisation}
+\section{\REV{: }Parameter Exploration and its Optimisation}
 In fitting a parametric model $f_{\theta}:\Omega_{\X}\to\Omega_{Y}$, the loss induced by a choice of model parameters $\theta$ for a sample $(\x,y)$ is given by $\mathcal{L}\l(y,f_{\theta}(\x)\r)$. In line with this, let the empirical risk $R_D$ over a dataset $D=\{(\x_i,y_i)\}_{i=1}^n$ be
 \begin{align*}
     R_D:\Theta&\to\R_{\geq0}\\
@@ -616,14 +640,19 @@ i.e. to minimise the empirical risk over the dataset in the parameters. As such,
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.8\columnwidth]{./figures/gradient_descent/loss_landscape.png}
-    \caption{The graph of a complex loss landscape $\{(\theta,R_D(\theta))|\theta\in\R^2\}$ whose minimiser we seek. \TODO{: Make own figure.}}
-    \label{fig:loss_landscape_complex}
+    \begin{minipage}{0.67\linewidth}
+        \includegraphics[width=\linewidth]{./figures/gradient_descent/loss_landscape.png}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.3\linewidth}
+        \caption{The graph $\{(\theta,R_D(\theta))|\theta\in\R^2\}$ of a complex loss landscape whose minimiser we seek.}
+        \label{fig:loss_landscape_complex}
+    \end{minipage}
 \end{figure}
 
 Tons of function minimisation methods exist: Newton's method, genetic algorithms, gradient descent, etc. but most are horribly slow/unstable in high dimensions; not gradient descent though! As a result, gradient descent is \textit{the} method for computing good parameters numerically in machine learning, hence the inclusion of this section.
 
-\begin{tcolorbox}[title={\centering\textbf{Loss landscapes are dataset-dependent!}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+\begin{tcolorbox}[title={\centering\textbf{Illustrations of loss landscapes are dataset-dependent!}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
     When loss landscapes are illustrated, they are really plots of the graph $\{(\theta, R_D(\theta))|\theta\in\Theta\}$. That is, they are shaped by the fixed dataset $D$. As such, computations of the form $R_{D'}(\theta)$ for $D'\subsetneq D$, e.g. computations related to mini-batch gradient descent, don't necessarily correspond exactly with $R_D(\theta)$ but this isn't usually an issue.
 \end{tcolorbox}
 
@@ -1343,7 +1372,6 @@ $$
 % convolutional neural networks
 \subsection{Convolutional Neural Networks (CNNs)}
 \label{subsec:conv_neural_networks}
-Convolutional neural networks (CNNs) are neural networks whose architectures are designed to process image data. Illustrated in \autoref{fig:CNN_frog}, their architecture can be described on a high level as consisting of two parts. The first part performs feature extraction through convolutions and pooling. The second part is an MLP which uses the extracted feature values to produce the overall model's output, e.g. the probability that the input object belongs to a given class. Feature extraction into MLP, pretty intuitive.
 
 \begin{figure}[t]
     \centering
@@ -1352,30 +1380,54 @@ Convolutional neural networks (CNNs) are neural networks whose architectures are
     \label{fig:CNN_frog}
 \end{figure}
 
-Before these deep learning architectures, researchers would have use handcrafted features and feed the feature values to a given model, e.g. an SVM for classification. Humans turn out to be far worse at knowing what features to use than well-trained machine learning models. So how do these earlier layers in CNN architectures perform feature extraction? Convolution and pooling layers. \TODO{: Clarify that Feature maps != Filters/kernel}
+Convolutional neural networks (CNNs) were initially designed to process image and, by extension, video data. Over time, they have been applied to processing far richer forms of data. A forward pass through a CNN designed for image processing is illustrated in \autoref{fig:CNN_frog}, in which we see that their architecture can be described on a high level as consisting of two parts. The first part performs feature extraction through convolution and pooling operations. The second part employs an MLP to produce the overall model's output given the earlier-extracted features, e.g. the probability that an input image is of a given class.
+
+Before deep learning architectures became mainstream, researchers used handcrafted features (SIFT, HOG, SURF, etc.) for feature extraction and fed extracted features to a given model, e.g. an SVM for classification. That is, feature extraction wasn't learned, nor was it entwined with the inference component of their models. For image processing tasks, humans turn out to be far worse than deep learning architectures at knowing which features are most informative of what is being predicted. Hence, CNNs are now the go-to architecture for image and video processing. There's something to be said here about vision transformers and the extent to which they are competitive with CNNs but this can wait.
 
 \subsubsection{Convolutions}
-Convolution operations involve using a square matrix to, in some sense, summarise the information embedded in the parts of the imaage which it traverses over. This square matrix is referred to as a filter or a kernel. I prefer referring to it as a filter. You can think of this convolution operation as a sort of dot product between the filter and the grid of pixel values it is on top of at that point.
-
-More formally, given a feature map $I\in\mathbb{R}^{C\times W\times H}$ and a filter $K\in\mathbb{R}^{C\times k\times k}$ with $k<W$ and $k<H$, the feature map $F=K*I\in\mathbb{R}^{W'\times H'}$ given by the convolution of $K$ over $I$ is given by
-$$
-F_{i,j}
-=
-\sum_{c=1}^C\sum_{x=1}^{k}\sum_{y=1}^{k}K_{c,x,y}\cdot I_{c,i+x,i+y}+b_c
-$$
-where $b_c$ is the filter's bias in channel $c$. Note that this notation is intended to illustrate what a convolution looks like algebraically. As it stands, what's written above does not account for padding, stride, etc. For a simpler illustration, consider \autoref{fig:convolution_operation}.
+Convolution operations involve using a (typically square) matrix to, in some sense, summarise the information embedded in parts of the object over which it traverses. This matrix is referred to as a filter or a kernel — I prefer using filter as the term kernel has so many meanings elsewhere in maths. You can think of convolution operations as a sort of dot product between the given filter and the grid of pixel values over which lies during its traversal. For a simple illustration of this idea, consider \autoref{fig:convolution_operation}. Since CNNs consists of multiple convolution layers, the output of a convolution layer is often referred to as a feature map.
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=1\textwidth]{./figures/neural_nets/CNN_convolution.png}
-    \caption{Convolution without bias. \TODO{: Make own figure.}}
+    \includegraphics[width=0.7\textwidth]{./figures/neural_nets/CNN_convolution.pdf}
+    \caption{Convolution with a vertical edge detection filter with 0 bias.}
     \label{fig:convolution_operation}
 \end{figure}
 
-Generally, earlier convolutions in a CNN architecture extract higher level features, like edges and textures, while later convolutions extract lower level features which are not human-interpretable. This is observed in \autoref{fig:CNN_frog} where after the first convolutional layer one can still see a resemblance of the input image of a frog. The feature maps produced by the second convolutional layer do not maintain a human-interpretable resemblance of the frog.
+More formally, given a feature map $I\in\mathbb{R}^{C\times W\times H}$ and a filter $K\in\mathbb{R}^{C\times k\times k}$ with $k<W$ and $k<H$, the feature map $F=K*I\in\mathbb{R}^{W'\times H'}$ is the convolution of $K$ over $I$ is as in
+$$
+F_{i,j}
+=
+\sum_{c=1}^C\sum_{x=1}^{k}\sum_{y=1}^{k}K_{c,x,y}\cdot I_{c,x+i,y+j}+b_c
+$$
+where $b_c$ is the filter's bias in channel $c$. Nowadays, $k=3$ is a very popular choice. Note that this notation is intended to illustrate what a convolution looks like algebraically. As it stands, what's written above does not account for padding, stride, etc.
+
+Generally, earlier filters in a CNN architecture extract lower-level features, like edges and textures, while later convolutions extract higher-level features like entire components of object, e.g. wheels. This is illustrated in \autoref{fig:filter_levels}.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./figures/neural_nets/CNN_feature_levels.png}
+    \caption{The level of abstraction of a CNN's learned filters. \TODO{: Make own figure.}}
+    \label{fig:filter_levels}
+\end{figure}
+
+\subsubsection*{Post-convolution spatial dimensions}
+Given a feature map $F\in\mathbb{R}^{W\times H}$, suppose we compute the convolution $O\in\mathbb{R}^{W'\times H'}$ of the filter $K\in\mathbb{R}^{k\times k}$ over $F$ with uniform padding $P$ and stride $S$. The precise dimensions $W'$ and $H'$ of the new feature map $O$ are given by
+$$
+W'
+=
+\l\lfloor\frac{W+2P-k}{S}\right\rfloor+1
+$$
+and
+$$
+H'
+=
+\l\lfloor\frac{H+2P-k}{S}\right\rfloor+1.
+$$
+It's not too tricky to derive these. It's the kinda thing you do once and never again.
 
 \subsubsection{Pooling}
-Pooling operations reduce the spatial dimensions of a given feature map by, in some sense, clustering certain parts of the feature map. There's not much point to writing this mathematically rigorously. Instead, consider \autoref{fig:pooling}. Pooling has a ton of flavours: max, min, average and more.
+Pooling operations reduce the spatial dimensions of a given feature map by applying relatively straightforward transformations: max pooling, min pooling, mean pooling, etc. There's not much point to expressing them rigorously. Instead, consider \autoref{fig:pooling}. Benefits of pooling are improved translation-invariance and reduced required compute.
 
 \begin{figure}[ht]
     \centering
@@ -1384,35 +1436,9 @@ Pooling operations reduce the spatial dimensions of a given feature map by, in s
     \label{fig:pooling}
 \end{figure}
 
-A nice benefit of pooling is improved translation-invariance. Ideally, our model would classify an image in a similar enough way to how it'd classify the same image but slightly shifted. What is meant here is very problem-dependent so take it with a grain of salt. Hopefully the idea is clear anyway. Another benefit to pooling the reduced compute.
-
-\subsubsection{Output dimensions after convolving and pooling}
-Given a feature map $F\in\mathbb{R}^{W\times H}$, suppose we compute the convolution $O\in\mathbb{R}^{W'\times H'}$ of the filter $K\in\mathbb{R}^{k\times k}$ over $F$ with uniform padding $P$ and stride $S$. The precise dimensions $W'$ and $H'$ of the new feature map $O$ are given by
-$$
-W'
-=
-\l\lfloor
-\frac{W+2P-k}{S}
-\right\rfloor
-+1
-$$
-and
-$$
-H'
-=
-\l\lfloor
-\frac{H+2P-k}{S}
-\right\rfloor
-+1.
-$$
-It's not too tricky to derive these. It's the kinda thing you do once and never again. \TODO{: complete.}
-
 \begin{tcolorbox}[title={\centering\textbf{Why use a CNN over an MLP?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Improved parameter-efficiency, translation invariance and learning-efficiency\footnote{\href{https://ai.stackexchange.com/questions/27407/what-does-statistical-efficiency-mean-in-this-context}{\texttt{ai.stackexchange.com/questions/27407}}}, i.e. fewer samples needed to learn distributions to similar degrees of precision.
+    Massively improved parameter-efficiency, translation invariance and learning efficiency\footnote{\href{https://ai.stackexchange.com/questions/27407/what-does-statistical-efficiency-mean-in-this-context}{\texttt{ai.stackexchange.com/questions/27407}}} (fewer samples needed to learn distributions to similar degrees of precision). These are in part due to the inductive bias present of their architecture.
 \end{tcolorbox}
-
-\subsubsection{Inductive biase}
-Seems like a good point in the document to talk about inductive bias\dots
 
 % recurrent neural networks
 \subsection{\TODO{: }Recurrent Neural Networks (RNNs)}
@@ -1946,6 +1972,8 @@ $$
 =
 \text{Var}(X)+\text{Var}(Y).
 $$
+It turns out that you do have additivity with cubes of the deviations but not cubes of the absolute values of the deviations.
+
 It's worth noting that there are plenty of contexts in statistics in which different measure of distribution spread are more convenient, e.g. the mean absolute deviation about the median $\E[|X-\text{median}(X)|]$ in the context of robust statistics.
 
 \subsection{Estimators and their Bias}
