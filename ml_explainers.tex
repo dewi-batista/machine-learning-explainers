@@ -640,14 +640,9 @@ i.e. to minimise the empirical risk over the dataset in the parameters. As such,
 
 \begin{figure}[t]
     \centering
-    \begin{minipage}{0.67\linewidth}
-        \includegraphics[width=\linewidth]{./figures/gradient_descent/loss_landscape.png}
-    \end{minipage}%
-    \hfill
-    \begin{minipage}{0.3\linewidth}
-        \caption{The graph $\{(\theta,R_D(\theta))|\theta\in\R^2\}$ of a complex loss landscape whose minimiser we seek.}
-        \label{fig:loss_landscape_complex}
-    \end{minipage}
+    \includegraphics[width=0.9\linewidth]{./figures/gradient_descent/loss_landscape.pdf}
+    \caption{The graph $\{(\theta,R_D(\theta))|\theta\in\R^2\}$ of a complex loss landscape and a visualisation of how me might hope that gradient descent looks.}
+    \label{fig:loss_landscape_complex}
 \end{figure}
 
 Tons of function minimisation methods exist: Newton's method, genetic algorithms, gradient descent, etc. but most are horribly slow/unstable in high dimensions; not gradient descent though! As a result, gradient descent is \textit{the} method for computing good parameters numerically in machine learning, hence the inclusion of this section.
@@ -720,8 +715,8 @@ If your training dataset is huge and you don't have enough memory to store thing
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\columnwidth]{./figures/gradient_descent/gradient_descent_types.png}
-    \caption{How we might expect the convergence of each method to look. \TODO{: Make own figure.}}
+    \includegraphics[width=\columnwidth]{./figures/gradient_descent/gradient_descent_types.pdf}
+    \caption{How we might expect the convergence of each method to look.}
     \label{fig:gradient_descent_types}
 \end{figure}
 
@@ -764,9 +759,14 @@ These forms of normalisation typically only apply to learning in neural network 
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\columnwidth]{./figures/gradient_descent/batch_norm.png}
-    \caption{An effect of Batch normalisation. \TODO{: Make own figure.}}
-    \label{fig:batch_norm}
+    \begin{minipage}{0.6\linewidth}
+        \includegraphics[width=\linewidth]{./figures/gradient_descent/batch_norm.pdf}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.35\linewidth}
+        \caption{A benefit of batch norm.}
+        \label{fig:batch_norm}
+    \end{minipage}
 \end{figure}
 
 \subsubsection*{1) Batch norm}
@@ -819,9 +819,14 @@ Overfitting is a pain. How might we regulate the learning procedure in a way tha
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.5\columnwidth]{./figures/supervised_learning/regularisation_two_plots_zero_test_error.png}
-    \caption{Two fits, both yielding 0 test error. \TODO{: Make own figure.}}
-    \label{fig:regularisation_two_plots}
+    \begin{minipage}{0.6\linewidth}
+        \includegraphics[width=\linewidth]{./figures/supervised_learning/regularisation_two_plots_zero_test_error.pdf}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.35\linewidth}
+        \caption{Two fits, both yielding 0 test error.}
+        \label{fig:regularisation_two_plots}
+    \end{minipage}
 \end{figure}
 
 The most well known regularisation techniques are L1 and L2 regularisation. Both involve adding a penalty term to the loss function used during training with the intention of encouraging some behaviour in the learning process. There are tons of ways of motivating both L1 and L2 but the most intuitive to me (by a long shot) is a Bayesian approach: assume independence of parameters and impose a prior distribution on them according to whatever bias we hope to bake into the learning process. Then, instead of regular maximum likelihood, compute
@@ -860,19 +865,20 @@ $$
 where $\lambda=1/2\sigma^2$.
 
 \subsubsection*{Visualising L1 and L2 regularisation}
-There's a particularly elegant way to visualise the effects of L1 and L2 reglularisation in terms of how they change the shape of the corresponding loss landscape. After reading the loss function with L1 or L2 regularisation, it's immediately seen how adding either penalty term effectively \dots.
-
-\TODO{: make a before and after pic for 3D loss landscape.}
-
-It's almost as if you sink every point in the loss landscape according to how far away it is from the origin. The amount by which you sink depends on the hyperparameter $\lambda$. It's hopefully clear from the illustration how L1 and L2 reduce variance and increase bias.
+There's a particularly elegant way to visualise the effects of L1 and L2 reglularisation in terms of how they change the shape of the corresponding loss landscape. It's almost as if you each point is sunk according to how far away it is from the origin and the hyperparameter $\lambda$.
 
 \subsubsection*{3) Early stopping} Split training into training and validation sets. After each epoch (or every few), compute both training and validation losses. If training loss is decreasing while validation loss is not then the model may be overfitting the training data. As illustration, consider \autoref{fig:early_stopping} in which the training loss continues to decrease in the number of epochs while the validation loss seems to reach its lowest value around epoch 28.
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.75\textwidth]{./figures/neural_nets/REG_early_stopping.pdf}
-    \caption{Training and validation losses over 50 epochs for some model. Best validation obtained at epoch 28.}
-    \label{fig:early_stopping}
+    \begin{minipage}{0.62\linewidth}
+        \includegraphics[width=\linewidth]{./figures/neural_nets/REG_early_stopping.pdf}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.34\linewidth}
+        \caption{Training and validation losses over 50 epochs for some model. Best validation obtained at epoch 28.}
+        \label{fig:early_stopping}
+    \end{minipage}
 \end{figure}
 
 If you observe this for sufficiently many consecutive epochs (the pre-determind patience of your early stopping procedure) then you can stop training and use the parameters pertaining to the epoch at which the validation loss was lowest. To do this, at each epoch during training, save the parameters of the current epoch if they offer a lower validation loss than at any epoch before. This is often referred to as a checkpoint within the training process and the parameters are saved in a \texttt{.ckpt} file. Alternatively, pick a threshold $\delta>0$ by which the validation error must have decreased by during the previous however many epochs.
@@ -883,8 +889,8 @@ Make sure to not apply dropout at ineference time!
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\textwidth]{./figures/neural_nets/REG_dropout.png}
-    \caption{Dropout to prevent overdependence on given neurons. \TODO{: Make own figure.}}
+    \includegraphics[width=\textwidth]{./figures/neural_nets/REG_dropout.pdf}
+    \caption{Dropout.}
     \label{fig:dropout}
 \end{figure}
 
@@ -897,9 +903,14 @@ Think of a ball rolling downhill: momentum lets it keep moving in the same direc
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\columnwidth]{./figures/gradient_descent/momentum.png}
-    \caption{How we might expect the convergence to look with momentum. \TODO{: Make own figure.}}
-    \label{fig:gradient_descent_momentum}
+    \begin{minipage}{0.7\linewidth}
+        \includegraphics[width=\columnwidth]{./figures/gradient_descent/momentum.pdf}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.27\linewidth}
+        \caption{How we might hope convergence would look using momentum.}
+        \label{fig:gradient_descent_momentum}
+    \end{minipage}
 \end{figure}
 
 We impose this by introducing a velocity vector
@@ -1050,9 +1061,14 @@ If we fix the structure and choice of activation functions of an MLP then all th
 
 \begin{figure}[t]
     \centering
-    \includegraphics{./figures/neural_nets/MLP_2.pdf}
-    \caption{A neural network with one hidden layer ($k=1$). \TODO{: The figure should read `hidden layer', not plural.}}
-    \label{fig:neural_nets_simple_example}
+    \begin{minipage}{0.6\linewidth}
+        \includegraphics{./figures/neural_nets/MLP_2.pdf}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.39\linewidth}
+        \caption{A neural network with one hidden layer ($k=1$).}
+        \label{fig:neural_nets_simple_example}
+    \end{minipage}
 \end{figure}
 
 Consider the neural network in \autoref{fig:neural_nets_simple_example} whose input, hidden and output layers consist of two, one and two neurons respectively. With such a simple neural network, we may explicitly express the output neurons $a_1^{(2)}$ and $a_2^{(2)}$ in terms of the input neurons $a_1^{(0)}$ and $a_2^{(0)}$. We see that $n_0=2$, $n_1=1$ and $n_2=2$ and so
@@ -1128,7 +1144,7 @@ As such, the activations of the output neurons are given by
 % universal function approximation theorem
 \subsubsection{The Universal Function Approximation of MLPs}
 \label{subsubsec:universal_function_approximation_theorem}
-\TODO{: Add figures.} A class of functions, or function class, $\mathcal{F}_S$ is capable of universal function approximation on $S\subset\R^q$ compact (closed and bounded) if for all continuous $f:S\to\R$ and $\epsilon>0$ there exists some $\hat{f}\in\mathcal{F}_S$ such that
+A class of functions, or function class, $\mathcal{F}_S$ is capable of universal function approximation on $S\subset\R^q$ compact (closed and bounded) if for all continuous $f:S\to\R$ and $\epsilon>0$ there exists some $\hat{f}\in\mathcal{F}_S$ such that
 $$
 \max_{x\in S}\l|f(x)-\hat{f}(x)\r|<\epsilon.
 $$
@@ -1219,9 +1235,14 @@ $$
 The $2-$probability simpelx coloured according to argmax is illustrated in \autoref{fig:2_prob_simplex}.
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.75\textwidth]{./figures/neural_nets/MLP_simplex_argmax.png}
-    \caption{The $2-$probability simplex coloured according to argmax in the three coordinates.}
-    \label{fig:2_prob_simplex}
+    \begin{minipage}{0.52\linewidth}
+        \includegraphics[width=0.75\textwidth]{./figures/neural_nets/MLP_simplex_argmax.png}
+    \end{minipage}%
+    % \hfill
+    \begin{minipage}{0.48\linewidth}
+        \caption{The $2-$probability simplex coloured according to argmax in the three coordinates.}
+        \label{fig:2_prob_simplex}
+    \end{minipage}
 \end{figure}
 From the figure, it is clear how argmax can computed by splitting the $2$-probability simplex via two planes, e.g. the intersection of $x>y$ and $x>z$ on the simplex yield the red region. As such, neural nets used for classification can be seen as performing regression on the $2-$simplex, as in learning $p(y|\X=\x)$.
 
@@ -1432,7 +1453,7 @@ Pooling operations reduce the spatial dimensions of a given feature map by apply
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{./figures/neural_nets/CNN_pooling.pdf}
-    \caption{The core flavours of pooling. \TODO{: Make own figure.}}
+    \caption{The core flavours of pooling.}
     \label{fig:pooling}
 \end{figure}
 
@@ -1469,7 +1490,10 @@ for which the tokenisations occur.
 \subsubsection{Positional encoding}
 Use sinusoids to form a position vector $P_k$ for the $k$th token in an input sequence of length $L$. Add $P_k$ to the word embedding $E_k$ for $k=0,\dots,L-1$ to obtain the input $[E_0+P_0,\dots,E_{L-1}+P_{L-1}]$ fed to the model.
 
-\subsubsection{Architecture}
+\subsubsection{Attention}
+\dots
+
+\subsubsection{Transformer blocks}
 \dots
 
 % misc. questions
@@ -1477,30 +1501,21 @@ Use sinusoids to form a position vector $P_k$ for the $k$th token in an input se
 \subsection{Misc. questions}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
 
-Some questions to challenge one's understanding.
-
 \begin{center}
     \textbf{\textcolor{blue}{Q1:} What is the purpose of activation functions?}
 \end{center}
-Without the application of at least one activation function, the values of the output neurons would simply be the result of matrix-vector multiplication and vector addition. That is to say, the output of the neural network, without an any activation function, would be a purely linear transformation of the input. The issue with this is that most problems require some degree of non-linearity. The staple example of this is the classification of two-dimensional samples which are not linearly separable. Two such cases are illustrated in \autoref{fig:non_linearly_separable}.
+Without the application of at least one activation function, the values of the output neurons would simply be the result of matrix-vector multiplication and vector addition. That is to say, the output of the neural network, without an any activation function, would be a purely linear transformation of the input. The issue with this is that most problems require some degree of non-linearity. The staple example of this is the classification of two-dimensional samples which are not linearly separable. An example is illustrated in the left of \autoref{fig:non_linearly_separable}.
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.40\columnwidth]{./figures/neural_nets/NLA_xor.png}
-    \hspace{20pt}
     \includegraphics[width=0.40\columnwidth]{./figures/neural_nets/NLA_circle.png}
-    \caption{Examples of samples belonging to classes that are not linearly separable. \TODO{: Make properly.}}
+    \hspace{20pt}
+    \includegraphics[width=0.40\columnwidth]{./figures/neural_nets//NLA_non_lin_transform.png}
+    \caption{Non-linearly separable data (left) and its image under a non-linear transformation (right).}
     \label{fig:non_linearly_separable}
 \end{figure}
 
-The point is that there is no line that would separate the classes in either case: non-linearity is needed! In the latter case, it is desirable to be able to somehow punch the interior of the unit disc to form a blue mountain with the surrounding ground covered in red. This can be achieved by the non-linear transformation $\phi(x,y)=\max(0,1-(x^2+y^2))$ which is illustrated in \autoref{fig:non_lin_transformation}.
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=0.40\columnwidth]{./figures/neural_nets//NLA_non_lin_transform.png}
-    \caption{The image of our non-linear transformation. \TODO{: Make properly.}}
-    \label{fig:non_lin_transformation}
-\end{figure}
+The point is that there is no line that would separate the classes in either case: non-linearity is needed! In the latter case, it is desirable to be able to somehow punch the interior of the unit disc to form a blue mountain with the surrounding ground covered in red. This can be achieved by the non-linear transformation $\phi(x,y)=\max(0,1-(x^2+y^2))$ which is illustrated in the right of \autoref{fig:non_linearly_separable}.
 
 From here, a natural linear decision boundary is the plane $z=0$ (i.e. the red ground surrounding the blue mountain). Any sample above the plane, i.e. any sample whose $z-$coordinate is positive, is classified as blue. It is otherwise classified as red. We can be more clever than this though. This transformation required us to map samples to 3D — how about mapping to just 1D? To do this, a complete decision function is given by
 $$
@@ -1521,7 +1536,7 @@ To be super pedantic, single-layer perceptrons yielding only linear decision bou
 Nope, it just makes things related to optimisation easier while having a sufficiently-small effect on performance in practice. Some results surrounding neural networks necessitate monotonic activation functions though.
 
 \begin{center}
-    \textbf{\textcolor{blue}{Q4:} Which activation functions should be used when?}
+    \textbf{\textcolor{blue}{Q4:} Which activation functions should be used and when?}
 \end{center}
 Roughly speaking, I wouldn't worry too much about this in practice. The usual choices are all nice and differentiable (with small caveats, like with ReLU at 0) facilitating backpropagation. You should sometimes care about the output given the problem at hand. For example, if you need outputs in $[-1,1]$ then $\tanh$ is a natural choice. Note that some choices, like Leaky ReLU, introduce hyperparameters to the model which is sometimes undesirable, e.g. if one seeks to minimise the number of hyperparameters for a strength of their result (if there's no hyperparameter to cherry pick then your result is more trustworthy).
 
@@ -1536,7 +1551,7 @@ Skip connections help. Architectures which use them are sometimes called residua
     \item Takes pressure off parameter initialisation: if you set parameters to zero then initially model is just the identity and learning from there is feasible
 \end{itemize}
 
-Worth mentioning that said vanishing behaviour is also somtimes observed in forward passes.
+Worth mentioning that said vanishing behaviour can be observed during forward passes too.
 
 % generative models (any other section name i've come up with has been due to overthinking)
 \section{Generative Models}
@@ -1548,7 +1563,7 @@ How is a mention of modelling the joint not in here? E.g. GPT models sequentiall
 The problem with fitting such a distribution is that it is not at all clear what the distribution function would be. These distributions are complex and generally very hard to get right. Most ways to fit the underlying distribution is to perfrom maximum likelihood in some way. Performing maximum likelihood directly without access to any sort of direct distribution function is pretty hard, so it is often done indirectly. For example, when training a variatioanl autoencoder (VAE), you look to maximise a lower bound of the likelihood. The idea is that if this lower bound is sufficiently tight then maximising it in some sense pushes up the true likelihood, maximising it.
 
 % bayesian nets
-\subsection{\TODO{ }Bayesian networks}
+\subsection{\TODO{: }Bayesian networks}
 Probabilistic circuits should get an honourable mention
 
 % variational autoencoders
@@ -1563,7 +1578,7 @@ An autoencoder $(\Omega_{\X},d,\theta,\phi)$ consists of a sample space $\Omega_
 \begin{figure}[t]
     \centering
     \includegraphics{./figures/neural_nets/AE_autoencoder.pdf}
-    \caption{An autoencoder in which $\theta$ and $\phi$ are fit using multi-layer perceptrons (MLPs). \TODO{: Colour missing in text? Also change $n$ to $q$}}
+    \caption{An autoencoder in which $\theta$ and $\phi$ are fit using multi-layer perceptrons (MLPs).}
     \label{fig:autoencoder}
 \end{figure}
 
