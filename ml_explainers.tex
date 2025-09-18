@@ -602,7 +602,7 @@ where $\sigma^2=\E_\X\l[\sigma^2(\X)\r]$ (ignore the poor choice of notation). W
 \end{figure}
 
 \begin{tcolorbox}[title={\centering\textbf{Beyond MSE}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    \textbf{Natural question:} MSE is a common choice of loss when dealing with regression but not classification, in which cross-entropies are typically used as loss, so why do derivations of the bias-variance tradeoff use MSE? The quick answer is that it's the only choice which yields a relatively simple derivation of this nice decomposition of learning method error into two orthogonal characteristics of the learning method: bias and variance.
+    \textbf{Natural question:} MSE is a common choice of loss when dealing with regression but not classification, in which cross-entropies are typically used as loss, so why do derivations of the bias-variance tradeoff use MSE? The quick answer is that it's the only choice which yields a relatively simple derivation of this elegant decomposition of estimator error into two orthogonal characteristics of the estimator: its bias and variance.
     
     \hspace{14.2pt} Also, interestingly, it turns out that if you instead consider probabilistic classification then using cross-entropy as loss also yields a decomposition into squared bias and variance but its derivation is less elegant.
 \end{tcolorbox}
@@ -624,7 +624,7 @@ I like to imagine fitting a third degree polynomial by a polynomial of higher an
 There has been a good amount of work investigating the phenomenon and some of the mystery has reduced as a result. The most common explanation is that gradient descent is inherently regulatory. Not only that but the use of explcit regularisation, like SGD and Adam, bias toward `simpler' solutions in weight space which typically generalise better. The second most convincing reason I've come across is that the majority of minima which yield 0 training error yield smooth and generalising models. This isn't so much a reason as much as it is a crude explanation: there's no reason to believe that minima which yields 0 training error necessarily overfit. A third reason is that with a massive dataset, noise is relatively uninfluential compared to the underlying structure, so dominant patterns in data can be extrapolated regardless.
 
 % parameter exploration and its optimisation
-\section{\REV{: }Parameter Exploration and its Optimisation}
+\section{Parameter Exploration and its Optimisation}
 In fitting a parametric model $f_{\theta}:\Omega_{\X}\to\Omega_{Y}$, the loss induced by a choice of model parameters $\theta$ for a sample $(\x,y)$ is given by $\mathcal{L}\l(y,f_{\theta}(\x)\r)$. In line with this, let the empirical risk $R_D$ over a dataset $D=\{(\x_i,y_i)\}_{i=1}^n$ be
 \begin{align*}
     R_D:\Theta&\to\R_{\geq0}\\
@@ -641,7 +641,7 @@ i.e. to minimise the empirical risk over the dataset in the parameters. As such,
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.9\linewidth]{./figures/gradient_descent/loss_landscape.pdf}
-    \caption{The graph $\{(\theta,R_D(\theta))|\theta\in\R^2\}$ of a complex loss landscape and a visualisation of how me might hope that gradient descent looks.}
+    \caption{The graph $\{(\theta,R_D(\theta))|\theta\in\R^2\}$ of a complex loss landscape and a visualisation of how me might hope gradient descent looks.}
     \label{fig:loss_landscape_complex}
 \end{figure}
 
@@ -716,15 +716,15 @@ If your training dataset is huge and you don't have enough memory to store thing
 \begin{figure}[t]
     \centering
     \includegraphics[width=\columnwidth]{./figures/gradient_descent/gradient_descent_types.pdf}
-    \caption{How we might expect the convergence of each method to look.}
+    \caption{How the convergence of each method might look.}
     \label{fig:gradient_descent_types}
 \end{figure}
 
 \begin{tcolorbox}[title={\centering\textbf{Epoch terminology}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    During training, the model tweaks its parameters in line with being shown the training data. In practice, the model is often shown the data multiple times. Each full cycle of the model having learned from the training data is called an epoch.
+    During training, the model tweaks its parameters in line with being shown the training data. In practice, the model is often shown the training data multiple times. Each full cycle of the model having learned from the training data is called an epoch.
 \end{tcolorbox}
 
-\subsubsection*{1) Full-batch updates}
+\subsubsection*{1) Full-batch}
 Full-batch gradient descent involves one parameter update per epoch as in
 $$
 \theta^{(t+1)}
@@ -732,7 +732,7 @@ $$
 \theta^{(t)}-\frac{1}{n}\sum_{i=1}^n \nabla_{\theta}\mathcal{L}\l(y_i,f_{\theta^{(t)}}(\x_i)\r).
 $$
 
-\subsubsection*{2) Mini-batch updates}
+\subsubsection*{2) Mini-batch}
 The information stored in order to compute gradients during training might be too much for your PC's VRAM. If so, instead perform mini-batch gradient descent in which the dataset $D$ is split into $m$ disjoint subsets $B_1,\dots,B_m$, referred to as batches, and $m$ updates are made to the parameters according to
 $$
 \theta^{(t+j)}
@@ -819,12 +819,12 @@ Overfitting is a pain. How might we regulate the learning procedure in a way tha
 
 \begin{figure}[t]
     \centering
-    \begin{minipage}{0.6\linewidth}
-        \includegraphics[width=\linewidth]{./figures/supervised_learning/regularisation_two_plots_zero_test_error.pdf}
+    \begin{minipage}{0.4\linewidth}
+        \includegraphics[width=1\linewidth]{./figures/supervised_learning/regularisation_two_plots_zero_test_error.pdf}
     \end{minipage}%
     \hfill
-    \begin{minipage}{0.35\linewidth}
-        \caption{Two fits, both yielding 0 test error.}
+    \begin{minipage}{0.55\linewidth}
+        \caption{Motivating regularisation. Two fits, both with 0 test error.}
         \label{fig:regularisation_two_plots}
     \end{minipage}
 \end{figure}
@@ -864,19 +864,18 @@ $$
 $$
 where $\lambda=1/2\sigma^2$.
 
-\subsubsection*{Visualising L1 and L2 regularisation}
-There's a particularly elegant way to visualise the effects of L1 and L2 reglularisation in terms of how they change the shape of the corresponding loss landscape. It's almost as if you each point is sunk according to how far away it is from the origin and the hyperparameter $\lambda$.
+There's a particularly elegant way to visualise the effects of L1 and L2 reglularisation in terms of how they change the shape of the corresponding loss landscape. It's as if each point in the landscape is sunk according to its distance from the origin and the hyperparameter $\lambda$. The sharpness or curvature of said sinking is prior-dependent: for L1 regularisation it is far sharper, hence the origin acts as more of a sinkhole than in L2 regularisation inducing sparser minima.
 
 \subsubsection*{3) Early stopping} Split training into training and validation sets. After each epoch (or every few), compute both training and validation losses. If training loss is decreasing while validation loss is not then the model may be overfitting the training data. As illustration, consider \autoref{fig:early_stopping} in which the training loss continues to decrease in the number of epochs while the validation loss seems to reach its lowest value around epoch 28.
 
 \begin{figure}[t]
     \centering
-    \begin{minipage}{0.62\linewidth}
+    \begin{minipage}{0.55\linewidth}
         \includegraphics[width=\linewidth]{./figures/neural_nets/REG_early_stopping.pdf}
     \end{minipage}%
     \hfill
-    \begin{minipage}{0.34\linewidth}
-        \caption{Training and validation losses over 50 epochs for some model. Best validation obtained at epoch 28.}
+    \begin{minipage}{0.43\linewidth}
+        \caption{Training and validation losses over 50 epochs for some model. Lowest validation obtained at epoch 28.}
         \label{fig:early_stopping}
     \end{minipage}
 \end{figure}
@@ -975,7 +974,7 @@ The application of MLPs to learning functions from data is due to their expressi
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=1\linewidth]{./figures/neural_nets/MLP_1.pdf}
+    \includegraphics[width=\linewidth]{./figures/neural_nets/MLP_1.pdf}
     \caption{A multi-layer perceptron (MLP) with $k=3$ hidden layers.}
     \label{fig:MLP}
 \end{figure}
@@ -1062,7 +1061,7 @@ If we fix the structure and choice of activation functions of an MLP then all th
 \begin{figure}[t]
     \centering
     \begin{minipage}{0.6\linewidth}
-        \includegraphics{./figures/neural_nets/MLP_2.pdf}
+        \includegraphics[width=1\textwidth]{./figures/neural_nets/MLP_2.pdf}
     \end{minipage}%
     \hfill
     \begin{minipage}{0.39\linewidth}
@@ -1236,9 +1235,9 @@ The $2-$probability simpelx coloured according to argmax is illustrated in \auto
 \begin{figure}[t]
     \centering
     \begin{minipage}{0.52\linewidth}
-        \includegraphics[width=0.75\textwidth]{./figures/neural_nets/MLP_simplex_argmax.png}
+        \includegraphics[width=1\textwidth]{./figures/neural_nets/MLP_simplex_argmax.png}
     \end{minipage}%
-    % \hfill
+    \hfill
     \begin{minipage}{0.48\linewidth}
         \caption{The $2-$probability simplex coloured according to argmax in the three coordinates.}
         \label{fig:2_prob_simplex}
@@ -1410,9 +1409,14 @@ Convolution operations involve using a (typically square) matrix to, in some sen
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.7\textwidth]{./figures/neural_nets/CNN_convolution.pdf}
-    \caption{Convolution with a vertical edge detection filter with 0 bias.}
-    \label{fig:convolution_operation}
+    \begin{minipage}{0.63\linewidth}
+        \includegraphics[width=\textwidth]{./figures/neural_nets/CNN_convolution.pdf}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.35\linewidth}
+        \caption{Convolution with a vertical edge detection filter with 0 bias.}
+        \label{fig:convolution_operation}
+    \end{minipage}
 \end{figure}
 
 More formally, given a feature map $I\in\mathbb{R}^{C\times W\times H}$ and a filter $K\in\mathbb{R}^{C\times k\times k}$ with $k<W$ and $k<H$, the feature map $F=K*I\in\mathbb{R}^{W'\times H'}$ is the convolution of $K$ over $I$ is as in
@@ -1427,8 +1431,8 @@ Generally, earlier filters in a CNN architecture extract lower-level features, l
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.7\textwidth]{./figures/neural_nets/CNN_feature_levels.png}
-    \caption{The level of abstraction of a CNN's learned filters. \TODO{: Make own figure.}}
+    \includegraphics[width=\textwidth]{./figures/neural_nets/CNN_feature_levels.pdf}
+    \caption{The level of abstraction of a CNN's learned filters. Earlier layers pertain to low-level features like edges or textures. Later layers pertain to higher-level features like faces or wheels.}
     \label{fig:filter_levels}
 \end{figure}
 
@@ -1452,8 +1456,8 @@ Pooling operations reduce the spatial dimensions of a given feature map by apply
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\textwidth]{./figures/neural_nets/CNN_pooling.pdf}
-    \caption{The core flavours of pooling.}
+    \includegraphics[width=\textwidth]{./figures/neural_nets/CNN_pooling.pdf}
+    \caption{Common flavours of pooling.}
     \label{fig:pooling}
 \end{figure}
 
@@ -1538,7 +1542,9 @@ Nope, it just makes things related to optimisation easier while having a suffici
 \begin{center}
     \textbf{\textcolor{blue}{Q4:} Which activation functions should be used and when?}
 \end{center}
-Roughly speaking, I wouldn't worry too much about this in practice. The usual choices are all nice and differentiable (with small caveats, like with ReLU at 0) facilitating backpropagation. You should sometimes care about the output given the problem at hand. For example, if you need outputs in $[-1,1]$ then $\tanh$ is a natural choice. Note that some choices, like Leaky ReLU, introduce hyperparameters to the model which is sometimes undesirable, e.g. if one seeks to minimise the number of hyperparameters for a strength of their result (if there's no hyperparameter to cherry pick then your result is more trustworthy).
+Roughly speaking, I wouldn't worry too much about this in practice. The usual choices are all nice and differentiable (with small caveats, like with ReLU at 0) facilitating backpropagation. You should sometimes care about the output given the problem at hand. For example, if you need outputs in $[-1,1]$ then $\tanh$ is a natural choice.
+
+Note that some choices, like Leaky ReLU, introduce hyperparameters to the model which is sometimes undesirable, e.g. if one seeks to minimise the number of hyperparameters for the strength of their result (if there's no hyperparameter to cherry pick then your result is more trustworthy).
 
 \begin{center}
     \textbf{\textcolor{blue}{Q5:} How does one prevent vanishing/exploding gradients?}
@@ -1551,7 +1557,7 @@ Skip connections help. Architectures which use them are sometimes called residua
     \item Takes pressure off parameter initialisation: if you set parameters to zero then initially model is just the identity and learning from there is feasible
 \end{itemize}
 
-Worth mentioning that said vanishing behaviour can be observed during forward passes too.
+It's worth mentioning that said vanishing behaviour can be observed during forward passes too.
 
 % generative models (any other section name i've come up with has been due to overthinking)
 \section{Generative Models}
@@ -1602,22 +1608,32 @@ If the function families permit the computation of gradients of $\theta\in\Theta
 \subsubsection{Motivating VAEs}
 Autoencoders are great for compression, denoising, disecting LLMs (look up sparse autoencoders), etc. but we're yet to see how we might make use of them for generative tasks, i.e. sampling from the complex underlying distribution $p$ from which their training dataset $\{\x_1,\dots,\x_n\}$ was sampled. An intuitive first idea is to train an autoencoder, randomly sample from its latent space and feed them through the decoder, as in \autoref{fig:autoencoder_generation_1}. The outputs of the decoder should be similar to the training data, right? No.
 
-\begin{figure}[t]
+\begin{figure}%[t]
     \centering
-    \includegraphics[width=0.60\columnwidth]{./figures/generative_models/AE_gen_1.png}
-    \caption{The output of the decoder of an autoencoder with randomly generated latent points as input. Gibberish output. \TODO{: Make own figure.}}
-    \label{fig:autoencoder_generation_1}
+    \begin{minipage}{0.6\linewidth}
+        \includegraphics[width=\columnwidth]{./figures/generative_models/AE_gen_1.pdf}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.38\linewidth}
+        \caption{Decodings of sampled latents. Gibberish output.}
+        \label{fig:autoencoder_generation_1}
+    \end{minipage}
 \end{figure}
 
 Disaster strikes and we begin to see just how unstructured the latent space of an autoencoder is: randomly sampling from it (whatever this may mean) results in nonsense outputs from the decoder because most of the latent space itself is meaningless (nothing is encoded to most of it, so in some sense a lot of it is `un-utilised'). This is perhaps unsurprising as at no point during training an autoencoder do we explicitly demand that it interpolates nicely between points.
 
 New idea: how about we feed the decoder latent points that are pretty close to the embedding of a given training sample, as in \autoref{fig:autoencoder_generation_2}? This should result in decoder outputs that are similar in structure to the input sample but a bit different, right? No.
 
-\begin{figure}[t]
+\begin{figure}%[t]
     \centering
-    \includegraphics[width=0.75\columnwidth]{./figures/generative_models/AE_gen_2.png}
-    \caption{The output of the decoder of an autoencoder points relatively close to the latent embedding of a given training sample. \TODO{: Make own figure.}}
-    \label{fig:autoencoder_generation_2}
+    \begin{minipage}{0.6\linewidth}
+        \includegraphics[width=\columnwidth]{./figures/generative_models/AE_gen_2.pdf}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.38\linewidth}
+        \caption{Decodings of latents close to a given encoding.}
+        \label{fig:autoencoder_generation_2}
+    \end{minipage}
 \end{figure}
 
 Distaster strikes again. To get decoder outputs that are meaningful using this idea, one must take points in the latent space which are ridiculously close to this chosen sample's latent embedding. So close that you'd be practically reconstructing the original training sample each time — certainly not what we mean when we say that we'd like to generate new samples. So how do we do autoencoder-like things in a way that yields well-structured latent spaces? Variational autoencoders (VAEs) to the rescue!
@@ -1643,10 +1659,10 @@ As the encoder of a VAE yields a $d-$dimensional distribution $q_{\theta}(\z|\x)
 Note that one's choice of $\mathcal{Q}_d$ and $\mathcal{P}_n$ should take into account the need to sample efficiently and so they should correspond to families of distributions which offer efficient means of sampling, e.g. Gaussians, as in \autoref{fig:VAE_architecture}.
 
 \begin{figure}[t]
-    \centering
-    \includegraphics[width=0.46\linewidth]{figures/generative_models/VAE_encoder.pdf}
+    \centering % these widths are specific
+    \includegraphics[width=0.46\textwidth]{figures/generative_models/VAE_encoder.pdf}
     \hspace{20pt}
-    \includegraphics[width=0.46\linewidth]{figures/generative_models/VAE_decoder.pdf}
+    \includegraphics[width=0.46\textwidth]{figures/generative_models/VAE_decoder.pdf}
     \caption{Left: an encoder which outputs parameters of the latent distribution $q_{\theta}(\z|\x)=\mathcal{N}(\mu_{\theta},\Sigma_{\theta})$. Right: a decoder which outputs parameters of the reconstruction distribution $p_{\phi}(\x|\z')=\mathcal{N}(\mu_{\phi},\Sigma_{\phi})$ in which $\z'\sim q_{\theta}(\z|\x)$.}
     \label{fig:VAE_architecture}
 \end{figure}
@@ -1665,7 +1681,7 @@ Note that one's choice of $\mathcal{Q}_d$ and $\mathcal{P}_n$ should take into a
     As such, $\Omega_{\X}=\mathbb{R}^3$. To obtain two-dimensional representations of samples $\x\in\Omega_{\X}$ (so $d=2$), one might choose $\mathcal{Q}_2=\mathbb{R}^2\times\mathcal{S}_{++}^2$ and $\mathcal{P}_3=\mathbb{R}^3\times\mathcal{S}_{++}^3$. That is, we could fit a two-dimensional Gaussian to the latent space and a three-dimensional Gaussian to the reconstruction space. Knowing $X_2=X_1+\epsilon$, where $\epsilon\sim\mathcal{N}(0,1)$, one might choose the encoder
     \begin{align*}
         \theta&:
-        \Omega_{\X}\to\mathcal{Q}_2\\
+        \mathbb{R}^3\to\mathcal{Q}_2\\
         &(x_1,x_2,x_3)\mapsto((x_1,x_3),\sigma^2I_2)
     \end{align*}
     where $\sigma>0$ is small. That is, for a sample $(x_1,x_2,x_3)\in\Omega_{\X}$, the encoder's output would yield the latent distribution $q_{\theta}(\z|\x)=\mathcal{N}((x_1,x_3),\sigma^2I_2)$. As decoder, if all we desire is accurate reconstructions, we might choose
@@ -1749,8 +1765,8 @@ where $\beta_1,\dots,\beta_T\in[0,1]$ are hyperparameters satisfying $\beta_i<\b
 
 \begin{figure}[t]
     \centering
-    \includegraphics[height=3cm]{./figures/generative_models/diffusion_process.pdf}
-    \caption{Johann Bernoulli being denoised in line with the backward process of a diffusion model. \TODO{: Improve figure.}}
+    \includegraphics[width=\textwidth]{./figures/generative_models/diffusion_process.pdf}
+    \caption{Johann Bernoulli being denoised in line with the backward process of a diffusion model.}
     \label{fig:diffusion_process}
 \end{figure}
 
@@ -1769,7 +1785,7 @@ Despite not being the choice of denoiser made in the seminal paper introducing d
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\columnwidth]{./figures/generative_models/unet.png}
+    \includegraphics[width=\textwidth]{./figures/generative_models/unet.png}
     \caption{Example U-Net architecture.}
     \label{fig:u_net_arch}
 \end{figure}
