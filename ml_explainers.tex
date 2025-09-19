@@ -49,7 +49,7 @@ My interests in machine learning lie in its rapid development since the era of d
 
 % supervised learning
 \section{Supervised Learning}
-Supervised learning methods are those which fit functions $f_{\theta}:\Omega_{\X}\to\Omega_{\mathbf{Y}}$ from model variables $\X=(X_1,\dots,X_q)$ to output variables $\mathbf{Y}=(Y_1,\dots,Y_r)$ (often $r=1$ in which case we write $\mathbf{Y}=Y$) by learning from concrete examples $\{(\x_i,\mathbf{y}_i)\}_{i=1}^n$ of how the function can behave in practice. The two most prominent tasks one might apply supervised learning to are regression (continuous output variables) and classification (discrete output variables).
+Supervised learning methods fit functions $f_{\theta}:\Omega_{\X}\to\Omega_{\mathbf{Y}}$ from model variables $\X=(X_1,\dots,X_q)$ to output variables $\mathbf{Y}=(Y_1,\dots,Y_r)$ (often $r=1$ in which case we write $\mathbf{Y}=Y$) by tweaking $\theta$ in line with concrete examples $\{(\x_i,\mathbf{y}_i)\}_{i=1}^n$ of how the function may behave in practice. The two most prominent examples of supervised learning tasks are regression (continuous output variables) and classification (discrete output variables).
 
 % linear regression
 \subsection{Linear Regression}
@@ -58,7 +58,7 @@ Perhaps the simplest example of supervised learning is linear regression. Suppos
 $$
 \x_i=(x_{i,1},\dots,x_{i, q})\in \Omega_{X_1}\times\dots\times \Omega_{X_q}=:\Omega_{\X}\subseteq\R^q
 $$
-are the feature values of the $i^{\text{th}}$ sample and $y_i\in \Omega_{Y}\subseteq\R$ is the corresponding output. The reason I chose $|D|=2n$ is that it results in being able to nicely partition $D$ into $D_{\text{train}}$ and $D_{\text{test}}$ with $|D_{\text{train}}|=|D_{\text{test}}|=n$. A linear regression models fits a model of the form
+are the feature values of the $i^{\text{th}}$ sample and $y_i\in \Omega_{Y}\subseteq\R$ is its corresponding output. The reason I chose $|D|=2n$ is that it yields a convenient partition of the data into $D_{\text{train}}$ and $D_{\text{test}}$ each of $n$ samples. A linear regression models fits a model of the form
 \begin{align*}
     f_{\theta}:\Omega_{\X}&\rightarrow \Omega_Y\\
     \x&\mapsto
@@ -73,7 +73,7 @@ are the feature values of the $i^{\text{th}}$ sample and $y_i\in \Omega_{Y}\subs
 where $\theta=(\theta_0,\theta_1\dots,\theta_q)\in\R^{q+1}$ are the model parameters, i.e. the values we can tweak to our heart's content until testing error is sufficiently low. Some people refer to the paramter $\theta_0$, which dictates the elevation of the hyperplane corresponding to $f_{\theta}(\x)=0$, as the bias of the model which I find very confusing as there are a bunch of other intended meanings of the term `bias' in statistics and machine learning. I prefer to refer to it as the elevation. Anyway, once such a linear function has been fit, given feature values $\x\in\Omega_{\X}$ our model predict the corresponding output as $y=f_{\theta}(\x)$.
 
 \begin{tcolorbox}[title={\centering\textbf{What does the `linear' in linear regression actually refer to?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Casella Berger, as well as other pieces of literature, define linear regression in a way that ensures linearity in parameters. By such a definition, linear regression, as a term, encompasses polynomial regression models and other regression models with non-linear basis functions. This confuses me as `linear regression' is most often intended to mean models that fit a hyperplane to $\Omega_{\X}\times\Omega_Y$.
+    Casella Berger, as well as other pieces of literature, define linear regression models as being linear in their parameters. By such a definition, linear regression, as a term, encompasses polynomial regression models and other regression models with non-linear basis functions. This confuses me since, in my experience, `linear regression' is most often intended to mean models that fit a hyperplane to $\Omega_{\X}\times\Omega_Y$.
     
     \hspace{14.52pt} The first paragraph of the Wikipedia page\footnote{\url{https://en.wikipedia.org/wiki/Polynomial_regression}} for polynomial regression reiterates this potential confusion.
 \end{tcolorbox}
@@ -453,13 +453,13 @@ Despite my disinterest in them, learning about decision trees encourages you to 
 \end{tcolorbox}
 
 % the bias-variance tradeoff
-\subsection{\REV{: }The Bias-Variance Tradeoff}
-The bias-variance tradeoff is a statement pertaining to the goodness of estimators (learning algorithms) in terms of its variance — with respect to training data — and the square of its bias — due to architecture-related assumptions. It turns out that the optimal estimator, according to mean square error, is a careful tradeoff of both. Before deriving the tradeoff, let's consider the consequences of high squared bias and high variance: underfitting and overfitting.
+\subsection{The Bias-Variance Tradeoff}
+The bias-variance tradeoff is a statement pertaining to the goodness of estimators (learning algorithms) according to mean square error (MSE) in terms of their variance — with respect to training data — and the square of their bias — due to architecture-related assumptions. It turns out that the optimal estimator, according to mean square error, is a careful tradeoff of both. Before deriving the tradeoff, let's consider the consequences of high squared bias and high variance: underfitting and overfitting.
 
 \subsubsection{Underfitting and Overfitting}
-Crudely put, if the architecture pertaining to an estimator is too simple to represent the underlying function then the estimator's bias (and thus its square) will be high. Such an estimator underfits that which it is intended to model. I like to think of such an estimator as being almost invariant to the training data. As a practical example, think of fitting a line to a very non-linear function as in the leftmost plots of \autoref{fig:fitting_under} and \autoref{fig:fitting_over}. Underfitting is reflected during training by both high training error and high validation error.
+Crudely put, if the architecture pertaining to an estimator is too simple to represent the point estimate then the estimator's bias (and thus its square) will be large in magnitude. Such an estimator underfits that which it is intended to model. I like to think of such an estimator as being almost invariant to the training data. As a practical example, think of fitting a line to a very non-linear function as in the leftmost plots of \autoref{fig:fitting_under} and \autoref{fig:fitting_over}. Underfitting is reflected during training by both high training error and high validation error.
 
-At the other extreme, if the architecture pertaining to an estimator is more complex than is necessary (e.g. overparameterised) to represent the underlying function then the excess parameters often\footnote{See the double-descent phenomenon in \autoref{fig:double_descent}.} cause the model to fit the noise in the training data. In this case, the estimator is highly variant with respect to the training data. Such an estimator overfits the training data instead of fitting the underlying function. As a practical example, think of fitting a polynomial to a with a small and heavily-noised training dataset, as in the rightmost plot of \autoref{fig:fitting_over}. Overfitting is reflected during training by low training error and high validation error (relatively speaking).
+At the other extreme, if the architecture pertaining to an estimator is more complex than is necessary (e.g. overparameterised) to represent the point estimate then the excess parameters often\footnote{See the double-descent phenomenon in \autoref{fig:double_descent}.} cause the model to fit the noise in the training data. In this case, the estimator is highly variant with respect to the training data. Such an estimator overfits the training data instead of fitting the point estimate. As a practical example, think of fitting a polynomial from small and heavily-noised training data, as in the rightmost plot of \autoref{fig:fitting_over}. Overfitting is reflected during training by low training error and high validation error (relative to the training error).
 
 \begin{figure}[t]
     \centering
@@ -585,7 +585,9 @@ Put together, we obtain
     &\hspace{14.52pt}
     \E_{\D}\l[R\l(\hat{f}_{\D}\r)\r]\\
     &=
-    \E_\X\l[\underbrace{\l(f(\X)-\E_{\D}\l[\hat{f}_{\D}(\X)\r]\r)^2}_{\text{square of bias of estimator}}+\underbrace{\E_{\D}\l[\l(\hat{f}_{\D}(\X)-\E_{\D}\l[\hat{f}_{\D}(\X)\r]\r)^2\r]}_{\text{variance of estimator}}\r]+\underbrace{\sigma^2}_{\text{noise}}
+    \E_\X\l[\l(f(\X)-\E_{\D}\l[\hat{f}_{\D}(\X)\r]\r)^2+\E_{\D}\l[\l(\hat{f}_{\D}(\X)-\E_{\D}\l[\hat{f}_{\D}(\X)\r]\r)^2\r]\r]+\sigma^2\\
+    &=
+    \E_\X\l[\text{Bias}\l(\hat{f}_{\mathcal{D}}(\X)\r)^2+\text{Var}\l(\hat{f}_{\mathcal{D}}(\X)\r)\r]+\sigma^2
 \end{align*}
 where $\sigma^2=\E_\X\l[\sigma^2(\X)\r]$ (ignore the poor choice of notation). With this in mind, it's clear that we do not seek the estimator $\hat{f}_{\D}$ which minimises expected square bias or expected variance individually. Instead, we seek the estimator which hits the sweet spot in minimising their sum. An illustration of this idea, as the estimator's architecture is made more complex, is given in \autoref{fig:bias_variance}.
 
@@ -625,7 +627,7 @@ There has been a good amount of work investigating the phenomenon and some of th
 
 % parameter exploration and its optimisation
 \section{Parameter Exploration and its Optimisation}
-In fitting a parametric model $f_{\theta}:\Omega_{\X}\to\Omega_{Y}$, the loss induced by a choice of model parameters $\theta$ for a sample $(\x,y)$ is given by $\mathcal{L}\l(y,f_{\theta}(\x)\r)$. In line with this, let the empirical risk $R_D$ over a dataset $D=\{(\x_i,y_i)\}_{i=1}^n$ be
+In fitting a parametric model $f_{\theta}:\Omega_{\X}\to\Omega_{Y}$, the loss induced by a choice of model parameters $\theta$ for a sample $(\x,y)$ is given by $\mathcal{L}\l(y,f_{\theta}(\x)\r)$ for some loss function $\mathcal{L}:\Omega_Y\times\Omega_Y\to\mathbb{R}_{\geq0}$. In line with this, let the empirical risk $R_D$ over a given dataset $D=\{(\x_i,y_i)\}_{i=1}^n$ be given by
 \begin{align*}
     R_D:\Theta&\to\R_{\geq0}\\
     \theta&\mapsto\frac{1}{n}\sum_{i=1}^n\mathcal{L}(y_i,f_{\theta}(\x_i))
@@ -636,16 +638,16 @@ $$
 =
 \argmin_{\theta\in\Theta}R_D(\theta),
 $$
-i.e. to minimise the empirical risk over the dataset in the parameters. As such, methods of function minimisation are of interest, of which many exist.
+i.e. to minimise the empirical risk over the dataset in the parameters. As such, methods of function minimisation are of interest.
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.9\linewidth]{./figures/gradient_descent/loss_landscape.pdf}
+    \includegraphics[width=0.7\linewidth]{./figures/gradient_descent/loss_landscape.pdf}
     \caption{The graph $\{(\theta,R_D(\theta))|\theta\in\R^2\}$ of a complex loss landscape and a visualisation of how me might hope gradient descent looks.}
     \label{fig:loss_landscape_complex}
 \end{figure}
 
-Tons of function minimisation methods exist: Newton's method, genetic algorithms, gradient descent, etc. but most are horribly slow/unstable in high dimensions; not gradient descent though! As a result, gradient descent is \textit{the} method for computing good parameters numerically in machine learning, hence the inclusion of this section.
+Many function minimisation methods exist: Newton's method, genetic algorithms, gradient descent, etc. but most are horribly slow/unstable in high dimensions; not gradient descent though! As a result, gradient descent is \textit{the} method for computing good parameters numerically in machine learning, hence the inclusion of this section.
 
 \begin{tcolorbox}[title={\centering\textbf{Illustrations of loss landscapes are dataset-dependent!}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
     When loss landscapes are illustrated, they are really plots of the graph $\{(\theta, R_D(\theta))|\theta\in\Theta\}$. That is, they are shaped by the fixed dataset $D$. As such, computations of the form $R_{D'}(\theta)$ for $D'\subsetneq D$, e.g. computations related to mini-batch gradient descent, don't necessarily correspond exactly with $R_D(\theta)$ but this isn't usually an issue.
@@ -750,8 +752,8 @@ $$
 $$
 for $j=1,\dots,n$ is viable. Susprising; I would have thought that it'd produce nonsense parameters. As such, a full epoch during training using SGD corresponds to $n$ parameter updates. Unsurprisingly, SGD yields relatively unstable convergence, a bit like the steps a drunk man would take in walking down the mountain. It's perhaps unsurprising that mini-batch, and thus SGD, are unbiased but high in variance.
 
-\begin{tcolorbox}[title={\centering\textbf{Confusing use of terminology}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Beware: some refer to what is called mini-batch here as SGD.
+\begin{tcolorbox}[title={\centering\textbf{WARNING}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    What we call mini-batch GD here is referred to by some as SGD.
 \end{tcolorbox}
 
 \subsubsection{Batch + Layer normalisation}
@@ -2024,7 +2026,7 @@ $$
 =
 \E[\hat{\theta}]-\theta
 $$
-where the expectation is with respect to $p_{\X}^{\otimes}$. The need for the precise terminology `in estimating a quantity $\theta$' is because one could, for example, use the sample mean as an estimator of both the population mean and the population variance (as ridiculous as this choice may be for the latter). As an estimator of the population mean, the sample mean is unbiased. Not so much for the latter.
+where the expectation is with respect to $p_{\X}^{{\otimes}n}$. The need for the precise terminology `in estimating a quantity $\theta$' is because one could, for example, use the sample mean as an estimator of both the population mean and the population variance (as ridiculous as this choice may be for the latter). As an estimator of the population mean, the sample mean is unbiased. Not so much for the latter. That said, an estimator being unbiased does not necessitate that it is `good'. For example, if you had $X_1,\dots,X_n\overset{\text{i.i.d.}}{\sim}\text{Ber}(p)$ then $X_1$ is an unbiased estimator of $p$. To follow this, there are strange special cases in which every unbiased estimator of a quantity is worse than many biased estimators.
 
 As an example of computing the bias of an estimator, see that the sample mean is an unbiased estimator of the population mean $\mu$ as
 \begin{align*}

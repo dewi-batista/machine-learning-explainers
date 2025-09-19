@@ -11,21 +11,21 @@
 \contentsline {subsubsection}{\numberline {2.3.2}Soft-margin SVMs}{13}{subsubsection.2.3.2}%
 \contentsline {subsubsection}{\numberline {2.3.3}Non-linear SVMs}{14}{subsubsection.2.3.3}%
 \contentsline {subsection}{\numberline {2.4}Decision Trees and Random Forests}{15}{subsection.2.4}%
-\contentsline {subsection}{\numberline {2.5}\textcolor {myYellow}{\textbf {REVIEW}: }The Bias-Variance Tradeoff}{16}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.5}The Bias-Variance Tradeoff}{16}{subsection.2.5}%
 \contentsline {subsubsection}{\numberline {2.5.1}Underfitting and Overfitting}{16}{subsubsection.2.5.1}%
 \contentsline {subsubsection}{\numberline {2.5.2}Derivation with MSE loss}{17}{subsubsection.2.5.2}%
 \contentsline {subsubsection}{\numberline {2.5.3}Double descent}{21}{subsubsection.2.5.3}%
 \contentsline {section}{\numberline {3}Parameter Exploration and its Optimisation}{22}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Gradient Descent}{24}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.1}Gradient Descent}{23}{subsection.3.1}%
 \contentsline {subsubsection}{\numberline {3.1.1}In which direction does $f$ most ascend locally from $\mathbf {x}^{(t)}$?}{24}{subsubsection.3.1.1}%
 \contentsline {subsubsection}{\numberline {3.1.2}Sensitivity to $\mathbf {x}^{(0)}$}{25}{subsubsection.3.1.2}%
 \contentsline {subsubsection}{\numberline {3.1.3}Batch learning}{25}{subsubsection.3.1.3}%
 \contentsline {subsubsection}{\numberline {3.1.4}Batch + Layer normalisation}{27}{subsubsection.3.1.4}%
 \contentsline {subsection}{\numberline {3.2}Regularisation}{28}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Momentum + Adaptive Learning Rates}{32}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Hyperparameter Tuning}{34}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.3}Momentum + Adaptive Learning Rates}{31}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Hyperparameter Tuning}{33}{subsection.3.4}%
 \contentsline {section}{\numberline {4}Neural Networks}{34}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Multi-Layer Perceptrons (MLPs)}{35}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.1}Multi-Layer Perceptrons (MLPs)}{34}{subsection.4.1}%
 \contentsline {subsubsection}{\numberline {4.1.1}Example}{37}{subsubsection.4.1.1}%
 \contentsline {subsubsection}{\numberline {4.1.2}The Universal Function Approximation of MLPs}{39}{subsubsection.4.1.2}%
 \contentsline {subsubsection}{\numberline {4.1.3}Posing classification as a regression problem}{42}{subsubsection.4.1.3}%
@@ -67,11 +67,11 @@
 \contentsline {subsection}{\numberline {A.2}Sample Independence and Terminology}{69}{subsection.a.A.2}%
 \contentsline {subsection}{\numberline {A.3}Motivating Variance}{69}{subsection.a.A.3}%
 \contentsline {subsection}{\numberline {A.4}Estimators and their Bias}{70}{subsection.a.A.4}%
-\contentsline {subsection}{\numberline {A.5}The Law of Large Numbers}{71}{subsection.a.A.5}%
+\contentsline {subsection}{\numberline {A.5}The Law of Large Numbers}{72}{subsection.a.A.5}%
 \contentsline {subsection}{\numberline {A.6}The (univariate) Central Limit Theorem (CLT)}{72}{subsection.a.A.6}%
 \contentsline {subsection}{\numberline {A.7}Jensen's Inequality}{72}{subsection.a.A.7}%
-\contentsline {subsection}{\numberline {A.8}Entropy and its Friend KL-divergence}{72}{subsection.a.A.8}%
-\contentsline {subsubsection}{\numberline {A.8.1}Kullback-Leibler Divergence (KL-divergence)}{73}{subsubsection.a.A.8.1}%
-\contentsline {subsection}{\numberline {A.9}Pearson Correlation and Mutual Information}{76}{subsection.a.A.9}%
+\contentsline {subsection}{\numberline {A.8}Entropy and its Friend KL-divergence}{73}{subsection.a.A.8}%
+\contentsline {subsubsection}{\numberline {A.8.1}Kullback-Leibler Divergence (KL-divergence)}{74}{subsubsection.a.A.8.1}%
+\contentsline {subsection}{\numberline {A.9}Pearson Correlation and Mutual Information}{77}{subsection.a.A.9}%
 \contentsline {subsection}{\numberline {A.10}Quality of fit $\approx $ Encoding quality?}{77}{subsection.a.A.10}%
 \contentsline {subsection}{\numberline {A.11}The Expectation-Maximisation (EM) Algorithm}{77}{subsection.a.A.11}%
