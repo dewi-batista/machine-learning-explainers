@@ -379,11 +379,6 @@ INPUT ./figures/gradient_descent/gradient_descent_types.pdf
 INPUT ./figures/gradient_descent/gradient_descent_types.pdf
 INPUT ./figures/gradient_descent/gradient_descent_types.pdf
 INPUT ./figures/gradient_descent/gradient_descent_types.pdf
-INPUT ./figures/gradient_descent/batch_norm.pdf
-INPUT ./figures/gradient_descent/batch_norm.pdf
-INPUT ./figures/gradient_descent/batch_norm.pdf
-INPUT ./figures/gradient_descent/batch_norm.pdf
-INPUT ./figures/gradient_descent/batch_norm.pdf
 INPUT ./figures/supervised_learning/regularisation_two_plots_zero_test_error.pdf
 INPUT ./figures/supervised_learning/regularisation_two_plots_zero_test_error.pdf
 INPUT ./figures/supervised_learning/regularisation_two_plots_zero_test_error.pdf
@@ -399,7 +394,6 @@ INPUT ./figures/neural_nets/REG_early_stopping.pdf
 INPUT ./figures/neural_nets/REG_early_stopping.pdf
 INPUT ./figures/neural_nets/REG_early_stopping.pdf
 INPUT ./figures/neural_nets/REG_early_stopping.pdf
-INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
 INPUT ./figures/neural_nets/REG_dropout.pdf
 INPUT ./figures/neural_nets/REG_dropout.pdf
 INPUT ./figures/neural_nets/REG_dropout.pdf
@@ -428,6 +422,7 @@ INPUT ./figures/neural_nets/MLP_2.pdf
 INPUT ./figures/neural_nets/MLP_2.pdf
 INPUT ./figures/neural_nets/MLP_2.pdf
 INPUT ./figures/neural_nets/MLP_2.pdf
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
 INPUT ./figures/neural_nets/MLP_simplex_argmax.png
 INPUT ./figures/neural_nets/MLP_simplex_argmax.png
 INPUT ./figures/neural_nets/MLP_simplex_argmax.png

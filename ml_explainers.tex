@@ -307,7 +307,7 @@ $$
 Note that, in practice, it's unlikely that any samples will lie on the hyperplane $f_{\theta^*}(\x)=0$ itself.
 
 % support vector machines
-\subsection{Support Vector Machines (SVMs)}
+\subsection{\TODO{: }Support Vector Machines (SVMs)}
 Logistic regression and SVMs both fit a hyperplane to feature space. The distinction is the metric of goodness of said hyperplanes. In logistic regression, the metric of goodness is how much the parameters of said hyperplane maximise the relevant log-likelihood. SVMs, however, look to maximise the distance between the hyperplane and the nearest samples. So in some sense, logistic regression is a probabilistic approach while SVMs take a raw constraint-based approach.
 
 The authors' insight came from structural risk minimization in which instead of focusing on minimising training error (as neural networks and decision trees were doing at the time), one focuses on minimising an upper bound on the generalisation error. The inclusion of `support vector' becomes clear from their construction but `machine' stood out to me as a bit odd. It turns out that at time of their development, around 1960, it was common to use `machine' when referring to algorithms that learned from data, i.e. algorithms belonging to statistical learning theory. This reflects Arthur Samuel's coining of machine learning as a term in 1959 while working at IBM.
@@ -488,7 +488,7 @@ Y|(\X=\x)
 $$
 Given a fixed architecture, the estimate $\hat{f}_D$ of $f$ is a purely function of the training dataset $D\subset(\Omega_{\X}\times\Omega_Y)^n$. Such a dataset is a realisation of the random variable $\D$ distributed according to $p(\x,y)^{\otimes n}$. In line with this, the bias and variance derived are that of the estimator $f_{\D}$.
 
-As is common in supervised learning contexts, the goodness of an estimate $\hat{f}_D$ is given by its expected risk
+As is common in regression contexts, the goodness of an estimate $\hat{f}_D$ is given by its expected risk
 $$
 R\l(\hat{f}_D\r)
 =
@@ -558,7 +558,7 @@ for all $\x\in\Omega_{\X}$ and that what is inside the expectation over $\D$ is 
 \end{align*}
 This is simply the expected noise, e.g. due to imperfect calibration in the instruments used to obtain samples.
 
-For the term in green, let $\bar{f}(\x)=\E_{\D}\l[\hat{f}_{\D}(\x)\r]$ for all $\x\in\Omega_\X$ and see that
+To address the term in green, let $\bar{f}(\x)=\E_{\D}\l[\hat{f}_{\D}(\x)\r]$ for all $\x\in\Omega_\X$ and see that
 \begin{align*}
     &\hspace{14.52pt}
     \textcolor{myGreen}{\E_{\D}\l[\E_\X\l[\l(f(\X)-\hat{f}_{\D}(\X)\r)^2\r]\r]}\\
@@ -589,7 +589,7 @@ Put together, we obtain
     &=
     \E_\X\l[\text{Bias}\l(\hat{f}_{\mathcal{D}}(\X)\r)^2+\text{Var}\l(\hat{f}_{\mathcal{D}}(\X)\r)\r]+\sigma^2
 \end{align*}
-where $\sigma^2=\E_\X\l[\sigma^2(\X)\r]$ (ignore the poor choice of notation). With this in mind, it's clear that we do not seek the estimator $\hat{f}_{\D}$ which minimises expected square bias or expected variance individually. Instead, we seek the estimator which hits the sweet spot in minimising their sum. An illustration of this idea, as the estimator's architecture is made more complex, is given in \autoref{fig:bias_variance}.
+where $\sigma^2=\E_\X\l[\sigma^2(\X)\r]$ (ignore the poor choice of notation). With this in mind, it's clear that we do not seek the estimator $\hat{f}_{\D}$ which minimises expected square bias or expected variance individually. Instead, we seek the estimator which hits the sweet spot in minimising their sum. An illustration of this statement, as the estimator's architecture is made more complex, is given in \autoref{fig:bias_variance}.
 
 \begin{figure}[t]
     \centering
@@ -604,13 +604,13 @@ where $\sigma^2=\E_\X\l[\sigma^2(\X)\r]$ (ignore the poor choice of notation). W
 \end{figure}
 
 \begin{tcolorbox}[title={\centering\textbf{Beyond MSE}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    \textbf{Natural question:} MSE is a common choice of loss when dealing with regression but not classification, in which cross-entropies are typically used as loss, so why do derivations of the bias-variance tradeoff use MSE? The quick answer is that it's the only choice which yields a relatively simple derivation of this elegant decomposition of estimator error into two orthogonal characteristics of the estimator: its bias and variance.
+    \textbf{Natural question:} MSE is a common choice of loss when dealing with regression but not classification, in which cross-entropies are typically used as loss, so why do derivations of the bias-variance tradeoff use MSE? The quick answer is that it's the only choice which yields a relatively simple derivation of this elegant decomposition of estimator error into the square of its bias and its variance.
     
-    \hspace{14.2pt} Also, interestingly, it turns out that if you instead consider probabilistic classification then using cross-entropy as loss also yields a decomposition into squared bias and variance but its derivation is less elegant.
+    \hspace{14.2pt} I've read online that some other choices of loss also yield decompositions into squared bias and variance but that their derivation is less elegant. There seems to be a good amount of work in this area but it's too in-depth for this document.
 \end{tcolorbox}
 
 \subsubsection{Double descent}
-Double descent refers to a behaviour observed in select set ups in which overparameterised models seemingly fly in the face of the bias-variance tradeoff. As the number of parameters (i.e. the model complexity) increases, the test error increases in line with the usual bias-variance tradeoff until reaching the number of training samples $n$. At this point, the test error spikes and training error hits 0. That is, the model is able to entirely interpolate the training data. The phenomenon begins as the number of parameters exceeds $n$. Not only does training error remain 0 (expected) but the test error begins to decrease. Not only that, in many set ups the test error reduces to an amount below the minimum test error observed during the usual bias-variance regime.
+Double descent refers to a behaviour observed in select set ups in which overparameterised models seemingly fly in the face of the bias-variance tradeoff. As the number of parameters (i.e. the model complexity) increases, the test error increases in line with the usual bias-variance tradeoff until reaching the number of training samples $n$. At this point, the test error spikes and training error hits 0. That is, the model is able to entirely interpolate the training data. The phenomenon begins as the number of parameters exceeds $n$. Not only does training error remain 0 (expected) but the test error begins to decrease and, in many set ups, reduces to an amount below the minimum test error observed during the traditional bias-variance region.
 
 The phenomenon is illustrated nicely in \autoref{fig:double_descent} and motivates the massively overparameterised contemporary models used these days. AlexNet is an example of an overparameterised model lying in the second descent region with around 60 million parameters but only 1.2 million training samples.
 
@@ -621,9 +621,9 @@ The phenomenon is illustrated nicely in \autoref{fig:double_descent} and motivat
     \label{fig:double_descent}
 \end{figure}
 
-I like to imagine fitting a third degree polynomial by a polynomial of higher and higher degree. If double descent were observed in this set up, one might expect wild polynomial fits until the polynomial's degree matches the number of training samples. At which point, the model has interoplated the training data perfectly and begins to regulate how it fits what's inbetween.
+I like to imagine fitting a third degree polynomial by polynomials of higher and higher degree. If double descent were observed in this set up, one might expect wild polynomial fits until the polynomial's degree matches the number of training samples. At which point, the model has interoplated the training data perfectly and begins to regulate how it fits what's inbetween.
 
-There has been a good amount of work investigating the phenomenon and some of the mystery has reduced as a result. The most common explanation is that gradient descent is inherently regulatory. Not only that but the use of explcit regularisation, like SGD and Adam, bias toward `simpler' solutions in weight space which typically generalise better. The second most convincing reason I've come across is that the majority of minima which yield 0 training error yield smooth and generalising models. This isn't so much a reason as much as it is a crude explanation: there's no reason to believe that minima which yields 0 training error necessarily overfit. A third reason is that with a massive dataset, noise is relatively uninfluential compared to the underlying structure, so dominant patterns in data can be extrapolated regardless.
+There has been a good amount of work investigating the phenomenon and some of the mystery has reduced as a result. The most convincing hand-wavy explanation of the behaviour is that parameter exploration via gradient descent is inherently regulatory. Not only that but the use of explcit regularisation, like SGD and Adam, on top of the self-regularisation bias toward parameters which offer `simpler' representations.
 
 % parameter exploration and its optimisation
 \section{Parameter Exploration and its Optimisation}
@@ -632,7 +632,7 @@ In fitting a parametric model $f_{\theta}:\Omega_{\X}\to\Omega_{Y}$, the loss in
     R_D:\Theta&\to\R_{\geq0}\\
     \theta&\mapsto\frac{1}{n}\sum_{i=1}^n\mathcal{L}(y_i,f_{\theta}(\x_i))
 \end{align*}
-In fitting our paremtric model $f_{\theta}$, we seek to compute
+In fitting $f_{\theta}$, we seek to compute
 $$
 \theta^{*}
 =
@@ -647,17 +647,17 @@ i.e. to minimise the empirical risk over the dataset in the parameters. As such,
     \label{fig:loss_landscape_complex}
 \end{figure}
 
-Many function minimisation methods exist: Newton's method, genetic algorithms, gradient descent, etc. but most are horribly slow/unstable in high dimensions; not gradient descent though! As a result, gradient descent is \textit{the} method for computing good parameters numerically in machine learning, hence the inclusion of this section.
+Many function minimisation methods exist: Newton's method, genetic algorithms, gradient descent, etc. but most are horribly slow/unstable in high dimensions; not gradient descent though! As a result, gradient descent is \textit{the} method for computing good parameters numerically in deep learning, hence the inclusion of this section.
 
 \begin{tcolorbox}[title={\centering\textbf{Illustrations of loss landscapes are dataset-dependent!}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    When loss landscapes are illustrated, they are really plots of the graph $\{(\theta, R_D(\theta))|\theta\in\Theta\}$. That is, they are shaped by the fixed dataset $D$. As such, computations of the form $R_{D'}(\theta)$ for $D'\subsetneq D$, e.g. computations related to mini-batch gradient descent, don't necessarily correspond exactly with $R_D(\theta)$ but this isn't usually an issue.
+    When loss landscapes are illustrated, they are really plots of the graph $\{(\theta, R_D(\theta))|\theta\in\Theta\}$. That is, they are shaped by the fixed dataset $D$. As such, computations of the form $R_{D'}(\theta)$ for $D'\subsetneq D$, e.g. computations related to mini-batch or stochastic gradient descent, don't necessarily coincide with $R_D(\theta)$.
 \end{tcolorbox}
 
 % vanilla gradient descent
 \subsection{Gradient Descent}
 Since gradient descent is a general function minimisation method and not specific to machine learning, I'll use more general mathsy notation than $\theta$, $R_D$, etc.
 
-Say we're interested in minimising $f(\x)$. A natural idea is to start with a guess $\x^{(0)}$ and send it in the direction in which $f$ most decsends locally from $\x^{(0)}$, or equivalently the opposite of the direction in which $f$ most ascends locally from $\x^{(0)}$, i.e. computing
+Say we're interested in finding minima of a function $f$ whose co-domain is $\mathbb{R}_{\geq0}$. A natural idea is to start with a guess $\x^{(0)}$ and send it in the direction in which $f$ most decsends locally from $\x^{(0)}$, or equivalently the opposite of the direction in which $f$ most ascends locally from $\x^{(0)}$, i.e. computing
 $$
 \argmax_{||\mathbf{v}^{(0)}||=1}f\l(\x^{(0)}+\eta\mathbf{v}^{(0)}\r),
 $$
@@ -667,7 +667,7 @@ $$
 =
 \x^{(t)}-\eta\mathbf{v}^{(t)}.
 $$
-Eventually, after taking a ton of these small steps, we should reach the bottom of the mountain, i.e. a minima of $f$.
+Eventually, after taking a ton of these small steps, we hope to reach a minimum of $f$.
 
 \subsubsection{In which direction does $f$ most ascend locally from $\x^{(t)}$?}
 In the following physicist-like argument, we consider only unit vectors $\mathbf{v}$. This is because we care only about the direction of the vector in question and an equation later on simplifies quite nicely due to its unit length. 
@@ -681,7 +681,7 @@ In the following physicist-like argument, we consider only unit vectors $\mathbf
     $$
 \end{tcolorbox}
 
-In gradient ascent, we are looking for the unit vector $\mathbf{v}$ such that $f(\mathbf{x})$ increases most locally in the direction of $\mathbf{v}$, i.e. we seek to compute
+In gradient ascent, we are looking for the unit vector $\mathbf{v}$ whose direction $f$ increases most locally from $\mathbf{x}$, i.e. we seek
 $$\argmax_{||\mathbf{v}||=1}\Big[f(\mathbf{x}+\eta\mathbf{v})-f(\mathbf{x})\Big]$$
 where $\eta>0$ is small. Approximating $f(\mathbf{x}+\eta\mathbf{v})$ using its Taylor expansion about $\x$ yields
 $$
@@ -708,12 +708,12 @@ $$
 The edge case in which $\nabla f(\mathbf{x})=0$ corresponds to $f(\mathbf{x})$ being a local maximum.
 
 \subsubsection{Sensitivity to $\x^{(0)}$}
-I don't know much about initialisation. I know that it's a bad idea to start at 0 (if symmetries hold then parameters change identically), points of large magnitude (exploding gradients) and points of small magnitude (vanshing gradients). Also, if the function in question is convex then convergence guarantees are held. That said, empirical risk functions are not convex in practice. Simon Price offers an interesting point regarding some quirks of parameter initialisation around 01:08:00 in one of his \href{https://www.youtube.com/watch?v=sJXn4Cl4oww&list=PLwFLAA-F1PgpU9lgxOdhjILkMXUagGnea&ab_channel=MachineLearningStreetTalk}{YouTube interviews}.
+I don't know much about initialisation. I know that it's a bad idea to start at 0 (if certain symmetries hold then parameters may change identically), points of large magnitude (exploding gradients) and points of small magnitude (vanshing gradients). Simon Price speaks of some interesting quirks of parameter initialisation around 01:08:00 in a \href{https://www.youtube.com/watch?v=sJXn4Cl4oww&list=PLwFLAA-F1PgpU9lgxOdhjILkMXUagGnea&ab_channel=MachineLearningStreetTalk}{YouTube interview}.
 
-One day when my interest in initialisation sparks up, I'll write this part properly.
+One day when my interest in initialisation is sparked, I'll write this part properly.
 
 \subsubsection{Batch learning}
-If your training dataset is huge and you don't have enough memory to store things pertaining to your gradients: do not fear! It turns out that we can approximate full gradient updates reasonably well using many smaller updates over subsets of the dataset. How well mini-batch learning and stochastic gradient descent perform (and even just \textit{that} they perform) surprised me when I first learned about them.
+If your training dataset is huge and you don't have enough VRAM to store gradient information then do not fear! It turns out that we can approximate full gradient updates reasonably well using many smaller updates over subsets of the dataset. How well mini-batch learning and stochastic gradient descent perform (and even just \textit{that} they perform) surprised me when I first learned about them.
 
 \begin{figure}[t]
     \centering
@@ -723,7 +723,7 @@ If your training dataset is huge and you don't have enough memory to store thing
 \end{figure}
 
 \begin{tcolorbox}[title={\centering\textbf{Epoch terminology}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    During training, the model tweaks its parameters in line with being shown the training data. In practice, the model is often shown the training data multiple times. Each full cycle of the model having learned from the training data is called an epoch.
+    During training, the model tweaks its parameters based on training data. In practice, the model does so for the same sample many times. Each full cycle of the model having learned from the training data is called an epoch.
 \end{tcolorbox}
 
 \subsubsection*{1) Full-batch}
@@ -735,7 +735,7 @@ $$
 $$
 
 \subsubsection*{2) Mini-batch}
-The information stored in order to compute gradients during training might be too much for your PC's VRAM. If so, instead perform mini-batch gradient descent in which the dataset $D$ is split into $m$ disjoint subsets $B_1,\dots,B_m$, referred to as batches, and $m$ updates are made to the parameters according to
+The information stored in order to compute gradients during training might be too much for your PC's VRAM. If so, instead perform mini-batch gradient descent in which the dataset $D$ is partitioned into $m$ disjoint subsets $B_1,\dots,B_m$, referred to as batches, and $m$ parameter updates are made according to
 $$
 \theta^{(t+j)}
 =
@@ -744,35 +744,23 @@ $$
 We see that if we split into $m$ batches then a full epoch during training corresponds to $m$ parameter updates (or optimisation steps).
 
 \subsubsection*{3) Stochastic gradient descent (SGD)}
-Turns out that doing mini-batch with $m=n$ (so one sample per update), as in
+It turns out that updating based on a single sample $(\x,y)$ (uniformly randomly sampled), as in
 $$
-\theta^{(t+j)}
+\theta^{(t+1)}
 =
-\theta^{(t+j-1)}-\nabla_{\theta}\mathcal{L}\l(y_j,f_{\theta^{(t+j-1)}}(\x_j)\r)
+\theta^{(t)}-\nabla_{\theta}\mathcal{L}\l(y,f_{\theta^{(t)}}(\x)\r)
 $$
-for $j=1,\dots,n$ is viable. Susprising; I would have thought that it'd produce nonsense parameters. As such, a full epoch during training using SGD corresponds to $n$ parameter updates. Unsurprisingly, SGD yields relatively unstable convergence, a bit like the steps a drunk man would take in walking down the mountain. It's perhaps unsurprising that mini-batch, and thus SGD, are unbiased but high in variance.
+is viable. This surprised me a ton when I first read about it: I would have thought that it'd produce nonsense parameters. Unsurprisingly, SGD yields relatively unstable convergence, a bit like the steps that a drunk man would take in walking down a hill.
 
-\begin{tcolorbox}[title={\centering\textbf{WARNING}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    What we call mini-batch GD here is referred to by some as SGD.
+\begin{tcolorbox}[title={\centering\textbf{Terminology warning}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    What we call mini-batch gradient here is referred to by some as stochastic gradient descent. Confusing.
 \end{tcolorbox}
 
 \subsubsection{Batch + Layer normalisation}
-These forms of normalisation typically only apply to learning in neural network settings. There's some piece of advice regarding which you should use when batch number is small; was it to use layer norm?
-
-\begin{figure}[t]
-    \centering
-    \begin{minipage}{0.6\linewidth}
-        \includegraphics[width=\linewidth]{./figures/gradient_descent/batch_norm.pdf}
-    \end{minipage}%
-    \hfill
-    \begin{minipage}{0.35\linewidth}
-        \caption{A benefit of batch norm.}
-        \label{fig:batch_norm}
-    \end{minipage}
-\end{figure}
+I've only seen these forms of normalisation apply to training neural networks. I'm unaware of them being grounded in theory. They're very widley used so I've included them.
 
 \subsubsection*{1) Batch norm}
-For a batch $B=\{\x_1,\dots,\x_m\}$, batch normalisation is the act of normalising the post-activation values of some layer of $d$ neurons in our architecture. Denote the $d$ activation values for the sample $\x_i\in B$ as $(a_{i,1},\dots,a_{i,d})$. The entire batch's activation values can be written as a matrix as in
+For a batch $B=\{\x_1,\dots,\x_m\}$, batch normalisation is the act of normalising the post-activation values of some layer of $d$ neurons in a neural network. Denote the $d$ activation values for the sample $\x_i\in B$ as $(a_{i,1},\dots,a_{i,d})$. The entire batch's activation values for said layer can be written as a matrix as in
 $$
 \begin{bmatrix}
     a_{1,1} & \dots  & a_{1,d}\\
@@ -794,13 +782,13 @@ $$
     (a_{m,1}-\mu_1) / \sqrt{\sigma_1^2+\epsilon} & \dots & (a_{m,d}-\mu_d) / \sqrt{\sigma_d^2+\epsilon}
 \end{bmatrix}
 $$
-where $\mu_j=\frac{1}{m}\sum_{i=1}^ma_{i,j}$, $\sigma_j^2=\frac{1}{m}\sum_{i=1}^m(a_{i,j}-\mu_j)^2$ and $\epsilon>0$ is tiny. At this point, the columns have mean 0 and variance 1. The output of batch norm for sample $i\in\{1,\dots,m\}$ is given by
+where $\mu_j=\frac{1}{m}\sum_{i=1}^ma_{i,j}$, $\sigma_j^2=\frac{1}{m}\sum_{i=1}^m(a_{i,j}-\mu_j)^2$ and $\epsilon>0$ is small, appearing for the sake of computational stability. At this point, the columns have mean 0 and variance 1. The output of batch norm for sample $i\in\{1,\dots,m\}$ is given by
 $$
 (\gamma_1\hat{a}_{i,1}+\beta_1,\dots,\gamma_d\hat{a}_{i,d}+\beta_d)
 $$
 where $\gamma_1,\dots,\gamma_d$ and $\beta_1,\dots,\beta_d$ are learnable parameters.
 
-I don't think that the effect of batch norm is immediately clear; perhaps helps avoid exploding/vanishing gradients. It was initially thought to reduce something called covariance shift but the consensus has changed and it's now believed that it simply smoothes out the corresponding loss landscape.
+I don't think that the effect of batch norm is immediately clear and the informal explanations given in the paper which introduced it have been largely discarded since. Perhaps it helps avoid exploding/vanishing gradients, I honestly don't know lol.
 
 \subsubsection*{2) Layer norm}
 If batch statistics aren't particularly meaningful or batch size is small then layer norm may be preferable. Layer norm applies to individual samples, as opposed to entire batches, and so normalises over the features instead. Given activation values $a_1,\dots,a_d$, layer norm first normalises the activation values as in
@@ -813,11 +801,11 @@ where $\mu=\frac{1}{d}\sum_{j=1}^da_j$ and $\sigma^2=\frac{1}{d}\sum_{j=1}^d(a_j
 $$
 (\gamma_1\hat{a}_1+\beta_1,\dots,\gamma_d\hat{a}_d+\beta_d)
 $$
-where $\gamma_1,\dots,\gamma_d$ and $\beta_1,\dots,\beta_d$ are learnable parameters.
+where $\gamma_1,\dots,\gamma_d$ and $\beta_1,\dots,\beta_d$ are learnable parameters. As with batch norm, I honestly don't know the influence layer norm has on training.
 
 % regularisation
 \subsection{Regularisation}
-Overfitting is a pain. How might we regulate the learning procedure in a way that seeks to avoid overfitting? Regularisation!
+Overfitting is a pain. How might we regulate the learning procedure in a way that (hopefully) prevents overfitting? Regularisation!
 
 \begin{figure}[t]
     \centering
@@ -831,7 +819,7 @@ Overfitting is a pain. How might we regulate the learning procedure in a way tha
     \end{minipage}
 \end{figure}
 
-The most well known regularisation techniques are L1 and L2 regularisation. Both involve adding a penalty term to the loss function used during training with the intention of encouraging some behaviour in the learning process. There are tons of ways of motivating both L1 and L2 but the most intuitive to me (by a long shot) is a Bayesian approach: assume independence of parameters and impose a prior distribution on them according to whatever bias we hope to bake into the learning process. Then, instead of regular maximum likelihood, compute
+The most well known methods of regularisation are L1 and L2 regularisation. Both involve adding a penalty term to the loss function used during training with the intention of encouraging some behaviour in the learning process. There are tons of ways of motivating both L1 and L2 but the most intuitive to me (by a long shot) is a Bayesian approach: assume independence of parameters and impose a prior distribution on them according to whatever bias we hope to bake into the learning process. Then, instead of maximum likelihood estimation, compute
 \begin{align*}
     \argmax_{\theta\in\R^{q+1}}\log(p(\theta|D))
     &=
@@ -841,7 +829,7 @@ The most well known regularisation techniques are L1 and L2 regularisation. Both
 \end{align*}
 
 \subsubsection*{1) L1 regularisation (LASSO)}
-If we would like our to-be-learned parameters to be sparse, then it makes sense to choose a prior which has a lot of mass around 0 and tapers off rather harshly at the tails. A great choice for this is a Laplace prior with mean 0 and variance $2/\lambda$ which yields L1 regularisation. The corresponding density function is given by $p(\theta_j)=\lambda\exp(-2\lambda|\theta_j|)$ illustrated in \autoref{fig:laplace_pdf}.
+If we would like our to-be-learned parameters to be sparse, then it makes sense to choose a prior which has a lot of mass around 0 and tapers off rather harshly at the tails. A great choice for this is a Laplace prior with mean 0 and variance $2/\lambda$ which yields L1 regularisation. The corresponding density function is given by $p(\theta_j)=\lambda\exp(-2\lambda|\theta_j|)$ and explicit examples are illustrated in \autoref{fig:laplace_pdf}.
 
 \begin{figure}[t]
     \centering
@@ -858,7 +846,7 @@ $$
 $$
 
 \subsubsection*{2) L2 regularisation (Ridge)}
-If we would like no given parameter to be too large then imposing some sort of MSE penalty on the parameters makes sense. This is achieved by imposing a normal prior and yields L2 regularisation. That is, if $\theta_1,\dots,\theta_q\overset{\text{i.i.d.}}{\sim}\mathcal{N}(0,\sigma^2)$ then the quantity we seek to compute is given by
+If we would like no given parameter to be too large then imposing some sort of MSE penalty on the parameters makes sense. From the Bayesian point of view, this is achieved by imposing a normal prior on the parameters and yields L2 regularisation. That is, if $\theta_1,\dots,\theta_q\overset{\text{i.i.d.}}{\sim}\mathcal{N}(0,\sigma^2)$ then the quantity we seek is
 $$
 \argmax_{\theta\in\R^{q+1}}\log(p(\theta|D))
 =
@@ -866,9 +854,11 @@ $$
 $$
 where $\lambda=1/2\sigma^2$.
 
-There's a particularly elegant way to visualise the effects of L1 and L2 reglularisation in terms of how they change the shape of the corresponding loss landscape. It's as if each point in the landscape is sunk according to its distance from the origin and the hyperparameter $\lambda$. The sharpness or curvature of said sinking is prior-dependent: for L1 regularisation it is far sharper, hence the origin acts as more of a sinkhole than in L2 regularisation inducing sparser minima.
+There's a particularly elegant way to visualise the effects of L1 and L2 reglularisation in terms of how they change the shape of the corresponding loss landscape. It's as if each point in the landscape is sunk according to its distance from the origin and the hyperparameter $\lambda$. The sharpness or curvature of said sinking is prior-dependent: for L1 regularisation it is far sharper, hence the origin acts as more of a sinkhole than in L2 regularisation, inducing sparser minima.
 
-\subsubsection*{3) Early stopping} Split training into training and validation sets. After each epoch (or every few), compute both training and validation losses. If training loss is decreasing while validation loss is not then the model may be overfitting the training data. As illustration, consider \autoref{fig:early_stopping} in which the training loss continues to decrease in the number of epochs while the validation loss seems to reach its lowest value around epoch 28.
+\subsubsection*{3) Early stopping} To motivating early stopping, consider the familiar scenario of training via gradient descent. A natural thought when logging the training loss is whether or not a decrease in training loss from one epoch to the next genuinely pertains to a model that better generalises. How can we be confident that our model isn't simply overfitting the training data if all we see is decrease in training loss?
+
+Early stopping partially alleviates this fear by splitting the training dataset into a smaller training set and a validation set (perhaps 80\%/20\%). After each epoch (or every few), compute both training and validation losses. Said validation loss acts as some measure of the model's ability to generalise. If training loss is decreasing while validation loss is not then the model may be overfitting. As illustration, consider \autoref{fig:early_stopping} in which the training loss continues to decrease in the number of epochs while the validation loss seems to obtain its lowest value around epoch 28.
 
 \begin{figure}[t]
     \centering
@@ -882,11 +872,7 @@ There's a particularly elegant way to visualise the effects of L1 and L2 reglula
     \end{minipage}
 \end{figure}
 
-If you observe this for sufficiently many consecutive epochs (the pre-determind patience of your early stopping procedure) then you can stop training and use the parameters pertaining to the epoch at which the validation loss was lowest. To do this, at each epoch during training, save the parameters of the current epoch if they offer a lower validation loss than at any epoch before. This is often referred to as a checkpoint within the training process and the parameters are saved in a \texttt{.ckpt} file. Alternatively, pick a threshold $\delta>0$ by which the validation error must have decreased by during the previous however many epochs.
-
-\subsubsection*{4) Dropout} Dropout is a form of regularisation specific to neural network architectures (I think). Its rough motivation is that we'd prefer not to be overly-reliant on any given subset of neurons at inference time. To prevent such an over-reliance, during each epoch, independently set the activation of each neuron to 0 with some probability $p$. This way some portion of neurons are silenced during training for said epoch. As a result, its corresponding parameters (weights and bias) are not updated during backpropagation. This idea is illustrated in \autoref{fig:dropout}.
-
-Make sure to not apply dropout at ineference time!
+\subsubsection*{4) Dropout} Dropout is a form of regularisation specific to neural network architectures (I think). Its rough motivation is that we'd prefer not to be overly-reliant on any given subset of neurons at inference time. To prevent such an over-reliance, at the beginning of each epoch, independently set the activation of each neuron to 0 with some probability $p$. This way some portion of neurons are silenced during training for said epoch. As a result, its corresponding parameters are not updated during backpropagation. This idea is illustrated in \autoref{fig:dropout}. Make sure to not apply dropout at ineference time!
 
 \begin{figure}[t]
     \centering
@@ -897,70 +883,67 @@ Make sure to not apply dropout at ineference time!
 
 % momentum and adaptive learning rates
 \subsection{Momentum + Adaptive Learning Rates}
-There are some intuitive ideas that accelerate gradient descent. One is momentum, which builds up speed if gradients have pointed in the same direction over multiple steps. The other is an adaptive learning rate, where each parameter has its own step size that adapts over time depending on its past gradients.
+There are some intuitive ideas which aim to accelerate the gradient descent process. One is momentum, which increases steps made when gradients consistently pointed in the same direction over previous steps. Another is an adaptive learning rate, where each parameter has its own step size that adapts over time to its past gradients.
 
 \subsection*{1) Momentum}
-Think of a ball rolling downhill: momentum lets it keep moving in the same direction which smoothes out noisy gradients. If gradients keep pointing in the same direction then momentum accelerates. If gradients oscillate, e.g. traversing like a ravine, then momentum dampens the motion.
+Think of a ball rolling downhill: momentum lets it keep moving in the same direction which smoothes out noisy gradients. If gradients keep pointing in the same direction then momentum builds. If gradients oscillate, e.g. traversing like a ravine, then the motion is dampened and momentum is lost.
 
 \begin{figure}[t]
     \centering
-    \begin{minipage}{0.7\linewidth}
+    \begin{minipage}{0.62\linewidth}
         \includegraphics[width=\columnwidth]{./figures/gradient_descent/momentum.pdf}
     \end{minipage}%
     \hfill
-    \begin{minipage}{0.27\linewidth}
+    \begin{minipage}{0.38\linewidth}
         \caption{How we might hope convergence would look using momentum.}
         \label{fig:gradient_descent_momentum}
     \end{minipage}
 \end{figure}
 
-We impose this by introducing a velocity vector
+We impose a momentum-like idea by introducing a velocity vector
 $$
 \mathbf{v}^{(t+1)}=\mu\mathbf{v}^{(t)}-\eta\nabla R_D\l(\theta^{(t)}\r)
 $$
-with $\mathbf{v}^{(0)}=0$ and switch up the gradient descent update rule to
+with $\mathbf{v}^{(0)}=0$ and change the gradient descent update rule to
 $$
 \theta^{(t+1)}
 =
 \theta^{(t)}-\eta\nabla R_D\l(\theta^{(t)}\r)+\mu\mathbf{v}^{(t)}
 $$
-where $\mu\in[0,1)$ is the momentum coefficient. Typically, $\mu\in\{0.9,0.95,0.99\}$ are taken. To get a sense of how this refelcts a momentum-like idea, see that $\mathbf{v}^{(1)}=-\eta\nabla R_D(\theta^{(0)})$ and so
+where $\mu\in[0,1)$ is the momentum coefficient. Typically, $\mu\in\{0.9,0.95,0.99\}$. To get a sense of how this refelcts a momentum-like idea, see that $\mathbf{v}^{(1)}=-\eta\nabla R_D(\theta^{(0)})$ and so
 $$
 \mathbf{v}^{(2)}
 =
 -\eta\l(\mu\nabla R_D(\theta^{(0)})+\nabla R_D(\theta^{(1)})\r).
 $$
-If $\mu\approx1$ and the gradients $\nabla R_D(\theta^{(0)})$ and $\nabla R_D(\theta^{(1)})$ are roughly equal then $\mathbf{v}^{(2)}$ will confidently boost $\theta^{(3)}$ in the direction of the first two gradients. If they oppose one another then, as intuition would suggest, $\mathbf{v}^{(0)}=0$.
+If $\mu\approx1$ and the gradients $\nabla R_D(\theta^{(0)})\approx\nabla R_D(\theta^{(1)})$ then $\mathbf{v}^{(2)}$ will confidently boost $\theta^{(3)}$ in the direction of the first two gradients. If $\nabla R_D(\theta^{(0)})\approx-\nabla R_D(\theta^{(1)})$ then, as intuition would suggest, $\mathbf{v}^{(2)}=0$.
 
 \subsection*{2) Adaptive learning rates}
-Why have a fixed learning rate? Why have the same learning rate for each parameter? Adaptive learning rates looks to solve both. Some intuition to fuel how learning rates might change: if up to the $t^{\text{th}}$ parameter update the gradients for a given parameter have been large then it has presumably converged decently so its learning rate would ideally get smaller. The way AdaGrad does this is by storing a per parameter running total of gradients, as in
+Why have a fixed learning rate? Why have the same learning rate for each parameter? Adaptive learning rates aim to alleviate the oversimplications these questions pertain to. For some intuition as to how learning rates might change: if up to the $t^{\text{th}}$ optimisation step the gradients for a given parameter have been large then it has presumably converged decently so its learning rate would ideally get smaller. AdaGrad does this is by storing a per parameter running total of gradients, as in
 $$
 G_i^{(t)}
 =
 \sum_{\tau=1}^t\l(\nabla_{\theta_i}R_D(\theta_i^{(\tau)})\r)^2
 $$
-and switch the parameter update to
+and switching the optimisation step to
 $$
 \theta_i^{(t+1)}
 =
 \theta_i^{(t)}-\eta_i\nabla_{\theta_i}^{(t)}R_D(\theta_i^{(t)})
 $$
-where $\eta_i^{(t)}=\frac{\eta}{\sqrt{G_i^{(t)}}+\epsilon}$ is the $i^{\text{th}}$ parameter's learning rate. There are more elaborate/known adaptive learning rate methods than this, e.g. RMSProp and Adam, but AdaGrad conveys the idea well.
+where $\eta_i^{(t)}=\frac{\eta}{\sqrt{G_i^{(t)}}+\epsilon}$ is the $i^{\text{th}}$ parameter's learning rate at step $t$. There are more elaborate adaptive learning rate methods than this, e.g. RMSProp and Adam, but AdaGrad conveys the idea sufficiently well.
 
 % hyperparam tuning
 \subsection{Hyperparameter Tuning}
-\TODO{: Review. Mention that the only real reason I included this subsection was to remind myself of cross val}
-Hyperparameters are the tunable parts of our model which are not learned during training. Bad hyperparameters will yield training issues like divergence, overfitting or underfitting. The easiest example of a hyperparameter I can think of is the learning rate in vanilla gradient descent. Some choices of learning rate will yield models which generalise better post-training than other learning rates. For a more sophisticated example, consider architecture-related hyperparameters, e.g. the number of hidden layers in a multi-layer perceptron.
+Hyperparameters are the tunable parts of an architecture which are not learned during training. Bad hyperparameters will yield training issues like divergence, overfitting or underfitting. A simple example of a hyperparameter I can think of is the learning rate in vanilla gradient descent. Some choices of learning rate will result in better generalisation than other choices. For a more sophisticated example, consider architecture-related hyperparameters, e.g. the number of hidden layers in a multi-layer perceptron.
 
 \subsection*{1) Random search}
-Begin by designating some portion of the training data for validation. Define a finite set of values in which each hyperparmeter may take a value. Since the cardinality of such a set will often be massive, instead of traversing the whole grid of values, consider random search: choose a number of models to train, randomly sample from the finite set for each and choose whichever yielded the lowest validation loss.
+Begin by designating some portion of the training data for validation (maybe 80\% training, 20\% validation). 
+
+Each hyperparameter may take on a set of values, i.e. the $m$ hyperparameters $h_1,\dots,h_m$ induce the samples spaces $\Omega_{h_1},\dots,\Omega_{h_m}$ and the grid of all possible hyperparameter configurations is thus $\Omega_1\times\dots\times\Omega_m$. In a perfect world, you'd be able to train a model for each hyperparameter configuration and choose whichever yields the lowest validation loss. We don't live in a perfect world and the cardinality of said grid is often too large. In line with this, instead of traversing it entirely, uniformly randomly sample from it a number of times and train with said hyperparameter configuration. Choose whichever configuration yielded the lowest validation loss.
 
 \subsection*{2) $k-$fold cross-validation}
-For a better idea of how a configuration of hyperparameters will help generalise post-training, consider partitioning the training data into $k$ subsets $D_1,\dots,D_k$. Then, for $i=1,\dots,k$, train a model on $k-1$ of them and validate on the remaining. Average the $k$ validation losses. Choose whichever hyperparameter configuration yields the lowest average validation loss.
-
-More elaborate methods of hyperparameter tuning exist, random search is a straightforward one.
-
-\TODO{: Why not choose hyperparams which minimise test loss?}
+For a better idea of how a configuration of hyperparameters will help generalise post-training, consider partitioning the training data into $k$ disjoint subsets (or folds) $D_1,\dots,D_k$. Then, for $i=1,\dots,k$, train on $D\backslash D_i$ and validate on $D_i$. Take the mean of the $k$ validation losses. Choose whichever hyperparameter configuration yields the lowest mean validation loss.
 
 % neural nets
 \section{Neural Networks}
@@ -1404,7 +1387,7 @@ $$
 
 Convolutional neural networks (CNNs) were initially designed to process image and, by extension, video data. Over time, they have been applied to processing far richer forms of data. A forward pass through a CNN designed for image processing is illustrated in \autoref{fig:CNN_frog}, in which we see that their architecture can be described on a high level as consisting of two parts. The first part performs feature extraction through convolution and pooling operations. The second part employs an MLP to produce the overall model's output given the earlier-extracted features, e.g. the probability that an input image is of a given class.
 
-Before deep learning architectures became mainstream, researchers used handcrafted features (SIFT, HOG, SURF, etc.) for feature extraction and fed extracted features to a given model, e.g. an SVM for classification. That is, feature extraction wasn't learned, nor was it entwined with the inference component of their models. For image processing tasks, humans turn out to be far worse than deep learning architectures at knowing which features are most informative of what is being predicted. Hence, CNNs are now the go-to architecture for image and video processing. There's something to be said here about vision transformers and the extent to which they are competitive with CNNs but this can wait.
+Before deep learning architectures became mainstream, researchers used handcrafted features (SIFT, HOG, SURF, etc.) for feature extraction and fed extracted features to a given model, e.g. an SVM for classification. That is, feature extraction wasn't learned, nor was it entwined with the inference component of their models. For image processing tasks, humans turn out to be far worse than deep learning architectures at knowing which features are most informative of what is being predicted. Hence, CNNs are now the go-to architecture for image and video processing. There's something to be said here about vision transformers and the extent to which they are competitive with CNNs but this can wait. Relevant interactive visualisation: \href{https://adamharley.com/nn_vis/cnn/3d.html}{\texttt{adamharley.com/nn\_vis/cnn/3d.html}}.
 
 \subsubsection{Convolutions}
 Convolution operations involve using a (typically square) matrix to, in some sense, summarise the information embedded in parts of the object over which it traverses. This matrix is referred to as a filter or a kernel — I prefer using filter as the term kernel has so many meanings elsewhere in maths. You can think of convolution operations as a sort of dot product between the given filter and the grid of pixel values over which lies during its traversal. For a simple illustration of this idea, consider \autoref{fig:convolution_operation}. Since CNNs consists of multiple convolution layers, the output of a convolution layer is often referred to as a feature map.
@@ -1856,6 +1839,8 @@ Here are some probability theory and statistics-related things, e.g. brief state
 
 I've considered splitting it into two appendix sections — one for probability theory and one for statistics — but I couldn't decide in which I should put certain subsections, e.g. would Pearson correlation belong in the probability theory or statistics section?
 
+P.S. I advise people who are entirely new to probability theory and statistics to consider playing around with interative visual demonstrations of ideas, as in \href{https://seeing-theory.brown.edu/index.html}{\texttt{seeing-theory.brown.edu/index.html}}.
+
 \subsection{Derivations Related to Common Distributions}
 
 \subsubsection*{1) From Bernoulli to Binomial}
@@ -2051,6 +2036,9 @@ $$
 \frac{1}{n-1}\sum_{i=1}^n\l(\X_i-\hat{\mu}\r)^2.
 $$
 Most of the time, `sample variance' refers to the unbiased estimator.
+
+\subsubsection{Sampling bias}
+It isn't estimator bias.
 
 \subsection{The Law of Large Numbers}
 If $\X_1,\dots,\X_n$ are i.i.d. and $\E[\X]<\infty$ then
