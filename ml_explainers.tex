@@ -307,7 +307,7 @@ $$
 Note that, in practice, it's unlikely that any samples will lie on the hyperplane $f_{\theta^*}(\x)=0$ itself.
 
 % support vector machines
-\subsection{\TODO{: }Support Vector Machines (SVMs)}
+\subsection{Support Vector Machines (SVMs)}
 Logistic regression and SVMs both fit a hyperplane to feature space. The distinction is the metric of goodness of said hyperplanes. In logistic regression, the metric of goodness is how much the parameters of said hyperplane maximise the relevant log-likelihood. SVMs, however, look to maximise the distance between the hyperplane and the nearest samples. So in some sense, logistic regression is a probabilistic approach while SVMs take a raw constraint-based approach.
 
 The authors' insight came from structural risk minimization in which instead of focusing on minimising training error (as neural networks and decision trees were doing at the time), one focuses on minimising an upper bound on the generalisation error. The inclusion of `support vector' becomes clear from their construction but `machine' stood out to me as a bit odd. It turns out that at time of their development, around 1960, it was common to use `machine' when referring to algorithms that learned from data, i.e. algorithms belonging to statistical learning theory. This reflects Arthur Samuel's coining of machine learning as a term in 1959 while working at IBM.
@@ -433,7 +433,19 @@ At inference time, given some $\x$, we seek to compute
 \end{align*}
 where $b_k=y_k-\sum_{i=1}^n\alpha_iy_iK(\x_i,\x_k)$ for some $(\x_k,y_k)$ that satisfies $\alpha_k\in(0,\lambda)$. Note that the second line in the equation above is derived using to argument made in deriving the dual.
 
-The two simplest kernels are polynomial kernels and the RBF kernel. \TODO{: Complete a paragraph on common kernels.}
+The two simplest kernels are polynomial kernels and the radial basis function (RBF) kernel, the latter of which is far more popular. That said, polynomial kernels have had their place in applying SVMs to natural language processing tasks. The polynomial kernels
+$$
+K(\x,\z)
+=
+(\x^\top\z+c)^d
+$$
+capture feature interactions up to degree $d$, which is useful when the separation of classes depends on combinations of input variables, e.g. quadratic boundaries in $\mathbb{R}^2$. Therein lies their weakness: polynomial kernels can be limited if said decision boundary is particuarly irregular. The RBF kernel
+$$
+K(\x,\z)
+=
+\exp\l(-\frac{||\x-\z||^2}{2\sigma^2}\r)
+$$
+is more flexible as a result of it measuring similarity based on distance, effectively producing localised bumps in feature space. From this, the model is able to form very non-linear decision boundaries. So, all in all, polynomial kernels provide interpretable higher-order interactions, while RBF kernels offer universal approximation.
 
 % decision trees and random forests
 \subsection{Decision Trees and Random Forests}
@@ -1781,24 +1793,24 @@ In the context of denoising, the contraction branch takes a noised image as inpu
 \subsection{\TODO{: }Evaluating Generative Models}
 Since samples are not labeled, how does one evaluate a generative model? What does under/overfitting mean for generative models?
 
-% object detection
-\section{Object Detection Models}
+% % object detection
+% \section{Object Detection Models}
 
-Object detection is the task of localisation and classification within an image or video. Before the era of deep learning, it was typically solved using Haar-like filters\dots As of August 2025, there are three flavours of object detection models: R-CNN, YOLO and DETR.
+% Object detection is the task of localisation and classification within an image or video. Before the era of deep learning, it was typically solved using Haar-like filters\dots As of August 2025, there are three flavours of object detection models: R-CNN, YOLO and DETR.
 
-% R-CNN
-\subsection{\TODO{: }(Fast/Faster) R-CNN}
-R-CNN models has evolved significantly since its proposal in 2013 with three evolutions worthy of a new name: R-CNN (the original), Fast R-CNN and Faster R-CNN. R-CNN stands for \textit{Regions with CNN features}. Roughly put, R-CNN model consist of two steps:
-\begin{enumerate}
-    \item Proposing regions of interest within the image
-    \item Classifying what is in each region (if there is something in the region)
-\end{enumerate}
+% % R-CNN
+% \subsection{\TODO{: }(Fast/Faster) R-CNN}
+% R-CNN models has evolved significantly since its proposal in 2013 with three evolutions worthy of a new name: R-CNN (the original), Fast R-CNN and Faster R-CNN. R-CNN stands for \textit{Regions with CNN features}. Roughly put, R-CNN model consist of two steps:
+% \begin{enumerate}
+%     \item Proposing regions of interest within the image
+%     \item Classifying what is in each region (if there is something in the region)
+% \end{enumerate}
 
-% YOLO
-\subsection{\TODO{: }YOLO}
+% % YOLO
+% \subsection{\TODO{: }YOLO}
 
-% DETR
-\subsection{\TODO{: }DETR}
+% % DETR
+% \subsection{\TODO{: }DETR}
 
 % % future sections
 % \section{To-be-included sections, one day}
