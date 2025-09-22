@@ -914,7 +914,9 @@ Think of a ball rolling downhill: momentum lets it keep moving in the same direc
 
 We impose a momentum-like idea by introducing a velocity vector
 $$
-\mathbf{v}^{(t+1)}=\mu\mathbf{v}^{(t)}-\eta\nabla R_D\l(\theta^{(t)}\r)
+\mathbf{v}^{(t+1)}
+=
+\mu\mathbf{v}^{(t)}-\eta\nabla R_D\l(\theta^{(t)}\r)
 $$
 with $\mathbf{v}^{(0)}=0$ and change the gradient descent update rule to
 $$
@@ -922,13 +924,19 @@ $$
 =
 \theta^{(t)}-\eta\nabla R_D\l(\theta^{(t)}\r)+\mu\mathbf{v}^{(t)}
 $$
-where $\mu\in[0,1)$ is the momentum coefficient. Typically, $\mu\in\{0.9,0.95,0.99\}$. To get a sense of how this refelcts a momentum-like idea, see that $\mathbf{v}^{(1)}=-\eta\nabla R_D(\theta^{(0)})$ and so
+where $\mu\in[0,1)$ is the momentum coefficient. Typical values include, $\mu\in\{0.9,0.95,0.99\}$. To get a sense of how this refelcts a momentum-like idea, see that
+$$
+\mathbf{v}^{(1)}
+=
+-\eta\nabla R_D\l(\theta^{(0)}\r)
+$$
+and so
 $$
 \mathbf{v}^{(2)}
 =
--\eta\l(\mu\nabla R_D(\theta^{(0)})+\nabla R_D(\theta^{(1)})\r).
+-\eta\l(\mu\nabla R_D\l(\theta^{(0)}\r)+\nabla R_D\l(\theta^{(1)}\r)\r).
 $$
-If $\mu\approx1$ and the gradients $\nabla R_D(\theta^{(0)})\approx\nabla R_D(\theta^{(1)})$ then $\mathbf{v}^{(2)}$ will confidently boost $\theta^{(3)}$ in the direction of the first two gradients. If $\nabla R_D(\theta^{(0)})\approx-\nabla R_D(\theta^{(1)})$ then, as intuition would suggest, $\mathbf{v}^{(2)}=0$.
+If $\mu\approx1$ and the gradients $\nabla R_D\l(\theta^{(0)}\r)\approx\nabla R_D\l(\theta^{(1)}\r)$ then $\mathbf{v}^{(2)}$ will confidently boost $\theta^{(3)}$ in the direction of the first two gradients. If $\nabla R_D\l(\theta^{(0)}\r)\approx-\nabla R_D\l(\theta^{(1)}\r)$ then, as intuition would suggest, $\mathbf{v}^{(2)}=0$.
 
 \subsection*{2) Adaptive learning rates}
 Why have a fixed learning rate? Why have the same learning rate for each parameter? Adaptive learning rates aim to alleviate the oversimplications these questions pertain to. For some intuition as to how learning rates might change: if up to the $t^{\text{th}}$ optimisation step the gradients for a given parameter have been large then it has presumably converged decently so its learning rate would ideally get smaller. AdaGrad does this is by storing a per parameter running total of gradients, as in
@@ -946,7 +954,7 @@ $$
 where $\eta_i^{(t)}=\frac{\eta}{\sqrt{G_i^{(t)}}+\epsilon}$ is the $i^{\text{th}}$ parameter's learning rate at step $t$. There are more elaborate adaptive learning rate methods than this, e.g. RMSProp and Adam, but AdaGrad conveys the idea sufficiently well.
 
 % hyperparam tuning
-\subsection{Hyperparameter Tuning}
+\subsection{\REV{: }Hyperparameter Tuning}
 Hyperparameters are the tunable parts of an architecture which are not learned during training. Bad hyperparameters will yield training issues like divergence, overfitting or underfitting. A simple example of a hyperparameter I can think of is the learning rate in vanilla gradient descent. Some choices of learning rate will result in better generalisation than other choices. For a more sophisticated example, consider architecture-related hyperparameters, e.g. the number of hidden layers in a multi-layer perceptron.
 
 \subsection*{1) Random search}
@@ -956,6 +964,25 @@ Each hyperparameter may take on a set of values, i.e. the $m$ hyperparameters $h
 
 \subsection*{2) $k-$fold cross-validation}
 For a better idea of how a configuration of hyperparameters will help generalise post-training, consider partitioning the training data into $k$ disjoint subsets (or folds) $D_1,\dots,D_k$. Then, for $i=1,\dots,k$, train on $D\backslash D_i$ and validate on $D_i$. Take the mean of the $k$ validation losses. Choose whichever hyperparameter configuration yields the lowest mean validation loss.
+
+\textbf{Benchmark overfitting:} Consider the following scenario: group A and group B independently publish results regarding almost-identical MLP architectures, applied to the same task, whose only distinction is the number of neurons in one of the hidden layers of the latter being one less than the former. Every aspect of their training is identical: their training data, how they split it in order to perform validation, etc. Group A's MLP obtains a lower test error than group B and so those developing commercial applications that require an MLP choose group A's. How is this different from a single group selecting the former's MLP architcture over the latter's by simply peeking at their test loss? That is, choosing hyperparameters on the basis of test loss.
+
+The distinction is about who had access to the test set during design:
+
+Single group scenario:
+If you train both versions (100 vs 200 neurons) and then pick the one with lower test error, you've let the test set influence your design. That makes your final test error estimate biased (too optimistic), because the choice was tailored to that specific test set.
+
+Two independent groups scenario:
+Each group is supposed to have done model selection using validation data only, and then evaluated once on the test set. Their reported test errors are (in expectation) unbiased estimates of generalization.
+When you compare their numbers, you're not re-tuning a model — you're just picking between two already-fixed systems.
+
+The subtlety: the test set's role is about contamination. If a single team peeks at it during design, it contaminates their result. But if two groups independently publish their final test results, the contamination risk (for each group individually) is assumed to be small, and as a consumer you can compare them.
+
+In practice, though, you're right — if the same benchmark test set is used over and over (like CIFAR-10 or ImageNet), the community as a whole is effectively tuning to the test set. That's why people talk about benchmark overfitting and introduce fresh test sets (e.g., ImageNet-v2).
+
+So the rule isn't about “artificial separation,” it's about who touches the test set during decision-making.
+
+Do you want me to explain this in terms of data leakage / overfitting risk instead of research group scenarios? That might make the distinction feel less arbitrary.
 
 % neural nets
 \section{Neural Networks}
@@ -1492,7 +1519,7 @@ for which the tokenisations occur.
 Use sinusoids to form a position vector $P_k$ for the $k$th token in an input sequence of length $L$. Add $P_k$ to the word embedding $E_k$ for $k=0,\dots,L-1$ to obtain the input $[E_0+P_0,\dots,E_{L-1}+P_{L-1}]$ fed to the model.
 
 \subsubsection{Attention}
-\dots
+Has been around as an idea for a long time in less clear terms.
 
 \subsubsection{Transformer blocks}
 \dots
