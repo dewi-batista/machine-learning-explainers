@@ -14,11 +14,11 @@
 
 % abstract
 \begin{abstract}
-    \noindent Summaries of some machine/deep learning-related topics. My main motive in writing these summaries is as a reminder for my future self.
+    \noindent Summaries of some machine/deep learning-related topics. My main motive in writing these summaries is as a reminder for my future self. A notation page is given at the beginning of the appendix.
 \end{abstract}
 
 % table of contents
-\setcounter{tocdepth}{2}{\small\tableofcontents}
+\setcounter{tocdepth}{2}{\footnotesize\tableofcontents}
 
 % \tiny
 % \scriptsize
@@ -954,7 +954,7 @@ $$
 where $\eta_i^{(t)}=\frac{\eta}{\sqrt{G_i^{(t)}}+\epsilon}$ is the $i^{\text{th}}$ parameter's learning rate at step $t$. There are more elaborate adaptive learning rate methods than this, e.g. RMSProp and Adam, but AdaGrad conveys the idea sufficiently well.
 
 % hyperparam tuning
-\subsection{\REV{: }Hyperparameter Tuning}
+\subsection{\IMPROVE{}Hyperparameter Tuning}
 Hyperparameters are the tunable parts of an architecture which are not learned during training. Bad hyperparameters will yield training issues like divergence, overfitting or underfitting. A simple example of a hyperparameter I can think of is the learning rate in vanilla gradient descent. Some choices of learning rate will result in better generalisation than other choices. For a more sophisticated example, consider architecture-related hyperparameters, e.g. the number of hidden layers in a multi-layer perceptron.
 
 \subsection*{1) Random search}
@@ -965,24 +965,10 @@ Each hyperparameter may take on a set of values, i.e. the $m$ hyperparameters $h
 \subsection*{2) $k-$fold cross-validation}
 For a better idea of how a configuration of hyperparameters will help generalise post-training, consider partitioning the training data into $k$ disjoint subsets (or folds) $D_1,\dots,D_k$. Then, for $i=1,\dots,k$, train on $D\backslash D_i$ and validate on $D_i$. Take the mean of the $k$ validation losses. Choose whichever hyperparameter configuration yields the lowest mean validation loss.
 
-\textbf{Benchmark overfitting:} Consider the following scenario: group A and group B independently publish results regarding almost-identical MLP architectures, applied to the same task, whose only distinction is the number of neurons in one of the hidden layers of the latter being one less than the former. Every aspect of their training is identical: their training data, how they split it in order to perform validation, etc. Group A's MLP obtains a lower test error than group B and so those developing commercial applications that require an MLP choose group A's. How is this different from a single group selecting the former's MLP architcture over the latter's by simply peeking at their test loss? That is, choosing hyperparameters on the basis of test loss.
+\subsection*{Benchmark overfitting}
+Consider the following scenario: research groups A and B independently publish results regarding almost-identical single hidden layer MLP architectures applied to the same task. The only distinction in their architectures is the number of neurons in their hidden layer. Group A decide on 99 neurons and group B decide on 100. Every aspect of their training is identical: their training data, how they split it in order to perform validation, etc. Group A's MLP obtains a lower test error than group B and so those producing commercial products that may make use of an MLP choose group A's architecture. How is this scenario distinct from a single group selecting a single hidden layer MLP architcture with 99 neurons over 100 on the basis of the test loss of both? More broadly, how is this distinct to tuning hyperparameter based on test losses?
 
-The distinction is about who had access to the test set during design:
-
-Single group scenario:
-If you train both versions (100 vs 200 neurons) and then pick the one with lower test error, you've let the test set influence your design. That makes your final test error estimate biased (too optimistic), because the choice was tailored to that specific test set.
-
-Two independent groups scenario:
-Each group is supposed to have done model selection using validation data only, and then evaluated once on the test set. Their reported test errors are (in expectation) unbiased estimates of generalization.
-When you compare their numbers, you're not re-tuning a model — you're just picking between two already-fixed systems.
-
-The subtlety: the test set's role is about contamination. If a single team peeks at it during design, it contaminates their result. But if two groups independently publish their final test results, the contamination risk (for each group individually) is assumed to be small, and as a consumer you can compare them.
-
-In practice, though, you're right — if the same benchmark test set is used over and over (like CIFAR-10 or ImageNet), the community as a whole is effectively tuning to the test set. That's why people talk about benchmark overfitting and introduce fresh test sets (e.g., ImageNet-v2).
-
-So the rule isn't about “artificial separation,” it's about who touches the test set during decision-making.
-
-Do you want me to explain this in terms of data leakage / overfitting risk instead of research group scenarios? That might make the distinction feel less arbitrary.
+The post-training test error becomes a biased (in this case optimistic) estimate of the generalisation of the model. That said, if this scenario were repeated, the community would be effectivevly tuning the model to the test set. This is why benchmark overfitting is talked about. It emphasises the need for benchmark evolution and the shuffling of data in the training-inference pipeline.
 
 % neural nets
 \section{Neural Networks}
@@ -1490,14 +1476,14 @@ Pooling operations reduce the spatial dimensions of a given feature map by apply
 \end{tcolorbox}
 
 % recurrent neural networks
-\subsection{\TODO{: }Recurrent Neural Networks (RNNs)}
+\subsection{\TODO{}Recurrent Neural Networks (RNNs)}
 
 \subsubsection{Long Short-Term Memory (LSTMs)}
 
 \subsubsection{Gated Recurrent Units (GRUs)}
 
 % transformer models
-\subsection{\TODO{: }Transformers}
+\subsection{\TODO{}Transformers}
 Just another (very effective) architecture for correlation extraction.
 
 \subsubsection{Tokens and Embedding}
@@ -1586,87 +1572,118 @@ It's worth mentioning that said vanishing behaviour can be observed during forwa
 % generative models (any other section name i've come up with has been due to overthinking)
 \section{Generative Models}
 
-How is a mention of modelling the joint not in here? E.g. GPT models sequentially sample from conditional distributions. Almost feels like classification\dots
+Modelling data-generating processes is the heart of science: the laws which dictate graviation, \dots. From a probabilistic point of view, the analogous methodology is to model the joint distribution of model variables $\X=(X_1,\dots,X_m)$. For example, if we're interested in understanding what gave rise to the distribution of $16\times16$ images of cats (to whatever extent of detail) then one might seek to represent their joint probability function
+$$
+p(\x)
+=
+p(x_1,\dots,x_{256}).
+$$
+If the representation allows, we may realise (or generate) new samples pertaining to said distribution. Alternatively, we may use the representation to answer natural probabilistic queries about given samples, e.g. the likelihood that a given image is in-distribution, the class label of an image, the marginal likelihood of an incomplete image and so on. In the case of LLMs, we're typically interested in modelling the distribution of the next token conditioned on the tokens that came before. We simply sample from said distribution (almost feels like classification) to extend the text and repeate in an autoregressive manner.
 
-\TODO{: Re-word paragraph and emphasise that it's all about modelling the joint distribution. Also get in how this is what most of the sciences most often do. Also, mention how these approaches are more generally deep generative models but my interests are in vision generative things.} Since the era of deep learning began in 2012, tons of generative image, video and text models have arisen. The general idea of these generative models is that if we have a model that fits the data generating process, e.g. the relevant distribution if taking a probabilistic approach, then samples from the model should be sufficiently convincing. That is, if I get a nice fit for the distribution of images of cats lounging in the sun then samples from my fit distirubtion should look convincingly like cats lounging in the sun.
+This section will be about methods of representing the joint distributions of distributions pertaining to images. The discussed methods are often applicable to generative modelling in general.
 
-The problem with fitting such a distribution is that it is not at all clear what the distribution function would be. These distributions are complex and generally very hard to get right. Most ways to fit the underlying distribution is to perfrom maximum likelihood in some way. Performing maximum likelihood directly without access to any sort of direct distribution function is pretty hard, so it is often done indirectly. For example, when training a variatioanl autoencoder (VAE), you look to maximise a lower bound of the likelihood. The idea is that if this lower bound is sufficiently tight then maximising it in some sense pushes up the true likelihood, maximising it.
+Small note: to avoid having to write \textit{probability mass/density function} in full throughout this section, \textit{probability function} will be written.
 
 % bayesian nets
-\subsection{\TODO{: }Bayesian networks}
-Probabilistic circuits should get an honourable mention
+\subsection{\IMPROVE{}Bayesian networks (BNs)}
+A natural approach to representing the joint probability function of model variables is to decompose it into smaller probability functions and model those. For example, you might decompose the probability function according to the chain rule of probability as in
+\begin{align*}
+    p(x_1,\dots,x_m)
+    &=
+    p(x_1)p(x_2|x_1)\cdots p(x_m|x_1,\dots,x_{q-1})\\
+    &=
+    \prod_{i=1}^q p(x_i|x_1,\dots,x_{i-1}).
+\end{align*}
+From here, sampling may be done autoregressively: sample $x_1$ according to $p(x_1)$, $x_2$ according to $p(x_2|x_1)$ and so on until an entire realisation of $\X=(X_1,\dots,X_m)$ is obtained. Why stop at decomposition though? In an image, nearby pixel values may correlate but far away pixels may not, so why incoroporate them in the conditional? Why not learn the dependencies between the model variables? Boom, Bayesian networks.
+
+\subsubsection{Formulating BNs}
+With their motivation out of the way, we can move on to their formulation. A Bayesian network consists of a directed acyclic graph (DAG) $\mathcal{G}$ and a parameter set $\theta$. The graph $\mathcal{G}$ has a single node for each model variable $X_1,\dots,X_m$ and directed edges represent conditional dependencies. For example, for model variables $X_1, X_2$ and $X_3$, if $X_3|X_1$ is independent of $X_2$ then their joint probability function may be decomposed as
+$$
+p(x_1,x_2,x_3)
+=
+p(x_1)p(x_2|x_1)p(x_3|x_1)
+$$
+whose corresponding DAG is given by
+\begin{center}
+    \begin{tikzpicture}[node distance=2cm, every node/.style={circle, draw, thick}]
+        \node (A) {$X_1$};
+        \node (B) [right of=A] {$X_2$};
+        \node (C) [right of=B] {$X_3$};
+
+        \draw[->] (A) -- (B);
+        \draw[bend left][->] (A) edge (C);
+    \end{tikzpicture}
+\end{center}
+Notice that the choice of $X_1$ as the model variable upon which nothing is conditioned is entirely arbitrary. As a result, for a given decomposition, DAGs are not unique.
+
+As a result, if the treewidth (\dots) of the Bayesian network is sufficiently small then it answering probabilistic queries is efficient.
+
+The parameter set $\theta$ pertains to the parameters of the conditional distributions shown in $\mathcal{G}$.
+
+\subsubsection{Learning BNs from data}
+Learn their DAG via scoring. Learn their parameters via ?
 
 % variational autoencoders
 \subsection{Variational Autoencoders (VAEs)}
-\TODO{: re-word whole subsection.} In describing variational autoencoders (VAEs), it's natural to first motivate autoencoders and then add some spice in the form of variational inference to be able to do generative things.
+In describing variational autoencoders (VAEs), it's natural to first motivate autoencoders and then spice things up with variational inference do generative things.
 
 % autoencoders
 \subsubsection{Autoencoders: no variation yet!}
 \label{sec:autoencoders}
-An autoencoder $(\Omega_{\X},d,\theta,\phi)$ consists of a sample space $\Omega_{\X}\subset\mathbb{R}^q$, a latent dimension $d\in\mathbb{Z}_{\geq1}$, an encoder $\theta:\mathbb{R}^q\to\mathbb{R}^d$ and a decoder $\phi:\mathbb{R}^d\to\mathbb{R}^q$. Using a subset of $\Omega_{\X}$, one typically learns the encoder $\theta$ and the decoder $\phi$ with the goal of approximating the identity on $\Omega_{\X}$ via $\phi\circ \theta$. That is, roughly put, one seeks to obtain an encoder/decoder pair such that $\phi(\theta(\x))\approx\x$ for all $\x\in\Omega_{\X}$.
+An autoencoder $(\Omega_{\X},d,\phi,\theta)$ consists of a sample space $\Omega_{\X}\subset\mathbb{R}^m$, a latent dimension $d\in\mathbb{Z}_{\geq1}$, an encoder $\phi:\mathbb{R}^m\to\mathbb{R}^d$ and a decoder $\theta:\mathbb{R}^d\to\mathbb{R}^m$. Using a subset of $\Omega_{\X}$, one typically learns the encoder $\phi$ and the decoder $\theta$ with the goal of approximating the identity on $\Omega_{\X}$ via $\theta\circ \phi$. That is, roughly put, one seeks to obtain an encoder/decoder pair such that $\theta(\phi(\x))\approx\x$ for all $\x\in\Omega_{\X}$.
 
 \begin{figure}[t]
     \centering
-    \includegraphics{./figures/neural_nets/AE_autoencoder.pdf}
-    \caption{An autoencoder in which $\theta$ and $\phi$ are fit using multi-layer perceptrons (MLPs).}
+    \includegraphics[width=\columnwidth]{./figures/generative_models/AE_autoencoder.pdf}
+    \caption{An autoencoder in which $\phi$ and $\theta$ are fit using multi-layer perceptrons (MLPs).}
     \label{fig:autoencoder}
 \end{figure}
 
-In intuitive terms, one can see the encoder $\theta$ as a compressor of samples in $\Omega_{\X}$ to their compressed (or latent) representation in $\mathbb{R}^d$ and so one might refer to the image of $\theta$ as the latent space $\Omega_{\Z}$. Similarly, the decoder $\phi$ can be seen as a decompressor of compressed representations $\z\in\Omega_{\Z}$ yielding the original sample $\x$. In line with this notion of an autoencoder as a compressor/decompressor, the latent dimension $d$ is typically taken to be far smaller than the dimension of the distribution of interest, i.e. $d\ll q$. Of course, when $d\ll q$, learning such mappings $\theta$ and $\phi$ typically involves some loss of information if $\Omega_{\X}$ is a manifold whose intrinsic dimension is greater than $d$. That is, autoencoders are typically lossy compressors.
+In intuitive terms, one can see the encoder $\phi$ as a compressor of samples in $\Omega_{\X}$ to their compressed (or latent) representation in $\mathbb{R}^d$ and so one might refer to the image of $\phi$ as the latent space $\Omega_{\Z}$. Similarly, the decoder $\theta$ can be seen as a decompressor of compressed representations $\z\in\Omega_{\Z}$ yielding the original sample $\x$. In line with this notion of an autoencoder as a compressor/decompressor, the latent dimension $d$ is typically taken to be far smaller than the dimension of the distribution of interest, i.e. $d\ll q$. Of course, when $d\ll q$, learning such mappings $\phi$ and $\theta$ typically involves some loss of information if $\Omega_{\X}$ is a manifold whose intrinsic dimension is greater than $d$. That is, autoencoders are typically lossy compressors.
 
 \begin{tcolorbox}[title={\centering\textbf{Autoencoder example}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Suppose $\Omega_{\X}=\{(a,a,b)\in\mathbb{R}^3:||(a,a,b)||\leq1\}$ and $d=2$. One immediately notices that $\Omega_{\X}$ is a two-dimensional surface embedded in $\mathbb{R}^3$ as it is the intersection of the unit ball and the plane $\{(a,a,b):a,b\in\mathbb{R}\}$. To produce representations of $\x=(a,a,b)\in\Omega_{\X}$ in $\mathbb{R}^2$ (i.e. to compress a sample) one might employ the encoder $\theta_2(x,y,z)=(x,z)$. To reconstruct samples from their latent representation (i.e. to decompress) one might employ the decoder $\phi_2(x,z)=(x,x,z)$. The autoencoder $(\Omega_{\X},2,\theta_2,\phi_2)$ offers lossless compression on the sample space of interest as $(\phi_2\circ\theta_2)(\x)=\x$ for all $\x\in\Omega_{\X}$.
+    Suppose $\Omega_{\X}=\{(a,a,b)\in\mathbb{R}^3:||(a,a,b)||\leq1\}$ and $d=2$. One immediately notices that $\Omega_{\X}$ is a two-dimensional surface embedded in $\mathbb{R}^3$ as it is the intersection of the unit ball and the plane $\{(a,a,b):a,b\in\mathbb{R}\}$. To produce representations of $\x=(a,a,b)\in\Omega_{\X}$ in $\mathbb{R}^2$ (i.e. to compress a sample) one might employ the encoder $\phi_2(x,y,z)=(x,z)$. To reconstruct samples from their latent representation (i.e. to decompress) one might employ the decoder $\theta_2(x,z)=(x,x,z)$. The autoencoder $(\Omega_{\X},2,\phi_2,\theta_2)$ offers lossless compression on the sample space as $(\theta_2\circ\phi_2)(\x)=\x$ for all $\x\in\Omega_{\X}$.
     
-    \hspace{15pt} If we instead desire latent representations of $\x=(a,a,b)\in\Omega_{\X}$ in $\mathbb{R}$, i.e. if $d=1$, one might employ the encoder $\theta_1(x,y,z)=x$ and the decoder $\phi_1(x)=(x,x,x)$. The autoencoder $(\Omega_{\X},1,\theta_1,\phi_1)$ offers lossy compression, i.e. some information pertaining to a sample is lost during its compression and decompression as $(\phi_1\circ\theta_1)(a,a,b)=(a,a,a)$ for all $a,b\in\mathbb{R}$.
+    \hspace{15pt} If we instead desire latent representations of $\x=(a,a,b)\in\Omega_{\X}$ in $\mathbb{R}$, i.e. if $d=1$, one might employ the encoder $\phi_1(x,y,z)=x$ and the decoder $\theta_1(x)=(x,x,x)$. The autoencoder $(\Omega_{\X},1,\phi_1,\theta_1)$ offers lossy compression, i.e. some information pertaining to a sample is lost during its compression and decompression as $(\theta_1\circ\phi_1)(a,a,b)=(a,a,a)$ for all $a,b\in\mathbb{R}$.
 \end{tcolorbox}
 
-One's tolerance for the loss incurred by a given encoder/decoder pair is task-dependent. Given a dataset $D=\{\x_1,\dots,\x_n\}\subset\Omega_{\X}$ and a latent dimension $d$, one might compute the pair $(\theta^*,\phi^*)\in\Theta\times\Phi$ which minimises the empirical risk over $D$ where $\Theta$ and $\Phi$ are chosen function families. That is, computing
+One's tolerance for the loss incurred by a given encoder/decoder pair is task-dependent. Given a dataset $D=\{\x_1,\dots,\x_n\}\subset\Omega_{\X}$ and a latent dimension $d$, one might compute the pair $(\phi^*,\theta^*)\in\Phi\times\Theta$ which minimises the empirical risk over $D$ where $\Phi$ and $\Theta$ are chosen function families. That is, computing
 $$
-(\theta^*,\phi^*)
+(\phi^*,\theta^*)
 =
-\argmin_{(\theta,\phi)\in\Theta\times\Phi}
-\sum_{i=1}^n||\x_i-\phi(\theta(\x_i))||^2.
+\argmin_{(\phi,\theta)\in\Phi\times\Theta}
+\sum_{i=1}^n||\x_i-\theta(\phi(\x_i))||^2.
 $$
-If the function families permit the computation of gradients of $\theta\in\Theta$ and $\phi\in\Phi$ then this computation may be done using gradient descent. For example, one could take $\Theta$ and $\Phi$ to be the family of MLPs of appropriate input and output dimensions, as illustrated in \autoref{fig:autoencoder}.
+If the function families permit the computation of gradients of $\phi\in\Phi$ and $\theta\in\Theta$ then this computation may be done using gradient descent. For example, one could take $\Phi$ and $\Theta$ to be the family of MLPs of appropriate input and output dimensions, as illustrated in \autoref{fig:autoencoder}.
 
 \subsubsection{Motivating VAEs}
-Autoencoders are great for compression, denoising, disecting LLMs (look up sparse autoencoders), etc. but we're yet to see how we might make use of them for generative tasks, i.e. sampling from the complex underlying distribution $p$ from which their training dataset $\{\x_1,\dots,\x_n\}$ was sampled. An intuitive first idea is to train an autoencoder, randomly sample from its latent space and feed them through the decoder, as in \autoref{fig:autoencoder_generation_1}. The outputs of the decoder should be similar to the training data, right? No.
+Autoencoders are great for compression, denoising, disecting LLMs (sparse autoencoders), etc. but we're yet to see how we might apply them to generative tasks, e.g. sampling from the complex underlying distribution $p(\x)$ from which their training dataset $\{\x_1,\dots,\x_n\}$ was sampled. An intuitive first idea is to train an autoencoder, randomly sample from its latent space and feed the sampled latent through the learned decoder, as in \autoref{fig:autoencoder_generation}. The outputs of the decoder should be similar to some subet of the training data, right? No.
 
-\begin{figure}%[t]
+\begin{figure}[t]
     \centering
-    \begin{minipage}{0.6\linewidth}
-        \includegraphics[width=\columnwidth]{./figures/generative_models/AE_gen_1.pdf}
-    \end{minipage}%
-    \hfill
-    \begin{minipage}{0.38\linewidth}
-        \caption{Decodings of sampled latents. Gibberish output.}
-        \label{fig:autoencoder_generation_1}
-    \end{minipage}
+    \includegraphics[width=0.49\columnwidth]{./figures/generative_models/AE_gen_1.pdf}
+    \includegraphics[width=0.49\columnwidth]{./figures/generative_models/AE_gen_2.pdf}
+    \caption{Failed intuitive ideas for using an autoencoder as a generative model.}
+    \label{fig:autoencoder_generation}
 \end{figure}
 
-Disaster strikes and we begin to see just how unstructured the latent space of an autoencoder is: randomly sampling from it (whatever this may mean) results in nonsense outputs from the decoder because most of the latent space itself is meaningless (nothing is encoded to most of it, so in some sense a lot of it is `un-utilised'). This is perhaps unsurprising as at no point during training an autoencoder do we explicitly demand that it interpolates nicely between points.
+Disaster strikes and we begin to see just how unstructured the latent space of an autoencoder is: randomly sampling from it and decoding yields nonsense outputs from the decoder because most of the latent space itself is meaningless (nothing is encoded to most of it, so in some sense a lot of it is `un-utilised'). This is perhaps unsurprising as at no point during training an autoencoder do we encourage it to interpolate nicely between encodings.
 
-New idea: how about we feed the decoder latent points that are pretty close to the embedding of a given training sample, as in \autoref{fig:autoencoder_generation_2}? This should result in decoder outputs that are similar in structure to the input sample but a bit different, right? No.
-
-\begin{figure}%[t]
-    \centering
-    \begin{minipage}{0.6\linewidth}
-        \includegraphics[width=\columnwidth]{./figures/generative_models/AE_gen_2.pdf}
-    \end{minipage}%
-    \hfill
-    \begin{minipage}{0.38\linewidth}
-        \caption{Decodings of latents close to a given encoding.}
-        \label{fig:autoencoder_generation_2}
-    \end{minipage}
-\end{figure}
-
-Distaster strikes again. To get decoder outputs that are meaningful using this idea, one must take points in the latent space which are ridiculously close to this chosen sample's latent embedding. So close that you'd be practically reconstructing the original training sample each time — certainly not what we mean when we say that we'd like to generate new samples. So how do we do autoencoder-like things in a way that yields well-structured latent spaces? Variational autoencoders (VAEs) to the rescue!
+An intuitive second idea is to feed the decoder points in the latent space which are close to the encoding of a given training sample, as in \autoref{fig:autoencoder_generation}. The outputs of the decoder should be a sample of the class of said encoding's sample, right? No. Distaster strikes again. For meaningful decodings using this idea, one must take points in the latent space which are ridiculously close to this chosen sample's latent embedding. So close that you'd be practically reconstructing the original training sample each time — certainly not what we mean when we say that we'd like to generate new samples. So how do we do autoencoder-like things in a way that yields well-structured latent spaces? Variational autoencoders (VAEs) to the rescue!
 
 \subsubsection{Formulating VAEs}
-\TODO{: ensure consistent notation.}
-Leaving aside, for now, how to learn one from data, VAEs can informally be seen as an extension of autoencoders in which the encoder and decoder each output parameters of a distribution belonging to some pre-chosen distribution family. Extending the notation used to define autoencoders, a variational autoencoder $(\Omega_{\X},d,\mathcal{Q}_d,\mathcal{P}_q,\theta,\phi)$ consists of the sample space of the distribution of interest $\Omega_{\X}\subset\mathbb{R}^q$, a latent dimension $d\in\mathbb{Z}_{\geq1}$, the parameter space $\mathcal{Q}_d$ of a family of $d-$dimensional conditional distributions denoted $q_{\theta}(\z|\x)$, the parameter space $\mathcal{P}_n$ of a family of $q-$dimensional conditional distributions denoted $p_{\phi}(\x|\z)$, an encoder $\theta:\mathbb{R}^q\to\mathcal{Q}_d$ and a decoder $\phi:\mathbb{R}^d\to\mathcal{P}_n$.
+\begin{figure}[t]
+    \centering % these widths are specific
+    \includegraphics[width=0.46\textwidth]{figures/generative_models/VAE_encoder.pdf}
+    \hfill
+    \includegraphics[width=0.46\textwidth]{figures/generative_models/VAE_decoder.pdf}
+    \caption{Left: an encoder which outputs parameters of the latent distribution $q_{\phi}(\z|\x)=\mathcal{N}(\mu_{\phi},\Sigma_{\phi})$. Right: a decoder which outputs parameters of the reconstruction distribution $p_{\theta}(\x|\z')=\mathcal{N}(\mu_{\theta},\Sigma_{\theta})$ in which $\z'\sim q_{\phi}(\z|\x)$.}
+    \label{fig:VAE_architecture}
+\end{figure}
 
-To illustrate the intended meaning of the newly-introduced parameter spaces $\mathcal{Q}_d$ and $\mathcal{P}_n$, one's encoder might yield the expectation vector and covariance matrix of a $d-$dimensional Gaussian $\mathcal{N}(\mu,\Sigma)$, i.e. $\mathcal{Q}_d$ could be the parameter space of the family of $d-$dimensional Gaussian distributions yielding
+Leaving aside, for now, how to learn one from data, VAEs can informally be seen as an extension of autoencoders in which the encoder and decoder each output parameters of a distribution belonging to some pre-chosen distribution family. Extending the notation used to define autoencoders, a variational autoencoder $(\Omega_{\X},d,\mathcal{Q}_d,\mathcal{P}_m,\phi,\theta)$ consists of the sample space of the distribution of interest $\Omega_{\X}\subset\mathbb{R}^m$, a latent dimension $d\in\mathbb{Z}_{\geq1}$, the parameter space $\mathcal{Q}_d$ of a family of $d-$dimensional conditional distributions denoted $q_{\phi}(\z|\x)$, the parameter space $\mathcal{P}_m$ of a family of $m-$dimensional conditional distributions denoted $p_{\theta}(\x|\z)$, an encoder $\phi:\mathbb{R}^m\to\mathcal{Q}_d$ and a decoder $\theta:\mathbb{R}^d\to\mathcal{P}_m$.
+
+To illustrate the intended meaning of the newly-introduced parameter spaces $\mathcal{Q}_d$ and $\mathcal{P}_m$, one's encoder might yield the expectation vector and covariance matrix of a $d-$dimensional Gaussian $\mathcal{N}(\mu,\Sigma)$, i.e. $\mathcal{Q}_d$ could be the parameter space of the family of $d-$dimensional Gaussian distributions yielding
 $$
 \mathcal{Q}_d
 =
@@ -1678,50 +1695,33 @@ $$
 $$
 where $\mathcal{S}_{++}^d$ denotes the set of all positive-definite matrices in $\mathbb{R}^{d\times d}$.
 
-As the encoder of a VAE yields a $d-$dimensional distribution $q_{\theta}(\z|\x)$ given the sample $\x\in\Omega_{\X}$, to obtain a latent $d-$dimensional representation $\z'\in\mathbb{R}^d$ of $\x$, one computes the parameters $\theta(\x)\in\mathcal{Q}_d$ of $q_{\theta}(\z|\x)$, e.g. a $d-$dimensional Gaussian, via the encoder and samples $\z'\sim q_{\theta}(\z|\x)$. To reconstruct $\x$ from its latent representation $\z'$, one computes the parameters $\phi(\z')\in\mathcal{P}_n$ of the $q-$dimensional reconstruction distribution $p_{\phi}(\x|\z')$ via the decoder. Sampling $\x'\sim p_{\phi}(\x|\z')$ yields (ideally) a sufficiently-accurate reconstruction of the original sample $\x$. Achieving accurate reconstructions is done in a similar manner to autoencoders: by including a penalty term pertaining to reconstruction quality in the loss function used to learn the encoder and decoder.
+As the encoder of a VAE yields a $d-$dimensional distribution $q_{\phi}(\z|\x)$ given the sample $\x\in\Omega_{\X}$, to obtain a latent $d-$dimensional representation $\z'\in\mathbb{R}^d$ of $\x$, one computes the parameters $\phi(\x)\in\mathcal{Q}_d$ of $q_{\phi}(\z|\x)$, e.g. a $d-$dimensional Gaussian, via the encoder and samples $\z'\sim q_{\phi}(\z|\x)$. To reconstruct $\x$ from its latent representation $\z'$, one computes the parameters $\theta(\z')\in\mathcal{P}_m$ of the $q-$dimensional reconstruction distribution $p_{\theta}(\x|\z')$ via the decoder. Sampling $\x'\sim p_{\theta}(\x|\z')$ yields (ideally) a sufficiently-accurate reconstruction of the original sample $\x$. Achieving accurate reconstructions is done in a similar manner to autoencoders: by including a penalty term pertaining to reconstruction quality in the loss function used to learn the encoder and decoder.
 
-Note that one's choice of $\mathcal{Q}_d$ and $\mathcal{P}_n$ should take into account the need to sample efficiently and so they should correspond to families of distributions which offer efficient means of sampling, e.g. Gaussians, as in \autoref{fig:VAE_architecture}.
+Note that one's choice of $\mathcal{Q}_d$ and $\mathcal{P}_m$ should take into account the need to sample efficiently and so they should correspond to families of distributions which offer efficient means of sampling, e.g. Gaussians, as in \autoref{fig:VAE_architecture}.
 
-\begin{figure}[t]
-    \centering % these widths are specific
-    \includegraphics[width=0.46\textwidth]{figures/generative_models/VAE_encoder.pdf}
-    \hspace{20pt}
-    \includegraphics[width=0.46\textwidth]{figures/generative_models/VAE_decoder.pdf}
-    \caption{Left: an encoder which outputs parameters of the latent distribution $q_{\theta}(\z|\x)=\mathcal{N}(\mu_{\theta},\Sigma_{\theta})$. Right: a decoder which outputs parameters of the reconstruction distribution $p_{\phi}(\x|\z')=\mathcal{N}(\mu_{\phi},\Sigma_{\phi})$ in which $\z'\sim q_{\theta}(\z|\x)$.}
-    \label{fig:VAE_architecture}
-\end{figure}
+%% uncomment out this tcolorbox once this section is finished as to be sure where to place it without vbox overfilling
 
-\begin{tcolorbox}[title={\centering\textbf{VAE example}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Suppose $X_1\sim\mathcal{N}(1,2)$ and $X_3\sim\mathcal{N}(-1,1)$ are independent. Let $X_2=X_1+\epsilon$ where $\epsilon\sim\mathcal{N}(0,1)$ is independent of $X_1$ and $X_3$. If $X=(X_1,X_2,X_3)$ then $X\sim\mathcal{N}(\mu,\Sigma)$ with $\mu=(1,1,-1)'$ and
-    $$
-    \Sigma
-    =
-    \begin{bmatrix}
-        2 & 2 & 0\\
-        2 & 3 & 0\\
-        0 & 0 & 1
-    \end{bmatrix}.
-    $$
-    As such, $\Omega_{\X}=\mathbb{R}^3$. To obtain two-dimensional representations of samples $\x\in\Omega_{\X}$ (so $d=2$), one might choose $\mathcal{Q}_2=\mathbb{R}^2\times\mathcal{S}_{++}^2$ and $\mathcal{P}_3=\mathbb{R}^3\times\mathcal{S}_{++}^3$. That is, we could fit a two-dimensional Gaussian to the latent space and a three-dimensional Gaussian to the reconstruction space. Knowing $X_2=X_1+\epsilon$, where $\epsilon\sim\mathcal{N}(0,1)$, one might choose the encoder
-    \begin{align*}
-        \theta&:
-        \mathbb{R}^3\to\mathcal{Q}_2\\
-        &(x_1,x_2,x_3)\mapsto((x_1,x_3),\sigma^2I_2)
-    \end{align*}
-    where $\sigma>0$ is small. That is, for a sample $(x_1,x_2,x_3)\in\Omega_{\X}$, the encoder's output would yield the latent distribution $q_{\theta}(\z|\x)=\mathcal{N}((x_1,x_3),\sigma^2I_2)$. As decoder, if all we desire is accurate reconstructions, we might choose
-    \begin{align*}
-        \phi&:
-        \mathbb{R}^2\to\mathcal{P}_3\\
-        &(z_1,z_2)\mapsto((z_1,z_1,z_2), \sigma^2I_3).
-    \end{align*}
-    That is, for the latent sample $\z'=(z_1',z_2')$, the decoder's output would yield the reconstruction distribution $p_{\phi}(\x|\z')=\mathcal{N}((z_1',z_1',z_2'),\sigma^2I_3)$. Ideally, sampling $(x_1',x_2',x_3')\sim p_{\phi}(\x|\z')$ would yield a sample sufficiently similar to the original sample $\x=(x_1,x_2,x_3)$.
+% \begin{tcolorbox}[title={\centering\textbf{VAE example}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+%     Suppose $X_1\sim\mathcal{N}(1,2)$ and $X_3\sim\mathcal{N}(-1,1)$ are independent. Let $X_2=X_1+\epsilon$ where $\epsilon\sim\mathcal{N}(0,1)$ is independent of $X_1$ and $X_3$. If $X=(X_1,X_2,X_3)$ then $X\sim\mathcal{N}(\mu,\Sigma)$ with $\mu=(1,1,-1)'$ and the relevant covariance matrix $\Sigma$. As such, $\Omega_{\X}=\mathbb{R}^3$. To obtain two-dimensional representations of samples $\x\in\Omega_{\X}$ (so $d=2$), one might choose $\mathcal{Q}_2=\mathbb{R}^2\times\mathcal{S}_{++}^2$ and $\mathcal{P}_3=\mathbb{R}^3\times\mathcal{S}_{++}^3$. That is, we could fit a two-dimensional Gaussian to the latent space and a three-dimensional Gaussian to the reconstruction space. Knowing $X_2=X_1+\epsilon$, where $\epsilon\sim\mathcal{N}(0,1)$, one might choose the encoder
+%     \begin{align*}
+%         \phi&:
+%         \mathbb{R}^3\to\mathcal{Q}_2\\
+%         &(x_1,x_2,x_3)\mapsto((x_1,x_3),\sigma^2I_2)
+%     \end{align*}
+%     where $\sigma>0$ is small. That is, for a sample $(x_1,x_2,x_3)\in\Omega_{\X}$, the encoder's output would yield the latent distribution $q_{\phi}(\z|\x)=\mathcal{N}((x_1,x_3),\sigma^2I_2)$. As decoder, if all we desire is accurate reconstructions, we might choose
+%     \begin{align*}
+%         \theta&:
+%         \mathbb{R}^2\to\mathcal{P}_3\\
+%         &(z_1,z_2)\mapsto((z_1,z_1,z_2), \sigma^2I_3).
+%     \end{align*}
+%     That is, for the latent sample $\z'=(z_1',z_2')$, the decoder's output would yield the reconstruction distribution $p_{\theta}(\x|\z')=\mathcal{N}((z_1',z_1',z_2'),\sigma^2I_3)$. Ideally, sampling $(x_1',x_2',x_3')\sim p_{\theta}(\x|\z')$ would yield a sample sufficiently similar to the original sample $\x=(x_1,x_2,x_3)$.
 
-    \hspace{15pt} Note that in practice, one does not know the true distribution $p(\x)$ and so hand-picking the encoder and decoder as in this example is infeasible. Typically, the encoder and decoder are learned from a dataset $D\subset\Omega_{\X}$.
-\end{tcolorbox}
+%     \hspace{15pt} Note that in practice, one does not know the true distribution $p(\x)$ and so hand-picking the encoder and decoder as in this example is infeasible. Typically, the encoder and decoder are learned from a dataset $D\subset\Omega_{\X}$.
+% \end{tcolorbox}
 
-At this point, a natural question arises: for which tasks is learning a VAE more appropriate than learning an autoencoder? The answer lies in the purpose of VAEs which is two-fold: 1) to perform sufficiently-accurate compression/decompression and 2) to produce a sufficiently regularised approximation of the latent space $\Omega_{\Z}$. The latter is ensured by how one learns a VAE from data, which we soon consider. In brief, when learning an autoencoder one never imposes restrictions on the latent space beyond encouraging the model to yield sufficiently-accurate reconstructions. As a result, the latent space of an autoencoder is not well-structured. For example, for latent samples $\z_1,\z_2\in\Omega_{\Z}$ which are `close' in the latent space, their reconstructions are not necessarily `close' in $\mathbb{R}^q$. VAEs seek to remedy this.
+At this point, a natural question arises: for which tasks is learning a VAE more appropriate than learning an autoencoder? The answer lies in the purpose of VAEs which is two-fold: 1) to perform sufficiently-accurate compression/decompression and 2) to produce a sufficiently regularised approximation of the latent space $\Omega_{\Z}$. The latter is ensured by how one learns a VAE from data, which we soon consider. In brief, when learning an autoencoder one never imposes restrictions on the latent space beyond encouraging the model to yield sufficiently-accurate reconstructions. As a result, the latent space of an autoencoder is not well-structured. For example, for latent samples $\z_1,\z_2\in\Omega_{\Z}$ which are `close' in the latent space, their reconstructions are not necessarily `close' in $\mathbb{R}^m$. VAEs seek to remedy this.
 
-To learn a VAE from data, we look to maximise the evidence lower bound (ELBO) over some dataset $D=\{\x_1,\dots,\x_M\}\subset\Omega_{\X}$. Over a single sample $\x\in\Omega_{\X}$, the ELBO is a tight lower bound of $\log(p(\x))$. As such, maximising the ELBO over $D$ can be seen as performing approximate maximum-likelihood estimation over $D$ (sometimes referred to as evidence maximisation). To derive the ELBO, first note that given a decoder $\phi$ (which parameterises the reconstruction distribution $p_{\phi}(\x|\z)$), we may express the marginal distribution $p(\x)$ using $p_{\phi}(\x|\z)$ as
+To learn a VAE from data, we look to maximise the evidence lower bound (ELBO) over some dataset $D=\{\x_1,\dots,\x_n\}\subset\Omega_{\X}$. Over a single sample $\x\in\Omega_{\X}$, the ELBO is a tight lower bound of $\log(p(\x))$. As such, maximising the ELBO over $D$ can be seen as performing approximate maximum-likelihood estimation over $D$ (sometimes referred to as evidence maximisation). To derive the ELBO, first note that given a decoder $\theta$ (which parameterises the reconstruction distribution $p_{\theta}(\x|\z)$), we may express the marginal distribution $p(\x)$ using $p_{\theta}(\x|\z)$ as
 \begin{equation}
 \label{eq:marginal_likelihood}
 p(\x)
@@ -1730,23 +1730,23 @@ p(\x)
 =
 \int p(\x|\z)p(\z)d\z
 =
-\int p_{\phi}(\x|\z)p(\z)d\z.
+\int p_{\theta}(\x|\z)p(\z)d\z.
 \end{equation}
-Using \autoref{eq:marginal_likelihood}, along with the encoder $\theta$ (which parameterises the latent distribution $q_{\theta}(\z|\x)$) we derive the ELBO over a single sample $\x\in\Omega_{\X}$:
+Using \autoref{eq:marginal_likelihood}, along with the encoder $\phi$ (which parameterises the latent distribution $q_{\phi}(\z|\x)$) we derive the ELBO over a single sample $\x\in\Omega_{\X}$:
 \begin{align*}
     \log(p(\x))
     &=
-    \log\l(\int p_{\phi}(\x|\z)p(\z)d\z\r)\\
+    \log\l(\int p_{\theta}(\x|\z)p(\z)d\z\r)\\
     &=
-    \log\l(\int q_{\theta}(\z|\x)\frac{p_{\phi}(\x|\z)p(\z)}{q_{\theta}(\z|\x)}d\z\r)\\
+    \log\l(\int q_{\phi}(\z|\x)\frac{p_{\theta}(\x|\z)p(\z)}{q_{\phi}(\z|\x)}d\z\r)\\
     &=
-    \log\l(\E_{\Z\sim q_{\theta}(\z|\x)}\l[\frac{p_{\phi}(\x|\Z)p(\Z)}{q_{\theta}(\Z|\x)}\r]\r)\\
+    \log\l(\E_{\Z\sim q_{\phi}(\z|\x)}\l[\frac{p_{\theta}(\x|\Z)p(\Z)}{q_{\phi}(\Z|\x)}\r]\r)\\
     &\geq
-    \E_{\Z\sim q_{\theta}(\z|\x)}\l[\log\l(\frac{p_{\phi}(\x|\Z)p(\Z)}{q_{\theta}(\Z|\x)}\r)\r]\\
+    \E_{\Z\sim q_{\phi}(\z|\x)}\l[\log\l(\frac{p_{\theta}(\x|\Z)p(\Z)}{q_{\phi}(\Z|\x)}\r)\r]\\
     &=
-    \E_{\Z\sim q_{\theta}(\z|\x)}\l[\log(p_{\phi}(\x|\Z))\r]-\E_{\Z\sim q_{\theta}(\z|\x)}\l[\log\l(\frac{q_{\theta}(\Z|\x)}{p(\Z)}\r)\r]\\
+    \E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x|\Z))\r]-\E_{\Z\sim q_{\phi}(\z|\x)}\l[\log\l(\frac{q_{\phi}(\Z|\x)}{p(\Z)}\r)\r]\\
     &=
-    \E_{\Z\sim q_{\theta}(\z|\x)}\l[\log(p_{\phi}(\x|\Z))\r]-D_{\text{KL}}(q_{\theta}(\Z|\x)||p(\Z))\\
+    \E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x|\Z))\r]-D_{\text{KL}}(q_{\phi}(\Z|\x)||p(\Z))\\
     &=:
     \text{ELBO}
 \end{align*}
@@ -1754,28 +1754,28 @@ in which the inequality arises due to Jensen's inequality, as in $\E[\log(f(\Z))
 $$
 \text{ELBO}
 =
-\E_{\Z\sim q_{\theta}(\z|\x)}\l[\log(p_{\phi}(\x|\Z))\r]-D_{\text{KL}}(q_{\theta}(\Z|\x)||p(\Z))
+\E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x|\Z))\r]-D_{\text{KL}}(q_{\phi}(\Z|\x)||p(\Z))
 $$
-over a dataset is often explained term-by-term. The first term is a principled measure of the VAE's ability to reconstruct latent representations, as with autoencoders. The second term is a principled measure of the similarity of the latent distribution $q_{\theta}(\z|\x)$ and the prior $p(\z)$. The prior is chosen before training and the most common choice is a $d-$dimensional standard Gaussian, i.e. $p(\z)=\mathcal{N}(0,I_d)$. As such, minimising the negative KL-divergence between the latent distribution and said prior is often interpreted as encouraging the learning of the encoder such that latent representations are distributed according to the prior. This is particularly useful in the case that one is learning a VAE to generate new samples from $\Omega_{\X}$: post-training, sample $\z'\sim p(\z)$, compute the parameters $\phi(\z')$ of the reconstruction distribution $p_{\phi}(\x|\z')$ via the decoder and sample from it. Note that using a VAE for generative purposes does not invoke the use of the encoder, only the decoder is required post-training.
+over a dataset is often explained term-by-term. The first term is a principled measure of the VAE's ability to reconstruct latent representations, as with autoencoders. The second term is a principled measure of the similarity of the latent distribution $q_{\phi}(\z|\x)$ and the prior $p(\z)$. The prior is chosen before training and the most common choice is a $d-$dimensional standard Gaussian, i.e. $p(\z)=\mathcal{N}(0,I_d)$. As such, minimising the negative KL-divergence between the latent distribution and said prior is often interpreted as encouraging the learning of the encoder such that latent representations are distributed according to the prior. This is particularly useful in the case that one is learning a VAE to generate new samples from $\Omega_{\X}$: post-training, sample $\z'\sim p(\z)$, compute the parameters $\theta(\z')$ of the reconstruction distribution $p_{\theta}(\x|\z')$ via the decoder and sample from it. Note that using a VAE for generative purposes does not invoke the use of the encoder, only the decoder is required post-training.
 
-Given a dataset $D=\{\x_1,\dots,\x_M\}\subset\Omega_{\X}$, we learn a VAE by choosing function classes $\Theta$ and $\Phi$ (e.g. MLPs as in \autoref{fig:VAE_architecture}) and computing
+Given a dataset $D=\{\x_1,\dots,\x_n\}\subset\Omega_{\X}$, we learn a VAE by choosing function classes $\Phi$ and $\Theta$ (e.g. MLPs as in \autoref{fig:VAE_architecture}) and computing
 $$
-\argmax_{(\theta,\phi)\in\Theta\times\Phi}
+\argmax_{(\phi,\theta)\in\Phi\times\Theta}
 \l[
-\sum_{i=1}^M
-\E_{\Z\sim q_{\theta}(\z|\x_i)}\l[\log(p_{\phi}(\x_i|\Z))\r]-D_{\text{KL}}(q_{\theta}(\Z|\x_i)||p(\Z))
+\sum_{i=1}^n
+\E_{\Z\sim q_{\phi}(\z|\x_i)}\l[\log(p_{\theta}(\x_i|\Z))\r]-D_{\text{KL}}(q_{\phi}(\Z|\x_i)||p(\Z))
 \r].
 $$
-In practice, after choosing a latent dimension $d$, we often take $p(\z)=\mathcal{N}(0,I_d)$, $\mathcal{Q}_d=\mathbb{R}^d\times\mathcal{S}_{++}^d$ and $\mathcal{P}_n=\mathbb{R}^n\times\mathcal{S}_{++}^n$, i.e. Gaussians for the latent and reconstruction distribution families and the standard $d-$dimensional Gaussian for the prior. A benefit of these choices is that it yields a differentiable and easy-to-implement closed form for the KL-divergence term in the ELBO. Additionally, the expectation pertaining to the reconstruction term is typically approximated via a single sample, boiling down to a mean square error term\footnote{\url{https://n8python.github.io/mnistLatentSpace/}}.
+In practice, after choosing a latent dimension $d$, we often take $p(\z)=\mathcal{N}(0,I_d)$, $\mathcal{Q}_d=\mathbb{R}^d\times\mathcal{S}_{++}^d$ and $\mathcal{P}_m=\mathbb{R}^m\times\mathcal{S}_{++}^m$, i.e. Gaussians for the latent and reconstruction distribution families and the standard $d-$dimensional Gaussian for the prior. A benefit of these choices is that it yields a differentiable and easy-to-implement closed form for the KL-divergence term in the ELBO. Additionally, the expectation pertaining to the reconstruction term is typically approximated via a single sample, boiling down to a mean square error term\footnote{\url{https://n8python.github.io/mnistLatentSpace/}}.
 
 \subsubsection{Backpropagation for VAEs}
-\TODO{} The expectation term in the ELBO requires us to sample from $q_{\theta}(\z|\x)$. Back propping through sampling is not a thing, it ain't differentiable. We need the reparameterisation trick!
+\TODO{}The expectation term in the ELBO requires us to sample from $q_{\phi}(\z|\x)$. Back propping through sampling is not a thing, it ain't differentiable. We need the reparameterisation trick!
 
 % general adversarial networks
-\subsection{\TODO{: }Generative Adversarial Networks (GANs)}
+\subsection{\TODO{}Generative Adversarial Networks (GANs)}
 
 % normalising flow models
-\subsection{\TODO{: }Normalising Flows}
+\subsection{\TODO{}Normalising Flows}
 
 % diffusion models
 \subsection{Diffusion Models}
@@ -1817,7 +1817,7 @@ Despite not being the choice of denoiser made in the seminal paper introducing d
 In the context of denoising, the contraction branch takes a noised image as input and iteratively completes a series of convolution operations followed by max pooling until reaching the bottleneck layer. At the bottleneck, the model has heavily reduced the spatial dimension of the input image while extracting varying levels of feature abstractions. For example, after the first iteration of convolution and max pooling, the spatial dimension of the input image may be reduced from $1024\times1024$ to $512\times512$ but edges and textures within the original image may be encoded in the feature maps at this stage. Then, during expansion, the model looks to upscale from the bottleneck in a way that retains the underlying image while removing noise. This is done by iteratively completing a series of deconvolutions, which correspond to upscaling, and using skip connections from its corresponding component in the contraction branch, seen in \autoref{fig:u_net_arch}, in order to retain the underlying image. With this in mind, it is clear why U-Net has been the go to choice of denoiser when developing a diffusion model.
 
 % model evaluation
-\subsection{\TODO{: }Evaluating Generative Models}
+\subsection{\TODO{}Evaluating Generative Models}
 Since samples are not labeled, how does one evaluate a generative model? What does under/overfitting mean for generative models?
 
 % % object detection
@@ -1826,7 +1826,7 @@ Since samples are not labeled, how does one evaluate a generative model? What do
 % Object detection is the task of localisation and classification within an image or video. Before the era of deep learning, it was typically solved using Haar-like filters\dots As of August 2025, there are three flavours of object detection models: R-CNN, YOLO and DETR.
 
 % % R-CNN
-% \subsection{\TODO{: }(Fast/Faster) R-CNN}
+% \subsection{\TODO{}(Fast/Faster) R-CNN}
 % R-CNN models has evolved significantly since its proposal in 2013 with three evolutions worthy of a new name: R-CNN (the original), Fast R-CNN and Faster R-CNN. R-CNN stands for \textit{Regions with CNN features}. Roughly put, R-CNN model consist of two steps:
 % \begin{enumerate}
 %     \item Proposing regions of interest within the image
@@ -1834,10 +1834,10 @@ Since samples are not labeled, how does one evaluate a generative model? What do
 % \end{enumerate}
 
 % % YOLO
-% \subsection{\TODO{: }YOLO}
+% \subsection{\TODO{}YOLO}
 
 % % DETR
-% \subsection{\TODO{: }DETR}
+% \subsection{\TODO{}DETR}
 
 % % future sections
 % \section{To-be-included sections, one day}
@@ -1870,15 +1870,19 @@ Since samples are not labeled, how does one evaluate a generative model? What do
 % appendices
 \newpage
 \begin{appendices}
-\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+
+% notation page
+\section{\TODO{}Notation}
+$X$ \hfill A random variable.
+
+$x$ \hfill A realisation/assignment of the random variable $X$.
 
 % probability things
 \section{Probability Theory and Statistics Things}
-Here are some probability theory and statistics-related things, e.g. brief statements, long derivations, and so on, which belong in an appendix. I wish I knew more probability/measure theory and classical statistics. In another life.
+Here are some probability theory and statistics-related things, e.g. brief statements, long derivations, and so on, which belong in an appendix. I've considered splitting it into two appendix sections — one for probability theory and one for statistics — but I couldn't decide in which I should put certain subsections, e.g. would Pearson correlation belong in the probability theory or statistics section?
 
-I've considered splitting it into two appendix sections — one for probability theory and one for statistics — but I couldn't decide in which I should put certain subsections, e.g. would Pearson correlation belong in the probability theory or statistics section?
-
-P.S. I advise people who are entirely new to probability theory and statistics to consider playing around with interative visual demonstrations of ideas, as in \href{https://seeing-theory.brown.edu/index.html}{\texttt{seeing-theory.brown.edu/index.html}}.
+P.S. I advise people who are entirely new to probability theory and statistics to consider playing around with interative visual demonstrations of ideas, as in \href{https://seeing-theory.brown.edu/index.html}{\texttt{seeing-theory.brown.edu/index.html}}. I wish I had a better understanding of probability theory, measure theory and classical statistics. In another life.
 
 \subsection{Derivations Related to Common Distributions}
 
@@ -2263,10 +2267,10 @@ $$
 I'm massively in favour of writing it as a KL-divergence as its meaning is immediately clear: its a measure of divergence between the joint and the product of the marginals. Informally, I see it as asking ``How well does the product of marginals model the joint?'' which is precisely the question we seek to answer when utilising things like Pearson correlation and mutual information.
 
 \subsection{Quality of fit $\approx$ Encoding quality?}
-\TODO{: Perhaps worthy of its own section, unsure}
+\TODO{Perhaps worthy of its own section, unsure}
 
 \subsection{The Expectation-Maximisation (EM) Algorithm}
-Maximum likelihood estimation (MLE) is great but what do we do when the data generating process is not determined entirely by observed model variables $\X=(X_1,\dots,X_q)$. That is, what if $p(\x)$ is simply the marginal of the true joint $p(\x,\z)$ where $\Z=(Z_1,\dots,Z_{q'})$ are hidden variables?
+Maximum likelihood estimation (MLE) is great but what do we do when the data generating process is not determined entirely by observed model variables $\X=(X_1,\dots,X_m)$. That is, what if $p(\x)$ is simply the marginal of the true joint $p(\x,\z)$ where $\Z=(Z_1,\dots,Z_{m'})$ are hidden variables?
 
 It turns out that there's a clever way of perfmorming MLE while accounting for hidden variables called the expectation-maximisation (EM) algorithm. It involves obtaining a lower bound for the log-likelihood of a given sample of the observed variables and instead maximising the lower bound in the model's parameters. If certain conditions are met for said lower bound to in fact reach equality with the sample's log-likelihood then the application of EM is MLE itself. If the bound is not exact then we refer to the process as variational EM.
 

@@ -23,9 +23,9 @@
 \contentsline {subsubsection}{\numberline {3.1.4}Batch + Layer normalisation}{26}{subsubsection.3.1.4}%
 \contentsline {subsection}{\numberline {3.2}Regularisation}{28}{subsection.3.2}%
 \contentsline {subsection}{\numberline {3.3}Momentum + Adaptive Learning Rates}{31}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}\textcolor {myYellow}{\textbf {REVIEW}: }Hyperparameter Tuning}{33}{subsection.3.4}%
-\contentsline {section}{\numberline {4}Neural Networks}{35}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Multi-Layer Perceptrons (MLPs)}{35}{subsection.4.1}%
+\contentsline {subsection}{\numberline {3.4}\textcolor {myYellow}{\textbf {IMPROVE: }}Hyperparameter Tuning}{33}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Neural Networks}{34}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Multi-Layer Perceptrons (MLPs)}{34}{subsection.4.1}%
 \contentsline {subsubsection}{\numberline {4.1.1}Example}{37}{subsubsection.4.1.1}%
 \contentsline {subsubsection}{\numberline {4.1.2}The Universal Function Approximation of MLPs}{39}{subsubsection.4.1.2}%
 \contentsline {subsubsection}{\numberline {4.1.3}Posing classification as a regression problem}{42}{subsubsection.4.1.3}%
@@ -33,10 +33,10 @@
 \contentsline {subsection}{\numberline {4.3}Convolutional Neural Networks (CNNs)}{46}{subsection.4.3}%
 \contentsline {subsubsection}{\numberline {4.3.1}Convolutions}{47}{subsubsection.4.3.1}%
 \contentsline {subsubsection}{\numberline {4.3.2}Pooling}{48}{subsubsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.4}\textcolor {red}{\textbf {TODO}: }Recurrent Neural Networks (RNNs)}{49}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.4}\textcolor {red}{\textbf {TODO: }}Recurrent Neural Networks (RNNs)}{49}{subsection.4.4}%
 \contentsline {subsubsection}{\numberline {4.4.1}Long Short-Term Memory (LSTMs)}{49}{subsubsection.4.4.1}%
 \contentsline {subsubsection}{\numberline {4.4.2}Gated Recurrent Units (GRUs)}{49}{subsubsection.4.4.2}%
-\contentsline {subsection}{\numberline {4.5}\textcolor {red}{\textbf {TODO}: }Transformers}{49}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.5}\textcolor {red}{\textbf {TODO: }}Transformers}{49}{subsection.4.5}%
 \contentsline {subsubsection}{\numberline {4.5.1}Tokens and Embedding}{49}{subsubsection.4.5.1}%
 \contentsline {subsubsection}{\numberline {4.5.2}Positional encoding}{50}{subsubsection.4.5.2}%
 \contentsline {subsubsection}{\numberline {4.5.3}Attention}{50}{subsubsection.4.5.3}%
@@ -45,30 +45,33 @@
 \contentsline {subsection}{\numberline {4.6}Misc. questions}{50}{subsection.4.6}%
 \setcounter {tocdepth}{2}
 \contentsline {section}{\numberline {5}Generative Models}{52}{section.5}%
-\contentsline {subsection}{\numberline {5.1}\textcolor {red}{\textbf {TODO}: }Bayesian networks}{53}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Variational Autoencoders (VAEs)}{53}{subsection.5.2}%
-\contentsline {subsubsection}{\numberline {5.2.1}Autoencoders: no variation yet!}{53}{subsubsection.5.2.1}%
-\contentsline {subsubsection}{\numberline {5.2.2}Motivating VAEs}{55}{subsubsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.1}\textcolor {myYellow}{\textbf {IMPROVE: }}Bayesian networks (BNs)}{53}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Formulating BNs}{54}{subsubsection.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.2}Learning BNs from data}{54}{subsubsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.2}Variational Autoencoders (VAEs)}{54}{subsection.5.2}%
+\contentsline {subsubsection}{\numberline {5.2.1}Autoencoders: no variation yet!}{54}{subsubsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.2}Motivating VAEs}{56}{subsubsection.5.2.2}%
 \contentsline {subsubsection}{\numberline {5.2.3}Formulating VAEs}{57}{subsubsection.5.2.3}%
 \contentsline {subsubsection}{\numberline {5.2.4}Backpropagation for VAEs}{60}{subsubsection.5.2.4}%
-\contentsline {subsection}{\numberline {5.3}\textcolor {red}{\textbf {TODO}: }Generative Adversarial Networks (GANs)}{61}{subsection.5.3}%
-\contentsline {subsection}{\numberline {5.4}\textcolor {red}{\textbf {TODO}: }Normalising Flows}{61}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.3}\textcolor {red}{\textbf {TODO: }}Generative Adversarial Networks (GANs)}{61}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}\textcolor {red}{\textbf {TODO: }}Normalising Flows}{61}{subsection.5.4}%
 \contentsline {subsection}{\numberline {5.5}Diffusion Models}{61}{subsection.5.5}%
 \contentsline {subsubsection}{\numberline {5.5.1}U-Net denoisers}{62}{subsubsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.6}\textcolor {red}{\textbf {TODO}: }Evaluating Generative Models}{63}{subsection.5.6}%
+\contentsline {subsection}{\numberline {5.6}\textcolor {red}{\textbf {TODO: }}Evaluating Generative Models}{63}{subsection.5.6}%
 \contentsline {section}{Appendices}{64}{section*.48}%
-\setcounter {tocdepth}{0}
-\contentsline {section}{\numberline {A}Probability Theory and Statistics Things}{64}{appendix.a.A}%
-\contentsline {subsection}{\numberline {A.1}Derivations Related to Common Distributions}{64}{subsection.a.A.1}%
-\contentsline {subsection}{\numberline {A.2}Sample Independence and Terminology}{68}{subsection.a.A.2}%
-\contentsline {subsection}{\numberline {A.3}Motivating Variance}{68}{subsection.a.A.3}%
-\contentsline {subsection}{\numberline {A.4}Estimators and their Bias}{69}{subsection.a.A.4}%
-\contentsline {subsubsection}{\numberline {A.4.1}Sampling bias}{71}{subsubsection.a.A.4.1}%
-\contentsline {subsection}{\numberline {A.5}The Law of Large Numbers}{71}{subsection.a.A.5}%
-\contentsline {subsection}{\numberline {A.6}The (univariate) Central Limit Theorem (CLT)}{71}{subsection.a.A.6}%
-\contentsline {subsection}{\numberline {A.7}Jensen's Inequality}{71}{subsection.a.A.7}%
-\contentsline {subsection}{\numberline {A.8}Entropy and its Friend KL-divergence}{72}{subsection.a.A.8}%
-\contentsline {subsubsection}{\numberline {A.8.1}Kullback-Leibler Divergence (KL-divergence)}{73}{subsubsection.a.A.8.1}%
-\contentsline {subsection}{\numberline {A.9}Pearson Correlation and Mutual Information}{76}{subsection.a.A.9}%
-\contentsline {subsection}{\numberline {A.10}Quality of fit $\approx $ Encoding quality?}{76}{subsection.a.A.10}%
-\contentsline {subsection}{\numberline {A.11}The Expectation-Maximisation (EM) Algorithm}{76}{subsection.a.A.11}%
+\setcounter {tocdepth}{1}
+\contentsline {section}{\numberline {A}\textcolor {red}{\textbf {TODO: }}Notation}{64}{appendix.a.A}%
+\contentsline {section}{\numberline {B}Probability Theory and Statistics Things}{64}{appendix.a.B}%
+\contentsline {subsection}{\numberline {B.1}Derivations Related to Common Distributions}{64}{subsection.a.B.1}%
+\contentsline {subsection}{\numberline {B.2}Sample Independence and Terminology}{68}{subsection.a.B.2}%
+\contentsline {subsection}{\numberline {B.3}Motivating Variance}{68}{subsection.a.B.3}%
+\contentsline {subsection}{\numberline {B.4}Estimators and their Bias}{69}{subsection.a.B.4}%
+\contentsline {subsubsection}{\numberline {B.4.1}Sampling bias}{71}{subsubsection.a.B.4.1}%
+\contentsline {subsection}{\numberline {B.5}The Law of Large Numbers}{71}{subsection.a.B.5}%
+\contentsline {subsection}{\numberline {B.6}The (univariate) Central Limit Theorem (CLT)}{71}{subsection.a.B.6}%
+\contentsline {subsection}{\numberline {B.7}Jensen's Inequality}{71}{subsection.a.B.7}%
+\contentsline {subsection}{\numberline {B.8}Entropy and its Friend KL-divergence}{72}{subsection.a.B.8}%
+\contentsline {subsubsection}{\numberline {B.8.1}Kullback-Leibler Divergence (KL-divergence)}{73}{subsubsection.a.B.8.1}%
+\contentsline {subsection}{\numberline {B.9}Pearson Correlation and Mutual Information}{76}{subsection.a.B.9}%
+\contentsline {subsection}{\numberline {B.10}Quality of fit $\approx $ Encoding quality?}{76}{subsection.a.B.10}%
+\contentsline {subsection}{\numberline {B.11}The Expectation-Maximisation (EM) Algorithm}{76}{subsection.a.B.11}%
