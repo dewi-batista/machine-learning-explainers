@@ -11,7 +11,7 @@
 \usepackage{hyperref}                         %% for in-document references
 \usepackage[utf8]{inputenc}                   %% for compiler to interpret .tex file
 \usepackage{setspace}                         %% for setting vspace between sentences
-\usepackage{tikz}
+\usepackage{tikz}                             %% for drawing Bayesian networks
 \usepackage{tcolorbox}
 \usepackage{xcolor}
 
@@ -35,16 +35,12 @@
 \newcommand{\x}{\mathbf{x}}
 \newcommand{\z}{\mathbf{z}}
 
-\newcommand{\REVIEW}[1]{\textcolor{purple}{\textbf{REVIEW: }#1}}
-\newcommand{\TODO}[1]{\textcolor{red}{\textbf{TODO: }#1}}
-\newcommand{\IMPROVE}[1]{\textcolor{myYellow}{\textbf{IMPROVE: }#1}}
+\newcommand{\REVIEW}{\textcolor{purple}{\textbf{REVIEW: }}}
+\newcommand{\TODO}{\textcolor{red}{\textbf{TODO: }}}
+\newcommand{\IMPROVE}{\textcolor{myYellow}{\textbf{IMPROVE: }}}
 
 \renewcommand{\l}{\left}
 \renewcommand{\r}{\right}
-
-\renewcommand{\sectionautorefname}{Section}
-\renewcommand{\subsectionautorefname}{Subsection}
-\renewcommand{\subsubsectionautorefname}{Subsubsection}
 
 %%%=== PART 3: Miscellaneous
 \captionsetup{labelfont=bf}

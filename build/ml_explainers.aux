@@ -68,8 +68,8 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces A neural network with one hidden layer ($k=1$).}}{37}{figure.caption.32}\protected@file@percent }
 \newlabel{fig:neural_nets_simple_example}{{17}{37}{A neural network with one hidden layer ($k=1$)}{figure.caption.32}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}Example}{37}{subsubsection.4.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}The Universal Function Approximation of MLPs}{39}{subsubsection.4.1.2}\protected@file@percent }
-\newlabel{subsubsec:universal_function_approximation_theorem}{{4.1.2}{39}{The Universal Function Approximation of MLPs}{subsubsection.4.1.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}Universal Function Approximation with MLPs}{39}{subsubsection.4.1.2}\protected@file@percent }
+\newlabel{subsubsec:universal_function_approximation_theorem}{{4.1.2}{39}{Universal Function Approximation with MLPs}{subsubsection.4.1.2}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}Posing classification as a regression problem}{42}{subsubsection.4.1.3}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces The $2-$probability simplex coloured according to argmax in the three coordinates.}}{43}{figure.caption.36}\protected@file@percent }
 \newlabel{fig:2_prob_simplex}{{18}{43}{The $2-$probability simplex coloured according to argmax in the three coordinates}{figure.caption.36}{}}
@@ -101,7 +101,7 @@
 \@writefile{toc}{\setcounter {tocdepth}{2}}
 \@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces Non-linearly separable data (left) and its image under a non-linear transformation (right).}}{51}{figure.caption.42}\protected@file@percent }
 \newlabel{fig:non_linearly_separable}{{23}{51}{Non-linearly separable data (left) and its image under a non-linear transformation (right)}{figure.caption.42}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Generative Models}{52}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Generative Models}{53}{section.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}\textcolor {myYellow}{\textbf  {IMPROVE: }}Bayesian networks (BNs)}{53}{subsection.5.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.1}Formulating BNs}{54}{subsubsection.5.1.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.2}Learning BNs from data}{54}{subsubsection.5.1.2}\protected@file@percent }
@@ -117,36 +117,45 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces Left: an encoder which outputs parameters of the latent distribution $q_{\phi }(\mathbf  {z}|\mathbf  {x})=\mathcal  {N}(\mu _{\phi },\Sigma _{\phi })$. Right: a decoder which outputs parameters of the reconstruction distribution $p_{\theta }(\mathbf  {x}|\mathbf  {z}')=\mathcal  {N}(\mu _{\theta },\Sigma _{\theta })$ in which $\mathbf  {z}'\sim q_{\phi }(\mathbf  {z}|\mathbf  {x})$.}}{58}{figure.caption.45}\protected@file@percent }
 \newlabel{fig:VAE_architecture}{{26}{58}{Left: an encoder which outputs parameters of the latent distribution $q_{\phi }(\z |\x )=\mathcal {N}(\mu _{\phi },\Sigma _{\phi })$. Right: a decoder which outputs parameters of the reconstruction distribution $p_{\theta }(\x |\z ')=\mathcal {N}(\mu _{\theta },\Sigma _{\theta })$ in which $\z '\sim q_{\phi }(\z |\x )$}{figure.caption.45}{}}
 \newlabel{eq:marginal_likelihood}{{1}{59}{Formulating VAEs}{equation.5.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.4}Backpropagation for VAEs}{60}{subsubsection.5.2.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces Johann Bernoulli being denoised in line with the backward process of a diffusion model.}}{61}{figure.caption.46}\protected@file@percent }
-\newlabel{fig:diffusion_process}{{27}{61}{Johann Bernoulli being denoised in line with the backward process of a diffusion model}{figure.caption.46}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}\textcolor {red}{\textbf  {TODO: }}Generative Adversarial Networks (GANs)}{61}{subsection.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}\textcolor {red}{\textbf  {TODO: }}Normalising Flows}{61}{subsection.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Diffusion Models}{61}{subsection.5.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.1}U-Net denoisers}{62}{subsubsection.5.5.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {28}{\ignorespaces Example U-Net architecture.}}{63}{figure.caption.47}\protected@file@percent }
-\newlabel{fig:u_net_arch}{{28}{63}{Example U-Net architecture}{figure.caption.47}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}\textcolor {red}{\textbf  {TODO: }}Evaluating Generative Models}{63}{subsection.5.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{Appendices}{64}{section*.48}\protected@file@percent }
-\@writefile{toc}{\setcounter {tocdepth}{1}}
-\@writefile{toc}{\contentsline {section}{\numberline {A}\textcolor {red}{\textbf  {TODO: }}Notation}{64}{appendix.a.A}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {B}Probability Theory and Statistics Things}{64}{appendix.a.B}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.1}Derivations Related to Common Distributions}{64}{subsection.a.B.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.2}Sample Independence and Terminology}{68}{subsection.a.B.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.3}Motivating Variance}{68}{subsection.a.B.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.4}Estimators and their Bias}{69}{subsection.a.B.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {B.4.1}Sampling bias}{71}{subsubsection.a.B.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.5}The Law of Large Numbers}{71}{subsection.a.B.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.6}The (univariate) Central Limit Theorem (CLT)}{71}{subsection.a.B.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.7}Jensen's Inequality}{71}{subsection.a.B.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.8}Entropy and its Friend KL-divergence}{72}{subsection.a.B.8}\protected@file@percent }
-\newlabel{app:entropy}{{B.8}{72}{Entropy and its Friend KL-divergence}{subsection.a.B.8}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {B.8.1}Kullback-Leibler Divergence (KL-divergence)}{73}{subsubsection.a.B.8.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {29}{\ignorespaces Our geometric distribution $p$ and Poisson fit $q$.}}{75}{figure.caption.55}\protected@file@percent }
-\newlabel{fig:poi_geo_plot}{{29}{75}{Our geometric distribution $p$ and Poisson fit $q$}{figure.caption.55}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.9}Pearson Correlation and Mutual Information}{76}{subsection.a.B.9}\protected@file@percent }
-\newlabel{app:pearson_correlation}{{B.9}{76}{Pearson Correlation and Mutual Information}{subsection.a.B.9}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.10}Quality of fit $\approx $ Encoding quality?}{76}{subsection.a.B.10}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.11}The Expectation-Maximisation (EM) Algorithm}{76}{subsection.a.B.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.4}\textcolor {purple}{\textbf  {REVIEW: }}Backpropagation for VAEs}{61}{subsubsection.5.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.5}\textcolor {red}{\textbf  {TODO: }}Quirks of VAEs}{61}{subsubsection.5.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}\textcolor {myYellow}{\textbf  {IMPROVE: }}Generative Adversarial Networks (GANs)}{61}{subsection.5.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces Example GAN architecture.}}{62}{figure.caption.46}\protected@file@percent }
+\newlabel{fig:GAN_architecture}{{27}{62}{Example GAN architecture}{figure.caption.46}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.1}Quirks of GANs}{62}{subsubsection.5.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.2}Flavours of GANs}{63}{subsubsection.5.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}\textcolor {red}{\textbf  {TODO: }}Normalising Flows}{63}{subsection.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Diffusion Models}{63}{subsection.5.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {28}{\ignorespaces Johann Bernoulli being denoised in line with the backward process of a diffusion model.}}{64}{figure.caption.47}\protected@file@percent }
+\newlabel{fig:diffusion_process}{{28}{64}{Johann Bernoulli being denoised in line with the backward process of a diffusion model}{figure.caption.47}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.1}U-Net denoisers}{64}{subsubsection.5.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {29}{\ignorespaces Example U-Net architecture.}}{65}{figure.caption.48}\protected@file@percent }
+\newlabel{fig:u_net_arch}{{29}{65}{Example U-Net architecture}{figure.caption.48}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}\textcolor {red}{\textbf  {TODO: }}Evaluating Generative Models}{65}{subsection.5.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{Appendices}{66}{section*.49}\protected@file@percent }
+\@writefile{toc}{\setcounter {tocdepth}{0}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Probability Theory Things}{66}{appendix.a.A}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Derivations Related to Common Distributions}{66}{subsection.a.A.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Motivating Variance}{70}{subsection.a.A.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Flavours of Convergence of Random Variables}{70}{subsection.a.A.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.4}The Law of Large Numbers}{71}{subsection.a.A.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.5}The (univariate) Central Limit Theorem (CLT)}{71}{subsection.a.A.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.6}Jensen's Inequality}{72}{subsection.a.A.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.7}Entropy and its Friend KL-divergence}{72}{subsection.a.A.7}\protected@file@percent }
+\newlabel{app:entropy}{{A.7}{72}{Entropy and its Friend KL-divergence}{subsection.a.A.7}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {A.7.1}Kullback-Leibler Divergence (KL-divergence)}{73}{subsubsection.a.A.7.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {30}{\ignorespaces Our geometric distribution $p$ and Poisson fit $q$.}}{75}{figure.caption.57}\protected@file@percent }
+\newlabel{fig:poi_geo_plot}{{30}{75}{Our geometric distribution $p$ and Poisson fit $q$}{figure.caption.57}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.8}Pearson Correlation and Mutual Information}{76}{subsection.a.A.8}\protected@file@percent }
+\newlabel{app:pearson_correlation}{{A.8}{76}{Pearson Correlation and Mutual Information}{subsection.a.A.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.9}Quality of fit $\approx $ Encoding quality?}{77}{subsection.a.A.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B}Statistics Things}{77}{appendix.a.B}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.1}Sample Independence and Terminology}{77}{subsection.a.B.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.2}Estimators and their Bias}{77}{subsection.a.B.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {B.2.1}Sampling bias}{79}{subsubsection.a.B.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.3}\textcolor {red}{\textbf  {TODO: }}Hypothesis Testing}{79}{subsection.a.B.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.4}\textcolor {red}{\textbf  {TODO: }}Markov Chains}{79}{subsection.a.B.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.5}\textcolor {red}{\textbf  {TODO: }}Bayes' Theorem}{79}{subsection.a.B.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.6}The Expectation-Maximisation (EM) Algorithm}{79}{subsection.a.B.6}\protected@file@percent }
 \gdef\svg@ink@ver@settings{{\m@ne }{inkscape}{\m@ne }}
-\gdef \@abspage@last{79}
+\gdef \@abspage@last{82}
