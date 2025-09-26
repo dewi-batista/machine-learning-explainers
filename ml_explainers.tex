@@ -2358,9 +2358,31 @@ $$
 
 \subsection{\TODO Hypothesis Testing}
 
-\subsection{\TODO Markov Chains}
 
-\subsection{\TODO Bayes' Theorem}
+\subsection{\TODO Bayesian Persuasion}
+
+\subsubsection{Bayes' Theorem}
+
+\subsubsection{Posteriors}
+
+\subsubsection{Variational Bayesian inference}
+Instead of approximating the posterior via MCMC, one can restrict the approximation to a function family and minimise some divergence measure, e.g. KL-divergence. The name `variational' derives from calclulus of variations as in computing
+$$
+q^*
+=
+\argmax_{q\in\mathcal{Q}}\mathcal{L}(q)
+$$
+where $\mathcal{L}$ is a functional.
+
+\subsection{\TODO Markov Chains}
+In the following I keep things particularly simple and only consider discrete distributions.
+
+\subsubsection{Markov Chain Monte Carlo (MCMC)}
+Sampling from nasty distributions whose probability function can be computed up to a constant.
+
+\subsubsection*{Example 1: The Metropolis-Hastings algorithm}
+
+\subsubsection*{Example 2: Gibbs sampling}
 
 \subsection{The Expectation-Maximisation (EM) Algorithm}
 Maximum likelihood estimation (MLE) is great but what do we do when the data generating process is not determined entirely by observed model variables $\X=(X_1,\dots,X_m)$. That is, what if $p(\x)$ is simply the marginal of the true joint $p(\x,\z)$ where $\Z=(Z_1,\dots,Z_{m'})$ are hidden variables?

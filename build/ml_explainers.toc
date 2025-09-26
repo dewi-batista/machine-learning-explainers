@@ -79,6 +79,10 @@
 \contentsline {subsection}{\numberline {B.2}Estimators and their Bias}{77}{subsection.a.B.2}%
 \contentsline {subsubsection}{\numberline {B.2.1}Sampling bias}{79}{subsubsection.a.B.2.1}%
 \contentsline {subsection}{\numberline {B.3}\textcolor {red}{\textbf {TODO: }}Hypothesis Testing}{79}{subsection.a.B.3}%
-\contentsline {subsection}{\numberline {B.4}\textcolor {red}{\textbf {TODO: }}Markov Chains}{79}{subsection.a.B.4}%
-\contentsline {subsection}{\numberline {B.5}\textcolor {red}{\textbf {TODO: }}Bayes' Theorem}{79}{subsection.a.B.5}%
-\contentsline {subsection}{\numberline {B.6}The Expectation-Maximisation (EM) Algorithm}{79}{subsection.a.B.6}%
+\contentsline {subsection}{\numberline {B.4}\textcolor {red}{\textbf {TODO: }}Bayesian Persuasion}{79}{subsection.a.B.4}%
+\contentsline {subsubsection}{\numberline {B.4.1}Bayes' Theorem}{79}{subsubsection.a.B.4.1}%
+\contentsline {subsubsection}{\numberline {B.4.2}Posteriors}{79}{subsubsection.a.B.4.2}%
+\contentsline {subsubsection}{\numberline {B.4.3}Variational Bayesian inference}{79}{subsubsection.a.B.4.3}%
+\contentsline {subsection}{\numberline {B.5}\textcolor {red}{\textbf {TODO: }}Markov Chains}{79}{subsection.a.B.5}%
+\contentsline {subsubsection}{\numberline {B.5.1}Markov Chain Monte Carlo (MCMC)}{79}{subsubsection.a.B.5.1}%
+\contentsline {subsection}{\numberline {B.6}The Expectation-Maximisation (EM) Algorithm}{80}{subsection.a.B.6}%
