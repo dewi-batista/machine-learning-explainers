@@ -66,7 +66,7 @@
 \contentsline {section}{\numberline {A}Probability Theory Things}{66}{appendix.a.A}%
 \contentsline {subsection}{\numberline {A.1}Derivations Related to Common Distributions}{66}{subsection.a.A.1}%
 \contentsline {subsection}{\numberline {A.2}Motivating Variance}{70}{subsection.a.A.2}%
-\contentsline {subsection}{\numberline {A.3}Flavours of Convergence of Random Variables}{70}{subsection.a.A.3}%
+\contentsline {subsection}{\numberline {A.3}\textcolor {red}{\textbf {TODO: }}Flavours of Convergence of Random Variables}{70}{subsection.a.A.3}%
 \contentsline {subsection}{\numberline {A.4}The Law of Large Numbers}{71}{subsection.a.A.4}%
 \contentsline {subsection}{\numberline {A.5}The (univariate) Central Limit Theorem (CLT)}{71}{subsection.a.A.5}%
 \contentsline {subsection}{\numberline {A.6}Jensen's Inequality}{72}{subsection.a.A.6}%
@@ -74,15 +74,19 @@
 \contentsline {subsubsection}{\numberline {A.7.1}Kullback-Leibler Divergence (KL-divergence)}{73}{subsubsection.a.A.7.1}%
 \contentsline {subsection}{\numberline {A.8}Pearson Correlation and Mutual Information}{76}{subsection.a.A.8}%
 \contentsline {subsection}{\numberline {A.9}Quality of fit $\approx $ Encoding quality?}{77}{subsection.a.A.9}%
-\contentsline {section}{\numberline {B}Statistics Things}{77}{appendix.a.B}%
+\contentsline {section}{\numberline {B}Classical Statistics Things}{77}{appendix.a.B}%
 \contentsline {subsection}{\numberline {B.1}Sample Independence and Terminology}{77}{subsection.a.B.1}%
 \contentsline {subsection}{\numberline {B.2}Estimators and their Bias}{77}{subsection.a.B.2}%
 \contentsline {subsubsection}{\numberline {B.2.1}Sampling bias}{79}{subsubsection.a.B.2.1}%
+\contentsline {subsubsection}{\numberline {B.2.2}Efficiency, Consistency and }{79}{subsubsection.a.B.2.2}%
 \contentsline {subsection}{\numberline {B.3}\textcolor {red}{\textbf {TODO: }}Hypothesis Testing}{79}{subsection.a.B.3}%
-\contentsline {subsection}{\numberline {B.4}\textcolor {red}{\textbf {TODO: }}Bayesian Persuasion}{79}{subsection.a.B.4}%
-\contentsline {subsubsection}{\numberline {B.4.1}Bayes' Theorem}{79}{subsubsection.a.B.4.1}%
-\contentsline {subsubsection}{\numberline {B.4.2}Posteriors}{79}{subsubsection.a.B.4.2}%
-\contentsline {subsubsection}{\numberline {B.4.3}Variational Bayesian inference}{79}{subsubsection.a.B.4.3}%
-\contentsline {subsection}{\numberline {B.5}\textcolor {red}{\textbf {TODO: }}Markov Chains}{79}{subsection.a.B.5}%
-\contentsline {subsubsection}{\numberline {B.5.1}Markov Chain Monte Carlo (MCMC)}{79}{subsubsection.a.B.5.1}%
+\contentsline {subsection}{\numberline {B.4}\textcolor {red}{\textbf {TODO: }}Markov Chain Monte Carlo (MCMC) Methods}{79}{subsection.a.B.4}%
+\contentsline {subsubsection}{\numberline {B.4.1}Markov Chains}{79}{subsubsection.a.B.4.1}%
+\contentsline {subsubsection}{\numberline {B.4.2}The Metropolis-Hastings algorithm}{80}{subsubsection.a.B.4.2}%
+\contentsline {subsubsection}{\numberline {B.4.3}Gibbs sampling}{80}{subsubsection.a.B.4.3}%
+\contentsline {subsection}{\numberline {B.5}Hidden Markov Models (HMMs)}{80}{subsection.a.B.5}%
 \contentsline {subsection}{\numberline {B.6}The Expectation-Maximisation (EM) Algorithm}{80}{subsection.a.B.6}%
+\contentsline {section}{\numberline {C}Bayesian Things}{83}{appendix.a.C}%
+\contentsline {subsection}{\numberline {C.1}\textcolor {red}{\textbf {TODO: }}Bayesian Persuasion}{83}{subsection.a.C.1}%
+\contentsline {subsection}{\numberline {C.2}Belief Propagation}{83}{subsection.a.C.2}%
+\contentsline {subsection}{\numberline {C.3}Variational Bayesian inference}{83}{subsection.a.C.3}%

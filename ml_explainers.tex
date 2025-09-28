@@ -2087,7 +2087,7 @@ It turns out that you do have additivity with cubes of the deviations but not cu
 
 It's worth noting that there are plenty of contexts in statistics in which different measure of distribution spread are more convenient, e.g. the mean absolute deviation about the median $\E[|X-\text{median}(X)|]$ in the context of robust statistics.
 
-\subsection{Flavours of Convergence of Random Variables}
+\subsection{\TODO Flavours of Convergence of Random Variables}
 Stochastic processes and asmymptotic statistics people love knowing how their sequences of random variables converge, if at all. That is, if $X_1,\dots,X_n$ are random variables then what can be said about things related to taking the limit of the sequence to infinity?
 
 \subsubsection*{Convergence in Distribution (Weak)}
@@ -2296,9 +2296,9 @@ I'm massively in favour of writing it as a KL-divergence as its meaning is immed
 \subsection{Quality of fit $\approx$ Encoding quality?}
 \TODO Perhaps worthy of its own section, unsure
 
-% statistics things
-\section{Statistics Things}
-Here are some statistics things.
+% classical statistics things
+\section{Classical Statistics Things}
+Here are some classical statistics things.
 
 \subsection{Sample Independence and Terminology}
 The intended meaning of the term `sample' in statistics is a set of independently obtained realisations of a random variable, i.e. $\{x_1,\dots,x_n\}\subset\Omega_X$. You could also define a sample as a set of i.i.d. random variables $\{X_1,\dots,X_n\}$. There are times where I reason with the latter but most of the time I think of realisations of random variables when talking about a sample. As a term, `sample' can be especially confusing when context switching since in machine learning contexts, it most often refers to a single data point, which is not its intended meaning in statistics contexts. This was a huge cause of confusion during my first few meetings with my master's thesis supervisor who is a Bayesian statistician.
@@ -2356,33 +2356,79 @@ $$
 \E_{q_{\X}^{\otimes n}}[\hat{\theta}]-\theta.
 $$
 
+\subsubsection{Efficiency, Consistency and }
+
 \subsection{\TODO Hypothesis Testing}
 
-
-\subsection{\TODO Bayesian Persuasion}
-
-\subsubsection{Bayes' Theorem}
-
-\subsubsection{Posteriors}
-
-\subsubsection{Variational Bayesian inference}
-Instead of approximating the posterior via MCMC, one can restrict the approximation to a function family and minimise some divergence measure, e.g. KL-divergence. The name `variational' derives from calclulus of variations as in computing
+\subsection{\TODO Markov Chain Monte Carlo (MCMC) Methods}
+There are a fair number of scenarios in which it's desirable to sample from a distribution whose probability function can only be evaluated up to a constant. As an example, the posterior
 $$
-q^*
+p(\theta|D)
 =
-\argmax_{q\in\mathcal{Q}}\mathcal{L}(q)
+\frac{p(D|\theta)p(\theta)}{p(D)}.
 $$
-where $\mathcal{L}$ is a functional.
+whose explicit evaluation is difficult due to the constant $p(D)$. MCMC methods help remedy this issue.
 
-\subsection{\TODO Markov Chains}
-In the following I keep things particularly simple and only consider discrete distributions.
+\subsubsection{Markov Chains}
+It's helpful to first understand Markov chains. A markov chain is a discrete-time stochastic process in which the sample space is countable and the Markov property
+$$
+p(x_{n+1}|x_1,\dots,x_n)
+=
+p(x_{n+1}|x_n)
+$$
+holds for all $n\in\mathbb{N}$. To make notation more convenient, let
+$$
+p_{i,j}
+:=
+p(x_{n+1}=j|x_n=i).
+$$
+The great thing about Markov chains is how elegantly we can write $p(x_{n+1}=j)$ in terms of the distribution over $\X_n$ as in
+\begin{align*}
+    p(x_{n+1}=j)
+    &=
+    \sum_{i=1}^{|\Omega_X|} p(x_n=i,x_{n+1}=j)\\
+    &=
+    \sum_{i=1}^{|\Omega_X|} p(x_{n+1}=j|x_n=i)p(x_n=i)\\
+    &=
+    \sum_{i=1}^{|\Omega_X|} p_{i,j}\cdot p(x_n=i).
+\end{align*}
+Let $\pi^{(n)}=\begin{bmatrix} p(x_n=1) & p(x_n=2) & \dots & p(x_n=|\Omega_X|)\end{bmatrix}$ and
+$$
+P
+=
+\begin{bmatrix}
+    p_{1,1}          & \dots  & p_{1,|\Omega_X|}\\
+    \vdots           & \ddots & \vdots          \\
+    p_{|\Omega_X|,1} & \dots  & p_{|\Omega_X|, |\Omega_X|}
+\end{bmatrix}
+$$
+then the transition equation above reduces to
+$$
+\pi^{(n+1)}
+=
+\pi^{(n)}P
+$$
+If each $p_{i,j}$ is known beforehand and an initial distribution $X_0\sim\pi^{(0)}$ is attributed then the distribution at step $n$ is given by
+$$
+\pi^{(n)}
+=
+\pi^{(0)}P^n.
+$$
+A distribution $\pi$ is said to be stable with respect to the transition matrix $P$ if
+$$
+\pi
+=
+\pi P.
+$$
 
-\subsubsection{Markov Chain Monte Carlo (MCMC)}
-Sampling from nasty distributions whose probability function can be computed up to a constant.
+\subsubsection*{Example Markov chain}
+The simplest example of a Markov chain I found was on Stack Exchange regarding sunny and rainy days. Suppose 
 
-\subsubsection*{Example 1: The Metropolis-Hastings algorithm}
+\subsubsection{The Metropolis-Hastings algorithm}
 
-\subsubsection*{Example 2: Gibbs sampling}
+\subsubsection{Gibbs sampling}
+
+\subsection{Hidden Markov Models (HMMs)}
 
 \subsection{The Expectation-Maximisation (EM) Algorithm}
 Maximum likelihood estimation (MLE) is great but what do we do when the data generating process is not determined entirely by observed model variables $\X=(X_1,\dots,X_m)$. That is, what if $p(\x)$ is simply the marginal of the true joint $p(\x,\z)$ where $\Z=(Z_1,\dots,Z_{m'})$ are hidden variables?
@@ -2468,6 +2514,33 @@ q_t(\z)=p_{\theta^{(t)}}(\z|\x)
 \implies
 \text{ELBO}\l(q_t,\theta^{(t)}\r)=\log(p_{\theta^{(t)}}(\x)).
 $$
+
+% bayesian things
+\section{Bayesian Things}
+Here are some Bayesian things.
+
+\subsection{\TODO Bayesian Persuasion}
+$$
+p(A|B)
+=
+\frac{p(B|A)p(A)}{p(B)}
+$$
+
+OJ Simpson prosecution used an improper \dots
+
+Alternative example of being infected with HIV and testing positive for HIV.
+
+\subsection{Belief Propagation}
+It's an inference algorithm but is Bayesian in spirit.
+
+\subsection{Variational Bayesian inference}
+Instead of approximating the posterior via MCMC, one can restrict the approximation to a function family and minimise some divergence measure, e.g. KL-divergence. The name `variational' derives from calclulus of variations as in computing
+$$
+q^*
+=
+\argmax_{q\in\mathcal{Q}}\mathcal{L}(q)
+$$
+where $\mathcal{L}$ is a functional.
 
 % % philosophy things
 % \section{Philosophy Things}
