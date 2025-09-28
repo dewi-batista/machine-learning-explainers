@@ -2360,6 +2360,10 @@ $$
 
 \subsection{\TODO Hypothesis Testing}
 
+\subsection{\TODO The Curse of Dimensionality}
+
+\subsubsection*{The blessing of non-uniformity}
+
 \subsection{\TODO Markov Chain Monte Carlo (MCMC) Methods}
 There are a fair number of scenarios in which it's desirable to sample from a distribution whose probability function can only be evaluated up to a constant. As an example, the posterior
 $$
@@ -2516,19 +2520,46 @@ q_t(\z)=p_{\theta^{(t)}}(\z|\x)
 $$
 
 % bayesian things
-\section{Bayesian Things}
-Here are some Bayesian things.
-
-\subsection{\TODO Bayesian Persuasion}
+\section{Bayesian Persuasion}
+Bayes' law states that for events $A$ and $B$ with $p(B)\neq0$
 $$
 p(A|B)
 =
-\frac{p(B|A)p(A)}{p(B)}
+\frac{p(B|A)p(A)}{p(B)}.
+$$
+I sometimes refer to it as Bayes' theorem (as do others) but since it follows straightforwardly from the definition of conditional probabilities, I prefer to refer to it as a law/identity. It's particularly useful when $p(B|A)$ is a natural quantity and accessible while $p(A|B)$ is not a natural quantity but is desired.
+
+Another worthwhile point is that it's fairly common that someone with malicious intent emphasies how high or low $p(A|B)$ is when in fact $p(B|A)$ is the quantity that should motivate the argument at hand. Unforuntately, human intuition for which conditional probability is relevant to their argument is very bad.
+
+\subsubsection*{Adversarial Examples of Bayes' Law}
+O. J. Simpson's court case provides a great example. Simpson was accused of having killed his wife and was ultimately found not guilty. Thorough evidence was prodvuded during the case that Simpson had beat his wife while she was alive. Following this, the prosecution argued that it was very likely that Simpson had killed his wife due to the high frequency of husbands having beat their wife given that they ended up killing them, as in
+$$
+p(\text{beat wife}|\text{killed wife})\sim\text{high}.
+$$
+It's clear that the relevant quantity is the reversed conditional
+$$
+p(\text{killed wife}|\text{beat wife}).
+$$
+It turns out that while the marginal probability of ``beat wife'' is low, the marginal probability of ``killed wife'' is far far lower. So much that
+$$
+p(\text{killed wife}|\text{beat wife})
+=
+\frac{p(\text{beat wife}|\text{killed wife})p(\text{killed wife})}{\text{beat wife}}\sim\text{low}.
 $$
 
-OJ Simpson prosecution used an improper \dots
-
 Alternative example of being infected with HIV and testing positive for HIV.
+
+\subsection{Posetriors Over Parameters}
+Treat parameters as random variables as opposed to a point estimate. Get a distribution over them given data, as in
+$$
+p(\theta|D)
+=
+\frac{p(D|\theta)p(\theta)}{p(D)}.
+$$
+Posetrior, likelihood, prior and marginal likelihood.
+
+\subsubsection*{Example}
+parameters are beta, data is binomial
 
 \subsection{Belief Propagation}
 It's an inference algorithm but is Bayesian in spirit.
