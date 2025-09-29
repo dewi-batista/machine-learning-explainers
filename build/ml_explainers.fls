@@ -530,6 +530,11 @@ INPUT ./figures/appendix/poi_geo_plot.pdf
 INPUT ./figures/appendix/poi_geo_plot.pdf
 INPUT ./figures/appendix/poi_geo_plot.pdf
 INPUT ./figures/appendix/poi_geo_plot.pdf
+INPUT ./figures/appendix/metropolis-hastings.png
+INPUT ./figures/appendix/metropolis-hastings.png
+INPUT ./figures/appendix/metropolis-hastings.png
+INPUT ./figures/appendix/metropolis-hastings.png
+INPUT ./figures/appendix/metropolis-hastings.png
 INPUT build/ml_explainers.aux
 INPUT build/ml_explainers.out
 INPUT build/ml_explainers.out

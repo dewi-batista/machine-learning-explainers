@@ -2418,19 +2418,84 @@ $$
 =
 \pi^{(0)}P^n.
 $$
-A distribution $\pi$ is said to be stable with respect to the transition matrix $P$ if
+A distribution $\pi$ is said to be stationary with respect to the transition matrix $P$ if
 $$
 \pi
 =
 \pi P.
 $$
+As a Bayesian network, a Markov chain is represented as
+\begin{center}
+    \begin{tikzpicture}[node distance=2cm, every node/.style={circle, draw, thick}]
+        \node (X_1) {$X_1$};
+        \node (X_2) [right of=X_1] {$X_2$};
+        \node (X_3) [right of=X_2] {$X_3$};
+
+        \draw[->] (X_1) -- (X_2);
+        \draw[->] (X_2) -- (X_3);
+    \end{tikzpicture}
+\end{center}
 
 \subsubsection*{Example Markov chain}
-The simplest example of a Markov chain I found was on Stack Exchange regarding sunny and rainy days. Suppose 
+The simplest example of a Markov chain I found was on Stack Exchange regarding sunny and rainy days. Suppose tomorrow's weather is entirely determined by today's weather and that the weather can only be sunny or rainy. Further, suppose that the transition probabilities are given by
+$$
+p(S|S)=0.8\quad
+p(S|R)=0.4\quad
+p(R|S)=0.2\quad
+p(R|R)=0.6
+$$
+and that today is sunny, so $x_0=S$. The distribution over weather types two days from now is thus
+$$
+\pi^{(2)}
+=
+\pi^{(0)}P^2
+=
+\begin{bmatrix}1&0\end{bmatrix}
+\begin{bmatrix}
+    0.8 & 0.2\\
+    0.4 & 0.6
+\end{bmatrix}^2
+=
+\begin{bmatrix}0.72&0.28\end{bmatrix}.
+$$
+To find the stationary distribution with respect to $P$ simply compute a left eigenvector.
 
 \subsubsection{The Metropolis-Hastings algorithm}
 
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{./figures/appendix/metropolis-hastings.png}
+    \caption{Metropolis-Hastings in action with a uniform prior.}
+    \label{fig:metropolis_hastings}
+\end{figure}
+
 \subsubsection{Gibbs sampling}
+When the joint $p(x_1,\dots,x_m)$ is hard to sample according to but the conditionals
+$$
+p(x_i|x_1,\dots,x_{i-1},x_{i+1},\dots,x_m)
+=:
+p(x_i|x_{-i})
+$$
+are not hard to sample according to, a nice approach to sampling from the joint is Gibbs sampling. The idea is to iteratively sample from the conditionals to obtain a full samples by initialising $\l(x_1^{(0)},\dots,x_m^{(m)}\r)$ and sampling
+$$
+x_1^{(1)}\sim p\l(x_1^{(0)}|x_{-1}^{(0)}\r).
+$$
+The idea is intuitive and theory surrounding it offers certain guarantees as far as sampling quality goes. I'm only interested in the intuition of it.
+
+As an example, consider
+$$
+(X_1,X_2)
+\sim
+\mathcal{N}\l(\begin{bmatrix} 0 \\ 0 \end{bmatrix}, \begin{bmatrix}1 & 1/2\\ 1/2 & 1\end{bmatrix}\r).
+$$
+The conditional distributions relevant to Gibbs sampling are
+$$
+X_1|(X_2=x_2)\sim\mathcal{N}\l(\frac{x_2}{2},\frac{3}{4}\r)
+\hfill
+\quad\text{and }\quad
+X_2|(X_1=x_1)\sim\mathcal{N}\l(\frac{x_1}{2},\frac{3}{4}\r).
+$$
+So instead of sampling according to the joint $p(x_1,x_2)$, repeatedly sample according to conditionals $p(x_1|x_2)$ and $p(x_2|x_1)$.
 
 \subsection{Hidden Markov Models (HMMs)}
 
