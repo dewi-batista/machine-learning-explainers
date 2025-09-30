@@ -968,9 +968,9 @@ Each hyperparameter may take on a set of values, i.e. the $m$ hyperparameters $h
 For a better idea of how a configuration of hyperparameters will help generalise post-training, consider partitioning the training data into $k$ disjoint subsets (or folds) $D_1,\dots,D_k$. Then, for $i=1,\dots,k$, train on $D\backslash D_i$ and validate on $D_i$. Take the mean of the $k$ validation losses. Choose whichever hyperparameter configuration yields the lowest mean validation loss.
 
 \subsubsection{Honourable mention: benchmark overfitting}
-Consider the following scenario: research groups A and B independently publish results regarding almost-identical single hidden layer MLP architectures applied to the same task. The only distinction in their architectures is the number of neurons in their hidden layer — group A decide on 99 neurons and group B decide on 100. Every aspect of their training is identical: their training data, how they split it in order to perform validation, etc. Group A's MLP obtains a lower test error than group B and so a company which produce a commercial product relevant to the researched task uses group A's architecture. How is this scenario distinct from a single group selecting a single hidden layer MLP architcture with 99 neurons over 100 on the basis of the test loss of both? More broadly, how is this distinct to tuning hyperparameter based on test losses?
+Suppose research groups A and B independently publish results on nearly identical single hidden layer MLPs for the same task. The only difference is the number of neurons in the hidden layer — 99 for A, 100 for B. Their training setup is otherwise identical: same data, same splits, same optimisation. Group A's model achieves lower test error, and so a company adopts their architecture. How is this fundamentally different from a single group training both 99- and 100-neuron models and then choosing based on test loss? More broadly, how is it different from tuning hyperparameters directly on the test set?
 
-The post-training test error becomes a biased (in this case optimistic) estimate of the generalisation of the model. That said, if this scenario is repeated enough times then the community is effectivevly tuning the model to the test set. This is called benchmark overfitting and it emphasises the need for things like shuffling data in the training-inference pipeline and, more importantly, benchmark evolution.
+In both cases, the test error becomes a biased (optimistic) estimate of generalisation. If this process repeats across the community, the field as a whole is implicitly tuning to the test set. This phenomenon is called benchmark overfitting, and it underlines the need for practices like shuffling data in the pipeline and, more importantly, evolving benchmarks over time.
 
 % neural nets
 \section{Neural Networks}
@@ -993,11 +993,11 @@ The application of MLPs to learning functions from data is due to their expressi
 
 For brevity, given $m,n\in\mathbb{N}$ with $m\leq n$ let $[n]_m=\{m,\dots,n\}$ and let $[n]=[n]_1$. For further ease of notation, given an MLP with $k$ hidden layers, denote the index of the input layer by $0$, the output layer by $k+1$ and by extension the $j^{\text{th}}$ layer by $j\in[k+1]_0$. Additionally, consider the following denotations
 \begin{itemize}
-    \item[--] $n_j\in\mathbb{Z}_{\geq1}$: the number of neurons in layer $j$.
-    \item[--] $a_i^{(j)}\in\mathbb{R}$: the activation value of neuron $i$ in layer $j$.
-    \item[--] $w_{i,l}^{(j)}\in\mathbb{R}$: the weight associated with the edge to neuron $i$ in layer $j\in[k+1]$ from neuron $l$ in the previous layer.
-    \item[--] $b_i^{(j)}\in\mathbb{R}$: the bias of neuron $i$ in layer $j\in[k+1]$.
-    \item[--] $\sigma_j:\mathbb{R}\rightarrow\mathbb{R}$: the non-linear activation function of layer $j\in[k+1]$.
+    \item[--] $n_j\in\mathbb{Z}_{\geq1}$ is the number of neurons in layer $j$.
+    \item[--] $a_i^{(j)}\in\mathbb{R}$ is the activation value of neuron $i$ in layer $j$.
+    \item[--] $w_{i,l}^{(j)}\in\mathbb{R}$ is the weight associated with the edge to neuron $i$ in layer $j\in[k+1]$ from neuron $l$ in the previous layer.
+    \item[--] $b_i^{(j)}\in\mathbb{R}$ is the bias of neuron $i$ in layer $j\in[k+1]$.
+    \item[--] $\sigma_j:\mathbb{R}\rightarrow\mathbb{R}$ is the non-linear activation function of layer $j\in[k+1]$.
 \end{itemize}
 From here we can express the activation value of any neuron in a non-input layer in terms of the activation values of the neurons in the layer which precedes it as
 \begin{align*}
@@ -1557,7 +1557,7 @@ Nope, it just makes things related to optimisation easier while having a suffici
 \end{center}
 Roughly speaking, I wouldn't worry too much about this in practice. The usual choices are all nice and differentiable (with small caveats, like with ReLU at 0) facilitating backpropagation. You should sometimes care about the output given the problem at hand. For example, if you need outputs in $[-1,1]$ then $\tanh$ is a natural choice.
 
-Note that some choices, like Leaky ReLU, introduce hyperparameters to the model which is sometimes undesirable, e.g. if one seeks to minimise the number of hyperparameters for the strength of their result (if there's no hyperparameter to cherry pick then your result is more trustworthy).
+Note that some choices, like Leaky ReLU, introduce hyperparameters to the model which can be undesirable, e.g. if one seeks to minimise the number of hyperparameters for the strength of their result (if there's no hyperparameter to cherry pick then your result is more trustworthy).
 
 \begin{center}
     \textbf{\textcolor{blue}{Q5:} How does one prevent vanishing/exploding gradients?}
@@ -1569,7 +1569,6 @@ Skip connections help. Architectures which use them are sometimes called residua
     \item Ensures that the model has to learn the residual as opposed to the full underlying function: faster convergence usually
     \item Takes pressure off parameter initialisation: if you set parameters to zero then initially model is just the identity and learning from there is feasible
 \end{itemize}
-
 It's worth mentioning that said vanishing behaviour can be observed during forward passes too.
 
 % generative models (any other section name i've come up with has been due to overthinking)
@@ -1597,25 +1596,28 @@ A natural approach to representing the joint probability function of model varia
 From here, sampling may be done autoregressively: sample $x_1$ according to $p(x_1)$, $x_2$ according to $p(x_2|x_1)$ and so on until an entire realisation of $\X=(X_1,\dots,X_m)$ is obtained. Why stop at decomposition though? In an image, nearby pixel values may correlate but far away pixels may not, so why incoroporate them in the conditional? Why not learn the dependencies between the model variables? Boom, Bayesian networks.
 
 \subsubsection{Formulating BNs}
-With their motivation out of the way, we can move on to their formulation. A Bayesian network consists of a directed acyclic graph (DAG) $\mathcal{G}$ and a parameter set $\theta$. The graph $\mathcal{G}$ has a single node for each model variable $X_1,\dots,X_m$ and directed edges represent conditional dependencies. For example, for model variables $X_1, X_2$ and $X_3$, if $X_3|X_1$ is independent of $X_2$ then their joint probability function may be decomposed as
-$$
-p(x_1,x_2,x_3)
-=
-p_{\theta_1}(x_1)p_{\theta_2}(x_2|x_1)p_{\theta_3}(x_3|x_1)
-$$
-whose corresponding DAG is given by
-\begin{center}
-    \begin{tikzpicture}[node distance=2cm, every node/.style={circle, draw, thick}]
-        \node (A) {$X_1$};
-        \node (B) [right of=A] {$X_2$};
-        \node (C) [right of=B] {$X_3$};
+With their motivation out of the way, we can move on to their formulation. A Bayesian network consists of a directed acyclic graph (DAG) $\mathcal{G}$ and a parameter set $\theta$. The graph $\mathcal{G}$ has a single node for each model variable $X_1,\dots,X_m$ and directed edges represent conditional dependencies.
 
-        \draw[->] (A) -- (B);
-        \draw[bend left][->] (A) edge (C);
-    \end{tikzpicture}
-\end{center}
-Notice that the choice of $X_1$ as the model variable upon which nothing is conditioned is entirely arbitrary. As a result, for a given decomposition, DAGs are not unique.
+\begin{example}
+    For model variables $X_1, X_2$ and $X_3$, if $X_3|X_1$ is independent of $X_2$ then their joint probability function may be decomposed as
+    $$
+    p(x_1,x_2,x_3)
+    =
+    p_{\theta_1}(x_1)p_{\theta_2}(x_2|x_1)p_{\theta_3}(x_3|x_1)
+    $$
+    whose corresponding DAG is given by
+    \begin{center}
+        \begin{tikzpicture}[node distance=2cm, every node/.style={circle, draw, thick}]
+            \node (A) {$X_1$};
+            \node (B) [right of=A] {$X_2$};
+            \node (C) [right of=B] {$X_3$};
 
+            \draw[->] (A) -- (B);
+            \draw[bend left][->] (A) edge (C);
+        \end{tikzpicture}
+    \end{center}
+    Notice that the choice of $X_1$ as the model variable upon which nothing is conditioned is entirely arbitrary. As a result, for a given decomposition, DAGs are not unique.
+\end{example}
 The parameter set $\theta$ pertains to the parameters of the conditional distributions shown in $\mathcal{G}$.
 
 \subsubsection{Complexity of Inference}
@@ -2355,9 +2357,9 @@ For a given estimator, sampling bias is not its bias as an estimator but instead
 
 \subsubsection{Asmymptotic normality}
 
-\subsection{\TODO Hypothesis Testing}
+\subsection{Hypothesis Testing}
 
-\subsection{\TODO Markov Chain Monte Carlo (MCMC) Methods}
+\subsection{Markov Chain Monte Carlo (MCMC) Methods}
 There are a fair number of scenarios in which it's desirable to sample from a distribution whose probability function can only be evaluated up to a constant. As an example, the posterior
 $$
 p(\theta|D)
@@ -2482,7 +2484,7 @@ So instead of sampling according to the joint $p(x_1,x_2)$, repeatedly sample ac
 
 \subsection{Hidden Markov Models (HMMs)}
 
-\subsection{\TODO The Curse of Dimensionality}
+\subsection{The Curse of Dimensionality}
 Unsure where to place this tbh
 
 \subsubsection{The blessing of non-uniformity}
@@ -2583,24 +2585,6 @@ $$
 I sometimes refer to it as Bayes' theorem (as do others) but since it follows straightforwardly from the definition of conditional probabilities, I prefer to refer to it as a law/identity. It's particularly useful when $p(B|A)$ is a natural quantity and accessible while $p(A|B)$ is not a natural quantity but is desired.
 
 Another worthwhile point is that it's fairly common that someone with malicious intent emphasies how high or low $p(A|B)$ is when in fact $p(B|A)$ is the quantity that should motivate the argument at hand. Unforuntately, human intuition for which conditional probability is relevant to their argument is very bad.
-
-\begin{example}
-    O. J. Simpson's court case provides a great example. Simpson was accused of having killed his wife and was ultimately found not guilty. Thorough evidence was prodvuded during the case that Simpson had beat his wife while she was alive. Following this, the prosecution argued that it was very likely that Simpson had killed his wife due to the high frequency of husbands having beat their wife given that they ended up killing them, as in
-    $$
-    p(\text{beat wife}|\text{killed wife})\sim\text{high}.
-    $$
-    It's clear that the relevant quantity is the reversed conditional
-    $$
-    p(\text{killed wife}|\text{beat wife}).
-    $$
-    It turns out that while the marginal probability of ``beat wife'' is low, the marginal probability of ``killed wife'' is far far lower. So much that
-    $$
-    p(\text{killed wife}|\text{beat wife})
-    =
-    \frac{p(\text{beat wife}|\text{killed wife})p(\text{killed wife})}{\text{beat wife}}\sim\text{low}.
-    $$
-\end{example}
-
 \begin{example}
     Being infected with HIV and testing positive for HIV.
 \end{example}
