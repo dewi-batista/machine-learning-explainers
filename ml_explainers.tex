@@ -49,14 +49,14 @@ My interests in machine learning lie in its rapid development since the era of d
 
 % supervised learning
 \section{Supervised Learning}
-Supervised learning methods fit functions $f_{\theta}:\Omega_{\X}\to\Omega_{\mathbf{Y}}$ from model variables $\X=(X_1,\dots,X_q)$ to output variables $\mathbf{Y}=(Y_1,\dots,Y_r)$ (often $r=1$ in which case we write $\mathbf{Y}=Y$) by tweaking $\theta$ in line with concrete examples $\{(\x_i,\mathbf{y}_i)\}_{i=1}^n$ of how the function may behave in practice. The two most prominent examples of supervised learning tasks are regression (continuous output variables) and classification (discrete output variables).
+Supervised learning methods fit functions $f_{\theta}:\Omega_{\X}\to\Omega_{\mathbf{Y}}$ from model variables $\X=(X_1,\dots,X_m)$ to output variables $\mathbf{Y}=(Y_1,\dots,Y_r)$ (often $r=1$ in which case we write $\mathbf{Y}=Y$) by tweaking $\theta$ in line with concrete examples $\{(\x_i,\mathbf{y}_i)\}_{i=1}^n$ of how the function may behave in practice. The two most prominent examples of supervised learning tasks are regression (continuous output variables) and classification (discrete output variables).
 
 % linear regression
 \subsection{Linear Regression}
 
 Perhaps the simplest example of supervised learning is linear regression. Suppose we are given a dataset $D=\{(\x_i,y_i)\}_{i=1}^{2n}$ where
 $$
-\x_i=(x_{i,1},\dots,x_{i, q})\in \Omega_{X_1}\times\dots\times \Omega_{X_q}=:\Omega_{\X}\subseteq\R^q
+\x_i=(x_{i,1},\dots,x_{i, m})\in \Omega_{X_1}\times\dots\times \Omega_{X_m}=:\Omega_{\X}\subseteq\R^m
 $$
 are the feature values of the $i^{\text{th}}$ sample and $y_i\in \Omega_{Y}\subseteq\R$ is its corresponding output. The reason I chose $|D|=2n$ is that it yields a convenient partition of the data into $D_{\text{train}}$ and $D_{\text{test}}$ each of $n$ samples. A linear regression models fits a model of the form
 \begin{align*}
@@ -68,12 +68,12 @@ are the feature values of the $i^{\text{th}}$ sample and $y_i\in \Omega_{Y}\subs
         \x
     \end{bmatrix}
     =
-    \theta_0+\theta_1x_1+\dots+\theta_qx_q    
+    \theta_0+\theta_1x_1+\dots+\theta_mx_m 
 \end{align*}
-where $\theta=(\theta_0,\theta_1\dots,\theta_q)\in\R^{q+1}$ are the model parameters, i.e. the values we can tweak to our heart's content until testing error is sufficiently low. Some people refer to the paramter $\theta_0$, which dictates the elevation of the hyperplane corresponding to $f_{\theta}(\x)=0$, as the bias of the model which I find very confusing as there are a bunch of other intended meanings of the term `bias' in statistics and machine learning. I prefer to refer to it as the elevation. Anyway, once such a linear function has been fit, given feature values $\x\in\Omega_{\X}$ our model predict the corresponding output as $y=f_{\theta}(\x)$.
+where $\theta=(\theta_0,\theta_1\dots,\theta_m)\in\R^{m+1}$ are the model parameters, i.e. the values we can tweak to our heart's content until testing error is sufficiently low. Some people refer to the paramter $\theta_0$, which dictates the elevation of the hyperplane corresponding to $f_{\theta}(\x)=0$, as the bias of the model which I find very confusing as there are a bunch of other intended meanings of the term `bias' in statistics and machine learning. I prefer to refer to it as the elevation. Anyway, once such a linear function has been fit, given feature values $\x\in\Omega_{\X}$ our model predict the corresponding output as $y=f_{\theta}(\x)$.
 
 \begin{tcolorbox}[title={\centering\textbf{What does the `linear' in linear regression actually refer to?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Casella Berger, as well as other pieces of literature, define linear regression models as being linear in their parameters. By such a definition, linear regression, as a term, encompasses polynomial regression models and other regression models with non-linear basis functions. This confuses me since, in my experience, `linear regression' is most often intended to mean models that fit a hyperplane to $\Omega_{\X}\times\Omega_Y$.
+    Casella Berger, as well as other pieces of literature, define linear regression models as being linear in their parameters. By such a definition, linear regression, as a term, encompasses polynomial regression models and other regression models with non-linear basis functions. This previously confused me because, in my experience, `linear regression' is most often intended to mean models that fit a hyperplane to $\Omega_{\X}\times\Omega_Y$, but it makes sense.
     
     \hspace{14.52pt} The first paragraph of the Wikipedia page\footnote{\url{https://en.wikipedia.org/wiki/Polynomial_regression}} for polynomial regression reiterates this potential confusion.
 \end{tcolorbox}
@@ -94,7 +94,7 @@ which pertains to taking $d(f_{\theta}(\x_i), y_i)=(y_i-f_{\theta}(\x_i))^2$. No
 $$
 \theta^{*}
 =
-\argmin_{\theta\in\R^{q+1}}\l[\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\r].
+\argmin_{\theta\in\R^{m+1}}\l[\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\r].
 $$
 We know that in the context of linear regression, the optimal paramters $\theta^{*}$ are typically taken to be those which minimise the mean square error over $D_{\text{train}}$ but how do we actually compute $\theta^{*}$? This could be done through numerical methods, which is often the case in machine learning, e.g. using gradient descent in computing the optimal parameters of a logistic regression model, but linear regression has a closed form solution. This is pretty cool since it's not so common for such closed form solutions to exist in machine learning-related contexts (though stats people might not like linear regression being referred to as machine learning-related). The informal method which I use to remember the closed form solution for the optimal paramters of a linear regression model is
 $$
@@ -138,20 +138,20 @@ y
 X
 =
 \begin{bmatrix}
-    1 & x_{1,1} & \cdots & x_{1,q}\\
+    1 & x_{1,1} & \cdots & x_{1,m}\\
     \vdots & \vdots & \ddots & \vdots\\
-    1 & x_{n,1} & \cdots & x_{n,q}
+    1 & x_{n,1} & \cdots & x_{n,m}
 \end{bmatrix}
-\in\R^{n\times (q+1)},
+\in\R^{n\times (m+1)},
 \theta
 =
 \begin{bmatrix}
     \theta_0\\
     \theta_1\\
     \vdots\\
-    \theta_q
+    \theta_m
 \end{bmatrix}
-\in\R^{q+1}
+\in\R^{m+1}
 $$
 and $x_{i,j}$ denotes the $j$th element of the $i^{\text{th}}$ sample. To find the minimiser(s) of $\text{MSE}(\theta)$, i.e. the optimal parameters $\theta^{*}$, we compute its gradient with respect to $\theta$ and find its root(s). This of course only works when our function is both differentiable and convex, which is the case here. To see convexity, simply compute the Hessian of $\text{MSE}(\theta)$ and see that it is semi-positive definite. On that note, we have
 \begin{align*}
@@ -192,13 +192,13 @@ The maximum likelihood estimate $\theta_{\text{MLE}}$ of the parameters of our l
 \begin{align*}
     \theta_{\text{MLE}}
     &=
-    \argmax_{\theta\in\R^{q+1}}\l[\log\l(\prod_{i=1}^n p_{\theta}(y_i|\x_i)\r)\r]\\
+    \argmax_{\theta\in\R^{m+1}}\l[\log\l(\prod_{i=1}^n p_{\theta}(y_i|\x_i)\r)\r]\\
     &=
-    \argmax_{\theta\in\R^{q+1}}\l[\sum_{i=1}^n\log(p_{\theta}(y_i|\x_i))\r]\\
+    \argmax_{\theta\in\R^{m+1}}\l[\sum_{i=1}^n\log(p_{\theta}(y_i|\x_i))\r]\\
     &=
-    \argmax_{\theta\in\R^{q+1}}\l[n\log\l(\frac{1}{\sqrt{2\pi}\sigma}\r)-\frac{1}{2\sigma^2}\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\r]\\
+    \argmax_{\theta\in\R^{m+1}}\l[n\log\l(\frac{1}{\sqrt{2\pi}\sigma}\r)-\frac{1}{2\sigma^2}\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\r]\\
     &=
-    \argmin_{\theta\in\R^{q+1}}\l[\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\r].
+    \argmin_{\theta\in\R^{m+1}}\l[\sum_{i=1}^n(y_i-f_{\theta}(\x_i))^2\r].
 \end{align*}
 As such, the maximum likelihood estimate of the parameters of our linear regression model are precisely those which minimise the mean square error of the model over $D_{\text{train}}$.
 
@@ -215,7 +215,7 @@ $$
 =:
 R^2
 $$
-where $\bar{y}=\frac{1}{n}\sum_{i=1}^ny_i$. The reason that this quantity is denoted by $R^2$ is that it can be shown that it is equal to the square of the Pearson correlation between $Y$ and $f_{\theta}(\X)$. For one predictor, i.e. $q=1$, said Pearson correlation coefficient is given by
+where $\bar{y}=\frac{1}{n}\sum_{i=1}^ny_i$. The reason that this quantity is denoted by $R^2$ is that it can be shown that it is equal to the square of the Pearson correlation between $Y$ and $f_{\theta}(\X)$. For one predictor, i.e. $m=1$, said Pearson correlation coefficient is given by
 $$
 R
 =
@@ -234,12 +234,14 @@ where $s_e^2$ and $s_Y^2$ denote the sample variances of the residuals and $Y$ r
 This notion of the portion of explained variance can be extended to logistic regression but the details are a bit much for this document.
 
 \begin{tcolorbox}[title={\centering\textbf{How can we get an idea of the extent to which our features and output are linearly related without plotting?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    To be honest, I thought a streamline test for this existed. As per this Stack Exchange answer\footnote{\url{https://stats.stackexchange.com/a/239142}}, a good method for this is to simply fit a linear and a non-linear model (e.g. a cubic spline smoother model) and see which explains a larger amount of the variance of the output via ANOVA tests.
+    To be honest, I thought a streamline test for this existed. As per this Stack Exchange answer\footnote{\url{https://stats.stackexchange.com/a/239142}}, a good method for this is to simply fit a linear and a non-linear model (e.g. a cubic spline smoother model) and see which explains a larger amount of the variance of the output.
 \end{tcolorbox}
 
 \subsubsection{Why call it `regression'?}
-Nowadays, regression models are those which predict a value belonging to some continuous space but where does the term come from? In 1886, Francis Galton authored ``Regression Towards Mediocrity in Hereditary Stature'' which is where the `regression towards the mean' term comes from. Loosely speaking, Galton noticed that tall fathers tend to have sons which are taller than average but shorter than them, short fathers tend to have sons which are shorter than average but taller than them and average height fathers tend to have average height sons. Taken from a Stack Exchange comment: ``Galton derived a linear approximation to estimate a son's height from the father's height in that paper. His equation was fitted so an average height father would have an average height son, but a taller than average father would have a son that is taller than average by 2/3 the amount his father is. Same with shorter than average. This could be argued to be a simple linear regression."
-
+Nowadays, regression models refer to those which predict a value belonging to some continuous space, but where does the term come from? In 1886, Francis Galton authored ``Regression Towards Mediocrity in Hereditary Stature'' which is where the `regression towards the mean' term comes from. Loosely speaking, Galton noticed that tall fathers tend to have sons which are taller than average but shorter than them, short fathers tend to have sons which are shorter than average but taller than them and average height fathers tend to have average height sons. Taken from a Stack Exchange comment:
+\begin{quotation}
+    Galton derived a linear approximation to estimate a son's height from the father's height in that paper. His equation was fitted so an average height father would have an average height son, but a taller than average father would have a son that is taller than average by 2/3 the amount his father is. Same with shorter than average. This could be argued to be a simple linear regression.
+\end{quotation}
 Put mathematically, suppose random variables $X$ and $Y$ are related via $Y=\alpha+\beta X+\epsilon$ where $\alpha,\beta\in\R$ are regression coefficients and $\epsilon$ is noise with mean $0$. Then $\E[Y|X]=\alpha+\beta X$, so if $X$ and $Y$ are centred then $\E[Y|X]=\rho X$ where $\rho$ is the correlation coefficient between $X$ and $Y$. Since $|\rho|\leq1$ we know that the expected value of $Y$ is closer to the mean than $X$ unless $\rho=1$. So extreme values of $X$ tend to correspond to values of $Y$ that are closer to the mean, i.e. regression towards the mean is observed.
 
 % logistic regression
@@ -247,16 +249,16 @@ Put mathematically, suppose random variables $X$ and $Y$ are related via $Y=\alp
 
 Logistic regression is to binary classification what linear regression is to regression. That is, both are the first method learned when introduced to regression and binary classification. The name might seem strange at first as regression models predict continuously distributed things and binary classification models predict either 0 or 1. The reason regression appears in its name is that it classifies samples by transforming them to $(0,1)$ and imposing a threshold-based decision rule to yield 0 or 1.
 
-Before detailing precisely how a logistic regression model classifies samples, how might one classify a sample at all? A natural idea is to fit a hyperplane to feature space which separates samples of the two classes. A hyperplane is an $(n-1)$-dimensional plane-like object embedded in $n$-dimensional space. For example, a hyperplane in $\R^2$ is a line and in $\R^3$ it is a plane. As an object, a hyperplane in $(q+1)-$dimensional space is the set of points $(x_1,\dots,x_q)\in\R^q$ which satisfy %% for future Dewi: there is a reason we do not write \x=(x_1,\dots,x_q). Read next paragraph to see why
+Before detailing precisely how a logistic regression model classifies samples, how might one classify a sample at all? A natural idea is to fit a hyperplane to feature space which separates samples of the two classes. A hyperplane is an $(n-1)$-dimensional plane-like object embedded in $n$-dimensional space. For example, a hyperplane in $\R^2$ is a line and in $\R^3$ it is a plane. As an object, a hyperplane in $(m+1)-$dimensional space is the set of points $(x_1,\dots,x_m)\in\R^m$ which satisfy %% for future Dewi: there is a reason we do not write \x=(x_1,\dots,x_m). Read next paragraph to see why
 $$
-\theta_0+\theta_1x_1+\dots+\theta_qx_q
+\theta_0+\theta_1x_1+\dots+\theta_mx_m
 =
 0
 $$
-where $\theta=(\theta_0,\dots,\theta_q)\in\R^{q+1}$ are parameters which characterise the hyperplane. For brevity, we denote the function whose set of roots is the hyperplane by
+where $\theta=(\theta_0,\dots,\theta_m)\in\R^{m+1}$ are parameters which characterise the hyperplane. For brevity, we denote the function whose set of roots is the hyperplane by
 \begin{align*}
-    f_{\theta}:\{1\}&\times\R^q\to\R\\
-    \x&\mapsto \theta_0+\theta_1x_1+\dots+\theta_qx_q=:\theta^\top \x.
+    f_{\theta}:\{1\}&\times\R^m\to\R\\
+    \x&\mapsto \theta_0+\theta_1x_1+\dots+\theta_mx_m=:\theta^\top \x.
 \end{align*}
 The purpose of the $1$ in the first index of $\x$ is similar to its purpose in linear regression: it accounts for the elevation term $\theta_0$ and makes notation a lot cleaner. After learning the parameters of a hyperplane, we may classify a sample $\x$ according to which side of the hyperplane $f_{\theta}(\x)=0$ it lies. For example, samples `below' the hyperplane, i.e. $f_{\theta}(\x)\leq0$, could be classified as $0$ and samples `above', i.e. $f_{\theta}(\x)>0$, could be classified as $1$. That is, classify samples according to $C_{\theta}(\x)=\mathbbm{1}(f_{\theta}(\x)>0)$.
 
@@ -302,7 +304,7 @@ which we maximise numerically in $\theta$, e.g. via gradient descent, to obtain 
 $$
 \theta^{*}
 =
-\argmax_{\theta\in\R^{q+1}}\l[\sum_{i=1}^n\l[-\log\l(1+e^{-\theta^{\top}\x_i}\r)-(1-y_i)\theta^{\top}\x_i\r]\r].
+\argmax_{\theta\in\R^{m+1}}\l[\sum_{i=1}^n\l[-\log\l(1+e^{-\theta^{\top}\x_i}\r)-(1-y_i)\theta^{\top}\x_i\r]\r].
 $$
 Note that, in practice, it's unlikely that any samples will lie on the hyperplane $f_{\theta^*}(\x)=0$ itself.
 
@@ -317,15 +319,15 @@ The authors' insight came from structural risk minimization in which instead of 
 \end{tcolorbox}
 
 \subsubsection{Hard-margin SVMs}
-Since we aim to fit a hyperplane to feature space, i.e. $\R^{q+1}$, we use the same notation for the function $f_{\theta}(\x)$ corresponding to the linear decision boundary (i.e. hyperplane) used to motivate logistic regression. To make notation a bit easier, let $\theta_+=(\theta_1,\dots,\theta_q)$ so that $\theta$ is the ordered concatentation of $\theta_0$ and $\theta_+$. Further, let $\x_i$ denote the $i^{\text{th}}$ sample's features and $y_i\in\{-1,1\}$ its class such that $y_i$ is 1 if $\theta_+^\top \x_i+\theta_0>0$ and $-1$ otherwise.
+Since we aim to fit a hyperplane to feature space, i.e. $\R^{m+1}$, we use the same notation for the function $f_{\theta}(\x)$ corresponding to the linear decision boundary (i.e. hyperplane) used to motivate logistic regression. To make notation a bit easier, let $\theta_+=(\theta_1,\dots,\theta_m)$ so that $\theta$ is the ordered concatentation of $\theta_0$ and $\theta_+$. Further, let $\x_i$ denote the $i^{\text{th}}$ sample's features and $y_i\in\{-1,1\}$ its class such that $y_i$ is 1 if $\theta_+^\top \x_i+\theta_0>0$ and $-1$ otherwise.
 
 \begin{figure}[t]
     \centering
-    \begin{minipage}{0.62\linewidth}
+    \begin{minipage}{0.54\linewidth}
         \includegraphics[width=\linewidth]{./figures/supervised_learning/SVM_hard_margin.pdf}
     \end{minipage}%
     \hfill
-    \begin{minipage}{0.35\linewidth}
+    \begin{minipage}{0.46\linewidth}
         \caption{A hard-margin SVM in two dimensions. Samples lying on the margin are referred to as support vectors.}
         \label{fig:SVM_hard_margin}
     \end{minipage}
@@ -375,11 +377,11 @@ for $i=1,\dots,n$ where $\lambda\geq0$ is a regularisation parameter that influe
 
 \begin{figure}[t]
     \centering
-    \begin{minipage}{0.62\linewidth}
+    \begin{minipage}{0.54\linewidth}
         \includegraphics[width=\linewidth]{./figures/supervised_learning/SVM_soft_margin.pdf}
     \end{minipage}%
     \hfill
-    \begin{minipage}{0.35\linewidth}
+    \begin{minipage}{0.46\linewidth}
         \caption{A soft-margin SVM in two dimensions. Samples are labelled according to their true class.}
         \label{fig:SVM_soft_margin}
     \end{minipage}
@@ -403,7 +405,7 @@ Motivating non-linear SVMs is straightforward: we'd sometimes like to separate s
 
 \begin{figure}[t]
     \centering
-    \begin{minipage}{0.55\linewidth}
+    \begin{minipage}{0.59\linewidth}
         \includegraphics[width=\linewidth]{./figures/supervised_learning/SVM_non_linear.pdf}
     \end{minipage}%
     \hfill
@@ -605,7 +607,7 @@ where $\sigma^2=\E_\X\l[\sigma^2(\X)\r]$ (ignore the poor choice of notation). W
 
 \begin{figure}[t]
     \centering
-    \begin{minipage}{0.6\linewidth}
+    \begin{minipage}{0.64\linewidth}
         \includegraphics[width=\linewidth]{./figures/supervised_learning/bias_variance.pdf}
     \end{minipage}%
     \hfill
@@ -616,9 +618,9 @@ where $\sigma^2=\E_\X\l[\sigma^2(\X)\r]$ (ignore the poor choice of notation). W
 \end{figure}
 
 \begin{tcolorbox}[title={\centering\textbf{Beyond MSE}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    \textbf{Natural question:} MSE is a common choice of loss when dealing with regression but not classification, in which cross-entropies are typically used as loss, so why do derivations of the bias-variance tradeoff use MSE? The quick answer is that it's the only choice which yields a relatively simple derivation of this elegant decomposition of estimator error into the square of its bias and its variance.
+    \textbf{Natural question:} MSE is a common choice of loss when dealing with regression but not classification, in which cross-entropies are typically used as loss, so why do derivations of the bias-variance tradeoff use MSE?
     
-    \hspace{14.2pt} I've read online that some other choices of loss also yield decompositions into squared bias and variance but that their derivation is less elegant. There seems to be a good amount of work in this area but it's too in-depth for this document.
+    \hspace{14.2pt} The quick answer is that it's the only choice which yields a relatively simple derivation of this elegant decomposition of estimator error into the square of its bias and its variance. I read online somewhere that some other choices of loss also yield decompositions into squared bias and variance but that their derivation is less elegant. There seems to be a good amount of work in this area but it's too in-depth for this document.
 \end{tcolorbox}
 
 \subsubsection{Double descent}
@@ -685,7 +687,7 @@ Eventually, after taking a ton of these small steps, we hope to reach a minimum 
 In the following physicist-like argument, we consider only unit vectors $\mathbf{v}$. This is because we care only about the direction of the vector in question and an equation later on simplifies quite nicely due to its unit length. 
 
 \begin{tcolorbox}[title={\centering\textbf{Multivariate Taylor expansion}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Recall that if $f:\R^q\to\R$ then its second order Taylor expansion about $\mathbf{a}\in\R^q$ is given by
+    Recall that if $f:\R^m\to\R$ then its second order Taylor expansion about $\mathbf{a}\in\R^m$ is given by
     $$
     f(\x)
     =
@@ -821,7 +823,7 @@ Overfitting is a pain. How might we regulate the learning procedure in a way tha
 
 \begin{figure}[t]
     \centering
-    \begin{minipage}{0.4\linewidth}
+    \begin{minipage}{0.44\linewidth}
         \includegraphics[width=1\linewidth]{./figures/supervised_learning/regularisation_two_plots_zero_test_error.pdf}
     \end{minipage}%
     \hfill
@@ -833,14 +835,14 @@ Overfitting is a pain. How might we regulate the learning procedure in a way tha
 
 The most well known methods of regularisation are L1 and L2 regularisation. Both involve adding a penalty term to the loss function used during training with the intention of encouraging some behaviour in the learning process. There are tons of ways of motivating both L1 and L2 but the most intuitive to me (by a long shot) is a Bayesian approach: assume independence of parameters and impose a prior distribution on them according to whatever bias we hope to bake into the learning process. Then, instead of maximum likelihood estimation, compute
 \begin{align*}
-    \argmax_{\theta\in\R^{q+1}}\log(p(\theta|D))
+    \argmax_{\theta\in\R^{m+1}}\log(p(\theta|D))
     &=
-    \argmax_{\theta\in\R^{q+1}}\l[\log(p(D|\theta))+\log(p(\theta))\r]\\
+    \argmax_{\theta\in\R^{m+1}}\l[\log(p(D|\theta))+\log(p(\theta))\r]\\
     &=
-    \argmin_{\theta\in\R^{q+1}}\l[-\sum_{i=1}^n\log(p(y_i|\x_i,\theta))-\sum_{j=1}^q\log(p(\theta_j))\r].
+    \argmin_{\theta\in\R^{m+1}}\l[-\sum_{i=1}^n\log(p(y_i|\x_i,\theta))-\sum_{j=1}^m\log(p(\theta_j))\r].
 \end{align*}
 
-\subsubsection*{1) L1 regularisation (LASSO)}
+\subsubsection{L1 regularisation (LASSO)}
 If we would like our to-be-learned parameters to be sparse, then it makes sense to choose a prior which has a lot of mass around 0 and tapers off rather harshly at the tails. A great choice for this is a Laplace prior with mean 0 and variance $2/\lambda$ which yields L1 regularisation. The corresponding density function is given by $p(\theta_j)=\lambda\exp(-2\lambda|\theta_j|)$ and explicit examples are illustrated in \autoref{fig:laplace_pdf}.
 
 \begin{figure}[t]
@@ -850,27 +852,23 @@ If we would like our to-be-learned parameters to be sparse, then it makes sense 
     \label{fig:laplace_pdf}
 \end{figure}
 
-See how as $\lambda$ increases, the variance of the corresponding Laplace distribution decreases and more of the mass becomes centred around 0. The result is that the to-be-learned parameters are further encouraged to flatten out around 0. In line with this, assuming $\theta_1,\dots,\theta_q\overset{\text{i.i.d.}}{\sim}\text{Lap}(0, 2/\lambda)$, the quantity we seek to compute is given by
+See how as $\lambda$ increases, the variance of the corresponding Laplace distribution decreases and more of the mass becomes centred around 0. The result is that the to-be-learned parameters are further encouraged to flatten out around 0. In line with this, assuming $\theta_1,\dots,\theta_m\overset{\text{i.i.d.}}{\sim}\text{Lap}(0, 2/\lambda)$, the quantity we seek to compute is given by
 $$
-\argmax_{\theta\in\R^{q+1}}\log(p(\theta|D))
+\argmax_{\theta\in\R^{m+1}}\log(p(\theta|D))
 =
-\argmin_{\theta\in\R^{q+1}}\l[-\sum_{i=1}^n\log(p(y_i|\x_i,\theta))+\lambda\sum_{j=1}^q|\theta_j|\r].
+\argmin_{\theta\in\R^{m+1}}\l[-\sum_{i=1}^n\log(p(y_i|\x_i,\theta))+\lambda\sum_{j=1}^m|\theta_j|\r].
 $$
 
-\subsubsection*{2) L2 regularisation (Ridge)}
-If we would like no given parameter to be too large then imposing some sort of MSE penalty on the parameters makes sense. From the Bayesian point of view, this is achieved by imposing a normal prior on the parameters and yields L2 regularisation. That is, if $\theta_1,\dots,\theta_q\overset{\text{i.i.d.}}{\sim}\mathcal{N}(0,\sigma^2)$ then the quantity we seek is
+\subsubsection{L2 regularisation (Ridge)}
+If we would like no given parameter to be too large then imposing some sort of MSE penalty on the parameters makes sense. From the Bayesian point of view, this is achieved by imposing a normal prior on the parameters and yields L2 regularisation. That is, if $\theta_1,\dots,\theta_m\overset{\text{i.i.d.}}{\sim}\mathcal{N}(0,\sigma^2)$ then the quantity we seek is
 $$
-\argmax_{\theta\in\R^{q+1}}\log(p(\theta|D))
+\argmax_{\theta\in\R^{m+1}}\log(p(\theta|D))
 =
-\argmin_{\theta\in\R^{q+1}}\l[-\sum_{i=1}^n\log(p(y_i|\x_i,\theta))+\lambda\sum_{j=1}^q \theta_j^2\r]
+\argmin_{\theta\in\R^{m+1}}\l[-\sum_{i=1}^n\log(p(y_i|\x_i,\theta))+\lambda\sum_{j=1}^m \theta_j^2\r]
 $$
 where $\lambda=1/2\sigma^2$.
 
 There's a particularly elegant way to visualise the effects of L1 and L2 reglularisation in terms of how they change the shape of the corresponding loss landscape. It's as if each point in the landscape is sunk according to its distance from the origin and the hyperparameter $\lambda$. The sharpness or curvature of said sinking is prior-dependent: for L1 regularisation it is far sharper, hence the origin acts as more of a sinkhole than in L2 regularisation, inducing sparser minima.
-
-\subsubsection*{3) Early stopping} To motivating early stopping, consider the familiar scenario of training via gradient descent. A natural thought when logging the training loss is whether or not a decrease in training loss from one epoch to the next genuinely pertains to a model that better generalises. How can we be confident that our model isn't simply overfitting the training data if all we see is decrease in training loss?
-
-Early stopping partially alleviates this fear by splitting the training dataset into a smaller training set and a validation set (perhaps 80\%/20\%). After each epoch (or every few), compute both training and validation losses. Said validation loss acts as some measure of the model's ability to generalise. If training loss is decreasing while validation loss is not then the model may be overfitting. As illustration, consider \autoref{fig:early_stopping} in which the training loss continues to decrease in the number of epochs while the validation loss seems to obtain its lowest value around epoch 28.
 
 \begin{figure}[t]
     \centering
@@ -878,13 +876,17 @@ Early stopping partially alleviates this fear by splitting the training dataset 
         \includegraphics[width=\linewidth]{./figures/neural_nets/REG_early_stopping.pdf}
     \end{minipage}%
     \hfill
-    \begin{minipage}{0.43\linewidth}
-        \caption{Training and validation losses over 50 epochs for some model. Lowest validation obtained at epoch 28.}
+    \begin{minipage}{0.44\linewidth}
+        \caption{Training and validation losses over 50 epochs. Lowest validation obtained at epoch 28.}
         \label{fig:early_stopping}
     \end{minipage}
 \end{figure}
 
-\subsubsection*{4) Dropout} Dropout is a form of regularisation specific to neural network architectures (I think). Its rough motivation is that we'd prefer not to be overly-reliant on any given subset of neurons at inference time. To prevent such an over-reliance, at the beginning of each epoch, independently set the activation of each neuron to 0 with some probability $p$. This way some portion of neurons are silenced during training for said epoch. As a result, its corresponding parameters are not updated during backpropagation. This idea is illustrated in \autoref{fig:dropout}. Make sure to not apply dropout at ineference time!
+\subsubsection{Early stopping} To motivating early stopping, consider the familiar scenario of training via gradient descent. A natural thought when logging the training loss is whether or not a decrease in training loss from one epoch to the next genuinely pertains to a model that better generalises. How can we be confident that our model isn't simply overfitting the training data if all we see is decrease in training loss?
+
+Early stopping partially alleviates this fear by splitting the training dataset into a smaller training set and a validation set (perhaps 80\%/20\%). After each epoch (or every few), compute both training and validation losses. Said validation loss acts as some measure of the model's ability to generalise. If training loss is decreasing while validation loss is not then the model may be overfitting. As illustration, consider \autoref{fig:early_stopping} in which the training loss continues to decrease in the number of epochs while the validation loss seems to obtain its lowest value around epoch 28.
+
+\subsubsection{Dropout} Dropout is a form of regularisation specific to neural network architectures (I think). Its rough motivation is that we'd prefer not to be overly-reliant on any given subset of neurons at inference time. To prevent such an over-reliance, at the beginning of each epoch, independently set the activation of each neuron to 0 with some probability $p$. This way some portion of neurons are silenced during training for said epoch. As a result, its corresponding parameters are not updated during backpropagation. This idea is illustrated in \autoref{fig:dropout}. Make sure to not apply dropout at ineference time!
 
 \begin{figure}[t]
     \centering
@@ -897,7 +899,7 @@ Early stopping partially alleviates this fear by splitting the training dataset 
 \subsection{Momentum + Adaptive Learning Rates}
 There are some intuitive ideas which aim to accelerate the gradient descent process. One is momentum, which increases steps made when gradients consistently pointed in the same direction over previous steps. Another is an adaptive learning rate, where each parameter has its own step size that adapts over time to its past gradients.
 
-\subsection*{1) Momentum}
+\subsubsection{Momentum}
 Think of a ball rolling downhill: momentum lets it keep moving in the same direction which smoothes out noisy gradients. If gradients keep pointing in the same direction then momentum builds. If gradients oscillate, e.g. traversing like a ravine, then the motion is dampened and momentum is lost.
 
 \begin{figure}[t]
@@ -938,7 +940,7 @@ $$
 $$
 If $\mu\approx1$ and the gradients $\nabla R_D\l(\theta^{(0)}\r)\approx\nabla R_D\l(\theta^{(1)}\r)$ then $\mathbf{v}^{(2)}$ will confidently boost $\theta^{(3)}$ in the direction of the first two gradients. If $\nabla R_D\l(\theta^{(0)}\r)\approx-\nabla R_D\l(\theta^{(1)}\r)$ then, as intuition would suggest, $\mathbf{v}^{(2)}=0$.
 
-\subsection*{2) Adaptive learning rates}
+\subsubsection{Adaptive learning rates}
 Why have a fixed learning rate? Why have the same learning rate for each parameter? Adaptive learning rates aim to alleviate the oversimplications these questions pertain to. For some intuition as to how learning rates might change: if up to the $t^{\text{th}}$ optimisation step the gradients for a given parameter have been large then it has presumably converged decently so its learning rate would ideally get smaller. AdaGrad does this is by storing a per parameter running total of gradients, as in
 $$
 G_i^{(t)}
@@ -954,21 +956,21 @@ $$
 where $\eta_i^{(t)}=\frac{\eta}{\sqrt{G_i^{(t)}}+\epsilon}$ is the $i^{\text{th}}$ parameter's learning rate at step $t$. There are more elaborate adaptive learning rate methods than this, e.g. RMSProp and Adam, but AdaGrad conveys the idea sufficiently well.
 
 % hyperparam tuning
-\subsection{\IMPROVE Hyperparameter Tuning}
+\subsection{Hyperparameter Tuning}
 Hyperparameters are the tunable parts of an architecture which are not learned during training. Bad hyperparameters will yield training issues like divergence, overfitting or underfitting. A simple example of a hyperparameter I can think of is the learning rate in vanilla gradient descent. Some choices of learning rate will result in better generalisation than other choices. For a more sophisticated example, consider architecture-related hyperparameters, e.g. the number of hidden layers in a multi-layer perceptron.
 
-\subsection*{1) Random search}
+\subsubsection{Random search}
 Begin by designating some portion of the training data for validation (maybe 80\% training, 20\% validation). 
 
 Each hyperparameter may take on a set of values, i.e. the $m$ hyperparameters $h_1,\dots,h_m$ induce the samples spaces $\Omega_{h_1},\dots,\Omega_{h_m}$ and the grid of all possible hyperparameter configurations is thus $\Omega_1\times\dots\times\Omega_m$. In a perfect world, you'd be able to train a model for each hyperparameter configuration and choose whichever yields the lowest validation loss. We don't live in a perfect world and the cardinality of said grid is often too large. In line with this, instead of traversing it entirely, uniformly randomly sample from it a number of times and train with said hyperparameter configuration. Choose whichever configuration yielded the lowest validation loss.
 
-\subsection*{2) $k-$fold cross-validation}
+\subsubsection{$k-$fold cross-validation}
 For a better idea of how a configuration of hyperparameters will help generalise post-training, consider partitioning the training data into $k$ disjoint subsets (or folds) $D_1,\dots,D_k$. Then, for $i=1,\dots,k$, train on $D\backslash D_i$ and validate on $D_i$. Take the mean of the $k$ validation losses. Choose whichever hyperparameter configuration yields the lowest mean validation loss.
 
-\subsection*{Benchmark overfitting}
-Consider the following scenario: research groups A and B independently publish results regarding almost-identical single hidden layer MLP architectures applied to the same task. The only distinction in their architectures is the number of neurons in their hidden layer. Group A decide on 99 neurons and group B decide on 100. Every aspect of their training is identical: their training data, how they split it in order to perform validation, etc. Group A's MLP obtains a lower test error than group B and so those producing commercial products that may make use of an MLP choose group A's architecture. How is this scenario distinct from a single group selecting a single hidden layer MLP architcture with 99 neurons over 100 on the basis of the test loss of both? More broadly, how is this distinct to tuning hyperparameter based on test losses?
+\subsubsection{Honourable mention: benchmark overfitting}
+Consider the following scenario: research groups A and B independently publish results regarding almost-identical single hidden layer MLP architectures applied to the same task. The only distinction in their architectures is the number of neurons in their hidden layer — group A decide on 99 neurons and group B decide on 100. Every aspect of their training is identical: their training data, how they split it in order to perform validation, etc. Group A's MLP obtains a lower test error than group B and so a company which produce a commercial product relevant to the researched task uses group A's architecture. How is this scenario distinct from a single group selecting a single hidden layer MLP architcture with 99 neurons over 100 on the basis of the test loss of both? More broadly, how is this distinct to tuning hyperparameter based on test losses?
 
-The post-training test error becomes a biased (in this case optimistic) estimate of the generalisation of the model. That said, if this scenario were repeated, the community would be effectivevly tuning the model to the test set. This is why benchmark overfitting is talked about. It emphasises the need for benchmark evolution and the shuffling of data in the training-inference pipeline.
+The post-training test error becomes a biased (in this case optimistic) estimate of the generalisation of the model. That said, if this scenario is repeated enough times then the community is effectivevly tuning the model to the test set. This is called benchmark overfitting and it emphasises the need for things like shuffling data in the training-inference pipeline and, more importantly, benchmark evolution.
 
 % neural nets
 \section{Neural Networks}
@@ -1051,7 +1053,7 @@ where the activation function $\sigma_{j+1}$ is applied element-wise.
 
 If we fix the structure and choice of activation functions of an MLP then all that is left to learn are its weights and biases. This is often done using gradient descent to minimise some loss function in which gradients are computed via back-propagation. Such a loss function can be a principled measure, e.g. corresponding to maximum likelihood, but this is not always necessary: ad-hoc loss functions are sometimes employed.
 
-\begin{tcolorbox}[title={\centering\textbf{Advocating for depth over width}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+\begin{tcolorbox}[title={\centering\textbf{Crudely advocating for depth over width}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
     The complexity of a forward pass of an MLP can be expressed in terms of the number of neurons in each layer as
     $$
     \mathcal{O}
@@ -1060,90 +1062,88 @@ If we fix the structure and choice of activation functions of an MLP then all th
     \r).
     $$
     Very crudely supposing $n_0=\dots=n_{k+1}=n$ yields a complexity of
-    $$
-    \mathcal{O}((k+1)n^2),
-    $$
-    i.e. linear growth in the number of layers and quadratic growth in the number of neurons per layer. A super crude argument for increasing depth over width.
+    $
+    \mathcal{O}((k+1)n^2)
+    $
+    which grows linearly in the number of layers and quadratically in the number of neurons per layer.
 \end{tcolorbox}
 
-\subsubsection{Example}
+% \subsubsection{Example}
 
 \begin{figure}[t]
     \centering
-    \begin{minipage}{0.6\linewidth}
+    \begin{minipage}{0.59\linewidth}
         \includegraphics[width=1\textwidth]{./figures/neural_nets/MLP_2.pdf}
     \end{minipage}%
     \hfill
-    \begin{minipage}{0.39\linewidth}
+    \begin{minipage}{0.4\linewidth}
         \caption{A neural network with one hidden layer ($k=1$).}
         \label{fig:neural_nets_simple_example}
     \end{minipage}
 \end{figure}
 
-Consider the neural network in \autoref{fig:neural_nets_simple_example} whose input, hidden and output layers consist of two, one and two neurons respectively. With such a simple neural network, we may explicitly express the output neurons $a_1^{(2)}$ and $a_2^{(2)}$ in terms of the input neurons $a_1^{(0)}$ and $a_2^{(0)}$. We see that $n_0=2$, $n_1=1$ and $n_2=2$ and so
-$\mathbf{W}^{(1)}=
-\begin{bmatrix}
-    w_{1,1}^{(1)} & w_{1,2}^{(1)}
-\end{bmatrix}
-$
-and
-$\mathbf{W}^{(2)}=
-\begin{bmatrix}
-    w_{1,1}^{(2)}\\
-    w_{2,1}^{(2)}
-\end{bmatrix}.
-$
-Noting additionally that $\mathbf{b}^{(1)}=b_1^{(1)}$ and
-$\mathbf{b}^{(2)}=
-\begin{bmatrix}
-    b_{1}^{(2)}\\
-    b_{2}^{(2)}
-\end{bmatrix}$
-we can explicitly express the activation of the single neuron in the hidden layer as
-\begin{align*}
-\mathbf{a}^{(1)}
-&=
-\sigma_1\l(\mathbf{W}^{(1)}\mathbf{a}^{(0)}+\mathbf{b}^{(1)}\r)\\
-&=
-\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r)
-\end{align*}
-which is just the scalar value $a_1^{(1)}$. For the output layer, we have
-\begin{align*}
-\mathbf{a}^{(2)}
-&=
-\sigma_2\l(\mathbf{W}^{(2)}\mathbf{a}^{(1)}+\mathbf{b}^{(2)}\r)\\
-&=
-\sigma_2\l(
-\begin{bmatrix}
-    w_{1,1}^{(2)}a_1^{(1)} + b_1^{(2)}\\
-    w_{2,1}^{(2)}a_1^{(1)} + b_2^{(2)}
-\end{bmatrix}
-\r)\\
-&=
-\sigma_2\l(
-\begin{bmatrix}
-    w_{1,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_1^{(2)}\\
-    w_{2,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_2^{(2)}
-\end{bmatrix}
-\r)\\
-&=
-\begin{bmatrix}
-    \sigma_2\l(w_{1,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_1^{(2)}\r)\\
-    \sigma_2\l(w_{2,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_2^{(2)}\r)
-\end{bmatrix}.
-\end{align*}
-As such, the activations of the output neurons are given by
-\begin{align*}
-    a_1^{(2)}&=\sigma_2\l(w_{1,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_1^{(2)}\r)\\
-    a_2^{(2)}&=\sigma_2\l(w_{2,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_2^{(2)}\r).
-\end{align*}
+\begin{example}
+    Consider the neural network in \autoref{fig:neural_nets_simple_example} whose input, hidden and output layers consist of two, one and two neurons respectively. With such a simple neural network, we may explicitly express the output neurons $a_1^{(2)}$ and $a_2^{(2)}$ in terms of the input neurons $a_1^{(0)}$ and $a_2^{(0)}$. We see that $n_0=2$, $n_1=1$ and $n_2=2$ and so
+    $\mathbf{W}^{(1)}=
+    \begin{bmatrix}
+        w_{1,1}^{(1)} & w_{1,2}^{(1)}
+    \end{bmatrix}
+    $
+    and
+    $\mathbf{W}^{(2)}=
+    \begin{bmatrix}
+        w_{1,1}^{(2)}\\
+        w_{2,1}^{(2)}
+    \end{bmatrix}.
+    $
+    Noting additionally that $\mathbf{b}^{(1)}=b_1^{(1)}$ and
+    $\mathbf{b}^{(2)}=
+    \begin{bmatrix}
+        b_{1}^{(2)}\\
+        b_{2}^{(2)}
+    \end{bmatrix}$
+    we can explicitly express the activation of the single neuron in the hidden layer as
+    \begin{align*}
+    \mathbf{a}^{(1)}
+    &=
+    \sigma_1\l(\mathbf{W}^{(1)}\mathbf{a}^{(0)}+\mathbf{b}^{(1)}\r)\\
+    &=
+    \sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r)
+    \end{align*}
+    which is just the scalar value $a_1^{(1)}$. For the output layer, we have
+    \begin{align*}
+    \mathbf{a}^{(2)}
+    &=
+    \sigma_2\l(\mathbf{W}^{(2)}\mathbf{a}^{(1)}+\mathbf{b}^{(2)}\r)\\
+    &=
+    \sigma_2\l(
+    \begin{bmatrix}
+        w_{1,1}^{(2)}a_1^{(1)} + b_1^{(2)}\\
+        w_{2,1}^{(2)}a_1^{(1)} + b_2^{(2)}
+    \end{bmatrix}
+    \r)\\
+    &=
+    \sigma_2\l(
+    \begin{bmatrix}
+        w_{1,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_1^{(2)}\\
+        w_{2,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_2^{(2)}
+    \end{bmatrix}
+    \r)\\
+    &=
+    \begin{bmatrix}
+        \sigma_2\l(w_{1,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_1^{(2)}\r)\\
+        \sigma_2\l(w_{2,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_2^{(2)}\r)
+    \end{bmatrix}.
+    \end{align*}
+    As such, the activations of the output neurons are given by
+    \begin{align*}
+        a_1^{(2)}&=\sigma_2\l(w_{1,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_1^{(2)}\r)\\
+        a_2^{(2)}&=\sigma_2\l(w_{2,1}^{(2)}\sigma_1\l(w_{1,1}^{(1)}a_1^{(0)}+w_{1,2}^{(1)}a_2^{(0)}+b_1^{(1)}\r) + b_2^{(2)}\r).
+    \end{align*}
+\end{example}
 
-\begin{tcolorbox}[title={\centering\textbf{Further advocating for depth over width}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    A perhaps more important result is how, geometrically, MLPs split the input space into a bunch of regions. It turns out that the number of regions by which a single-hidden layer MLP with two input neurons and $n$ neurons in its hidden layer splits the space is bounded above by
-    $$
-    \frac{1}{2}(n^2+n+2)
-    $$
-    which is quadratic in $n$. For an MLP with $k$ hidden layers of $n$ neurons each, the number of regions by which the space is split is bounded above by
+\begin{tcolorbox}[title={\centering\textbf{Further crudely advocating for depth over width}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    A perhaps more important result is how, geometrically, MLPs split the input space into a bunch of regions. It turns out that the number of regions by which a single-hidden layer MLP with two input neurons and $n$ neurons in its hidden layer splits the space is bounded above by $\frac{1}{2}(n^2+n+2)$ which is quadratic in $n$. For an MLP with $k$ hidden layers of $n$ neurons each, the number of regions by which the space is split is bounded above by
     $$
     \frac{1}{2}(n^2+n+2)\l(\frac{n}{n_0}+1\r)^{n_0(k-1)}
     $$
@@ -1153,13 +1153,13 @@ As such, the activations of the output neurons are given by
 % universal function approximation theorem
 \subsubsection{Universal Function Approximation with MLPs}
 \label{subsubsec:universal_function_approximation_theorem}
-A class of functions, or function class, $\mathcal{F}_S$ is capable of universal function approximation on $S\subset\R^q$ compact (closed and bounded) if for all continuous $f:S\to\R$ and $\epsilon>0$ there exists some $\hat{f}\in\mathcal{F}_S$ such that
+A class of functions, or function class, $\mathcal{F}_S$ is capable of universal function approximation on $S\subset\R^m$ compact (closed and bounded) if for all continuous $f:S\to\R$ and $\epsilon>0$ there exists some $\hat{f}\in\mathcal{F}_S$ such that
 $$
 \max_{x\in S}\l|f(x)-\hat{f}(x)\r|<\epsilon.
 $$
 Note that such a function family can be used to approximate functions whose codomain is $\R^m$ by performing coordinate-wise approximation. 
 
-The family of polynomials is capable of universal function approximation as shown by Weierstrass in 1885. A directly equivalent statement to a function class satisfying the universal function approximation is the function ckass being dense in $C(S)$ with respect to the supremum norm. Here, $C(S)$ denotes the set of all continuous real-valued functions with compact domain $S\subset\R^q$. Quick note: usually the domain of the to-be-approximated function is denoted by $K$ but I denote the number of layers in an MLP using a $k$ so I'd like to avoid the confusion by using $S$ instead. Instead of offering a rigorous proof, I'll motivate the overall idea in three steps starting with a simpler case: functions of the form $f:S\to\R$ where $S\subset\mathbb{N}$ with $\#S<\infty$.
+The family of polynomials is capable of universal function approximation as shown by Weierstrass in 1885. A directly equivalent statement to a function class satisfying the universal function approximation is the function ckass being dense in $C(S)$ with respect to the supremum norm. Here, $C(S)$ denotes the set of all continuous real-valued functions with compact domain $S\subset\R^m$. Quick note: usually the domain of the to-be-approximated function is denoted by $K$ but I denote the number of layers in an MLP using a $k$ so I'd like to avoid the confusion by using $S$ instead. Instead of offering a rigorous proof, I'll motivate the overall idea in three steps starting with a simpler case: functions of the form $f:S\to\R$ where $S\subset\mathbb{N}$ with $\#S<\infty$.
 
 \subsubsection*{Step 1: Motivating the idea for $S$ finite}
 Without loss of generality, let $S=[\#S]$. We seek to show that for all $\epsilon>0$ there exists an MLP with one hidden layer and one node in its output layer, whose output is denoted by $\hat{f}(x)$, which satisfies
@@ -1227,14 +1227,14 @@ $$
 $$
 grows linearly in $L$, the interval length $b-a$ and the reciprocal of the desired level of precision $1/\epsilon$. In practice, you only have control of the desired level of precision $\epsilon$.
 
-\subsubsection*{Step 3: Extending the idea to $S\subset\R^q$ compact}
-The idea is really not very different. Imagine $S\subset\R^2$ compact. The compactness is very hepful for visualisation. As long as we can create indicator-approximate functions on separate regions of $S$ then use exactly the idea described above: split $S$ into separate regions and approximate $f$ on a single point in each. To see that we can approximate the indicator on regions of $S\subset\R^2$ simply see that we can create wall-like objects using the same idea of creating a 'steep' plane and sigmoiding it. As such, to isolate some region, produce three walls which enclose a region and you're done. If you want a more accurate enclosing of the region then use more walls. Without boundedness, which is given by compactness, this idea wouldn't work. Extend this idea to $\R^q$ and voilà.
+\subsubsection*{Step 3: Extending the idea to $S\subset\R^m$ compact}
+The idea is really not very different. Imagine $S\subset\R^2$ compact. The compactness is very hepful for visualisation. As long as we can create indicator-approximate functions on separate regions of $S$ then use exactly the idea described above: split $S$ into separate regions and approximate $f$ on a single point in each. To see that we can approximate the indicator on regions of $S\subset\R^2$ simply see that we can create wall-like objects using the same idea of creating a 'steep' plane and sigmoiding it. As such, to isolate some region, produce three walls which enclose a region and you're done. If you want a more accurate enclosing of the region then use more walls. Without boundedness, which is given by compactness, this idea wouldn't work. Extend this idea to $\R^m$ and voilà.
 
-\begin{tcolorbox}[title={\centering\textbf{Is this idea practical?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    What the idea conveyed shows is \textit{that} (and even \textit{how}) an MLP can approximate any function in $C(S)$ for $S\in\R^q$ compact. It is not at all an indicator of how MLPs learned via gradient descent, in practice, go about approximating functions from data.
 
-    \hspace{14pt} An interesting addition to this note is how this formulation gives an idea of how the weights from the hidden layer to the output explicitly encode the evaluation of the to-be-approximated function. Again, this is not what we'd expect MLPs to do in practice, instead they find a much more efficient representation, sharing information between neurons. Reminds me a lot of the research 3Blue1Brown discussed in one of his videos about transfromers and LLMs in which we spoke about how the LLM `knows' to assign a high probability to the token \texttt{Jordan} when given \texttt{My favourite basketballer is Michael} as input. How does it `know' to do that? It isn't at all implied by the grammar/semantics/whatever of the sentence. Said research concluded things about such pieces of knowledge being stored in the weights of the MLPs of the transformer blocks.
-\end{tcolorbox}
+\subsubsection*{Is the idea used here practical?}
+What the idea conveyed shows is \textit{that} (and even \textit{how}) an MLP can approximate any function in $C(S)$ for $S\subset\R^m$ compact. It is not at all an indicator of how MLPs learned via gradient descent, in practice, go about approximating functions from data.
+
+An interesting addition to this note is how this formulation gives an idea of how the weights from the hidden layer to the output explicitly encode the evaluation of the to-be-approximated function. Again, this is not what we'd expect MLPs to do in practice, instead they find a much more efficient representation, sharing information between neurons. Reminds me a lot of the research 3Blue1Brown discussed in one of his videos about transfromers and LLMs in which we spoke about how the LLM `knows' to assign a high probability to the token \texttt{Jordan} when given \texttt{My favourite basketballer is Michael} as input. How does it `know' to do that? It isn't at all implied by the grammar/semantics/whatever of the sentence. Said research concluded things about such pieces of knowledge being stored in the weights of the MLPs of the transformer blocks.
 
 \subsubsection{Posing classification as a regression problem}
 Which space does one transform their samples into in order to linearly separate them? In the case of neural net approaches, for $K-$classification, it's the $(K-1)$-probability simplex given by
@@ -1475,6 +1475,8 @@ Pooling operations reduce the spatial dimensions of a given feature map by apply
     Massively improved parameter-efficiency, translation invariance and learning efficiency\footnote{\href{https://ai.stackexchange.com/questions/27407/what-does-statistical-efficiency-mean-in-this-context}{\texttt{ai.stackexchange.com/questions/27407}}} (fewer samples needed to learn distributions to similar degrees of precision). These are in part due to the inductive bias present of their architecture.
 \end{tcolorbox}
 
+\subsubsection{Backpropagation for CNNs}
+
 % recurrent neural networks
 \subsection{\TODO Recurrent Neural Networks (RNNs)}
 
@@ -1572,18 +1574,15 @@ It's worth mentioning that said vanishing behaviour can be observed during forwa
 
 % generative models (any other section name i've come up with has been due to overthinking)
 \section{Generative Models}
+Modelling data-generating processes is the heart of science: the laws which dictate graviation, \dots. The probabilistic equivalent of this idea is to model the joint probability function which, ideally, helps to answer probabilistic queries either exactly or approximately. While this section consists of methods of learning generative models pertaining to image-related distributions, the discussed methods are often applicable to generative modelling in general.
 
-Modelling data-generating processes is the heart of science: the laws which dictate graviation, \dots. From a probabilistic point of view, the analogous methodology is to model the joint distribution of model variables $\X=(X_1,\dots,X_m)$. For example, if we're interested in understanding what gave rise to the distribution of $16\times16$ images of cats (to whatever extent of detail) then one might seek to represent their joint probability function
-$$
-p(\x)
-=
-p(x_1,\dots,x_{256}).
-$$
-If the representation allows, we may realise (or generate) new samples pertaining to said distribution. Alternatively, we may use the representation to answer natural probabilistic queries about given samples, e.g. the likelihood that a given image is in-distribution, the class label of an image, the marginal likelihood of an incomplete image and so on. In the case of LLMs, we're typically interested in modelling the distribution of the next token conditioned on the tokens that came before. We simply sample from said distribution (almost feels like classification) to extend the text and repeate in an autoregressive manner.
+\begin{tcolorbox}[title={\centering\textbf{Terminology}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    To avoid having to write \textit{probability mass/density function} in full throughout this section, \textit{probability function} will be written.
+\end{tcolorbox}
 
-This section will be about methods of representing the joint distributions of distributions pertaining to images. The discussed methods are often applicable to generative modelling in general.
+Put more precisely, what we further refer to as a generative probabilistic model is a tuple $(\X, p_{\Theta})$ consisting of model variables $\X=(X_1,\dots,X_m)$ and a probability function $p_{\Theta}:\Omega_{\X}\rightarrow\mathbb{R}_{\geq0}$ parameterised according to the parameter set $\Theta$. The probabilistic queries we might hope to answer given a generative probabilistic model include evidence queries $p(\x)$, marginal queries $p(\x')$, where is a realisation of some subset of the model variables, and sampling queries, in which one obtains a realisation of the model variables in conjunction.
 
-Small note: to avoid having to write \textit{probability mass/density function} in full throughout this section, \textit{probability function} will be written.
+The holy grail of generative probabilistic modelling is to find an exact, efficiently computed and algebraically manipulable representation of the underlying joint probability function of interest. If obtained, one can reason probabilistically with ease but, as we will see, the purpose, limitations and learning of generative probabilistic models varies heavily. To illustrate this, consider probabilistic graphical models (PGMs) which offer a graph structure in which conditional dependencies between model variables are expressed in a compact and human-interpretable manner. The most well-known class of PGMs are Bayesian networks.
 
 % bayesian nets
 \subsection{\IMPROVE Bayesian networks (BNs)}
@@ -1591,9 +1590,9 @@ A natural approach to representing the joint probability function of model varia
 \begin{align*}
     p(x_1,\dots,x_m)
     &=
-    p(x_1)p(x_2|x_1)\cdots p(x_m|x_1,\dots,x_{q-1})\\
+    p(x_1)p(x_2|x_1)\cdots p(x_m|x_1,\dots,x_{m-1})\\
     &=
-    \prod_{i=1}^q p(x_i|x_1,\dots,x_{i-1}).
+    \prod_{i=1}^m p(x_i|x_1,\dots,x_{i-1}).
 \end{align*}
 From here, sampling may be done autoregressively: sample $x_1$ according to $p(x_1)$, $x_2$ according to $p(x_2|x_1)$ and so on until an entire realisation of $\X=(X_1,\dots,X_m)$ is obtained. Why stop at decomposition though? In an image, nearby pixel values may correlate but far away pixels may not, so why incoroporate them in the conditional? Why not learn the dependencies between the model variables? Boom, Bayesian networks.
 
@@ -1602,7 +1601,7 @@ With their motivation out of the way, we can move on to their formulation. A Bay
 $$
 p(x_1,x_2,x_3)
 =
-p(x_1)p(x_2|x_1)p(x_3|x_1)
+p_{\theta_1}(x_1)p_{\theta_2}(x_2|x_1)p_{\theta_3}(x_3|x_1)
 $$
 whose corresponding DAG is given by
 \begin{center}
@@ -1617,15 +1616,21 @@ whose corresponding DAG is given by
 \end{center}
 Notice that the choice of $X_1$ as the model variable upon which nothing is conditioned is entirely arbitrary. As a result, for a given decomposition, DAGs are not unique.
 
-As a result, if the treewidth (\dots) of the Bayesian network is sufficiently small then it answering probabilistic queries is efficient.
-
 The parameter set $\theta$ pertains to the parameters of the conditional distributions shown in $\mathcal{G}$.
 
-\subsubsection{Learning BNs from data}
-Learn their DAG via scoring. Learn their parameters via ?
+\subsubsection{Complexity of Inference}
+Before considering how to learn a Bayesian network (its DAG and parameters), let's consider how Bayesian networks may be applied to inference. As far as exact inference goes, Bayesian networks have several pitfalls as far as probabilistic models go. Many probabilistic queries have complexity which is exponential in the tree-width of the Bayesian network. Known algorithms for these tasks are variable elimination and junction trees. To understand this crux, we must first understand tree-width.
+
+As for approximate inference, perhaps the most well known algorithm is loopy belief propagation, developed by Judea Pearl, also known as sum-product message passing. Pearl writes a bunch of interesting things about it in his The Book of Why. It's worth noting that belief propagation is exact for tree-shaped Bayesian networks.
+
+\subsubsection{Learning Structure}
+Unlike the structure of neural network architectures, the structure of a Bayesian network (its DAG) can be motivated rigorously via maximum likelihood estimation. In brief, the likelihood of a given DAG can be computed and so a `best' DAG, according to MLE, can be computed. For Bayesian networks pertaining to Gaussian distributed variables, scoring can be done using Bayesian metric for Gaussian networks having score equivalence (BGe). For Bayesian networks pertaining to discretely distributed variables, scoring can be done using Bayesian Dirichlet likelihood equivalent (BDe).
+
+\subsubsection{Learning Parameters}
+\dots
 
 % variational autoencoders
-\subsection{Variational Autoencoders (VAEs)}
+\subsection{\REVIEW Variational Autoencoders (VAEs)}
 In describing variational autoencoders (VAEs), it's natural to first motivate autoencoders and then spice things up with variational inference do generative things.
 
 % autoencoders
@@ -1640,13 +1645,13 @@ An autoencoder $(\Omega_{\X},d,\phi,\theta)$ consists of a sample space $\Omega_
     \label{fig:autoencoder}
 \end{figure}
 
-In intuitive terms, one can see the encoder $\phi$ as a compressor of samples in $\Omega_{\X}$ to their compressed (or latent) representation in $\mathbb{R}^d$ and so one might refer to the image of $\phi$ as the latent space $\Omega_{\Z}$. Similarly, the decoder $\theta$ can be seen as a decompressor of compressed representations $\z\in\Omega_{\Z}$ yielding the original sample $\x$. In line with this notion of an autoencoder as a compressor/decompressor, the latent dimension $d$ is typically taken to be far smaller than the dimension of the distribution of interest, i.e. $d\ll q$. Of course, when $d\ll q$, learning such mappings $\phi$ and $\theta$ typically involves some loss of information if $\Omega_{\X}$ is a manifold whose intrinsic dimension is greater than $d$. That is, autoencoders are typically lossy compressors.
+In intuitive terms, one can see the encoder $\phi$ as a compressor of samples in $\Omega_{\X}$ to their compressed (or latent) representation in $\mathbb{R}^d$ and so one might refer to the image of $\phi$ as the latent space $\Omega_{\Z}$. Similarly, the decoder $\theta$ can be seen as a decompressor of compressed representations $\z\in\Omega_{\Z}$ yielding the original sample $\x$. In line with this notion of an autoencoder as a compressor/decompressor, the latent dimension $d$ is typically taken to be far smaller than the dimension of the distribution of interest, i.e. $d\ll m$. Of course, when $d\ll m$, learning such mappings $\phi$ and $\theta$ typically involves some loss of information if $\Omega_{\X}$ is a manifold whose intrinsic dimension is greater than $d$. That is, autoencoders are typically lossy compressors.
 
-\begin{tcolorbox}[title={\centering\textbf{Autoencoder example}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+\begin{example}
     Suppose $\Omega_{\X}=\{(a,a,b)\in\mathbb{R}^3:||(a,a,b)||\leq1\}$ and $d=2$. One immediately notices that $\Omega_{\X}$ is a two-dimensional surface embedded in $\mathbb{R}^3$ as it is the intersection of the unit ball and the plane $\{(a,a,b):a,b\in\mathbb{R}\}$. To produce representations of $\x=(a,a,b)\in\Omega_{\X}$ in $\mathbb{R}^2$ (i.e. to compress a sample) one might employ the encoder $\phi_2(x,y,z)=(x,z)$. To reconstruct samples from their latent representation (i.e. to decompress) one might employ the decoder $\theta_2(x,z)=(x,x,z)$. The autoencoder $(\Omega_{\X},2,\phi_2,\theta_2)$ offers lossless compression on the sample space as $(\theta_2\circ\phi_2)(\x)=\x$ for all $\x\in\Omega_{\X}$.
     
     \hspace{15pt} If we instead desire latent representations of $\x=(a,a,b)\in\Omega_{\X}$ in $\mathbb{R}$, i.e. if $d=1$, one might employ the encoder $\phi_1(x,y,z)=x$ and the decoder $\theta_1(x)=(x,x,x)$. The autoencoder $(\Omega_{\X},1,\phi_1,\theta_1)$ offers lossy compression, i.e. some information pertaining to a sample is lost during its compression and decompression as $(\theta_1\circ\phi_1)(a,a,b)=(a,a,a)$ for all $a,b\in\mathbb{R}$.
-\end{tcolorbox}
+\end{example}
 
 One's tolerance for the loss incurred by a given encoder/decoder pair is task-dependent. Given a dataset $D=\{\x_1,\dots,\x_n\}\subset\Omega_{\X}$ and a latent dimension $d$, one might compute the pair $(\phi^*,\theta^*)\in\Phi\times\Theta$ which minimises the empirical risk over $D$ where $\Phi$ and $\Theta$ are chosen function families. That is, computing
 $$
@@ -1700,25 +1705,23 @@ As the encoder of a VAE yields a $d-$dimensional distribution $q_{\phi}(\z|\x)$ 
 
 Note that one's choice of $\mathcal{Q}_d$ and $\mathcal{P}_m$ should take into account the need to sample efficiently and so they should correspond to families of distributions which offer efficient means of sampling, e.g. Gaussians, as in \autoref{fig:VAE_architecture}.
 
-%% uncomment out this tcolorbox once this section is finished as to be sure where to place it without vbox overfilling
+\begin{example}
+    Suppose $X_1\sim\mathcal{N}(1,2)$ and $X_3\sim\mathcal{N}(-1,1)$ are independent. Let $X_2=X_1+\epsilon$ where $\epsilon\sim\mathcal{N}(0,1)$ is independent of $X_1$ and $X_3$. If $X=(X_1,X_2,X_3)$ then $X\sim\mathcal{N}(\mu,\Sigma)$ with $\mu=(1,1,-1)'$ and the relevant covariance matrix $\Sigma$. As such, $\Omega_{\X}=\mathbb{R}^3$. To obtain two-dimensional representations of samples $\x\in\Omega_{\X}$ (so $d=2$), one might choose $\mathcal{Q}_2=\mathbb{R}^2\times\mathcal{S}_{++}^2$ and $\mathcal{P}_3=\mathbb{R}^3\times\mathcal{S}_{++}^3$. That is, we could fit a two-dimensional Gaussian to the latent space and a three-dimensional Gaussian to the reconstruction space. Knowing $X_2=X_1+\epsilon$, where $\epsilon\sim\mathcal{N}(0,1)$, one might choose the encoder
+    \begin{align*}
+        \phi&:
+        \mathbb{R}^3\to\mathcal{Q}_2\\
+        &(x_1,x_2,x_3)\mapsto((x_1,x_3),\sigma^2I_2)
+    \end{align*}
+    where $\sigma>0$ is small. That is, for a sample $(x_1,x_2,x_3)\in\Omega_{\X}$, the encoder's output would yield the latent distribution $q_{\phi}(\z|\x)=\mathcal{N}((x_1,x_3),\sigma^2I_2)$. As decoder, if all we desire is accurate reconstructions, we might choose
+    \begin{align*}
+        \theta&:
+        \mathbb{R}^2\to\mathcal{P}_3\\
+        &(z_1,z_2)\mapsto((z_1,z_1,z_2), \sigma^2I_3).
+    \end{align*}
+    That is, for the latent sample $\z'=(z_1',z_2')$, the decoder's output would yield the reconstruction distribution $p_{\theta}(\x|\z')=\mathcal{N}((z_1',z_1',z_2'),\sigma^2I_3)$. Ideally, sampling $(x_1',x_2',x_3')\sim p_{\theta}(\x|\z')$ would yield a sample sufficiently similar to the original sample $\x=(x_1,x_2,x_3)$.
 
-% \begin{tcolorbox}[title={\centering\textbf{VAE example}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-%     Suppose $X_1\sim\mathcal{N}(1,2)$ and $X_3\sim\mathcal{N}(-1,1)$ are independent. Let $X_2=X_1+\epsilon$ where $\epsilon\sim\mathcal{N}(0,1)$ is independent of $X_1$ and $X_3$. If $X=(X_1,X_2,X_3)$ then $X\sim\mathcal{N}(\mu,\Sigma)$ with $\mu=(1,1,-1)'$ and the relevant covariance matrix $\Sigma$. As such, $\Omega_{\X}=\mathbb{R}^3$. To obtain two-dimensional representations of samples $\x\in\Omega_{\X}$ (so $d=2$), one might choose $\mathcal{Q}_2=\mathbb{R}^2\times\mathcal{S}_{++}^2$ and $\mathcal{P}_3=\mathbb{R}^3\times\mathcal{S}_{++}^3$. That is, we could fit a two-dimensional Gaussian to the latent space and a three-dimensional Gaussian to the reconstruction space. Knowing $X_2=X_1+\epsilon$, where $\epsilon\sim\mathcal{N}(0,1)$, one might choose the encoder
-%     \begin{align*}
-%         \phi&:
-%         \mathbb{R}^3\to\mathcal{Q}_2\\
-%         &(x_1,x_2,x_3)\mapsto((x_1,x_3),\sigma^2I_2)
-%     \end{align*}
-%     where $\sigma>0$ is small. That is, for a sample $(x_1,x_2,x_3)\in\Omega_{\X}$, the encoder's output would yield the latent distribution $q_{\phi}(\z|\x)=\mathcal{N}((x_1,x_3),\sigma^2I_2)$. As decoder, if all we desire is accurate reconstructions, we might choose
-%     \begin{align*}
-%         \theta&:
-%         \mathbb{R}^2\to\mathcal{P}_3\\
-%         &(z_1,z_2)\mapsto((z_1,z_1,z_2), \sigma^2I_3).
-%     \end{align*}
-%     That is, for the latent sample $\z'=(z_1',z_2')$, the decoder's output would yield the reconstruction distribution $p_{\theta}(\x|\z')=\mathcal{N}((z_1',z_1',z_2'),\sigma^2I_3)$. Ideally, sampling $(x_1',x_2',x_3')\sim p_{\theta}(\x|\z')$ would yield a sample sufficiently similar to the original sample $\x=(x_1,x_2,x_3)$.
-
-%     \hspace{15pt} Note that in practice, one does not know the true distribution $p(\x)$ and so hand-picking the encoder and decoder as in this example is infeasible. Typically, the encoder and decoder are learned from a dataset $D\subset\Omega_{\X}$.
-% \end{tcolorbox}
+    Note that in practice, one does not know the true distribution $p(\x)$ and so hand-picking the encoder and decoder as in this example is infeasible. Typically, the encoder and decoder are learned from a dataset $D\subset\Omega_{\X}$.
+\end{example}
 
 At this point, a natural question arises: for which tasks is learning a VAE more appropriate than learning an autoencoder? The answer lies in the purpose of VAEs which is two-fold: 1) to perform sufficiently-accurate compression/decompression and 2) to produce a sufficiently regularised approximation of the latent space $\Omega_{\Z}$. The latter is ensured by how one learns a VAE from data, which we soon consider. In brief, when learning an autoencoder one never imposes restrictions on the latent space beyond encouraging the model to yield sufficiently-accurate reconstructions. As a result, the latent space of an autoencoder is not well-structured. For example, for latent samples $\z_1,\z_2\in\Omega_{\Z}$ which are `close' in the latent space, their reconstructions are not necessarily `close' in $\mathbb{R}^m$. VAEs seek to remedy this.
 
@@ -1769,7 +1772,7 @@ $$
 $$
 In practice, after choosing a latent dimension $d$, we often take $p(\z)=\mathcal{N}(0,I_d)$, $\mathcal{Q}_d=\mathbb{R}^d\times\mathcal{S}_{++}^d$ and $\mathcal{P}_m=\mathbb{R}^m\times\mathcal{S}_{++}^m$, i.e. Gaussians for the latent and reconstruction distribution families and the standard $d-$dimensional Gaussian for the prior. A benefit of these choices is that it yields a differentiable and easy-to-implement closed form for the KL-divergence term in the ELBO. Additionally, the expectation pertaining to the reconstruction term is typically approximated via a single sample, boiling down to a mean square error term\footnote{\url{https://n8python.github.io/mnistLatentSpace/}}.
 
-\subsubsection{\REVIEW Backpropagation for VAEs}
+\subsubsection{Backpropagation for VAEs}
 To find suitable parameters of a given VAE architecture using gradient descent, we require that the ELBO is differentiable. With respect to $\theta$, the gradient is approximated according to
 \begin{align*}
     \nabla_{\theta}\text{ELBO}
@@ -1792,7 +1795,7 @@ which is no issue when the decoder's architecture is backpro-compatible. However
 % $$
 % where $\odot$ denotes element-wise multiplication.
 
-\subsubsection{\TODO Quirks of VAEs}
+\subsubsection{Quirks of VAEs}
 Blur outside of central object.
 
 % general adversarial networks
@@ -1934,16 +1937,12 @@ Since samples are not labeled, how does one evaluate a generative model? What do
 \section{Probability Theory Things}
 Here are some probability theory things, e.g. brief statements, long derivations, and so on, which belong in an appendix. I wish my understanding of probability theory, measure theory, stochastic processes, etc. were better. In another life.
 
-I advise anyone who is entirely new to probability theory or statistics to consider playing around with interative visual demonstrations as in
-$$
-\href{https://seeing-theory.brown.edu/index.html}{\texttt{seeing-theory.brown.edu/index.html}}.
-$$
-P.S. Sometimes, I'm unsure in which section a topic belongs (probability theory or statistics), e.g. Pearson correlation, so please forgive any disagreeable placements, future me.
+For visual reminders, consider \href{https://seeing-theory.brown.edu/index.html}{\texttt{seeing-theory.brown.edu/index.html}}.
 
 \subsection{Derivations Related to Common Distributions}
-\TODO Find a new symbol for the probability $p$ since it's used as a probability function throughout the document.
+Probabilities pertaining to parameters, as in Bernoulli or categorical distributinos, are denoted by $p$ in this subsection. Hopefully this isn't too confusing due to $p$ being used to denote probability functions elsewhere in the document.
 
-\subsubsection*{1) From Bernoulli to Binomial}
+\subsubsection{From Bernoulli to Binomial}
 Let's try to extend the Bernoulli distribution to the binomial distribution. If $X\sim\text{Ber}(p)$ then $\Omega_X=\{0,1\}$ and $\mathbb{P}(X=x)=p^x(1-p)^{1-x}$.
 
 Taking $n$ independent Bernoulli random variables and summing them yields the random variable $\X=\sum_{i=1}^nX_i\sim\text{Bin}(n,p)$ with $\Omega_{\X}=\{0,\dots,n\}$. Let $k$ denote a realisation of $\X$, i.e. $k=x_1+\dots+x_n$. The corresponding mass function is given by
@@ -1965,7 +1964,7 @@ $$
 \binom{n}{k}p^k(1-p)^{n-k}.
 $$
 
-\subsubsection*{2) From Categorical to Multinomial}
+\subsubsection{From Categorical to Multinomial}
 The categorical distribution is an extension of the Bernoulli distribution and the multinomial distribution is an extension of the binomial distribution. In line with this, we'd hope to be able to extend the categorical distribution to the multinomial distribution.
 
 If $X\sim\text{Cat}(p_1,\dots,p_C)$ then realisations of $X$ can be represented by single integers in $\{1,\dots,C\}$ but I prefer to represent them in terms of their $C-$long one-hot encodings. So I denote the presence of the $c^{\text{th}}$ class in a realisation as the unit row vector $\mathbf{e}_c^\top $, e.g. $(0,1,0\dots,0)$ denotes a sample in which only the second class is present. The corresponding mass function is then given by
@@ -2007,7 +2006,7 @@ $$
 \frac{n!}{k_1!\cdots k_C!}p_1^{k_1}\cdots p_C^{k_C}.
 $$
 
-\subsubsection*{3) Negative Binomial and Geometric}
+\subsubsection{Negative Binomial and Geometric}
 We keep flipping our (maybe biased) coin until we observe $r$ successes ($r$ is a parameter) where individual trials are Ber$(p)$ distribured. So if $X\sim\text{NB}(r,p)$ then
 $$
 \mathbb{P}(X=k)
@@ -2027,12 +2026,12 @@ $$
 p(1-p)^k.
 $$
 
-\subsubsection*{4) From Binomial to Poisson}
+\subsubsection{From Binomial to Poisson}
 Let $X_n\sim\text{Bin}(n,p)$ and $\lambda=np$. How might $X_n$ look as $n\to\infty$? Why might we be interested in this at all? It can be thought of as \dots
 
 To see what $X_n$ converges to in distribution, note that for all $x\in\{0,\dots,n\}$
 \begin{align*}
-    p(X_n=x)
+    \mathbb{P}(X_n=x)
     &=
     \binom{n}{x}\l(\frac{\lambda}{n}\r)^x\l(1-\frac{\lambda}{n}\r)^{n-x}\\
     &\approx
@@ -2049,7 +2048,7 @@ X_n
 \text{Poi}(\lambda).
 $$
 
-\subsubsection*{5) From Poisson to Exponential}
+\subsubsection{From Poisson to Exponential}
 When working with a Poisson process, a natural question is the distribution of time between the occurence of events. Let $T$ denote the time at which the first event occurs, so $\Omega_T=[0,\infty)$. See that if $N(t)\sim\text{Poi}(\lambda t)$ is a Poisson process then $p(N(t)=x)$ is the probability of $x$ events occuring in $[0,t]$. We have
 \begin{align*}
     p(T<t)
@@ -2167,7 +2166,7 @@ It's straightforward to see that $S(\x)=-\log(p(\x))$ satisfies these three prop
 In literature, entropies are measured in nats (natural units of information) if the natural logarithm is used for their computation and bits if $\log_2$ is used.
 
 \begin{tcolorbox}[title={\centering\textbf{Technical note regarding} $\text{dom}(S)$}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    It's clear from the second condition that $S$ is actually a function whose domain is the powerset of $\Omega_{\X}$ but accommodating this detail isn't worth it — the idea being conveyed is clear without.
+    It's clear from the second condition that $S$ is actually a function whose domain is the powerset of $\Omega_{\X}$ but accommodating this detail isn't worth it — the idea conveyed is clear despite the informality.
 \end{tcolorbox}
 
 \subsubsection{Kullback-Leibler Divergence (KL-divergence)}
@@ -2256,10 +2255,6 @@ On its own, this quantity isn't too useful. To get a sense of goodness-of-fit we
     -\sum_{k=1}^{\infty}p(k)\log(p(k))\\
     &=
     -\sum_{k=1}^{\infty}2^{-k}\log(2^{-k})\\
-    &=
-    \log(2)\sum_{k=1}^{\infty}\frac{k}{2^k}\\
-    &=
-    2\log(2)\\
     &\approx
     1.386
 \end{align*}
@@ -2300,14 +2295,12 @@ I'm massively in favour of writing it as a KL-divergence as its meaning is immed
 \section{Classical Statistics Things}
 Here are some classical statistics things.
 
-\subsection{Sample Independence and Terminology}
-The intended meaning of the term `sample' in statistics is a set of independently obtained realisations of a random variable, i.e. $\{x_1,\dots,x_n\}\subset\Omega_X$. You could also define a sample as a set of i.i.d. random variables $\{X_1,\dots,X_n\}$. There are times where I reason with the latter but most of the time I think of realisations of random variables when talking about a sample. As a term, `sample' can be especially confusing when context switching since in machine learning contexts, it most often refers to a single data point, which is not its intended meaning in statistics contexts. This was a huge cause of confusion during my first few meetings with my master's thesis supervisor who is a Bayesian statistician.
+\subsection{Sample Independence}
+The intended meaning of the term `sample' in statistics is a set of independently obtained realisations of a random variable, i.e. $\{\x_1,\dots,\x_n\}\overset{i.i.d.}{\subset}\Omega_{\X}$. You could also define a sample as a set of i.i.d. random variables $\{\X_1,\dots,\X_n\}$. There are times where it's more useful to refer to sets of i.i.d. random variables but I more often reason with their realisations when using sample as a term. It can be especially confusing when context switching between machine learning and classical statistics. In the context of machine learning, a sample is intended to mean a single data point, while in classical statistics it is what's written above. This was a huge cause of confusion during a few meetings with my master's thesis supervisor who is a Bayesian statistician.
 
-As for sample independence, I was think of the following simple example. Suppose we'd like to estimate the population mean of the heights of men and women. If we randomly sample 100 men and 100 women separately then the sample mean serves as a fine estimate. This could computed by independently sampling, without replacement, from the categorical distribution which corresponds to the ID numbers of all individuals. If we instead randomly sampled 100 couples then the obtained samples would not be independent as couples' heights correlate.
+As for sample independence, I always default to thinking of the following simple example. Suppose we'd like to estimate the population mean of the heights of men and women. If we randomly sample 100 men and 100 women separately then the sample mean serves as a fine estimate. This could computed by independently sampling, without replacement, from the categorical distribution corresponding to ID numbers of all individuals in the population. If we instead randomly sampled 100 couples then the obtained samples would not be independent as heights of couples correlate. Sample independence is a key assumption made in many estimation methods, e.g. maximum likelihood estimation.
 
-Sample independence is an important assumption for estimation, e.g. for maximum likelihood estimation. It's also important for other statistics-related things like t-tests, ANOVA, etc. but my classical statistics is bad so I won't pretend to know much about it.
-
-\subsection{Estimators and their Bias}
+\subsection{Estimators}
 Suppose you have a bunch of i.i.d. random variables $\X_1,\dots,\X_n$, an estimator is a function $\hat{\theta}:\Omega_{\X}^n\to\mathbb{R}^k$. Given the sample $\{\x_1,\dots,\x_n\}\subset\Omega_{\X}$, the value $\hat{\theta}(\x_1,\dots,\x_n)$ is typically denote by $\hat{\theta}$ for shorthand and is referred to as an estimate. The reason that this lack of rigour in notation is allowable is that the contexts in which it is used often make it clear when an estimator is being considered as opposed to an estimate, and vice versa.
 
 The simplest example of a often-used estimator is the estimator of the mean as in
@@ -2318,6 +2311,7 @@ $$
 $$
 In this case, the dimension of the codomain of $\hat{\mu}$ is simply the dimension of the sample space of $\X$. Given a sample $\{\x_1,\dots,\x_n\}$, an estimate of the mean of the corresponding distribution is given by $\hat{\mu}=\frac{1}{n}\sum_{i=1}^n\x_i$.
 
+\subsubsection{(Estimator) Bias}
 Given that estimators are simply statistics used to approximate some quantity of the corresponding distribution, a natural question is how to measure the goodness of an estimator. The most well known such measure is the bias of an estimator in estimating a quantity $\theta$ given by
 $$
 \text{Bias}(\hat{\theta})
@@ -2351,18 +2345,17 @@ $$
 Most of the time, `sample variance' refers to the unbiased estimator.
 
 \subsubsection{Sampling bias}
-For a given estimator, sampling bias is not its bias as an estimator but the bias induced by samples being drawn from a distribution $q_{\X}^{\otimes n}$ which is distinct to the true distribution $p_{\X}^{\otimes n}$ attributed to $\X$ as in
-$$
-\E_{q_{\X}^{\otimes n}}[\hat{\theta}]-\theta.
-$$
+For a given estimator, sampling bias is not its bias as an estimator but instead the bias induced due to samples being drawn from a distribution $q_{\X}^{\otimes n}$ which is distinct from the true distribution $p_{\X}^{\otimes n}$ as in $\E_{q_{\X}^{\otimes n}}[\hat{\theta}]-\theta$. Note that this is not an issue of a given estimator and is instead an issue with the `data collection' procedure.
 
-\subsubsection{Efficiency, Consistency and }
+\subsubsection{Efficiency}
+
+\subsubsection{Consistency}
+
+\subsubsection{Sufficiency}
+
+\subsubsection{Asmymptotic normality}
 
 \subsection{\TODO Hypothesis Testing}
-
-\subsection{\TODO The Curse of Dimensionality}
-
-\subsubsection*{The blessing of non-uniformity}
 
 \subsection{\TODO Markov Chain Monte Carlo (MCMC) Methods}
 There are a fair number of scenarios in which it's desirable to sample from a distribution whose probability function can only be evaluated up to a constant. As an example, the posterior
@@ -2396,7 +2389,7 @@ The great thing about Markov chains is how elegantly we can write $p(x_{n+1}=j)$
     &=
     \sum_{i=1}^{|\Omega_X|} p_{i,j}\cdot p(x_n=i).
 \end{align*}
-Let $\pi^{(n)}=\begin{bmatrix} p(x_n=1) & p(x_n=2) & \dots & p(x_n=|\Omega_X|)\end{bmatrix}$ and
+If $\pi^{(n)}=\begin{bmatrix} p(x_n=1) & p(x_n=2) & \dots & p(x_n=|\Omega_X|)\end{bmatrix}$ and
 $$
 P
 =
@@ -2424,43 +2417,33 @@ $$
 =
 \pi P.
 $$
-As a Bayesian network, a Markov chain is represented as
-\begin{center}
-    \begin{tikzpicture}[node distance=2cm, every node/.style={circle, draw, thick}]
-        \node (X_1) {$X_1$};
-        \node (X_2) [right of=X_1] {$X_2$};
-        \node (X_3) [right of=X_2] {$X_3$};
 
-        \draw[->] (X_1) -- (X_2);
-        \draw[->] (X_2) -- (X_3);
-    \end{tikzpicture}
-\end{center}
+\begin{example}
+    Suppose tomorrow's weather is entirely determined by today's weather and that the weather can only be sunny or rainy. Further, suppose that the transition probabilities are given by
+    $$
+    p(S|S)=0.8\quad
+    p(S|R)=0.4\quad
+    p(R|S)=0.2\quad
+    p(R|R)=0.6
+    $$
+    and that today is sunny, so $x_0=S$. The distribution over weather types two days from now is thus
+    $$
+    \pi^{(2)}
+    =
+    \pi^{(0)}P^2
+    =
+    \begin{bmatrix}1&0\end{bmatrix}
+    \begin{bmatrix}
+        0.8 & 0.2\\
+        0.4 & 0.6
+    \end{bmatrix}^2
+    =
+    \begin{bmatrix}0.72&0.28\end{bmatrix}.
+    $$
+    To find the stationary distribution with respect to $P$ simply compute a left eigenvector.
+\end{example}
 
-\subsubsection*{Example Markov chain}
-The simplest example of a Markov chain I found was on Stack Exchange regarding sunny and rainy days. Suppose tomorrow's weather is entirely determined by today's weather and that the weather can only be sunny or rainy. Further, suppose that the transition probabilities are given by
-$$
-p(S|S)=0.8\quad
-p(S|R)=0.4\quad
-p(R|S)=0.2\quad
-p(R|R)=0.6
-$$
-and that today is sunny, so $x_0=S$. The distribution over weather types two days from now is thus
-$$
-\pi^{(2)}
-=
-\pi^{(0)}P^2
-=
-\begin{bmatrix}1&0\end{bmatrix}
-\begin{bmatrix}
-    0.8 & 0.2\\
-    0.4 & 0.6
-\end{bmatrix}^2
-=
-\begin{bmatrix}0.72&0.28\end{bmatrix}.
-$$
-To find the stationary distribution with respect to $P$ simply compute a left eigenvector.
-
-\subsubsection{The Metropolis-Hastings algorithm}
+\subsubsection{Metropolis-Hastings}
 
 \begin{figure}[t]
     \centering
@@ -2498,6 +2481,11 @@ $$
 So instead of sampling according to the joint $p(x_1,x_2)$, repeatedly sample according to conditionals $p(x_1|x_2)$ and $p(x_2|x_1)$.
 
 \subsection{Hidden Markov Models (HMMs)}
+
+\subsection{\TODO The Curse of Dimensionality}
+Unsure where to place this tbh
+
+\subsubsection{The blessing of non-uniformity}
 
 \subsection{The Expectation-Maximisation (EM) Algorithm}
 Maximum likelihood estimation (MLE) is great but what do we do when the data generating process is not determined entirely by observed model variables $\X=(X_1,\dots,X_m)$. That is, what if $p(\x)$ is simply the marginal of the true joint $p(\x,\z)$ where $\Z=(Z_1,\dots,Z_{m'})$ are hidden variables?
@@ -2596,23 +2584,26 @@ I sometimes refer to it as Bayes' theorem (as do others) but since it follows st
 
 Another worthwhile point is that it's fairly common that someone with malicious intent emphasies how high or low $p(A|B)$ is when in fact $p(B|A)$ is the quantity that should motivate the argument at hand. Unforuntately, human intuition for which conditional probability is relevant to their argument is very bad.
 
-\subsubsection*{Adversarial Examples of Bayes' Law}
-O. J. Simpson's court case provides a great example. Simpson was accused of having killed his wife and was ultimately found not guilty. Thorough evidence was prodvuded during the case that Simpson had beat his wife while she was alive. Following this, the prosecution argued that it was very likely that Simpson had killed his wife due to the high frequency of husbands having beat their wife given that they ended up killing them, as in
-$$
-p(\text{beat wife}|\text{killed wife})\sim\text{high}.
-$$
-It's clear that the relevant quantity is the reversed conditional
-$$
-p(\text{killed wife}|\text{beat wife}).
-$$
-It turns out that while the marginal probability of ``beat wife'' is low, the marginal probability of ``killed wife'' is far far lower. So much that
-$$
-p(\text{killed wife}|\text{beat wife})
-=
-\frac{p(\text{beat wife}|\text{killed wife})p(\text{killed wife})}{\text{beat wife}}\sim\text{low}.
-$$
+\begin{example}
+    O. J. Simpson's court case provides a great example. Simpson was accused of having killed his wife and was ultimately found not guilty. Thorough evidence was prodvuded during the case that Simpson had beat his wife while she was alive. Following this, the prosecution argued that it was very likely that Simpson had killed his wife due to the high frequency of husbands having beat their wife given that they ended up killing them, as in
+    $$
+    p(\text{beat wife}|\text{killed wife})\sim\text{high}.
+    $$
+    It's clear that the relevant quantity is the reversed conditional
+    $$
+    p(\text{killed wife}|\text{beat wife}).
+    $$
+    It turns out that while the marginal probability of ``beat wife'' is low, the marginal probability of ``killed wife'' is far far lower. So much that
+    $$
+    p(\text{killed wife}|\text{beat wife})
+    =
+    \frac{p(\text{beat wife}|\text{killed wife})p(\text{killed wife})}{\text{beat wife}}\sim\text{low}.
+    $$
+\end{example}
 
-Alternative example of being infected with HIV and testing positive for HIV.
+\begin{example}
+    Being infected with HIV and testing positive for HIV.
+\end{example}
 
 \subsection{Posetriors Over Parameters}
 Treat parameters as random variables as opposed to a point estimate. Get a distribution over them given data, as in
@@ -2623,11 +2614,9 @@ p(\theta|D)
 $$
 Posetrior, likelihood, prior and marginal likelihood.
 
-\subsubsection*{Example}
-parameters are beta, data is binomial
-
-\subsection{Belief Propagation}
-It's an inference algorithm but is Bayesian in spirit.
+\begin{example}
+    Beta-binomial
+\end{example}
 
 \subsection{Variational Bayesian inference}
 Instead of approximating the posterior via MCMC, one can restrict the approximation to a function family and minimise some divergence measure, e.g. KL-divergence. The name `variational' derives from calclulus of variations as in computing

@@ -22,72 +22,92 @@
 \contentsline {subsubsection}{\numberline {3.1.3}Batch learning}{25}{subsubsection.3.1.3}%
 \contentsline {subsubsection}{\numberline {3.1.4}Batch + Layer normalisation}{26}{subsubsection.3.1.4}%
 \contentsline {subsection}{\numberline {3.2}Regularisation}{28}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}L1 regularisation (LASSO)}{28}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}L2 regularisation (Ridge)}{29}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Early stopping}{30}{subsubsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.4}Dropout}{31}{subsubsection.3.2.4}%
 \contentsline {subsection}{\numberline {3.3}Momentum + Adaptive Learning Rates}{31}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}\textcolor {myYellow}{\textbf {IMPROVE: }}Hyperparameter Tuning}{33}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.3.1}Momentum}{32}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}Adaptive learning rates}{32}{subsubsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.4}Hyperparameter Tuning}{33}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Random search}{33}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}$k-$fold cross-validation}{34}{subsubsection.3.4.2}%
+\contentsline {subsubsection}{\numberline {3.4.3}Honourable mention: benchmark overfitting}{34}{subsubsection.3.4.3}%
 \contentsline {section}{\numberline {4}Neural Networks}{34}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Multi-Layer Perceptrons (MLPs)}{34}{subsection.4.1}%
-\contentsline {subsubsection}{\numberline {4.1.1}Example}{37}{subsubsection.4.1.1}%
-\contentsline {subsubsection}{\numberline {4.1.2}Universal Function Approximation with MLPs}{39}{subsubsection.4.1.2}%
-\contentsline {subsubsection}{\numberline {4.1.3}Posing classification as a regression problem}{42}{subsubsection.4.1.3}%
+\contentsline {subsubsection}{\numberline {4.1.1}Universal Function Approximation with MLPs}{39}{subsubsection.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.1.2}Posing classification as a regression problem}{42}{subsubsection.4.1.2}%
 \contentsline {subsection}{\numberline {4.2}Backpropagation for MLPs}{43}{subsection.4.2}%
 \contentsline {subsection}{\numberline {4.3}Convolutional Neural Networks (CNNs)}{46}{subsection.4.3}%
-\contentsline {subsubsection}{\numberline {4.3.1}Convolutions}{47}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.1}Convolutions}{46}{subsubsection.4.3.1}%
 \contentsline {subsubsection}{\numberline {4.3.2}Pooling}{48}{subsubsection.4.3.2}%
+\contentsline {subsubsection}{\numberline {4.3.3}Backpropagation for CNNs}{49}{subsubsection.4.3.3}%
 \contentsline {subsection}{\numberline {4.4}\textcolor {red}{\textbf {TODO: }}Recurrent Neural Networks (RNNs)}{49}{subsection.4.4}%
 \contentsline {subsubsection}{\numberline {4.4.1}Long Short-Term Memory (LSTMs)}{49}{subsubsection.4.4.1}%
 \contentsline {subsubsection}{\numberline {4.4.2}Gated Recurrent Units (GRUs)}{49}{subsubsection.4.4.2}%
 \contentsline {subsection}{\numberline {4.5}\textcolor {red}{\textbf {TODO: }}Transformers}{49}{subsection.4.5}%
 \contentsline {subsubsection}{\numberline {4.5.1}Tokens and Embedding}{49}{subsubsection.4.5.1}%
-\contentsline {subsubsection}{\numberline {4.5.2}Positional encoding}{50}{subsubsection.4.5.2}%
-\contentsline {subsubsection}{\numberline {4.5.3}Attention}{50}{subsubsection.4.5.3}%
+\contentsline {subsubsection}{\numberline {4.5.2}Positional encoding}{49}{subsubsection.4.5.2}%
+\contentsline {subsubsection}{\numberline {4.5.3}Attention}{49}{subsubsection.4.5.3}%
 \contentsline {subsubsection}{\numberline {4.5.4}Transformer blocks}{50}{subsubsection.4.5.4}%
 \setcounter {tocdepth}{1}
 \contentsline {subsection}{\numberline {4.6}Misc. questions}{50}{subsection.4.6}%
 \setcounter {tocdepth}{2}
-\contentsline {section}{\numberline {5}Generative Models}{53}{section.5}%
+\contentsline {section}{\numberline {5}Generative Models}{52}{section.5}%
 \contentsline {subsection}{\numberline {5.1}\textcolor {myYellow}{\textbf {IMPROVE: }}Bayesian networks (BNs)}{53}{subsection.5.1}%
-\contentsline {subsubsection}{\numberline {5.1.1}Formulating BNs}{54}{subsubsection.5.1.1}%
-\contentsline {subsubsection}{\numberline {5.1.2}Learning BNs from data}{54}{subsubsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.2}Variational Autoencoders (VAEs)}{54}{subsection.5.2}%
-\contentsline {subsubsection}{\numberline {5.2.1}Autoencoders: no variation yet!}{54}{subsubsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Formulating BNs}{53}{subsubsection.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.2}Complexity of Inference}{54}{subsubsection.5.1.2}%
+\contentsline {subsubsection}{\numberline {5.1.3}Learning Structure}{54}{subsubsection.5.1.3}%
+\contentsline {subsubsection}{\numberline {5.1.4}Learning Parameters}{54}{subsubsection.5.1.4}%
+\contentsline {subsection}{\numberline {5.2}\textcolor {purple}{\textbf {REVIEW: }}Variational Autoencoders (VAEs)}{55}{subsection.5.2}%
+\contentsline {subsubsection}{\numberline {5.2.1}Autoencoders: no variation yet!}{55}{subsubsection.5.2.1}%
 \contentsline {subsubsection}{\numberline {5.2.2}Motivating VAEs}{56}{subsubsection.5.2.2}%
 \contentsline {subsubsection}{\numberline {5.2.3}Formulating VAEs}{57}{subsubsection.5.2.3}%
-\contentsline {subsubsection}{\numberline {5.2.4}\textcolor {purple}{\textbf {REVIEW: }}Backpropagation for VAEs}{61}{subsubsection.5.2.4}%
-\contentsline {subsubsection}{\numberline {5.2.5}\textcolor {red}{\textbf {TODO: }}Quirks of VAEs}{61}{subsubsection.5.2.5}%
-\contentsline {subsection}{\numberline {5.3}\textcolor {myYellow}{\textbf {IMPROVE: }}Generative Adversarial Networks (GANs)}{61}{subsection.5.3}%
+\contentsline {subsubsection}{\numberline {5.2.4}Backpropagation for VAEs}{61}{subsubsection.5.2.4}%
+\contentsline {subsubsection}{\numberline {5.2.5}Quirks of VAEs}{62}{subsubsection.5.2.5}%
+\contentsline {subsection}{\numberline {5.3}\textcolor {myYellow}{\textbf {IMPROVE: }}Generative Adversarial Networks (GANs)}{62}{subsection.5.3}%
 \contentsline {subsubsection}{\numberline {5.3.1}Quirks of GANs}{62}{subsubsection.5.3.1}%
 \contentsline {subsubsection}{\numberline {5.3.2}Flavours of GANs}{63}{subsubsection.5.3.2}%
 \contentsline {subsection}{\numberline {5.4}\textcolor {red}{\textbf {TODO: }}Normalising Flows}{63}{subsection.5.4}%
 \contentsline {subsection}{\numberline {5.5}Diffusion Models}{63}{subsection.5.5}%
-\contentsline {subsubsection}{\numberline {5.5.1}U-Net denoisers}{64}{subsubsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.6}\textcolor {red}{\textbf {TODO: }}Evaluating Generative Models}{65}{subsection.5.6}%
-\contentsline {section}{Appendices}{66}{section*.49}%
+\contentsline {subsubsection}{\numberline {5.5.1}U-Net denoisers}{65}{subsubsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.6}\textcolor {red}{\textbf {TODO: }}Evaluating Generative Models}{66}{subsection.5.6}%
+\contentsline {section}{Appendices}{67}{section*.41}%
 \setcounter {tocdepth}{0}
-\contentsline {section}{\numberline {A}Probability Theory Things}{66}{appendix.a.A}%
-\contentsline {subsection}{\numberline {A.1}Derivations Related to Common Distributions}{66}{subsection.a.A.1}%
-\contentsline {subsection}{\numberline {A.2}Motivating Variance}{70}{subsection.a.A.2}%
-\contentsline {subsection}{\numberline {A.3}\textcolor {red}{\textbf {TODO: }}Flavours of Convergence of Random Variables}{70}{subsection.a.A.3}%
-\contentsline {subsection}{\numberline {A.4}The Law of Large Numbers}{71}{subsection.a.A.4}%
-\contentsline {subsection}{\numberline {A.5}The (univariate) Central Limit Theorem (CLT)}{71}{subsection.a.A.5}%
-\contentsline {subsection}{\numberline {A.6}Jensen's Inequality}{72}{subsection.a.A.6}%
-\contentsline {subsection}{\numberline {A.7}Entropy and its Friend KL-divergence}{72}{subsection.a.A.7}%
-\contentsline {subsubsection}{\numberline {A.7.1}Kullback-Leibler Divergence (KL-divergence)}{73}{subsubsection.a.A.7.1}%
-\contentsline {subsection}{\numberline {A.8}Pearson Correlation and Mutual Information}{76}{subsection.a.A.8}%
+\contentsline {section}{\numberline {A}Probability Theory Things}{67}{appendix.a.A}%
+\contentsline {subsection}{\numberline {A.1}Derivations Related to Common Distributions}{67}{subsection.a.A.1}%
+\contentsline {subsubsection}{\numberline {A.1.1}From Bernoulli to Binomial}{67}{subsubsection.a.A.1.1}%
+\contentsline {subsubsection}{\numberline {A.1.2}From Categorical to Multinomial}{68}{subsubsection.a.A.1.2}%
+\contentsline {subsubsection}{\numberline {A.1.3}Negative Binomial and Geometric}{69}{subsubsection.a.A.1.3}%
+\contentsline {subsubsection}{\numberline {A.1.4}From Binomial to Poisson}{70}{subsubsection.a.A.1.4}%
+\contentsline {subsubsection}{\numberline {A.1.5}From Poisson to Exponential}{70}{subsubsection.a.A.1.5}%
+\contentsline {subsection}{\numberline {A.2}Motivating Variance}{71}{subsection.a.A.2}%
+\contentsline {subsection}{\numberline {A.3}\textcolor {red}{\textbf {TODO: }}Flavours of Convergence of Random Variables}{71}{subsection.a.A.3}%
+\contentsline {subsection}{\numberline {A.4}The Law of Large Numbers}{72}{subsection.a.A.4}%
+\contentsline {subsection}{\numberline {A.5}The (univariate) Central Limit Theorem (CLT)}{72}{subsection.a.A.5}%
+\contentsline {subsection}{\numberline {A.6}Jensen's Inequality}{73}{subsection.a.A.6}%
+\contentsline {subsection}{\numberline {A.7}Entropy and its Friend KL-divergence}{73}{subsection.a.A.7}%
+\contentsline {subsubsection}{\numberline {A.7.1}Kullback-Leibler Divergence (KL-divergence)}{74}{subsubsection.a.A.7.1}%
+\contentsline {subsection}{\numberline {A.8}Pearson Correlation and Mutual Information}{77}{subsection.a.A.8}%
 \contentsline {subsection}{\numberline {A.9}Quality of fit $\approx $ Encoding quality?}{77}{subsection.a.A.9}%
 \contentsline {section}{\numberline {B}Classical Statistics Things}{77}{appendix.a.B}%
-\contentsline {subsection}{\numberline {B.1}Sample Independence and Terminology}{77}{subsection.a.B.1}%
-\contentsline {subsection}{\numberline {B.2}Estimators and their Bias}{77}{subsection.a.B.2}%
-\contentsline {subsubsection}{\numberline {B.2.1}Sampling bias}{79}{subsubsection.a.B.2.1}%
-\contentsline {subsubsection}{\numberline {B.2.2}Efficiency, Consistency and }{79}{subsubsection.a.B.2.2}%
-\contentsline {subsection}{\numberline {B.3}\textcolor {red}{\textbf {TODO: }}Hypothesis Testing}{79}{subsection.a.B.3}%
-\contentsline {subsection}{\numberline {B.4}\textcolor {red}{\textbf {TODO: }}The Curse of Dimensionality}{79}{subsection.a.B.4}%
-\contentsline {subsection}{\numberline {B.5}\textcolor {red}{\textbf {TODO: }}Markov Chain Monte Carlo (MCMC) Methods}{79}{subsection.a.B.5}%
-\contentsline {subsubsection}{\numberline {B.5.1}Markov Chains}{79}{subsubsection.a.B.5.1}%
-\contentsline {subsubsection}{\numberline {B.5.2}The Metropolis-Hastings algorithm}{82}{subsubsection.a.B.5.2}%
-\contentsline {subsubsection}{\numberline {B.5.3}Gibbs sampling}{82}{subsubsection.a.B.5.3}%
-\contentsline {subsection}{\numberline {B.6}Hidden Markov Models (HMMs)}{82}{subsection.a.B.6}%
-\contentsline {subsection}{\numberline {B.7}The Expectation-Maximisation (EM) Algorithm}{82}{subsection.a.B.7}%
+\contentsline {subsection}{\numberline {B.1}Sample Independence}{77}{subsection.a.B.1}%
+\contentsline {subsection}{\numberline {B.2}Estimators}{78}{subsection.a.B.2}%
+\contentsline {subsubsection}{\numberline {B.2.1}(Estimator) Bias}{78}{subsubsection.a.B.2.1}%
+\contentsline {subsubsection}{\numberline {B.2.2}Sampling bias}{80}{subsubsection.a.B.2.2}%
+\contentsline {subsubsection}{\numberline {B.2.3}Efficiency}{80}{subsubsection.a.B.2.3}%
+\contentsline {subsubsection}{\numberline {B.2.4}Consistency}{80}{subsubsection.a.B.2.4}%
+\contentsline {subsubsection}{\numberline {B.2.5}Sufficiency}{80}{subsubsection.a.B.2.5}%
+\contentsline {subsubsection}{\numberline {B.2.6}Asmymptotic normality}{80}{subsubsection.a.B.2.6}%
+\contentsline {subsection}{\numberline {B.3}\textcolor {red}{\textbf {TODO: }}Hypothesis Testing}{80}{subsection.a.B.3}%
+\contentsline {subsection}{\numberline {B.4}\textcolor {red}{\textbf {TODO: }}Markov Chain Monte Carlo (MCMC) Methods}{80}{subsection.a.B.4}%
+\contentsline {subsubsection}{\numberline {B.4.1}Markov Chains}{80}{subsubsection.a.B.4.1}%
+\contentsline {subsubsection}{\numberline {B.4.2}Metropolis-Hastings}{82}{subsubsection.a.B.4.2}%
+\contentsline {subsubsection}{\numberline {B.4.3}Gibbs sampling}{82}{subsubsection.a.B.4.3}%
+\contentsline {subsection}{\numberline {B.5}Hidden Markov Models (HMMs)}{83}{subsection.a.B.5}%
+\contentsline {subsection}{\numberline {B.6}\textcolor {red}{\textbf {TODO: }}The Curse of Dimensionality}{83}{subsection.a.B.6}%
+\contentsline {subsubsection}{\numberline {B.6.1}The blessing of non-uniformity}{83}{subsubsection.a.B.6.1}%
+\contentsline {subsection}{\numberline {B.7}The Expectation-Maximisation (EM) Algorithm}{83}{subsection.a.B.7}%
 \contentsline {section}{\numberline {C}Bayesian Persuasion}{85}{appendix.a.C}%
 \contentsline {subsection}{\numberline {C.1}Posetriors Over Parameters}{86}{subsection.a.C.1}%
-\contentsline {subsection}{\numberline {C.2}Belief Propagation}{86}{subsection.a.C.2}%
-\contentsline {subsection}{\numberline {C.3}Variational Bayesian inference}{86}{subsection.a.C.3}%
+\contentsline {subsection}{\numberline {C.2}Variational Bayesian inference}{87}{subsection.a.C.2}%
