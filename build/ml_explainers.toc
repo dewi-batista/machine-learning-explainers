@@ -84,16 +84,16 @@
 \contentsline {subsection}{\numberline {A.2}Motivating Variance}{71}{subsection.a.A.2}%
 \contentsline {subsection}{\numberline {A.3}\textcolor {red}{\textbf {TODO: }}Flavours of Convergence of Random Variables}{71}{subsection.a.A.3}%
 \contentsline {subsection}{\numberline {A.4}The Law of Large Numbers}{72}{subsection.a.A.4}%
-\contentsline {subsection}{\numberline {A.5}The (univariate) Central Limit Theorem (CLT)}{72}{subsection.a.A.5}%
+\contentsline {subsection}{\numberline {A.5}The (univariate) Central Limit Theorem (CLT)}{73}{subsection.a.A.5}%
 \contentsline {subsection}{\numberline {A.6}Jensen's Inequality}{73}{subsection.a.A.6}%
 \contentsline {subsection}{\numberline {A.7}Entropy and its Friend KL-divergence}{73}{subsection.a.A.7}%
 \contentsline {subsubsection}{\numberline {A.7.1}Kullback-Leibler Divergence (KL-divergence)}{74}{subsubsection.a.A.7.1}%
 \contentsline {subsection}{\numberline {A.8}Pearson Correlation and Mutual Information}{77}{subsection.a.A.8}%
-\contentsline {subsection}{\numberline {A.9}Quality of fit $\approx $ Encoding quality?}{77}{subsection.a.A.9}%
-\contentsline {section}{\numberline {B}Classical Statistics Things}{77}{appendix.a.B}%
-\contentsline {subsection}{\numberline {B.1}Sample Independence}{77}{subsection.a.B.1}%
+\contentsline {subsection}{\numberline {A.9}Quality of fit $\approx $ Encoding quality?}{78}{subsection.a.A.9}%
+\contentsline {section}{\numberline {B}Classical Statistics Things}{78}{appendix.a.B}%
+\contentsline {subsection}{\numberline {B.1}Sample Independence}{78}{subsection.a.B.1}%
 \contentsline {subsection}{\numberline {B.2}Estimators}{78}{subsection.a.B.2}%
-\contentsline {subsubsection}{\numberline {B.2.1}(Estimator) Bias}{78}{subsubsection.a.B.2.1}%
+\contentsline {subsubsection}{\numberline {B.2.1}(Estimator) Bias}{79}{subsubsection.a.B.2.1}%
 \contentsline {subsubsection}{\numberline {B.2.2}Sampling bias}{80}{subsubsection.a.B.2.2}%
 \contentsline {subsubsection}{\numberline {B.2.3}Efficiency}{80}{subsubsection.a.B.2.3}%
 \contentsline {subsubsection}{\numberline {B.2.4}Consistency}{80}{subsubsection.a.B.2.4}%
@@ -101,7 +101,7 @@
 \contentsline {subsubsection}{\numberline {B.2.6}Asmymptotic normality}{80}{subsubsection.a.B.2.6}%
 \contentsline {subsection}{\numberline {B.3}Hypothesis Testing}{80}{subsection.a.B.3}%
 \contentsline {subsection}{\numberline {B.4}Markov Chain Monte Carlo (MCMC) Methods}{80}{subsection.a.B.4}%
-\contentsline {subsubsection}{\numberline {B.4.1}Markov Chains}{80}{subsubsection.a.B.4.1}%
+\contentsline {subsubsection}{\numberline {B.4.1}Markov Chains}{81}{subsubsection.a.B.4.1}%
 \contentsline {subsubsection}{\numberline {B.4.2}Metropolis-Hastings}{82}{subsubsection.a.B.4.2}%
 \contentsline {subsubsection}{\numberline {B.4.3}Gibbs sampling}{82}{subsubsection.a.B.4.3}%
 \contentsline {subsection}{\numberline {B.5}Hidden Markov Models (HMMs)}{83}{subsection.a.B.5}%

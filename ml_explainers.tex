@@ -2121,6 +2121,10 @@ with respect to some type of convergence. The law comes in a weak flavour and a 
 
 Frankly, the details aren't important for my purposes, so I simply think of it as meaning ``The sample mean of a buncha samples is the population mean.''. It's useful for justifying certain approaches, e.g. Monte Carlo integration.
 
+\begin{tcolorbox}[title={\centering\textbf{i.i.d. assumption}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    Individuals and forms of media (e.g. the TV show Ozark) love applying the LLN. For example, the argument that individuals may not exhibit nicely-defined behaviour but populations do. While this application isn't terrible, the i.i.d. assumption is often turbo-violated in their use-case.
+\end{tcolorbox}
+
 \subsection{The (univariate) Central Limit Theorem (CLT)}
 If $X_1,\dots,X_n$ are i.i.d. and $\text{Var}(X)<\infty$ then
 $$
@@ -2302,7 +2306,7 @@ The intended meaning of the term `sample' in statistics is a set of independentl
 As for sample independence, I always default to thinking of the following simple example. Suppose we'd like to estimate the population mean of the heights of men and women. If we randomly sample 100 men and 100 women separately then the sample mean serves as a fine estimate. This could computed by independently sampling, without replacement, from the categorical distribution corresponding to ID numbers of all individuals in the population. If we instead randomly sampled 100 couples then the obtained samples would not be independent as heights of couples correlate. Sample independence is a key assumption made in many estimation methods, e.g. maximum likelihood estimation.
 
 \subsection{Estimators}
-Suppose you have a bunch of i.i.d. random variables $\X_1,\dots,\X_n$, an estimator is a function $\hat{\theta}:\Omega_{\X}^n\to\mathbb{R}^k$. Given the sample $\{\x_1,\dots,\x_n\}\subset\Omega_{\X}$, the value $\hat{\theta}(\x_1,\dots,\x_n)$ is typically denote by $\hat{\theta}$ for shorthand and is referred to as an estimate. The reason that this lack of rigour in notation is allowable is that the contexts in which it is used often make it clear when an estimator is being considered as opposed to an estimate, and vice versa.
+Suppose you have a bunch of i.i.d. random variables $\X_1,\dots,\X_n$, an estimator is a function $\hat{\theta}:\Omega_{\X}^n\to\mathbb{R}^k$. Given the sample $\{\x_1,\dots,\x_n\}\subset\Omega_{\X}$, the value $\hat{\theta}(\x_1,\dots,\x_n)$ is typically denoted by $\hat{\theta}$ for shorthand and is referred to as an estimate. The reason that this lack of rigour in notation is allowable is that the contexts in which it is used often make it clear when an estimator is being considered as opposed to an estimate, and vice versa.
 
 The simplest example of a often-used estimator is the estimator of the mean as in
 $$
