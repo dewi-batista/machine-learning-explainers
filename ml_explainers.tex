@@ -1596,7 +1596,7 @@ A natural approach to representing the joint probability function of model varia
 From here, sampling may be done autoregressively: sample $x_1$ according to $p(x_1)$, $x_2$ according to $p(x_2|x_1)$ and so on until an entire realisation of $\X=(X_1,\dots,X_m)$ is obtained. Why stop at decomposition though? In an image, nearby pixel values may correlate but far away pixels may not, so why incoroporate them in the conditional? Why not learn the dependencies between the model variables? Boom, Bayesian networks.
 
 \subsubsection{Formulating BNs}
-With their motivation out of the way, we can move on to their formulation. A Bayesian network consists of a directed acyclic graph (DAG) $\mathcal{G}$ and a parameter set $\theta$. The graph $\mathcal{G}$ has a single node for each model variable $X_1,\dots,X_m$ and directed edges represent conditional dependencies.
+With their motivation out of the way, we can move on to their formulation. A Bayesian network consists of a directed acyclic graph (DAG) $\mathcal{G}$ and a parameter set $\theta$. The graph $\mathcal{G}$ has a single node for each model variable $X_1,\dots,X_m$ and directed edges represent conditional dependencies. The parameter set $\theta$ pertains to the parameters of the conditional distributions induced by $\mathcal{G}$.
 
 \begin{example}
     For model variables $X_1, X_2$ and $X_3$, if $X_3|X_1$ is independent of $X_2$ then their joint probability function may be decomposed as
@@ -1616,9 +1616,8 @@ With their motivation out of the way, we can move on to their formulation. A Bay
             \draw[bend left][->] (A) edge (C);
         \end{tikzpicture}
     \end{center}
-    Notice that the choice of $X_1$ as the model variable upon which nothing is conditioned is entirely arbitrary. As a result, for a given decomposition, DAGs are not unique.
+    Notice that the choice of $X_1$ as the model variable upon which nothing is conditioned is entirely arbitrary. As a result, for a given decomposition, DAGs are not unique. Here, $\theta=(\theta_1,\theta_2,\theta_3)$.
 \end{example}
-The parameter set $\theta$ pertains to the parameters of the conditional distributions shown in $\mathcal{G}$.
 
 \subsubsection{Complexity of Inference}
 Before considering how to learn a Bayesian network (its DAG and parameters), let's consider how Bayesian networks may be applied to inference. As far as exact inference goes, Bayesian networks have several pitfalls as far as probabilistic models go. Many probabilistic queries have complexity which is exponential in the tree-width of the Bayesian network. Known algorithms for these tasks are variable elimination and junction trees. To understand this crux, we must first understand tree-width.
