@@ -98,7 +98,6 @@
 \contentsline {subsubsection}{\numberline {B.2.3}Efficiency}{80}{subsubsection.a.B.2.3}%
 \contentsline {subsubsection}{\numberline {B.2.4}Consistency}{80}{subsubsection.a.B.2.4}%
 \contentsline {subsubsection}{\numberline {B.2.5}Sufficiency}{80}{subsubsection.a.B.2.5}%
-\contentsline {subsubsection}{\numberline {B.2.6}Asmymptotic normality}{80}{subsubsection.a.B.2.6}%
 \contentsline {subsection}{\numberline {B.3}Hypothesis Testing}{80}{subsection.a.B.3}%
 \contentsline {subsection}{\numberline {B.4}Markov Chain Monte Carlo (MCMC) Methods}{80}{subsection.a.B.4}%
 \contentsline {subsubsection}{\numberline {B.4.1}Markov Chains}{81}{subsubsection.a.B.4.1}%
