@@ -1475,7 +1475,7 @@ Pooling operations reduce the spatial dimensions of a given feature map by apply
     Massively improved parameter-efficiency, translation invariance and learning efficiency\footnote{\href{https://ai.stackexchange.com/questions/27407/what-does-statistical-efficiency-mean-in-this-context}{\texttt{ai.stackexchange.com/questions/27407}}} (fewer samples needed to learn distributions to similar degrees of precision). These are in part due to the inductive bias present of their architecture.
 \end{tcolorbox}
 
-\subsubsection{Backpropagation for CNNs}
+\subsubsection{\TODO Backpropagation for CNNs}
 
 % recurrent neural networks
 \subsection{\TODO Recurrent Neural Networks (RNNs)}
@@ -1573,16 +1573,11 @@ It's worth mentioning that said vanishing behaviour can be observed during forwa
 
 % generative models (any other section name i've come up with has been due to overthinking)
 \section{Generative Models}
+Generative probabilistic modelling seeks to represent the joint probability function over model variable of interest. Ideally, such a representation would help to answer probabilistic queries either exactly or approximately. While this section consists of methods of learning generative models pertaining to image-related distributions, the discussed methods are often applicable to generative modelling in general.
 
-\begin{tcolorbox}[title={\centering\textbf{Terminology}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    To avoid having to write \textit{probability mass/density function} in full throughout this section, \textit{probability function} will be written.
-\end{tcolorbox}
+Put more precisely, what we further refer to as a generative probabilistic model is a tuple $(\X, p_{\Theta})$ consisting of model variables $\X=(X_1,\dots,X_m)$ and a probability function $p_{\Theta}:\Omega_{\X}\rightarrow\mathbb{R}_{\geq0}$ parameterised according to the parameter set $\Theta$. The probabilistic queries we might hope to answer given a generative probabilistic model include evidence queries $p_{\Theta}(\x)$, marginal queries $p_{\Theta}(\x')$, where $\x'$ is a realisation of some subset of the model variables, and sampling queries $\hat{\x}\sim p_{\Theta}(\x)$, in which one obtains a `convincing' realisation $\hat{\x}\in\Omega_{\X}$ of the model variables.
 
-Modelling data-generating processes is the heart of science: the laws which dictate graviation, \dots. The probabilistic equivalent of this idea is to model the joint probability function which, ideally, helps to answer probabilistic queries either exactly or approximately. While this section consists of methods of learning generative models pertaining to image-related distributions, the discussed methods are often applicable to generative modelling in general.
-
-Put more precisely, what we further refer to as a generative probabilistic model is a tuple $(\X, p_{\Theta})$ consisting of model variables $\X=(X_1,\dots,X_m)$ and a probability function $p_{\Theta}:\Omega_{\X}\rightarrow\mathbb{R}_{\geq0}$ parameterised according to the parameter set $\Theta$. The probabilistic queries we might hope to answer given a generative probabilistic model include evidence queries $p(\x)$, marginal queries $p(\x')$, where is a realisation of some subset of the model variables, and sampling queries, in which one obtains a realisation of the model variables in conjunction.
-
-The holy grail of generative probabilistic modelling is to find an exact, efficiently computed and algebraically manipulable representation of the underlying joint probability function of interest. If obtained, one can reason probabilistically with ease but, as we will see, the purpose, limitations and learning of generative probabilistic models varies heavily. To illustrate this, consider probabilistic graphical models (PGMs) which offer a graph structure in which conditional dependencies between model variables are expressed in a compact and human-interpretable manner. The most well-known class of PGMs are Bayesian networks.
+The holy grail of generative probabilistic modelling is to find an exact, efficiently computable and algebraically manipulable representation of the underlying joint probability function of interest. If obtained, one can reason probabilistically with ease but, as we will see, the purpose, limitations and learning of generative probabilistic models varies heavily. To illustrate this, consider probabilistic graphical models (PGMs) which offer a graph structure in which conditional dependencies between model variables are expressed in a compact and human-interpretable manner. The most well-known class of PGMs are Bayesian networks.
 
 % bayesian nets
 \subsection{\IMPROVE Bayesian networks (BNs)}
@@ -1594,15 +1589,19 @@ A natural approach to representing the joint probability function of model varia
     &=
     \prod_{i=1}^m p(x_i|x_1,\dots,x_{i-1}).
 \end{align*}
-From here, sampling may be done autoregressively: sample $x_1$ according to $p(x_1)$, $x_2$ according to $p(x_2|x_1)$ and so on until an entire realisation of $\X=(X_1,\dots,X_m)$ is obtained. Why stop at decomposition though? In an image, nearby pixel values may correlate but far away pixels may not, so why incoroporate them in the conditional? Why not learn the dependencies between the model variables? Boom, Bayesian networks.
+From here, sampling may be done autoregressively: sample $x_1$ according to $p(x_1)$, $x_2$ according to $p(x_2|x_1)$ and so on until an entire realisation of $\X=(X_1,\dots,X_m)$ is obtained. To motivate Bayesian networks, consider the natural question: why stop at decomposition according to chain rule? In image date, for example, nearby pixel values may correlate but far away pixels may not, so why incoroporate distant pixels in a given conditional in the learned decomposition? Boom, Bayesian networks.
 
-\subsubsection{Formulating BNs}
-With their motivation out of the way, we can move on to their formulation. A Bayesian network consists of a directed acyclic graph (DAG) $\mathcal{G}$ and a parameter set $\theta$. The graph $\mathcal{G}$ has a single node for each model variable $X_1,\dots,X_m$ and directed edges represent conditional dependencies. The parameter set $\theta$ pertains to the parameters of the conditional distributions induced by $\mathcal{G}$.
-
+With their motivation out of the way, we can move on to their formulation. The parameter set $\Theta=(\mathcal{G},\theta)$ of a Bayesian network $(\X,p_\Theta)$ consists of a directed acyclic graph (DAG) $\mathcal{G}$ and a parameter set $\theta$. The graph $\mathcal{G}$ has a single node for each model variable $X_1,\dots,X_m$ and directed edges represent conditional (in)dependencies. The parameter set $\theta$ pertains to the parameters of the conditional distributions made explicit by $\mathcal{G}$. The representation of the joint probability function is given by
+$$
+p_{\Theta}(x_1,\dots,x_m)
+=
+\prod_{i=1}^m p_{\theta_i}(x_i|\textbf{pa}(X_i))
+$$
+where $\textbf{pa}(X_i)$ denotes the random variables which are parents of $X_i$ in $\mathcal{G}$.
 \begin{example}
     For model variables $X_1, X_2$ and $X_3$, if $X_3|X_1$ is independent of $X_2$ then their joint probability function may be decomposed as
     $$
-    p(x_1,x_2,x_3)
+    p_{\Theta}(x_1,x_2,x_3)
     =
     p_{\theta_1}(x_1)p_{\theta_2}(x_2|x_1)p_{\theta_3}(x_3|x_1)
     $$
@@ -1620,19 +1619,25 @@ With their motivation out of the way, we can move on to their formulation. A Bay
     Notice that the choice of $X_1$ as the model variable upon which nothing is conditioned is entirely arbitrary. As a result, for a given decomposition, DAGs are not unique. Here, $\theta=(\theta_1,\theta_2,\theta_3)$.
 \end{example}
 
-\subsubsection{Complexity of Inference}
+\subsubsection{\TODO Complexity of Inference}
 Before considering how to learn a Bayesian network (its DAG and parameters), let's consider how Bayesian networks may be applied to inference. As far as exact inference goes, Bayesian networks have several pitfalls as far as probabilistic models go. Many probabilistic queries have complexity which is exponential in the tree-width of the Bayesian network. Known algorithms for these tasks are variable elimination and junction trees. To understand this crux, we must first understand tree-width.
 
 As for approximate inference, perhaps the most well known algorithm is loopy belief propagation, developed by Judea Pearl, also known as sum-product message passing. Pearl writes a bunch of interesting things about it in his The Book of Why. It's worth noting that belief propagation is exact for tree-shaped Bayesian networks.
 
-\subsubsection{Learning Structure}
-Unlike the structure of neural network architectures, the structure of a Bayesian network (its DAG) can be motivated rigorously via maximum likelihood estimation. In brief, the likelihood of a given DAG can be computed and so a `best' DAG, according to MLE, can be computed. For Bayesian networks pertaining to Gaussian distributed variables, scoring can be done using Bayesian metric for Gaussian networks having score equivalence (BGe). For Bayesian networks pertaining to discretely distributed variables, scoring can be done using Bayesian Dirichlet likelihood equivalent (BDe).
+\subsubsection{\TODO Learning Structure}
+Unlike the structure of neural network architectures, the structure of a Bayesian network (its DAG) can be motivated rigorously via maximum likelihood estimation. In brief, the likelihood of a DAG can be computed and so a most likely DAG can be computed. For Bayesian networks pertaining to Gaussian distributed variables, scoring can be done using Bayesian metric for Gaussian networks having score equivalence (BGe). For Bayesian networks pertaining to discretely distributed variables, scoring can be done using Bayesian Dirichlet likelihood equivalent (BDe). Each of these employ a prior over graphs and score according to
+$$
+p(\mathcal{G}|D)
+\propto
+p(D|\mathcal{G})p(\mathcal{G}).
+$$
+It should be made clear that no analytic solution for the MLE for the DAG exists. As a result, methods typically involve exploring the graph space in a heuristic manner, such as hill climbing.
 
-\subsubsection{Learning Parameters}
+\subsubsection{\TODO Learning Parameters}
 \dots
 
 % variational autoencoders
-\subsection{\REVIEW Variational Autoencoders (VAEs)}
+\subsection{Variational Autoencoders (VAEs)}
 In describing variational autoencoders (VAEs), it's natural to first motivate autoencoders and then spice things up with variational inference do generative things.
 
 % autoencoders
