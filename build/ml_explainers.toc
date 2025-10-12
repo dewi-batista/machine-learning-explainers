@@ -63,8 +63,8 @@
 \contentsline {subsubsection}{\numberline {5.2.1}Autoencoders: no variation yet!}{55}{subsubsection.5.2.1}%
 \contentsline {subsubsection}{\numberline {5.2.2}Motivating VAEs}{56}{subsubsection.5.2.2}%
 \contentsline {subsubsection}{\numberline {5.2.3}Formulating VAEs}{57}{subsubsection.5.2.3}%
-\contentsline {subsubsection}{\numberline {5.2.4}Backpropagation for VAEs}{61}{subsubsection.5.2.4}%
-\contentsline {subsubsection}{\numberline {5.2.5}Quirks of VAEs}{62}{subsubsection.5.2.5}%
+\contentsline {subsubsection}{\numberline {5.2.4}\textcolor {red}{\textbf {TODO: }}Backpropagation for VAEs}{61}{subsubsection.5.2.4}%
+\contentsline {subsubsection}{\numberline {5.2.5}\textcolor {red}{\textbf {TODO: }}Quirks of VAEs}{62}{subsubsection.5.2.5}%
 \contentsline {subsection}{\numberline {5.3}\textcolor {myYellow}{\textbf {IMPROVE: }}Generative Adversarial Networks (GANs)}{62}{subsection.5.3}%
 \contentsline {subsubsection}{\numberline {5.3.1}Quirks of GANs}{62}{subsubsection.5.3.1}%
 \contentsline {subsubsection}{\numberline {5.3.2}Flavours of GANs}{63}{subsubsection.5.3.2}%
@@ -98,15 +98,15 @@
 \contentsline {subsubsection}{\numberline {B.2.3}Efficiency}{80}{subsubsection.a.B.2.3}%
 \contentsline {subsubsection}{\numberline {B.2.4}Consistency}{80}{subsubsection.a.B.2.4}%
 \contentsline {subsubsection}{\numberline {B.2.5}Sufficiency}{80}{subsubsection.a.B.2.5}%
-\contentsline {subsection}{\numberline {B.3}Hypothesis Testing}{80}{subsection.a.B.3}%
-\contentsline {subsection}{\numberline {B.4}Markov Chain Monte Carlo (MCMC) Methods}{80}{subsection.a.B.4}%
+\contentsline {subsection}{\numberline {B.3}Hypothesis Testing}{81}{subsection.a.B.3}%
+\contentsline {subsection}{\numberline {B.4}Markov Chain Monte Carlo (MCMC) Methods}{81}{subsection.a.B.4}%
 \contentsline {subsubsection}{\numberline {B.4.1}Markov Chains}{81}{subsubsection.a.B.4.1}%
 \contentsline {subsubsection}{\numberline {B.4.2}Metropolis-Hastings}{82}{subsubsection.a.B.4.2}%
 \contentsline {subsubsection}{\numberline {B.4.3}Gibbs sampling}{82}{subsubsection.a.B.4.3}%
 \contentsline {subsection}{\numberline {B.5}Hidden Markov Models (HMMs)}{83}{subsection.a.B.5}%
 \contentsline {subsection}{\numberline {B.6}The Curse of Dimensionality}{83}{subsection.a.B.6}%
-\contentsline {subsubsection}{\numberline {B.6.1}The blessing of non-uniformity}{83}{subsubsection.a.B.6.1}%
-\contentsline {subsection}{\numberline {B.7}The Expectation-Maximisation (EM) Algorithm}{83}{subsection.a.B.7}%
-\contentsline {section}{\numberline {C}Bayesian Persuasion}{85}{appendix.a.C}%
+\contentsline {subsubsection}{\numberline {B.6.1}The blessing of non-uniformity}{84}{subsubsection.a.B.6.1}%
+\contentsline {subsection}{\numberline {B.7}The Expectation-Maximisation (EM) Algorithm}{84}{subsection.a.B.7}%
+\contentsline {section}{\numberline {C}Bayesian Persuasion}{86}{appendix.a.C}%
 \contentsline {subsection}{\numberline {C.1}Posetriors Over Parameters}{86}{subsection.a.C.1}%
-\contentsline {subsection}{\numberline {C.2}Variational Bayesian inference}{86}{subsection.a.C.2}%
+\contentsline {subsection}{\numberline {C.2}Variational Bayesian inference}{87}{subsection.a.C.2}%

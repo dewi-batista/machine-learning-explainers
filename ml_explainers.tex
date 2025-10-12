@@ -1573,11 +1573,12 @@ It's worth mentioning that said vanishing behaviour can be observed during forwa
 
 % generative models (any other section name i've come up with has been due to overthinking)
 \section{Generative Models}
-Modelling data-generating processes is the heart of science: the laws which dictate graviation, \dots. The probabilistic equivalent of this idea is to model the joint probability function which, ideally, helps to answer probabilistic queries either exactly or approximately. While this section consists of methods of learning generative models pertaining to image-related distributions, the discussed methods are often applicable to generative modelling in general.
 
 \begin{tcolorbox}[title={\centering\textbf{Terminology}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
     To avoid having to write \textit{probability mass/density function} in full throughout this section, \textit{probability function} will be written.
 \end{tcolorbox}
+
+Modelling data-generating processes is the heart of science: the laws which dictate graviation, \dots. The probabilistic equivalent of this idea is to model the joint probability function which, ideally, helps to answer probabilistic queries either exactly or approximately. While this section consists of methods of learning generative models pertaining to image-related distributions, the discussed methods are often applicable to generative modelling in general.
 
 Put more precisely, what we further refer to as a generative probabilistic model is a tuple $(\X, p_{\Theta})$ consisting of model variables $\X=(X_1,\dots,X_m)$ and a probability function $p_{\Theta}:\Omega_{\X}\rightarrow\mathbb{R}_{\geq0}$ parameterised according to the parameter set $\Theta$. The probabilistic queries we might hope to answer given a generative probabilistic model include evidence queries $p(\x)$, marginal queries $p(\x')$, where is a realisation of some subset of the model variables, and sampling queries, in which one obtains a realisation of the model variables in conjunction.
 
@@ -1670,7 +1671,7 @@ Autoencoders are great for compression, denoising, disecting LLMs (sparse autoen
     \centering
     \includegraphics[width=0.49\columnwidth]{./figures/generative_models/AE_gen_1.pdf}
     \includegraphics[width=0.49\columnwidth]{./figures/generative_models/AE_gen_2.pdf}
-    \caption{Failed intuitive ideas for using an autoencoder as a generative model.}
+    \caption{Intuitive ideas for using an autoencoder as a generative model which fail.}
     \label{fig:autoencoder_generation}
 \end{figure}
 
@@ -1773,7 +1774,7 @@ $$
 $$
 In practice, after choosing a latent dimension $d$, we often take $p(\z)=\mathcal{N}(0,I_d)$, $\mathcal{Q}_d=\mathbb{R}^d\times\mathcal{S}_{++}^d$ and $\mathcal{P}_m=\mathbb{R}^m\times\mathcal{S}_{++}^m$, i.e. Gaussians for the latent and reconstruction distribution families and the standard $d-$dimensional Gaussian for the prior. A benefit of these choices is that it yields a differentiable and easy-to-implement closed form for the KL-divergence term in the ELBO. Additionally, the expectation pertaining to the reconstruction term is typically approximated via a single sample, boiling down to a mean square error term\footnote{\url{https://n8python.github.io/mnistLatentSpace/}}.
 
-\subsubsection{Backpropagation for VAEs}
+\subsubsection{\TODO Backpropagation for VAEs}
 To find suitable parameters of a given VAE architecture using gradient descent, we require that the ELBO is differentiable. With respect to $\theta$, the gradient is approximated according to
 \begin{align*}
     \nabla_{\theta}\text{ELBO}
@@ -1796,7 +1797,7 @@ which is no issue when the decoder's architecture is backpro-compatible. However
 % $$
 % where $\odot$ denotes element-wise multiplication.
 
-\subsubsection{Quirks of VAEs}
+\subsubsection{\TODO Quirks of VAEs}
 Blur outside of central object.
 
 % general adversarial networks
@@ -2145,14 +2146,14 @@ If $f$ is concave then
 $$
 f(\E[\X])\geq\E[f(\X)].
 $$
-I've never come across a particularly inciteful proof of it, so I won't include one.
+I've never come across a particularly inciteful proof, so I won't include one. The way I remember which way around they go is to consider the univriate case with $f(x)=\log(x)$\dots
 
 \subsection{Entropy and its Friend KL-divergence}
 \label{app:entropy}
 
-The entropy of a distribution can be motivated by the notion of the surprise of (or information learned from) observing samples drawn from it. Given a discrete random variable $\X$, an event $\x\in\Omega_{\X}$ and a surprise function $S:\Omega_{\X}\rightarrow[0,\infty)$, the surprise of observing $\x$ is $S(\x)$. Before continuing, it's useful to lay out what we want out of our surprise function. Following the use of `surprising' in day-to-day communication, we want events with low probability to be highly surprising and events with high probability to be less surprising, with some extra conditions. So if $p(\x)=0.01$ then we want $S(\x)$ to be relatively high (strictly speaking it doesn't need to be bounded above) and if $p(\x)=0.99$ then we want $S(\x)$ to be close to 0.
+The entropy of a distribution can be motivated by the notion of the surprise of (or information learned from) observing samples drawn from it. Given a discrete random variable $\X$, an event $\x\in\Omega_{\X}$ and a surprise function $S:\Omega_{\X}\rightarrow[0,\infty)$, the surprise of observing $\x$ is $S(\x)$. Before continuing, it's useful to lay out what we want out of our surprise function. Following the use of `surprising' in day-to-day communication, we want events with low probability to be highly surprising and events with high probability to be unsurprising, with some additional natural conditions. For example, if $p(\x)=0.01$ then we might want $S(\x)$ to be relatively high (strictly speaking it doesn't need to be bounded above) and if $p(\x)=0.99$ then we might want $S(\x)$ to be close to 0.
 
-An easy way to achieve this is to take $S(\x)=-\log(p(\x))$ where $\log$ denotes the natural logarithm unless stated otherwise. Quickly see that $\log(0.01)=4.61$ and $\log(0.99)=0.01$. From here, we define the entropy of the distribution $p$ as the expected surprise
+An easy way to achieve this is to take $S(\x)=-\log(p(\x))$ where $\log$ denotes the natural logarithm unless stated otherwise. Quickly see that $\log(0.01)=4.61$ and $\log(0.99)=0.01$. From here, we define the entropy of the distribution $p$ as its expected surprise
 $$
 H(p)
 =
@@ -2160,7 +2161,7 @@ H(p)
 =
 -\sum_{\x\in \Omega_{\X}}p(\x)\log(p(\x)).
 $$
-More precisely, Claude Shannon wanted such a surprise function to satisfy three intuitive properties. Firstly, the surprise of an event with probability $1$ should be $0$. Secondly, the surprise of two independent events occurring should be the sum of the surprises of the events individually. Thirdly, the surprise of a given event should be higher than the surprise of any less probable event. So, for all $\x_1,\x_2\in\Omega_{\X}$, we desire
+More precisely, Claude Shannon wanted such a surprise function to satisfy three intuitive properties. Firstly, the surprise of an event with probability $1$ should be $0$. Secondly, the surprise invoked by the occurence of independent events should be the sum of the surprise invoked by the individual events. Thirdly, less probable events should be more surprising. In maths speak, we desire
 \begin{enumerate}
     \item $p(\x)=1\implies S(\x)=0$
     \item $p(\x_1,\x_2)=p(\x_1)\cdot p(\x_2)\implies S(\x_1,\x_2)=S(\x_1)+S(\x_2)$
@@ -2182,7 +2183,20 @@ D_{\text{KL}}(p||q)
 =
 \E_{\X\sim p}\left[\log\left(\frac{p(\X)}{q(\X)}\right)\right].
 $$
-It is often used as a measure of similarity between two distributions: it follows from Gibbs' inequality that it is non-negative and it is often proposed as a loss function when assessing how well a model $q$ encodes an underlying distribution $p$. In many cases, a loss function is chosen whose minimisation is equivalent to minimising the relevant KL-divergence.
+To show that it is non-negative, employ Jensen's inequality to see that
+\begin{align*}
+    D_{\text{KL}}(p||q)
+    &=
+    \E_{\X\sim p}\l[\log\l(\frac{p(\X)}{q(\X)}\r)\r]\\
+    &=
+    -\E_{\X\sim p}\l[\log\l(\frac{q(\X)}{p(\X)}\r)\r]\\
+    &\geq
+    \log\l(\E_{\X\sim p}\l[\frac{q(\X)}{p(\X)}\r]\r)\\
+    &=
+    -\log(1)\\
+    &=0.
+\end{align*}
+It is most often interpreted as a measure of similarity between two distributions and it is used as a loss function when assessing how well a model $q$ encodes an underlying distribution $p$. In many cases, loss functions can be expressed as KL-divergences which can help to motivate the use of said loss function.
 
 The KL-divergence of two distributions can be expressed in terms of a self-entropy and a cross-entropy as in
 \begin{align*}
@@ -2198,17 +2212,9 @@ where $H(p,q)$ denotes the cross-entropy between $p$ and $q$ and $H(p)$ denotes 
 
 \subsubsection*{Example: fitting via cross-entropy/KL-divergence}
 
-Suppose we have the geometric distribution with $p=1/2$ and would like to fit it using a Poisson distribution. That is, we would like to best approximate
-\begin{align*}
-    p:\mathbb{N}&\to[0,1]\\
-    k&\mapsto2^{-(k+1)}
-\end{align*}
-by finding a nice $\lambda$ for
-\begin{align*}
-    q:\mathbb{N}&\to[0,1]\\
-    k&\mapsto\frac{e^{-\lambda}\lambda^k}{k!}.
-\end{align*}
-To find a good $\lambda$, it makes sense to first come up with a metric for how good a given value is. For this, we can use the cross-entropy of the distributions $p$ and $q$ given by
+Let $K\sim\text{Geo}(1/2)$ and denote its probability function by $p:\mathbb{N}\to[0,1]$. Suppose we'd like to fit $p$ via a Poisson distribution whose probability function is $q:\mathbb{N}\to[0,1]$. That is, we would like to best approximate $p(k)=2^{-(k+1)}$ via $q(k)=\frac{e^{-\lambda}\lambda^k}{k!}$ by tweaking the parameter $\lambda$.
+
+To find a suitable value for $\lambda$, it makes sense to first come up with a metric for how good a given choice is. For this, we can use the cross-entropy of the distributions $p$ and $q$ given by
 $$
 H(p,q)
 =
@@ -2216,7 +2222,7 @@ H(p,q)
 =
 -\sum_{k=1}^{\infty}p(k)\log(q(k))
 $$
-which can be seen as the incurred cost of using the model $q$ in place of the true underlying model $p$. There are a bunch of different ways of describing/interpreting this quantity. The most interesting is perhaps the one related to encodings. Anyway, in our case, if we can find a closed form of this expression in terms of $\lambda$ then we can look to compute which value of $\lambda$ it's minimised by. In line with this, we compute
+which can be seen as the incurred cost of using the model $q$ in place of the true underlying model $p$. There are a bunch of different ways of describing/interpreting this quantity. The most interesting is perhaps the one related to encodings. Anyway, in our case, if we can find a closed form of this expression in terms of $\lambda$ then we can look to compute which value of $\lambda$ minimises it. In line with this, we compute
 \begin{align*}
     H(p,q)
     &=
@@ -2230,13 +2236,13 @@ which can be seen as the incurred cost of using the model $q$ in place of the tr
     &=
     \lambda-\log(\lambda)+C
 \end{align*}
-where $C=\sum_{k=1}^{\infty}\frac{\log(k!)}{2^k}$ is independent of $\lambda$. In computing the minmum of $H(p,q)$ in $\lambda$ we obtain
+where $C=\sum_{k=1}^{\infty}\frac{\log(k!)}{2^k}$ does not depend on $\lambda$. In computing the minmum of $H(p,q)$ in $\lambda$ we obtain
 $$
 \frac{\partial}{\partial \lambda}H(p,q)
 =
 1-\frac{1}{\lambda}
 $$
-which yields $\lambda=1$. So according cross-entropy, the best-fitting Poisson distribution to our geometric distribution is Poi$(1)$.
+which yields $\lambda=1$. So according cross-entropy, the best-fitting Poisson distribution to our geometric distribution is Poi$(1)$. An illustration is offered in \autoref{fig:poi_geo_plot}.
 
 \begin{figure}[t]
     \centering
@@ -2247,7 +2253,7 @@ which yields $\lambda=1$. So according cross-entropy, the best-fitting Poisson d
 
 For $\lambda=1$ we compute a cross-entropy of
 $$
-H(p,q;1)
+H(p,q)
 =
 1+\sum_{k=1}^{\infty}\frac{\log(k!)}{2^k}
 \approx
@@ -2271,6 +2277,7 @@ $$
 =
 0.63.
 $$
+Without a point of comparison, the number doesn't tell us much.
 
 \subsection{Pearson Correlation and Mutual Information}
 \label{app:pearson_correlation}
@@ -2278,23 +2285,23 @@ If $X$ and $Y$ are scalar random variables then their Pearson correlation is giv
 $$
 \rho_{X,Y}
 =
-\frac{\E\l[(X-\E[X])(Y-\E[Y])\r]}{\sqrt{\E\l[(X-\E[X])^2\r]\E\l[(Y-\E[Y])^2\r]}}
-=
 \frac{\text{Cov}(X,Y)}{\sigma_X\sigma_Y}
+=
+\frac{\E\l[(X-\E[X])(Y-\E[Y])\r]}{\sqrt{\E\l[(X-\E[X])^2\r]\E\l[(Y-\E[Y])^2\r]}}
 \in[-1,1]
 $$
-where the expectation in the numerator is over their joint $p_{(X,Y)}$. The overall quantity yields the linear dependence between $X$ and $Y$ and the denominator is for normalisation.
+where the expectation in the numerator is with respect to the joint $p_{X,Y}$. The overall quantity yields the linear dependence between $X$ and $Y$ and the denominator is for normalisation.
 
-What if we want an idea of the non-linear dependence between random variables? This desire motivates mutual information. The mutual information of the joint over $\X$ and $\mathbf{Y}$ is often spoken of as a property of two random variables $\X$ and $\mathbf{Y}$ and is denoted as such as in
+What if we want an idea of the non-linear dependence between two random variables? This is precisely what motivates mutual information which offers a notion of how much we know about one random variable given realisations of another random variable. The mutual information of $\X$ and $\mathbf{Y}$ is given by
 $$
-I(\X;\mathbf{Y})
+I(p_{\X,\mathbf{Y}})
 =
 D_{\text{KL}}(p_{\X,\mathbf{Y}}||p_{\X}\otimes p_{\mathbf{Y}}).
 $$
-I'm massively in favour of writing it as a KL-divergence as its meaning is immediately clear: its a measure of divergence between the joint and the product of the marginals. Informally, I see it as asking ``How well does the product of marginals model the joint?'' which is precisely the question we seek to answer when utilising things like Pearson correlation and mutual information.
+I'm massively in favour of writing it as a KL-divergence as its meaning is immediately clear: its a measure of divergence between the joint and the product of the marginals.
 
 \subsection{Quality of fit $\approx$ Encoding quality?}
-\TODO Perhaps worthy of its own section, unsure
+\TODO Perhaps worthy of its own subsection in the main body, unsure
 
 % classical statistics things
 \section{Classical Statistics Things}
@@ -2303,12 +2310,12 @@ Here are some classical statistics things.
 \subsection{Sample Independence}
 The intended meaning of the term `sample' in statistics is a set of independently obtained realisations of a random variable, i.e. $\{\x_1,\dots,\x_n\}\overset{i.i.d.}{\subset}\Omega_{\X}$. You could also define a sample as a set of i.i.d. random variables $\{\X_1,\dots,\X_n\}$. There are times where it's more useful to refer to sets of i.i.d. random variables but I more often reason with their realisations when using sample as a term. It can be especially confusing when context switching between machine learning and classical statistics. In the context of machine learning, a sample is intended to mean a single data point, while in classical statistics it is what's written above. This was a huge cause of confusion during a few meetings with my master's thesis supervisor who is a Bayesian statistician.
 
-As for sample independence, I always default to thinking of the following simple example. Suppose we'd like to estimate the population mean of the heights of men and women. If we randomly sample 100 men and 100 women separately then the sample mean serves as a fine estimate. This could computed by independently sampling, without replacement, from the categorical distribution corresponding to ID numbers of all individuals in the population. If we instead randomly sampled 100 couples then the obtained samples would not be independent as heights of couples correlate. Sample independence is a key assumption made in many estimation methods, e.g. maximum likelihood estimation.
+As for sample independence, I always default to thinking of the following simple example. Suppose we'd like to estimate the population mean of the heights of men and women. If we randomly sample 100 men and 100 women separately then the sample mean serves as a fine estimate. This could be done by independently sampling, without replacement, from the categorical distribution pertaining to the ID numbers of the population's individuals. If we instead randomly sampled 100 couples then the obtained samples would not be independent as heights of couples correlate. Sample independence is a key assumption made in many estimation methods, e.g. maximum likelihood estimation.
 
 \subsection{Estimators}
-Suppose you have a bunch of i.i.d. random variables $\X_1,\dots,\X_n$, an estimator is a function $\hat{\theta}:\Omega_{\X}^n\to\mathbb{R}^k$. Given the sample $\{\x_1,\dots,\x_n\}\subset\Omega_{\X}$, the value $\hat{\theta}(\x_1,\dots,\x_n)$ is typically denoted by $\hat{\theta}$ for shorthand and is referred to as an estimate. The reason that this lack of rigour in notation is allowable is that the contexts in which it is used often make it clear when an estimator is being considered as opposed to an estimate, and vice versa.
+Suppose you have a bunch of i.i.d. random variables $\X_1,\dots,\X_n$, an estimator is a function $\hat{\theta}:\Omega_{\X}^n\to\mathbb{R}^k$. Given the sample $\{\x_1,\dots,\x_n\}\subset\Omega_{\X}$, the value $\hat{\theta}(\x_1,\dots,\x_n)\in\mathbb{R}^k$ is typically denoted by $\hat{\theta}$ for brevity and is referred to as an estimate. The reason that this lack of rigour in notation is allowable is that the contexts in which it is used often make it clear when an estimator is being considered as opposed to an estimate, and vice versa.
 
-The simplest example of a often-used estimator is the estimator of the mean as in
+A simple example of an often-used estimator is the sample mean in estimating the distribution's mean, as in
 $$
 \hat{\mu}(\X_1,\dots,\X_n)
 =
@@ -2325,7 +2332,7 @@ $$
 $$
 where the expectation is with respect to $p_{\X}^{{\otimes}n}$. The need for the precise terminology `in estimating a quantity $\theta$' is because one could, for example, use the sample mean as an estimator of both the population mean and the population variance (as ridiculous as this choice may be for the latter). As an estimator of the population mean, the sample mean is unbiased. Not so much for the latter. That said, an estimator being unbiased does not necessitate that it is `good'. For example, if you had $X_1,\dots,X_n\overset{\text{i.i.d.}}{\sim}\text{Ber}(p)$ then $X_1$ is an unbiased estimator of $p$. To follow this, there are strange special cases in which every unbiased estimator of a quantity is worse than many biased estimators.
 
-As an example of computing the bias of an estimator, see that the sample mean is an unbiased estimator of the population mean $\mu$ as
+As illustration, the bias of the sample mean estimator is given by
 \begin{align*}
     \text{Bias}(\hat{\mu})
     &=
@@ -2337,26 +2344,31 @@ As an example of computing the bias of an estimator, see that the sample mean is
     &=
     0.
 \end{align*}
-It turns out that the most natural estimator of population variance $\sigma^2$, given by
+It turns out that the intuitive estimator of population variance $\sigma^2$, given by
 $$
 \frac{1}{n}\sum_{i=1}^n\l(\X_i-\hat{\mu}\r)^2,
 $$
-is biased. This can be seen after a bunch of tedious computations which yield a bias of $-\sigma^2/n$. To account for this, an unbiased estimator of the population variance is given by
+is biased. This can be seen after a bunch of tedious computation which yield a bias of $-\sigma^2/n$. To account for this, an unbiased estimator of the population variance is given by
 $$
 \hat{\sigma}^2
 =
 \frac{1}{n-1}\sum_{i=1}^n\l(\X_i-\hat{\mu}\r)^2.
 $$
-Most of the time, `sample variance' refers to the unbiased estimator.
+Most of the time, sample variance refers to the unbiased estimator, I think.
 
 \subsubsection{Sampling bias}
-For a given estimator, sampling bias is not its bias as an estimator but instead the bias induced due to samples being drawn from a distribution $q_{\X}^{\otimes n}$ which is distinct from the true distribution $p_{\X}^{\otimes n}$ as in $\E_{q_{\X}^{\otimes n}}[\hat{\theta}]-\theta$. Note that this is not an issue of a given estimator and is instead an issue with the `data collection' procedure.
+For a given estimator, sampling bias is not its bias as an estimator but instead the bias induced due to samples being drawn from a distribution $q_{\X}^{\otimes n}$ which is distinct from the true distribution $p_{\X}^{\otimes n}$ as in
+$$\E_{q_{\X}^{\otimes n}}[\hat{\theta}]-\theta.$$
+Note that this is not an issue of a given estimator and is instead an issue with the `data collection' procedure.
 
 \subsubsection{Efficiency}
+How well does the estimator use the sampled data? An unbiased estimator is efficient if it obtains the lowest variance among all unbiased estimators.
 
 \subsubsection{Consistency}
+Estimator converges to the real thing given more and more data
 
 \subsubsection{Sufficiency}
+Does the estimator utilise the sampled data as much as possible? That is, is the estimator such that estimator + sampled data is at most as useful as estimator?
 
 \subsection{Hypothesis Testing}
 
@@ -2583,9 +2595,9 @@ p(A|B)
 =
 \frac{p(B|A)p(A)}{p(B)}.
 $$
-I sometimes refer to it as Bayes' theorem (as do others) but since it follows straightforwardly from the definition of conditional probabilities, I prefer to refer to it as a law/identity. It's particularly useful when $p(B|A)$ is a natural quantity and accessible while $p(A|B)$ is not a natural quantity but is desired.
+It's often referred to as Bayes' theorem but it follows straightforwardly from the definition of conditional probabilities, so I prefer referring to it as Bayes' law. It's particularly useful when $p(B|A)$ is a natural quantity and accessible while $p(A|B)$ is not a natural quantity but is desired.
 
-Another worthwhile point is that it's fairly common that someone with malicious intent emphasies how high or low $p(A|B)$ is when in fact $p(B|A)$ is the quantity that should motivate the argument at hand. Unforuntately, human intuition for which conditional probability is relevant to their argument is very bad.
+Human intuition for which conditional probability is relevant to a given argument is bad.
 \begin{example}
     Being infected with HIV and testing positive for HIV.
 \end{example}
