@@ -2368,12 +2368,35 @@ Note that this is not an issue of a given estimator and is instead an issue with
 
 \subsubsection{Efficiency}
 How well does the estimator use the sampled data? An unbiased estimator is efficient if it obtains the lowest variance among all unbiased estimators.
+$$
+\text{eff}(\hat{\theta})
+=
+\l(I(\theta)\text{Var}(\hat{\theta})\r)^{-1}
+$$
+where $I(\theta)=-\E\l[\frac{\partial}{\partial\theta}\l(\log(f_{\theta}(X))\r)|\theta\r]$ is the Fisher information of $\theta$.
 
 \subsubsection{Consistency}
-Estimator converges to the real thing given more and more data
+Estimator converges to the real thing given more and more data. Two flavours, weak consistency
+$$
+\hat{\theta}_n
+\xrightarrow[p]{n\to\infty}
+\theta
+$$
+and strong consistency
+$$
+\hat{\theta}_n
+\xrightarrow[\text{a.s.}]{n\to\infty}
+\theta.
+$$
 
 \subsubsection{Sufficiency}
 Does the estimator utilise the sampled data as much as possible? That is, is the estimator such that estimator + sampled data is at most as useful as estimator?
+
+In terms of mutual information, an estimator is sufficient if
+$$
+I(\theta;D)=I(\theta;\hat{\theta}(D))
+$$
+where $I$ denotes mutual information.
 
 \subsection{Hypothesis Testing}
 

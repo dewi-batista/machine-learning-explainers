@@ -96,16 +96,16 @@
 \contentsline {subsubsection}{\numberline {B.2.2}Sampling bias}{80}{subsubsection.a.B.2.2}%
 \contentsline {subsubsection}{\numberline {B.2.3}Efficiency}{80}{subsubsection.a.B.2.3}%
 \contentsline {subsubsection}{\numberline {B.2.4}Consistency}{80}{subsubsection.a.B.2.4}%
-\contentsline {subsubsection}{\numberline {B.2.5}Sufficiency}{80}{subsubsection.a.B.2.5}%
+\contentsline {subsubsection}{\numberline {B.2.5}Sufficiency}{81}{subsubsection.a.B.2.5}%
 \contentsline {subsection}{\numberline {B.3}Hypothesis Testing}{81}{subsection.a.B.3}%
 \contentsline {subsection}{\numberline {B.4}Markov Chain Monte Carlo (MCMC) Methods}{81}{subsection.a.B.4}%
 \contentsline {subsubsection}{\numberline {B.4.1}Markov Chains}{81}{subsubsection.a.B.4.1}%
-\contentsline {subsubsection}{\numberline {B.4.2}Metropolis-Hastings}{82}{subsubsection.a.B.4.2}%
-\contentsline {subsubsection}{\numberline {B.4.3}Gibbs sampling}{82}{subsubsection.a.B.4.3}%
-\contentsline {subsection}{\numberline {B.5}Hidden Markov Models (HMMs)}{83}{subsection.a.B.5}%
-\contentsline {subsection}{\numberline {B.6}The Curse of Dimensionality}{83}{subsection.a.B.6}%
+\contentsline {subsubsection}{\numberline {B.4.2}Metropolis-Hastings}{83}{subsubsection.a.B.4.2}%
+\contentsline {subsubsection}{\numberline {B.4.3}Gibbs sampling}{83}{subsubsection.a.B.4.3}%
+\contentsline {subsection}{\numberline {B.5}Hidden Markov Models (HMMs)}{84}{subsection.a.B.5}%
+\contentsline {subsection}{\numberline {B.6}The Curse of Dimensionality}{84}{subsection.a.B.6}%
 \contentsline {subsubsection}{\numberline {B.6.1}The blessing of non-uniformity}{84}{subsubsection.a.B.6.1}%
 \contentsline {subsection}{\numberline {B.7}The Expectation-Maximisation (EM) Algorithm}{84}{subsection.a.B.7}%
 \contentsline {section}{\numberline {C}Bayesian Persuasion}{86}{appendix.a.C}%
-\contentsline {subsection}{\numberline {C.1}Posetriors Over Parameters}{86}{subsection.a.C.1}%
+\contentsline {subsection}{\numberline {C.1}Posetriors Over Parameters}{87}{subsection.a.C.1}%
 \contentsline {subsection}{\numberline {C.2}Variational Bayesian inference}{87}{subsection.a.C.2}%
