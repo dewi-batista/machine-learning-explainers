@@ -1580,7 +1580,7 @@ Put more precisely, what we further refer to as a generative probabilistic model
 The holy grail of generative probabilistic modelling is to find an exact, efficiently computable and algebraically manipulable representation of the underlying joint probability function of interest. If obtained, one can reason probabilistically with ease but, as we will see, the purpose, limitations and learning of generative probabilistic models varies heavily. To illustrate this, consider probabilistic graphical models (PGMs) which offer a graph structure in which conditional dependencies between model variables are expressed in a compact and human-interpretable manner. The most well-known class of PGMs are Bayesian networks.
 
 % bayesian nets
-\subsection{\IMPROVE Bayesian networks (BNs)}
+\subsection{\IMPROVE Bayesian networks}
 A natural approach to representing the joint probability function of model variables is to decompose it into smaller probability functions and model those. For example, you might decompose the probability function according to the chain rule of probability as in
 \begin{align*}
     p(x_1,\dots,x_m)
@@ -1619,13 +1619,8 @@ where $\textbf{pa}(X_i)$ denotes the random variables which are parents of $X_i$
     Notice that the choice of $X_1$ as the model variable upon which nothing is conditioned is entirely arbitrary. As a result, for a given decomposition, DAGs are not unique. Here, $\theta=(\theta_1,\theta_2,\theta_3)$.
 \end{example}
 
-\subsubsection{\TODO Complexity of Inference}
-Before considering how to learn a Bayesian network (its DAG and parameters), let's consider how Bayesian networks may be applied to inference. As far as exact inference goes, Bayesian networks have several pitfalls as far as probabilistic models go. Many probabilistic queries have complexity which is exponential in the tree-width of the Bayesian network. Known algorithms for these tasks are variable elimination and junction trees. To understand this crux, we must first understand tree-width.
-
-As for approximate inference, perhaps the most well known algorithm is loopy belief propagation, developed by Judea Pearl, also known as sum-product message passing. Pearl writes a bunch of interesting things about it in his The Book of Why. It's worth noting that belief propagation is exact for tree-shaped Bayesian networks.
-
 \subsubsection{\TODO Learning Structure}
-Unlike the structure of neural network architectures, the structure of a Bayesian network (its DAG) can be motivated rigorously via maximum likelihood estimation. In brief, the likelihood of a DAG can be computed and so a most likely DAG can be computed. For Bayesian networks pertaining to Gaussian distributed variables, scoring can be done using Bayesian metric for Gaussian networks having score equivalence (BGe). For Bayesian networks pertaining to discretely distributed variables, scoring can be done using Bayesian Dirichlet likelihood equivalent (BDe). Each of these employ a prior over graphs and score according to
+Unlike the structure of neural network architectures, the structure of a Bayesian network (its DAG) can be motivated in a principled manner via maximum likelihood estimation. In brief, the likelihood of a DAG can be computed and so a most likely DAG can be computed. For Bayesian networks pertaining to Gaussian distributed variables, scoring can be done using Bayesian metric for Gaussian networks having score equivalence (BGe). For Bayesian networks pertaining to discretely distributed variables, scoring can be done using Bayesian Dirichlet likelihood equivalent (BDe). Each of these employ a prior over graphs and score according to
 $$
 p(\mathcal{G}|D)
 \propto
@@ -1635,6 +1630,30 @@ It should be made clear that no analytic solution for the MLE for the DAG exists
 
 \subsubsection{\TODO Learning Parameters}
 \dots
+
+\subsubsection{\TODO Tree-width and inference complexity}
+Before considering how to learn a Bayesian network (its DAG and parameters), let's consider how Bayesian networks may be applied to probabilistic inference. As for exact inference, Bayesian networks have a major disadvantage: marginal queries have complexity which is exponential in the tree-width of the Bayesian network. Known algorithms for answering marginal queries are variable elimination and junction trees. For example, variable elimination has complexity $O(n\cdot\exp(w))$ where $n$ is the number of nodes and $w$ is the tree-width of the Bayesian network. To understand this crux, we must first understand tree-width.
+
+\subsubsection*{Variable elimination}
+Variable elimination is relatively straightforward, consisting of eliminating marginalised variables one-by-one in an efficient manner. It's best illustrated by a simple example, for which we will consider the following Bayesian network
+\begin{center}
+        \begin{tikzpicture}[node distance=2cm, every node/.style={circle, draw, thick}]
+            \node (A) {$X_1$};
+            \node (B) [right of=A] {$X_2$};
+            \node (C) [right of=B] {$X_3$};
+
+            \draw[->] (A) -- (B);
+            \draw[->] (B) -- (C);
+        \end{tikzpicture}
+    \end{center}
+
+\subsubsection*{Junction trees}
+
+\subsubsection*{Approximate inference}
+As for approximate inference, perhaps the most well known algorithm is loopy belief propagation, developed by Judea Pearl, also known as sum-product message passing. Pearl writes a bunch of interesting things about it in The Book of Why. It's worth noting that belief propagation is exact for tree-shaped Bayesian networks.
+
+\subsubsection{Why are Bayesian networks not popular in deep learning?}
+Learning their structure and parameters for high-dimensional distributions is computationally expensive. Regardless, they serve as an important step in the evolution of methods of sampling from these horrible high-dimensional distributions.
 
 % variational autoencoders
 \subsection{Variational Autoencoders (VAEs)}
@@ -2094,7 +2113,7 @@ It turns out that you do have additivity with cubes of the deviations but not cu
 It's worth noting that there are plenty of contexts in statistics in which different measure of distribution spread are more convenient, e.g. the mean absolute deviation about the median $\E[|X-\text{median}(X)|]$ in the context of robust statistics.
 
 \subsection{\TODO Flavours of Convergence of Random Variables}
-Stochastic processes and asmymptotic statistics people love knowing how their sequences of random variables converge, if at all. That is, if $X_1,\dots,X_n$ are random variables then what can be said about things related to taking the limit of the sequence to infinity?
+Stochastic processes and asymptotic statistics people love knowing how their sequences of random variables converge, if at all. That is, if $X_1,\dots,X_n$ are random variables then what can be said about things related to taking the limit of the sequence to infinity?
 
 \subsubsection*{Convergence in Distribution (Weak)}
 Given the sequence $X_1,\dots,X_n$ of random variables with CDFs $F_1,\dots,F_n$, the sequence of RVs converges in distribution to a random variable $X$ with CDF $F$ if
@@ -2123,7 +2142,7 @@ $$
 \xrightarrow{n\to\infty}
 \E[\X]
 $$
-with respect to some type of convergence. The law comes in a weak flavour and a stronger one. The weak flavour pertains to convergence in probability and the latter to asmymptotic convergence.
+with respect to some type of convergence. The law comes in a weak flavour and a stronger one. The weak flavour pertains to convergence in probability and the latter to asymptotic convergence.
 
 Frankly, the details aren't important for my purposes, so I simply think of it as meaning ``The sample mean of a buncha samples is the population mean.''. It's useful for justifying certain approaches, e.g. Monte Carlo integration.
 
@@ -2526,7 +2545,9 @@ So instead of sampling according to the joint $p(x_1,x_2)$, repeatedly sample ac
 \subsection{Hidden Markov Models (HMMs)}
 
 \subsection{The Curse of Dimensionality}
-Unsure where to place this tbh
+Dimension goes up, amount of data needed to cover to-be-fit manifold grows exponentially. A nice way to remember the curse of dimensionality is the fact that the ratio of the volumes of the unit $n-$ball (always 1) and $n-$box tends to 0, asymptotically: $n=1$ yields a ratio of 2, $n=2$ yields $\pi/4$, $n=3$ yields $\pi/6$, etc.
+
+Due to this, the amount of data required to fit manifolds in high dimensional space, in practice, is absurd. \dots
 
 \subsubsection{The blessing of non-uniformity}
 
@@ -2623,24 +2644,60 @@ p(A|B)
 =
 \frac{p(B|A)p(A)}{p(B)}.
 $$
-It's often referred to as Bayes' theorem but it follows straightforwardly from the definition of conditional probabilities, so I prefer referring to it as Bayes' law. It's particularly useful when $p(B|A)$ is a natural quantity and accessible while $p(A|B)$ is not a natural quantity but is desired.
+It's often referred to as Bayes' theorem but it follows straightforwardly from the definition of conditional probability, so I prefer referring to it as Bayes' law. It's particularly useful when $p(B|A)$ is a natural quantity and accessible while $p(A|B)$ is not a natural quantity but is desired.
 
 Human intuition for which conditional probability is relevant to a given argument is bad.
 \begin{example}
-    Being infected with HIV and testing positive for HIV.
+    Being infected with HIV and testing positive for HIV are of course related. That is, if my prior belief is that I'm not infected with HIV and I test positive for it, then the likelihood that I'm infected with it should increase. That isn't to say that the likelihood that I'm infected with HIV should be high. In fact, in practice
+    $$
+    p(\textnormal{HIV positive}|\textnormal{tested positive})
+    =
+    0.05
+    $$
+    but most would immediately panic due to our mind focusing entirely on the reversed conditional
+    $$
+    p(\textnormal{tested positive}|\textnormal{HIV positive})
+    =
+    0.99.
+    $$
 \end{example}
+There's another memorable example of the misuse of conditional probabilities from the prosecution of O.J. Simpson. I might write it up some day.
 
 \subsection{Posetriors Over Parameters}
-Treat parameters as random variables as opposed to a point estimate. Get a distribution over them given data, as in
+If we treat parameters as random variables instead of point estimates, we can reason about their distribution both before and after obtaining new samples. For example, if we'd like to know a new baseball player's batting average, averaging the number of successful bats in his first 10 bats yields a crude estimate. Instead prescribing a prior to the player's batting average (i.e., treating it as a random variable), informed by the batting averages of previous players, and updating the prescribed prior according to the player's first 10 bats should yield a better estimate.
+
+Making this idea concrete, Bayes' law is employed as in
 $$
 p(\theta|D)
 =
 \frac{p(D|\theta)p(\theta)}{p(D)}.
 $$
-Posetrior, likelihood, prior and marginal likelihood.
+where $\theta$ is the player's batting average and $D$ pertains to the new evidence. $p(\theta)$ is the prior distribution of the player's batting average, $p(D|\theta)$ is referred to as the likelihood, $p(D)$ as the marginal likelihood and $p(\theta|D)$ as the posterior (what we're interested in). It's clear already that this approach is heavily-dependent on the suitability of the prescribed prior distribution. Many people have issues with Bayesian approaches due to this.
 
+\subsubsection{Conjugate priors}
+In the case that the posterior distribution belongs to the same distribution family as the prior, we call the distribution families of the likelihood and the prior conjugate. The simplest example of conjugate distributions that I'm aware of are the Beta prior and Binomial likelihood.
 \begin{example}
-    Beta-binomial
+    Suppose the parameter of interest $\theta$ is prescribed a Beta prior and the likelihood of observing a new sample $x|\theta$ is binomial distributed. That is, suppose $\theta\sim\text{Beta}(a,b)$ and $x|\theta\sim\text{Bin}(n,\theta)$ where $a, b$ and $n$ are fixed. Before computing the posterior distribution, we need the marginal likelihood $p(x)$ which can be computed analytically in this example as in
+    \begin{align*}
+        p(x)
+        &=
+        \int_0^1 p(x|\theta)p(\theta)d\theta\\
+        &=
+        \frac{\binom{n}{x}}{\beta(a,b)}\int_0^1\theta^{a+x-1}(1-\theta)^{b+n-x-1}d\theta\\
+        &=
+        \binom{n}{x}\frac{\beta(a+x,b+n-x)}{\beta(a,b)}.
+    \end{align*}
+    We compute the posterior of the parameter given the new evidence as in
+    \begin{align*}
+        p(\theta|x)
+        &=
+        \frac{p(x|\theta)p(\theta)}{p(x)}\\
+        &=
+        \frac{\beta(a,b)}{\binom{n}{x}\beta(a+x,b+n-x)}\cdot\binom{n}{x}\theta^x(1-\theta)^{n-x}\cdot\frac{\theta^{a-1}(1-\theta)^{b-1}}{\beta(a,b)}\\
+        &=
+        \frac{\theta^{a+x-1}(1-\theta)^{b+n-x-1}}{\beta(a+x,b+n-x)}
+    \end{align*}
+    and so $\theta|x\sim\text{Beta}(a+x,b+n-x)$.
 \end{example}
 
 \subsection{Variational Bayesian inference}
