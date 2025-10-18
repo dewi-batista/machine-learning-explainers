@@ -2170,7 +2170,15 @@ If $f$ is concave then
 $$
 f(\E[\X])\geq\E[f(\X)].
 $$
-I've never come across a particularly inciteful proof, so I won't include one. The way I remember which way around they go is to consider the univriate case with $f(x)=\log(x)$\dots
+I've never come across a particularly inciteful proof, so I won't include one.
+
+The way I remember which way around the inequalities go is by considering the univriate case with $f(x)=\log(x)$. We have $\log(1+1)>\log(1)+\log(1)$ and $\log$ is concave, from which we recall that
+$$
+f(\E[\X])
+\geq
+\E[f(\X)]
+$$
+for $f$ concave. Other way around for $f$ convex.
 
 \subsection{Entropy and its Friend KL-divergence}
 \label{app:entropy}
