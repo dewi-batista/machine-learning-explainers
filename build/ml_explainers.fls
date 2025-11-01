@@ -528,11 +528,6 @@ INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/bbm/bbm12.tfm
-INPUT ./figures/appendix/metropolis-hastings.png
-INPUT ./figures/appendix/metropolis-hastings.png
-INPUT ./figures/appendix/metropolis-hastings.png
-INPUT ./figures/appendix/metropolis-hastings.png
-INPUT ./figures/appendix/metropolis-hastings.png
 INPUT build/ml_explainers.aux
 INPUT build/ml_explainers.out
 INPUT build/ml_explainers.out

@@ -14,7 +14,7 @@
 
 % abstract
 \begin{abstract}
-    \noindent Summaries of some machine/deep learning-related topics. My main motive in writing these summaries is as a reminder for my future self.
+    \noindent Summaries of machine/deep learning-related topics. My main motive in writing these summaries is as a reminder for my future self.
 \end{abstract}
 
 % table of contents
@@ -40,7 +40,7 @@
 
 % intro
 \section{What is Machine Learning?}
-I think of machine learning as the broad discipline of studying methods of fitting models to data — like statistics, as a discipline, if it demanded far less rigour. For a description of machine learning which helps to clarify why it's difficult to define as a term, consider the following excerpt from Herbert Jaeger's lecture notes for his Machine Learning course at the University of Groningen during the academic year 2023/24:
+I think of machine learning as the broad discipline of studying methods of fitting models to data — like statistics, as a discipline, if it demanded far less rigour. For a description of machine learning which helps to clarify why it's difficult to define as a term, consider the following excerpt from Herbert Jaeger's lecture notes for his machine learning course at the University of Groningen during the academic year 2023/24:
 \begin{quotation}
     ML as a ﬁeld, which perceives itself as a ﬁeld under this name, is relatively young, say, about 40 years (related research was called “pattern recognition” earlier). It is interdisciplinary and has historical and methodological connections to neuroscience, cognitive science, linguistics, mathematical statistics, AI, signal processing and control; it uses mathematical methods from statistics (of course), information theory, signal processing and control, dynamical systems theory, mathematical logic and numerical mathematics; and it has a very wide span of applications. This diversity in traditions, methods and applications makes it diﬃcult to study ``Machine Learning". Any given textbook, even if it is very thick, will reﬂect the author's individual view and knowledge of the ﬁeld and will be partially blind to other perspectives. This is quite diﬀerent from other areas in computer science, say for example formal languages/theory of computation/computational complexity where a widely shared repertoire of standard themes and methods cleanly deﬁne the ﬁeld.
 \end{quotation}
@@ -73,7 +73,7 @@ are the feature values of the $i^{\text{th}}$ sample and $y_i\in \Omega_{Y}\subs
 where $\theta=(\theta_0,\theta_1\dots,\theta_m)\in\R^{m+1}$ are the model parameters, i.e. the values we can tweak to our heart's content until testing error is sufficiently low. Some people refer to the paramter $\theta_0$, which dictates the elevation of the hyperplane corresponding to $f_{\theta}(\x)=0$, as the bias of the model which I find very confusing as there are a bunch of other intended meanings of the term `bias' in statistics and machine learning. I prefer to refer to it as the elevation. Anyway, once such a linear function has been fit, given feature values $\x\in\Omega_{\X}$ our model predict the corresponding output as $y=f_{\theta}(\x)$.
 
 \begin{tcolorbox}[title={\centering\textbf{What does the `linear' in linear regression actually refer to?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Casella Berger, as well as other pieces of literature, define linear regression models as being linear in their parameters. By such a definition, linear regression, as a term, encompasses polynomial regression models and other regression models with non-linear basis functions. This previously confused me because, in my experience, `linear regression' is most often intended to mean models that fit a hyperplane to $\Omega_{\X}\times\Omega_Y$, but it makes sense.
+    Casella Berger, as well as other pieces of literature, define linear regression models as being linear in their parameters. By such a definition, linear regression, as a term, encompasses polynomial regression models and other regression models with non-linear basis functions. This previously confused me because, in my experience, `linear regression' is most often intended to mean models that fit a hyperplane to $\Omega_{\X}\times\Omega_Y$, but it's a fine definition.
     
     \hspace{14.52pt} The first paragraph of the Wikipedia page\footnote{\url{https://en.wikipedia.org/wiki/Polynomial_regression}} for polynomial regression reiterates this potential confusion.
 \end{tcolorbox}
@@ -173,7 +173,7 @@ $$
 $$
 
 \begin{tcolorbox}[title={\textbf{Funny misuse of linear regression: Momentous sprint at the 2156 Olympics?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Read this Quora answer\footnote{\url{https://qr.ae/pslbEN}} based on a paper\footnote{\url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3173856/}} published in Nature. The top comment is worth reading too. Related xkcd comic\footnote{\url{https://xkcd.com/1007/}}.
+    Read this Quora post\footnote{\url{https://qr.ae/pslbEN}} based on a paper\footnote{\url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3173856/}} published in Nature. The top comment of the post is worth reading too. Related xkcd comic\footnote{\url{https://xkcd.com/1007/}}.
 \end{tcolorbox}
 
 \subsubsection{Statistical Motivation}
@@ -980,9 +980,9 @@ It's often the case that someone's intended meaning when stating `neural network
 \subsection{Multi-Layer Perceptrons (MLPs)}
 \label{sec:multi_layer_perceptrons}
 
-Multi-layer perceptrons (MLPs) are fully-connected feed-forward networks consisting of an input layer (where data is input), hidden layers and an output layer. An MLP with three hidden layers is illustrated in \autoref{fig:MLP}. Each layer is made up of a number of neurons, each of which has a real-valued activation value.  For any neuron in a non-input layer, its activation value is the output of a non-linear activation function given, as input, the neuron's real-valued bias plus a weighted sum of the activation values of the neurons in its preceding layer. Regarding their inspiration from the human brain, consider this footnote\footnote{\url{https://stats.stackexchange.com/a/159172}}.
+Multi-layer perceptrons (MLPs) are fully-connected feed-forward networks consisting of an input layer (where data is input), hidden layers and an output layer. An MLP with three hidden layers is illustrated in \autoref{fig:MLP}. Each layer is made up of a number of neurons, each of which has a real-valued activation value.  For any neuron in a non-input layer, its activation value is the output of a non-linear activation function given, as input, the neuron's real-valued bias plus a weighted sum of the activation values of all neurons in its preceding layer. Their intended use is as arbitrary function approximators. The output of the MLP, i.e. the output of one's approximation of the relevant underlying function, is given by the activation values of the neurons in the output layer. Regarding their inspiration from the human brain, consider this footnote\footnote{\url{https://stats.stackexchange.com/a/159172}}.
 
-The application of MLPs to learning functions from data is due to their expressivity, expressive-efficiency and tractability. Their expressivity is known due to a proof of their universal function approximation by Cybenko. To add to this, their high expressive-efficiency has been demonstrated empirically and ensures that the number of model components (hidden layers and neurons) needed to represent arbitrary functions is far lower than competing model classes. As for their tractability, MLPs allow for an evaluation of the approximation of the function of interest with complexity quadratic in the number of neurons of each layer of the MLP (after the heavy simplifcation of assuming a roughly equal number of neurons in each layer).
+The application of MLPs to learning functions from data is due to their expressivity, expressive-efficiency and tractability. Their expressivity is known due to a proof of their universal function approximation by Cybenko. To add to this, their high expressive-efficiency has been demonstrated empirically and ensures that the number of model components (hidden layers and neurons) needed to represent arbitrary functions is far lower than competing model classes. As for their tractability, evaluating an MLP given input node values has complexity quadratic in the number of neurons of each layer of the MLP (after the heavy simplifcation of assuming a roughly equal number of neurons in each layer).
 
 \begin{figure}[t]
     \centering
@@ -991,11 +991,11 @@ The application of MLPs to learning functions from data is due to their expressi
     \label{fig:MLP}
 \end{figure}
 
-For brevity, given $m,n\in\mathbb{N}$ with $m\leq n$ let $[n]_m=\{m,\dots,n\}$ and let $[n]=[n]_1$. For further ease of notation, given an MLP with $k$ hidden layers, denote the index of the input layer by $0$, the output layer by $k+1$ and by extension the $j^{\text{th}}$ layer by $j\in[k+1]_0$. Additionally, consider the following denotations
+For brevity of notation, given $m,n\in\mathbb{N}$ with $m\leq n$ let $[n]_m=\{m,\dots,n\}$ and let $[n]=[n]_1$. For further ease of notation, given an MLP with $k$ hidden layers, denote the index of the input layer by $0$, the output layer by $k+1$ and, by extension, the $j^{\text{th}}$ layer by $j\in[k+1]_0$. Additionally, consider the following denotations
 \begin{itemize}
     \item[--] $n_j\in\mathbb{Z}_{\geq1}$ is the number of neurons in layer $j$.
     \item[--] $a_i^{(j)}\in\mathbb{R}$ is the activation value of neuron $i$ in layer $j$.
-    \item[--] $w_{i,l}^{(j)}\in\mathbb{R}$ is the weight associated with the edge to neuron $i$ in layer $j\in[k+1]$ from neuron $l$ in the previous layer.
+    \item[--] $w_{i,l}^{(j)}\in\mathbb{R}$ is the weight associated with the edge to neuron $i$ in layer $j\in[k+1]$ from neuron $l$ in layer $j-1$.
     \item[--] $b_i^{(j)}\in\mathbb{R}$ is the bias of neuron $i$ in layer $j\in[k+1]$.
     \item[--] $\sigma_j:\mathbb{R}\rightarrow\mathbb{R}$ is the non-linear activation function of layer $j\in[k+1]$.
 \end{itemize}
@@ -1573,15 +1573,17 @@ It's worth mentioning that said vanishing behaviour can be observed during forwa
 
 % generative models (any other section name i've come up with has been due to overthinking)
 \section{Generative Models}
-Generative probabilistic modelling seeks to represent the joint probability function over model variable of interest. Ideally, such a representation would help to answer probabilistic queries either exactly or approximately. While this section consists of methods of learning generative models pertaining to image-related distributions, the discussed methods are often applicable to generative modelling in general.
+With generative probabilistic models, we seek to represent the joint probability function over a set of model variables of interest. Typically, said variables are those which `gave rise' to the data from which the models are learned and, ideally, said models would help to answer probabilistic queries, either exactly or approximately, given new full or partial data.
 
-Put more precisely, what we further refer to as a generative probabilistic model is a tuple $(\X, p_{\Theta})$ consisting of model variables $\X=(X_1,\dots,X_m)$ and a probability function $p_{\Theta}:\Omega_{\X}\rightarrow\mathbb{R}_{\geq0}$ parameterised according to the parameter set $\Theta$. The probabilistic queries we might hope to answer given a generative probabilistic model include evidence queries $p_{\Theta}(\x)$, marginal queries $p_{\Theta}(\x')$, where $\x'$ is a realisation of some subset of the model variables, and sampling queries $\hat{\x}\sim p_{\Theta}(\x)$, in which one obtains a `convincing' realisation $\hat{\x}\in\Omega_{\X}$ of the model variables.
+Put more precisely, what we further refer to as a generative probabilistic model is a tuple $(\X, p_{\Theta})$ consisting of model variables $\X=(X_1,\dots,X_m)$ and a probability function $p_{\Theta}:\Omega_{\X}\rightarrow\mathbb{R}_{\geq0}$ parameterised according to the parameter set $\Theta$. Given a generative probabilistic model, we might hope to answer evidence queries $p_{\Theta}(\x)$, marginal queries $p_{\Theta}(\x')$, where $\x'$ is a realisation of some subset of the model variables, and sampling queries $\hat{\x}\sim p_{\Theta}(\x)$, in which one obtains a `convincing' realisation $\hat{\x}\in\Omega_{\X}$ of the model variables.
 
-The holy grail of generative probabilistic modelling is to find an exact, efficiently computable and algebraically manipulable representation of the underlying joint probability function of interest. If obtained, one can reason probabilistically with ease but, as we will see, the purpose, limitations and learning of generative probabilistic models varies heavily. To illustrate this, consider probabilistic graphical models (PGMs) which offer a graph structure in which conditional dependencies between model variables are expressed in a compact and human-interpretable manner. The most well-known class of PGMs are Bayesian networks.
+The holy grail of generative probabilistic modelling is to find an exact, efficiently computable and algebraically manipulable representation of the underlying joint probability function of interest. If obtained, one can reason probabilistically with ease but, as we will see, the purpose, limitations and learning of generative probabilistic models varies heavily. To illustrate this, consider probabilistic graphical models (PGMs) which offer human-interpretable representations of conditional (in)dependencies between model variables are expressed in the form of graphs. The most well-known class of PGMs are Bayesian networks.
+
+Note that while this section consists of methods of learning generative models pertaining to image-related distributions, the discussed methods are often applicable to generative modelling in general.
 
 % bayesian nets
 \subsection{\IMPROVE Bayesian networks}
-A natural approach to representing the joint probability function of model variables is to decompose it into smaller probability functions and model those. For example, you might decompose the probability function according to the chain rule of probability as in
+A natural approach to representing the joint probability function of model variables is to decompose it into smaller probability functions which are modelled in conjunction. For example, you might decompose the probability function according to the chain rule of probability as in
 \begin{align*}
     p(x_1,\dots,x_m)
     &=
@@ -1589,9 +1591,9 @@ A natural approach to representing the joint probability function of model varia
     &=
     \prod_{i=1}^m p(x_i|x_1,\dots,x_{i-1}).
 \end{align*}
-From here, sampling may be done autoregressively: sample $x_1$ according to $p(x_1)$, $x_2$ according to $p(x_2|x_1)$ and so on until an entire realisation of $\X=(X_1,\dots,X_m)$ is obtained. To motivate Bayesian networks, consider the natural question: why stop at decomposition according to chain rule? In image date, for example, nearby pixel values may correlate but far away pixels may not, so why incoroporate distant pixels in a given conditional in the learned decomposition? Boom, Bayesian networks.
+From here, the probabilistic query of sampling, for example, may be done autoregressively: sample $x_1$ according to $p(x_1)$, $x_2$ according to $p(x_2|x_1)$ and so on until an entire realisation of $\X=(X_1,\dots,X_m)$ is obtained. This idea leads to the natural motivation of Bayesian networks: why stop at decomposition according to the chain rule? In image date, for example, nearby pixel values may correlate but far away pixels may not, so why incoroporate distant pixels in a given conditional in the learned decomposition? Why not learn the conditional (in)dependencies of the model variables of interest and decompose accordingly? That's exactly what Bayesian networks do!
 
-With their motivation out of the way, we can move on to their formulation. The parameter set $\Theta=(\mathcal{G},\theta)$ of a Bayesian network $(\X,p_\Theta)$ consists of a directed acyclic graph (DAG) $\mathcal{G}$ and a parameter set $\theta$. The graph $\mathcal{G}$ has a single node for each model variable $X_1,\dots,X_m$ and directed edges represent conditional (in)dependencies. The parameter set $\theta$ pertains to the parameters of the conditional distributions made explicit by $\mathcal{G}$. The representation of the joint probability function is given by
+With their motivation out of the way, we can move on to their formulation. The parameter set $\Theta=(\mathcal{G},\theta)$ of a Bayesian network $(\X,p_\Theta)$ consists of a directed acyclic graph (DAG) $\mathcal{G}$ and a parameter set $\theta$. The graph $\mathcal{G}$ has a single node for each model variable $X_1,\dots,X_m$ and directed edges represent conditional (in)dependencies. The parameter set $\theta$ pertains to the parameters of the conditional distributions (the smaller distributions in the decomposition) made explicit by $\mathcal{G}$. The representation of the joint probability function is given by
 $$
 p_{\Theta}(x_1,\dots,x_m)
 =
@@ -1620,13 +1622,13 @@ where $\textbf{pa}(X_i)$ denotes the random variables which are parents of $X_i$
 \end{example}
 
 \subsubsection{\TODO Learning Structure}
-Unlike the structure of neural network architectures, the structure of a Bayesian network (its DAG) can be motivated in a principled manner via maximum likelihood estimation. In brief, the likelihood of a DAG can be computed and so a most likely DAG can be computed. For Bayesian networks pertaining to Gaussian distributed variables, scoring can be done using Bayesian metric for Gaussian networks having score equivalence (BGe). For Bayesian networks pertaining to discretely distributed variables, scoring can be done using Bayesian Dirichlet likelihood equivalent (BDe). Each of these employ a prior over graphs and score according to
+Unlike the structure of neural network architectures, the structure of a Bayesian network (its DAG) can be motivated in a principled manner via maximum likelihood estimation. In brief, the likelihood of a DAG can be computed, and so a most likely DAG can be computed. For Bayesian networks pertaining to Gaussian distributed variables, scoring can be done using Bayesian metric for Gaussian networks having score equivalence (BGe). For Bayesian networks pertaining to discretely distributed variables, scoring can be done using Bayesian Dirichlet likelihood equivalent (BDe). Each of these employ a prior over graphs and score according to
 $$
 p(\mathcal{G}|D)
 \propto
-p(D|\mathcal{G})p(\mathcal{G}).
+p(D|\mathcal{G})p(\mathcal{G})
 $$
-It should be made clear that no analytic solution for the MLE for the DAG exists. As a result, methods typically involve exploring the graph space in a heuristic manner, such as hill climbing.
+where $D$ is a dataset. It should be made clear that no analytic solution for the MLE for the DAG exists. As a result, methods typically involve exploring the graph space in a heuristic manner, such as hill climbing.
 
 \subsubsection{\TODO Learning Parameters}
 \dots
@@ -1649,11 +1651,11 @@ Variable elimination is relatively straightforward, consisting of eliminating ma
 
 \subsubsection*{Junction trees}
 
-\subsubsection*{Approximate inference}
+\subsubsection*{Approximate inference: belief propagation}
 As for approximate inference, perhaps the most well known algorithm is loopy belief propagation, developed by Judea Pearl, also known as sum-product message passing. Pearl writes a bunch of interesting things about it in The Book of Why. It's worth noting that belief propagation is exact for tree-shaped Bayesian networks.
 
 \subsubsection{Why are Bayesian networks not popular in deep learning?}
-Learning their structure and parameters for high-dimensional distributions is computationally expensive. Regardless, they serve as an important step in the evolution of methods of sampling from these horrible high-dimensional distributions.
+Learning their structure and parameters for high-dimensional distributions is computationally entirely uneralistic. Regardless of this `weakness', they serve as an important, and often overlooked, step in the evolution of methods of reasoning probabilistically about these horrible high-dimensional distributions.
 
 % variational autoencoders
 \subsection{Variational Autoencoders (VAEs)}
@@ -1959,207 +1961,17 @@ Since samples are not labeled, how does one evaluate a generative model? What do
 \begin{appendices}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
 
-% probability things
-\section{Probability Theory Things}
-Here are some probability theory things, e.g. brief statements, long derivations, and so on, which belong in an appendix. I wish my understanding of probability theory, measure theory, stochastic processes, etc. were better. In another life.
+\section{Probability Theory \& Statistics Things}
+Here are some probability theory and statistics things relevant to the main body, e.g. brief statements, long derivations, and so on, which are more appendix-appropriate.
 
-For visual reminders, consider \href{https://seeing-theory.brown.edu/index.html}{\texttt{seeing-theory.brown.edu/index.html}}.
+I wish my understanding of probability theory, measure theory, stochastic processes, statistics (classical, Bayesian and asymptotic) were better. In another life.
 
-\subsection{Derivations Related to Common Distributions}
-Probabilities pertaining to parameters, as in Bernoulli or categorical distributinos, are denoted by $p$ in this subsection. Hopefully this isn't too confusing due to $p$ being used to denote probability functions elsewhere in the document.
+\subsection{\TODO The Curse of Dimensionality}
+Dimension goes up, amount of data needed to cover to-be-fit manifold grows exponentially. A nice way to remember the curse of dimensionality is the fact that the ratio of the volumes of the unit $n-$ball (always 1) and $n-$box tends to 0, asymptotically: $n=1$ yields a ratio of 2, $n=2$ yields $\pi/4$, $n=3$ yields $\pi/6$, etc.
 
-\subsubsection{From Bernoulli to Binomial}
-Let's try to extend the Bernoulli distribution to the binomial distribution. If $X\sim\text{Ber}(p)$ then $\Omega_X=\{0,1\}$ and $\mathbb{P}(X=x)=p^x(1-p)^{1-x}$.
+Due to this, the amount of data required to fit manifolds in high dimensional space, in practice, is absurd. \dots
 
-Taking $n$ independent Bernoulli random variables and summing them yields the random variable $\X=\sum_{i=1}^nX_i\sim\text{Bin}(n,p)$ with $\Omega_{\X}=\{0,\dots,n\}$. Let $k$ denote a realisation of $\X$, i.e. $k=x_1+\dots+x_n$. The corresponding mass function is given by
-\begin{align*}
-    \mathbb{P}(\X=k)
-    &=
-    Z\cdot\prod_{i=1}^n\mathbb{P}(X_i=x_i)\\
-    &=
-    Z\cdot\prod_{i=1}^np^{x_i}(1-p)^{1-x_i}\\
-    &=
-    Z\cdot p^{x_1+\dots+x_n}(1-p)^{n-(x_1+\dots+x_n)}\\
-    &=
-    Z\cdot p^k(1-p)^{n-k}
-\end{align*}
-where $Z$ is a normalising constant such that $\sum_{k=0}^nZp^k(1-p)^{n-k}=1$. It's more intuitively seen as the number of ways of placing $k$-many $1$s among a series of $n\geq k$ bits, i.e. $Z=\binom{n}{k}$, so
-$$
-\mathbb{P}(\X=k)
-=
-\binom{n}{k}p^k(1-p)^{n-k}.
-$$
-
-\subsubsection{From Categorical to Multinomial}
-The categorical distribution is an extension of the Bernoulli distribution and the multinomial distribution is an extension of the binomial distribution. In line with this, we'd hope to be able to extend the categorical distribution to the multinomial distribution.
-
-If $X\sim\text{Cat}(p_1,\dots,p_C)$ then realisations of $X$ can be represented by single integers in $\{1,\dots,C\}$ but I prefer to represent them in terms of their $C-$long one-hot encodings. So I denote the presence of the $c^{\text{th}}$ class in a realisation as the unit row vector $\mathbf{e}_c^\top $, e.g. $(0,1,0\dots,0)$ denotes a sample in which only the second class is present. The corresponding mass function is then given by
-$$
-\mathbb{P}(X=(x_1,\dots,x_C))
-=
-\prod_{j=1}^Cp_j^{x_j}.
-$$
-Note that, in this notation, all but one of these $x_j$ terms are zero, so it really boils down to just a single probability value, e.g. $\mathbb{P}(X=(0,1,\dots,0))=p_2$. The mass function can also be written using indicator functions but the form offered above is the one I find easiest to use.
-
-Applying the same idea used to extend Bernoulli to binomial, consider the random variable $\X=\sum_{i=1}^nX_i$ pertaining to $n$ independent categorical trials. Each realisation of $X_1,\dots,X_n$ can be represented by a $C-$long one-hot encoded vector and so $n$ realisations of $X\sim\text{Cat}(p)$ can be thought of as a matrix $\x\in\{0,1\}^{n\times C}$ whose rows are unit vectors in $\mathbb{Z}_{\geq0}^C$. As such, letting $k_1,\dots,k_C$ denote the number of $1$s in the columns of $\x$ (so $k_1+\dots+k_C=n$) we see immediately that $(k_1,\dots,k_C)$ is a realisation of $\X$. So what is the corresponding mass function? Let $x_{ij}$ denote the element in the $i^{\text{th}}$ row and $j^{\text{th}}$ column of $\x$ and let $k_j=x_{1j}+\dots+x_{nj}$ denote the sum of all elements in the $j^{\text{th}}$ column of $\x$. Note that $k_j$ is the number of realisations of $X_1,\dots,X_n$ in which the $j^{\text{th}}$ class is present. We have
-\begin{align*}
-    \mathbb{P}(\X=(k_1,\dots,k_C))
-    &=
-    Z\cdot\prod_{i=1}^n\mathbb{P}(X_i=(x_{i1},\dots,x_{iC}))\\
-    &=
-    Z\cdot\prod_{i=1}^n\prod_{j=1}^Cp_j^{x_{ij}}\\
-    &=
-    Z\cdot\prod_{j=1}^Cp_j^{x_{1j}+\dots+x_{nj}}\\
-    &=
-    Z\cdot\prod_{j=1}^Cp_j^{k_j}\\
-    &=
-    Z\cdot p_1^{k_1}\cdots p_C^{k_C}.
-\end{align*}
-So all that's left to do is derive the normalisation constant $Z$. Note that for each $j\in\{1,\dots,C\}$ we know that there are $k_j$-many $1$s in column $j$ so $k_1$ of these $n$ rows must pertain to the first class for which there are $\binom{n}{k_1}$ possible orderings. From here, see that $k_2$ of the $n-k_1$ remaining rows must pertain to the second class for which there are $\binom{n-k_1}{k_2}$-many orderings. Continuing this line of reasoning, we obtain
-\begin{align*}
-    Z
-    &=
-    \binom{n}{k_1}\binom{n-k_1}{k_2}\binom{n-(k_1+k_2)}{k_3}\cdots\binom{n-(k_1+\dots+k_{C-1})}{k_C}\\
-    &=
-    \frac{n!}{k_1!}\cdot\frac{(n-k_1)!}{k_2!(n-(k_1+k_2))!}\cdot\frac{(n-(k_1+k_2))!}{k_3!(n-(k_1+k_2+k_3))!}\cdots\frac{k_C!}{k_C!0!}\\
-    &=
-    \frac{n!}{k_1!\cdots k_C!}
-\end{align*}
-from which we obtain
-$$
-\mathbb{P}(\X=(k_1,\dots,k_C))
-=
-\frac{n!}{k_1!\cdots k_C!}p_1^{k_1}\cdots p_C^{k_C}.
-$$
-
-\subsubsection{Negative Binomial and Geometric}
-We keep flipping our (maybe biased) coin until we observe $r$ successes ($r$ is a parameter) where individual trials are Ber$(p)$ distribured. So if $X\sim\text{NB}(r,p)$ then
-$$
-\mathbb{P}(X=k)
-=
-Z\cdot p^r(1-p)^k.
-$$
-A trial must be of the form $(x_1,\dots,x_{k+r-1},1)$ which means that $r-1$ of the first $k+r-1$ elements must be a success of which there are $\binom{k+r-1}{r-1}$ possibilities, thus
-$$
-\mathbb{P}(X=k)
-=
-\binom{k+r-1}{r-1}p^r(1-p)^k.
-$$
-The case $r=1$ yields the shifted geometric distribution, whose pmf is given by
-$$
-\mathbb{P}(X=k)
-=
-p(1-p)^k.
-$$
-
-\subsubsection{From Binomial to Poisson}
-Let $X_n\sim\text{Bin}(n,p)$ and $\lambda=np$. How might $X_n$ look as $n\to\infty$? Why might we be interested in this at all? It can be thought of as \dots
-
-To see what $X_n$ converges to in distribution, note that for all $x\in\{0,\dots,n\}$
-\begin{align*}
-    \mathbb{P}(X_n=x)
-    &=
-    \binom{n}{x}\l(\frac{\lambda}{n}\r)^x\l(1-\frac{\lambda}{n}\r)^{n-x}\\
-    &\approx
-    \frac{n!}{x!(n-x)!}\frac{\lambda^x}{n^x}e^{-\lambda}e^{\lambda x/n}\\
-    &=
-    e^{\lambda x/n}\frac{n(n-1)\cdots(n-x+1)}{n\cdots n}e^{-\lambda}\frac{\lambda^x}{x!}\\
-    & \xrightarrow{n\to\infty}
-    e^{-\lambda}\frac{\lambda^x}{x!}.
-\end{align*}
-Showing this statement more rigorously might make use of Stirling's approximation of $n!$. Since $X_n$ is discrete for all $n\in\mathbb{N}$ we conclude that
-$$
-X_n
-\xrightarrow[d]{n\to\infty}
-\text{Poi}(\lambda).
-$$
-
-\subsubsection{From Poisson to Exponential}
-When working with a Poisson process, a natural question is the distribution of time between the occurence of events. Let $T$ denote the time at which the first event occurs, so $\Omega_T=[0,\infty)$. See that if $N(t)\sim\text{Poi}(\lambda t)$ is a Poisson process then $p(N(t)=x)$ is the probability of $x$ events occuring in $[0,t]$. We have
-\begin{align*}
-    p(T<t)
-    &=
-    \sum_{x=1}^{\infty}p(N(t)=x)\\
-    &=
-    1-p(N(t)=0)\\
-    &=
-    1-e^{-\lambda t}
-\end{align*}
-and so
-$p(t)=\lambda e^{-\lambda t}$.
-
-\subsection{Motivating Variance}
-You want some idea of expected deviation from the mean. So something like $\E[|X-\E[X]|^a]$ where $a\geq1$ seems natural. Which exponent is most suitable? $a=2$ turns out to be convenient as it yields additivity for independently distributed random variables. That is, with $\text{Var}(X)=\E[(X-\E[X])^2]$ we obtain
-\begin{align*}
-    &
-    \text{Var}(X+Y)\\
-    &=
-    \E[(X+Y)^2]-\E[X+Y]^2\\
-    &=
-    \E[X^2]+2\E[XY]+\E[Y^2]-\l(\E[X]^2+2\E[X]\E[Y]+\E[Y]^2\r)\\
-    &=
-    \l(\E[X^2]-\E[X]^2\r)+\l(\E[Y^2]-\E[Y]^2\r)+2\l(\E[XY]-\E[X]\E[Y]\r)\\
-    &=
-    \text{Var}(X)+\text{Var}(Y)+2\text{Cov}(X,Y).
-\end{align*}
-I can't be bothered to write the analogous statement for non-scalar random variables but such a statement holds. Anyyway, if $X$ and $Y$ are independent then $\E[XY]=\E[X]\E[Y]$, i.e. $\text{Cov}(X,Y)=0$, and so
-$$
-\text{Var}(X+Y)
-=
-\text{Var}(X)+\text{Var}(Y).
-$$
-It turns out that you do have additivity with cubes of the deviations but not cubes of the absolute values of the deviations.
-
-It's worth noting that there are plenty of contexts in statistics in which different measure of distribution spread are more convenient, e.g. the mean absolute deviation about the median $\E[|X-\text{median}(X)|]$ in the context of robust statistics.
-
-\subsection{\TODO Flavours of Convergence of Random Variables}
-Stochastic processes and asymptotic statistics people love knowing how their sequences of random variables converge, if at all. That is, if $X_1,\dots,X_n$ are random variables then what can be said about things related to taking the limit of the sequence to infinity?
-
-\subsubsection*{Convergence in Distribution (Weak)}
-Given the sequence $X_1,\dots,X_n$ of random variables with CDFs $F_1,\dots,F_n$, the sequence of RVs converges in distribution to a random variable $X$ with CDF $F$ if
-for all $x\in\Omega_{X}$ at which $F$ is continuous
-$$
-\lim_{n\to\infty}F_n(x)
-=
-F(x).
-$$
-The reason that this convergence is often described as weak is that the other two flavours of convergence necessitate convergence in distribution. A nice illustration of convergence in distribution, stolen from Wikipedia, if offered in ?.
-
-It illustrates the convergence
-$$
-Z_n
-=
-\frac{1}{\sqrt{n}}\sum_{i=1}^n X_i
-\xrightarrow{n\to\infty}
-\mathcal{N}(0,1/3)
-$$
-due to the central limit theorem where $X_1,\dots,X_n\overset{\text{i.i.d.}}{\sim}U(-1,1)$.
-
-\subsection{The Law of Large Numbers}
-If $\X_1,\dots,\X_n$ are i.i.d. and $\E[\X]<\infty$ then
-$$
-\frac{1}{n}\sum_{i=1}^n\X_i
-\xrightarrow{n\to\infty}
-\E[\X]
-$$
-with respect to some type of convergence. The law comes in a weak flavour and a stronger one. The weak flavour pertains to convergence in probability and the latter to asymptotic convergence.
-
-Frankly, the details aren't important for my purposes, so I simply think of it as meaning ``The sample mean of a buncha samples is the population mean.''. It's useful for justifying certain approaches, e.g. Monte Carlo integration.
-
-\begin{tcolorbox}[title={\centering\textbf{i.i.d. assumption}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Individuals and forms of media (e.g. the TV show Ozark) love applying the LLN. For example, the argument that individuals may not exhibit nicely-defined behaviour but populations do. While this application isn't terrible, the i.i.d. assumption is often turbo-violated in their use-case.
-\end{tcolorbox}
-
-\subsection{The (univariate) Central Limit Theorem (CLT)}
-If $X_1,\dots,X_n$ are i.i.d. and $\text{Var}(X)<\infty$ then
-$$
-\sqrt{n}\l(\frac{1}{n}\sum_{i=1}^nX_i-\E[X]\r)
-\xrightarrow[d]{n\to\infty}
-\mathcal{N}(0,\text{Var}(X)).
-$$
-It's one of the most important results in probability theory and statistics: it helps explain why the normal distribution appears so often in real world data. I think of it as meaning ``The scaled sum of i.i.d. samples will look normal upon repeatedly sampling.".
-
-Its clearest use-case to me is in justifying the modelling of residuals in linear regression as normally distributed.
+\subsubsection{The blessing of non-uniformity}
 
 \subsection{Jensen's Inequality}
 If $f:\mathbb{R}\to\mathbb{R}$ is convex and $\E[\X]<\infty$ then
@@ -2311,254 +2123,6 @@ $$
 $$
 Without a point of comparison, the number doesn't tell us much.
 
-\subsection{Pearson Correlation and Mutual Information}
-\label{app:pearson_correlation}
-If $X$ and $Y$ are scalar random variables then their Pearson correlation is given by
-$$
-\rho_{X,Y}
-=
-\frac{\text{Cov}(X,Y)}{\sigma_X\sigma_Y}
-=
-\frac{\E\l[(X-\E[X])(Y-\E[Y])\r]}{\sqrt{\E\l[(X-\E[X])^2\r]\E\l[(Y-\E[Y])^2\r]}}
-\in[-1,1]
-$$
-where the expectation in the numerator is with respect to the joint $p_{X,Y}$. The overall quantity yields the linear dependence between $X$ and $Y$ and the denominator is for normalisation.
-
-What if we want an idea of the non-linear dependence between two random variables? This is precisely what motivates mutual information which offers a notion of how much we know about one random variable given realisations of another random variable. The mutual information of $\X$ and $\mathbf{Y}$ is given by
-$$
-I(p_{\X,\mathbf{Y}})
-=
-D_{\text{KL}}(p_{\X,\mathbf{Y}}||p_{\X}\otimes p_{\mathbf{Y}}).
-$$
-I'm massively in favour of writing it as a KL-divergence as its meaning is immediately clear: its a measure of divergence between the joint and the product of the marginals.
-
-\subsection{Quality of fit $\approx$ Encoding quality?}
-\TODO Perhaps worthy of its own subsection in the main body, unsure
-
-% classical statistics things
-\section{Classical Statistics Things}
-Here are some classical statistics things.
-
-\subsection{Sample Independence}
-The intended meaning of the term `sample' in statistics is a set of independently obtained realisations of a random variable, i.e. $\{\x_1,\dots,\x_n\}\overset{i.i.d.}{\subset}\Omega_{\X}$. You could also define a sample as a set of i.i.d. random variables $\{\X_1,\dots,\X_n\}$. There are times where it's more useful to refer to sets of i.i.d. random variables but I more often reason with their realisations when using sample as a term. It can be especially confusing when context switching between machine learning and classical statistics. In the context of machine learning, a sample is intended to mean a single data point, while in classical statistics it is what's written above. This was a huge cause of confusion during a few meetings with my master's thesis supervisor who is a Bayesian statistician.
-
-As for sample independence, I always default to thinking of the following simple example. Suppose we'd like to estimate the population mean of the heights of men and women. If we randomly sample 100 men and 100 women separately then the sample mean serves as a fine estimate. This could be done by independently sampling, without replacement, from the categorical distribution pertaining to the ID numbers of the population's individuals. If we instead randomly sampled 100 couples then the obtained samples would not be independent as heights of couples correlate. Sample independence is a key assumption made in many estimation methods, e.g. maximum likelihood estimation.
-
-\subsection{Estimators}
-Suppose you have a bunch of i.i.d. random variables $\X_1,\dots,\X_n$, an estimator is a function $\hat{\theta}:\Omega_{\X}^n\to\mathbb{R}^k$. Given the sample $\{\x_1,\dots,\x_n\}\subset\Omega_{\X}$, the value $\hat{\theta}(\x_1,\dots,\x_n)\in\mathbb{R}^k$ is typically denoted by $\hat{\theta}$ for brevity and is referred to as an estimate. The reason that this lack of rigour in notation is allowable is that the contexts in which it is used often make it clear when an estimator is being considered as opposed to an estimate, and vice versa.
-
-A simple example of an often-used estimator is the sample mean in estimating the distribution's mean, as in
-$$
-\hat{\mu}(\X_1,\dots,\X_n)
-=
-\frac{1}{n}\sum_{i=1}^n \X_i.
-$$
-In this case, the dimension of the codomain of $\hat{\mu}$ is simply the dimension of the sample space of $\X$. Given a sample $\{\x_1,\dots,\x_n\}$, an estimate of the mean of the corresponding distribution is given by $\hat{\mu}=\frac{1}{n}\sum_{i=1}^n\x_i$.
-
-\subsubsection{(Estimator) Bias}
-Given that estimators are simply statistics used to approximate some quantity of the corresponding distribution, a natural question is how to measure the goodness of an estimator. The most well known such measure is the bias of an estimator in estimating a quantity $\theta$ given by
-$$
-\text{Bias}(\hat{\theta})
-=
-\E[\hat{\theta}]-\theta
-$$
-where the expectation is with respect to $p_{\X}^{{\otimes}n}$. The need for the precise terminology `in estimating a quantity $\theta$' is because one could, for example, use the sample mean as an estimator of both the population mean and the population variance (as ridiculous as this choice may be for the latter). As an estimator of the population mean, the sample mean is unbiased. Not so much for the latter. That said, an estimator being unbiased does not necessitate that it is `good'. For example, if you had $X_1,\dots,X_n\overset{\text{i.i.d.}}{\sim}\text{Ber}(p)$ then $X_1$ is an unbiased estimator of $p$. To follow this, there are strange special cases in which every unbiased estimator of a quantity is worse than many biased estimators.
-
-As illustration, the bias of the sample mean estimator is given by
-\begin{align*}
-    \text{Bias}(\hat{\mu})
-    &=
-    \E[\hat{\mu}]-\mu\\
-    &=
-    \E\l[\frac{1}{n}\sum_{i=1}^n\X_i\r]-\mu\\
-    &=
-    \frac{1}{n}\sum_{i=1}^n\E[\X_i]-\mu\\
-    &=
-    0.
-\end{align*}
-It turns out that the intuitive estimator of population variance $\sigma^2$, given by
-$$
-\frac{1}{n}\sum_{i=1}^n\l(\X_i-\hat{\mu}\r)^2,
-$$
-is biased. This can be seen after a bunch of tedious computation which yield a bias of $-\sigma^2/n$. To account for this, an unbiased estimator of the population variance is given by
-$$
-\hat{\sigma}^2
-=
-\frac{1}{n-1}\sum_{i=1}^n\l(\X_i-\hat{\mu}\r)^2.
-$$
-Most of the time, sample variance refers to the unbiased estimator, I think.
-
-\subsubsection{Sampling bias}
-For a given estimator, sampling bias is not its bias as an estimator but instead the bias induced due to samples being drawn from a distribution $q_{\X}^{\otimes n}$ which is distinct from the true distribution $p_{\X}^{\otimes n}$ as in
-$$\E_{q_{\X}^{\otimes n}}[\hat{\theta}]-\theta.$$
-Note that this is not an issue of a given estimator and is instead an issue with the `data collection' procedure.
-
-\subsubsection{Efficiency}
-How well does the estimator use the sampled data? An unbiased estimator is efficient if it obtains the lowest variance among all unbiased estimators.
-$$
-\text{eff}(\hat{\theta})
-=
-\l(I(\theta)\text{Var}(\hat{\theta})\r)^{-1}
-$$
-where $I(\theta)=-\E\l[\frac{\partial}{\partial\theta}\l(\log(f_{\theta}(X))\r)|\theta\r]$ is the Fisher information of $\theta$.
-
-\subsubsection{Consistency}
-Estimator converges to the real thing given more and more data. Two flavours, weak consistency
-$$
-\hat{\theta}_n
-\xrightarrow[p]{n\to\infty}
-\theta
-$$
-and strong consistency
-$$
-\hat{\theta}_n
-\xrightarrow[\text{a.s.}]{n\to\infty}
-\theta.
-$$
-
-\subsubsection{Sufficiency}
-Does the estimator utilise the sampled data as much as possible? That is, is the estimator such that estimator + sampled data is at most as useful as estimator?
-
-In terms of mutual information, an estimator is sufficient if
-$$
-I(\theta;D)=I(\theta;\hat{\theta}(D))
-$$
-where $I$ denotes mutual information.
-
-\subsection{Hypothesis Testing}
-
-\subsection{Markov Chain Monte Carlo (MCMC) Methods}
-There are a fair number of scenarios in which it's desirable to sample from a distribution whose probability function can only be evaluated up to a constant. As an example, the posterior
-$$
-p(\theta|D)
-=
-\frac{p(D|\theta)p(\theta)}{p(D)}.
-$$
-whose explicit evaluation is difficult due to the constant $p(D)$. MCMC methods help remedy this issue.
-
-\subsubsection{Markov Chains}
-It's helpful to first understand Markov chains. A markov chain is a discrete-time stochastic process in which the sample space is countable and the Markov property
-$$
-p(x_{n+1}|x_1,\dots,x_n)
-=
-p(x_{n+1}|x_n)
-$$
-holds for all $n\in\mathbb{N}$. To make notation more convenient, let
-$$
-p_{i,j}
-:=
-p(x_{n+1}=j|x_n=i).
-$$
-The great thing about Markov chains is how elegantly we can write $p(x_{n+1}=j)$ in terms of the distribution over $\X_n$ as in
-\begin{align*}
-    p(x_{n+1}=j)
-    &=
-    \sum_{i=1}^{|\Omega_X|} p(x_n=i,x_{n+1}=j)\\
-    &=
-    \sum_{i=1}^{|\Omega_X|} p(x_{n+1}=j|x_n=i)p(x_n=i)\\
-    &=
-    \sum_{i=1}^{|\Omega_X|} p_{i,j}\cdot p(x_n=i).
-\end{align*}
-If $\pi^{(n)}=\begin{bmatrix} p(x_n=1) & p(x_n=2) & \dots & p(x_n=|\Omega_X|)\end{bmatrix}$ and
-$$
-P
-=
-\begin{bmatrix}
-    p_{1,1}          & \dots  & p_{1,|\Omega_X|}\\
-    \vdots           & \ddots & \vdots          \\
-    p_{|\Omega_X|,1} & \dots  & p_{|\Omega_X|, |\Omega_X|}
-\end{bmatrix}
-$$
-then the transition equation above reduces to
-$$
-\pi^{(n+1)}
-=
-\pi^{(n)}P
-$$
-If each $p_{i,j}$ is known beforehand and an initial distribution $X_0\sim\pi^{(0)}$ is attributed then the distribution at step $n$ is given by
-$$
-\pi^{(n)}
-=
-\pi^{(0)}P^n.
-$$
-A distribution $\pi$ is said to be stationary with respect to the transition matrix $P$ if
-$$
-\pi
-=
-\pi P.
-$$
-
-\begin{example}
-    Suppose tomorrow's weather is entirely determined by today's weather and that the weather can only be sunny or rainy. Further, suppose that the transition probabilities are given by
-    $$
-    p(S|S)=0.8\quad
-    p(S|R)=0.4\quad
-    p(R|S)=0.2\quad
-    p(R|R)=0.6
-    $$
-    and that today is sunny, so $x_0=S$. The distribution over weather types two days from now is thus
-    $$
-    \pi^{(2)}
-    =
-    \pi^{(0)}P^2
-    =
-    \begin{bmatrix}1&0\end{bmatrix}
-    \begin{bmatrix}
-        0.8 & 0.2\\
-        0.4 & 0.6
-    \end{bmatrix}^2
-    =
-    \begin{bmatrix}0.72&0.28\end{bmatrix}.
-    $$
-    To find the stationary distribution with respect to $P$ simply compute a left eigenvector.
-\end{example}
-
-\subsubsection{Metropolis-Hastings}
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{./figures/appendix/metropolis-hastings.png}
-    \caption{Metropolis-Hastings in action with a uniform prior.}
-    \label{fig:metropolis_hastings}
-\end{figure}
-
-\subsubsection{Gibbs sampling}
-When the joint $p(x_1,\dots,x_m)$ is hard to sample according to but the conditionals
-$$
-p(x_i|x_1,\dots,x_{i-1},x_{i+1},\dots,x_m)
-=:
-p(x_i|x_{-i})
-$$
-are not hard to sample according to, a nice approach to sampling from the joint is Gibbs sampling. The idea is to iteratively sample from the conditionals to obtain a full samples by initialising $\l(x_1^{(0)},\dots,x_m^{(m)}\r)$ and sampling
-$$
-x_1^{(1)}\sim p\l(x_1^{(0)}|x_{-1}^{(0)}\r).
-$$
-The idea is intuitive and theory surrounding it offers certain guarantees as far as sampling quality goes. I'm only interested in the intuition of it.
-
-As an example, consider
-$$
-(X_1,X_2)
-\sim
-\mathcal{N}\l(\begin{bmatrix} 0 \\ 0 \end{bmatrix}, \begin{bmatrix}1 & 1/2\\ 1/2 & 1\end{bmatrix}\r).
-$$
-The conditional distributions relevant to Gibbs sampling are
-$$
-X_1|(X_2=x_2)\sim\mathcal{N}\l(\frac{x_2}{2},\frac{3}{4}\r)
-\hfill
-\quad\text{and }\quad
-X_2|(X_1=x_1)\sim\mathcal{N}\l(\frac{x_1}{2},\frac{3}{4}\r).
-$$
-So instead of sampling according to the joint $p(x_1,x_2)$, repeatedly sample according to conditionals $p(x_1|x_2)$ and $p(x_2|x_1)$.
-
-\subsection{Hidden Markov Models (HMMs)}
-
-\subsection{The Curse of Dimensionality}
-Dimension goes up, amount of data needed to cover to-be-fit manifold grows exponentially. A nice way to remember the curse of dimensionality is the fact that the ratio of the volumes of the unit $n-$ball (always 1) and $n-$box tends to 0, asymptotically: $n=1$ yields a ratio of 2, $n=2$ yields $\pi/4$, $n=3$ yields $\pi/6$, etc.
-
-Due to this, the amount of data required to fit manifolds in high dimensional space, in practice, is absurd. \dots
-
-\subsubsection{The blessing of non-uniformity}
-
 \subsection{The Expectation-Maximisation (EM) Algorithm}
 Maximum likelihood estimation (MLE) is great but what do we do when the data generating process is not determined entirely by observed model variables $\X=(X_1,\dots,X_m)$. That is, what if $p(\x)$ is simply the marginal of the true joint $p(\x,\z)$ where $\Z=(Z_1,\dots,Z_{m'})$ are hidden variables?
 
@@ -2644,97 +2208,25 @@ q_t(\z)=p_{\theta^{(t)}}(\z|\x)
 \text{ELBO}\l(q_t,\theta^{(t)}\r)=\log(p_{\theta^{(t)}}(\x)).
 $$
 
-% bayesian things
-\section{Bayesian Persuasion}
-Bayes' law states that for events $A$ and $B$ with $p(B)\neq0$
-$$
-p(A|B)
-=
-\frac{p(B|A)p(A)}{p(B)}.
-$$
-It's often referred to as Bayes' theorem but it follows straightforwardly from the definition of conditional probability, so I prefer referring to it as Bayes' law. It's particularly useful when $p(B|A)$ is a natural quantity and accessible while $p(A|B)$ is not a natural quantity but is desired.
+\subsection{\TODO Quality of fit $\approx$ Encoding quality?}
+Perhaps worthy of its own subsection in the main body, unsure
 
-Human intuition for which conditional probability is relevant to a given argument is bad.
-\begin{example}
-    Being infected with HIV and testing positive for HIV are of course related. That is, if my prior belief is that I'm not infected with HIV and I test positive for it, then the likelihood that I'm infected with it should increase. That isn't to say that the likelihood that I'm infected with HIV should be high. In fact, in practice
-    $$
-    p(\textnormal{HIV positive}|\textnormal{tested positive})
-    =
-    0.05
-    $$
-    but most would immediately panic due to our mind focusing entirely on the reversed conditional
-    $$
-    p(\textnormal{tested positive}|\textnormal{HIV positive})
-    =
-    0.99.
-    $$
-\end{example}
-There's another memorable example of the misuse of conditional probabilities from the prosecution of O.J. Simpson. I might write it up some day.
+% philosophy things
+\section{Philosophy Things}
+I don't think about the philosophic aspects of maching learning very often as I'm in the camp of people whose interests lie in solving present problems. I find some topics interesting though.
 
-\subsection{Posetriors Over Parameters}
-If we treat parameters as random variables instead of point estimates, we can reason about their distribution both before and after obtaining new samples. For example, if we'd like to know a new baseball player's batting average, averaging the number of successful bats in his first 10 bats yields a crude estimate. Instead prescribing a prior to the player's batting average (i.e., treating it as a random variable), informed by the batting averages of previous players, and updating the prescribed prior according to the player's first 10 bats should yield a better estimate.
+% thoughts on reasoning
+\subsection{Thoughts on reasoning (Summer 2024)}
 
-Making this idea concrete, Bayes' law is employed as in
-$$
-p(\theta|D)
-=
-\frac{p(D|\theta)p(\theta)}{p(D)}.
-$$
-where $\theta$ is the player's batting average and $D$ pertains to the new evidence. $p(\theta)$ is the prior distribution of the player's batting average, $p(D|\theta)$ is referred to as the likelihood, $p(D)$ as the marginal likelihood and $p(\theta|D)$ as the posterior (what we're interested in). It's clear already that this approach is heavily-dependent on the suitability of the prescribed prior distribution. Many people have issues with Bayesian approaches due to this.
+At the time of writing, machine learning, as a term, is used almost interchangeably with artificial intelligence (AI). AI isn't particularly well-defined in itself, even in academic settings, so its use in day-to-day things, e.g. in the news, often causes confusion and debate. I'm not sure how I would define AI in a way that'd satisfy most. Maybe the discipline of studying things that can `reason', as a human does, given some agreed upon notion of `reasoning'. A common issue found in discussions surrounding this topic is that a definition of `reasoning' is left out.
 
-\subsubsection{Conjugate priors}
-In the case that the posterior distribution belongs to the same distribution family as the prior, we call the distribution families of the likelihood and the prior conjugate. The simplest example of conjugate distributions that I'm aware of are the Beta prior and Binomial likelihood.
-\begin{example}
-    Suppose the parameter of interest $\theta$ is prescribed a Beta prior and the likelihood of observing a new sample $x|\theta$ is binomial distributed. That is, suppose $\theta\sim\text{Beta}(a,b)$ and $x|\theta\sim\text{Bin}(n,\theta)$ where $a, b$ and $n$ are fixed. Before computing the posterior distribution, we need the marginal likelihood $p(x)$ which can be computed analytically in this example as in
-    \begin{align*}
-        p(x)
-        &=
-        \int_0^1 p(x|\theta)p(\theta)d\theta\\
-        &=
-        \frac{\binom{n}{x}}{\beta(a,b)}\int_0^1\theta^{a+x-1}(1-\theta)^{b+n-x-1}d\theta\\
-        &=
-        \binom{n}{x}\frac{\beta(a+x,b+n-x)}{\beta(a,b)}.
-    \end{align*}
-    We compute the posterior of the parameter given the new evidence as in
-    \begin{align*}
-        p(\theta|x)
-        &=
-        \frac{p(x|\theta)p(\theta)}{p(x)}\\
-        &=
-        \frac{\beta(a,b)}{\binom{n}{x}\beta(a+x,b+n-x)}\cdot\binom{n}{x}\theta^x(1-\theta)^{n-x}\cdot\frac{\theta^{a-1}(1-\theta)^{b-1}}{\beta(a,b)}\\
-        &=
-        \frac{\theta^{a+x-1}(1-\theta)^{b+n-x-1}}{\beta(a+x,b+n-x)}
-    \end{align*}
-    and so $\theta|x\sim\text{Beta}(a+x,b+n-x)$.
-\end{example}
+Right now, I'm unaware of any machine learning model that can `reason' by any agreed upon definition of the term. I suspect that while current models can simulate `reasoning' to the extent of being able to effectively solve tasks which require some sort of underlying understanding, they do not `reason' in the human sense, which is grounded in embodied experience. Let's say that an LLM (e.g. GPT-4o) concludes that a continuous real-valued function $f:\R\rightarrow\R$ has a root in some interval $(a, b)$ using the intermediate value theorem (IVT) by noting that $f(a)<0$ and $f(b)>0$. Did the LLM `reason' in its application of the IVT or do we instead brush this off as the LLM having been trained on many examples of the application of the IVT? Does it `understand' what it's concluding? As of right now I'd say that it doesn't. This of course isn't something unique to the IVT — we can construct many such examples. What I think makes the IVT interesting is that we can effectively express what it means to `understand' its correctness according to our embodied experience. I'd say that the distinction between the LLM's `understanding' and a human's here is that a human knows that if they trace their finger on a piece of paper starting from the bottom half, crossing a horizontal line cutting through the middle of the paper, to the top half of the paper without removing their finger then their finger must have touched the horizontal line at some point. No mathematical training is needed to know \textit{that} and, more importantly, understand \textit{why} your finger crosses through the horizontal line on the page. LLMs certainly do not `understand' the correctness of the IVT in this way, or really any way that isn't purely symbolic. Maybe multimodal LLMs will alleviate this.
 
-\subsection{Variational Bayesian inference}
-Instead of approximating the posterior via MCMC, one can restrict the approximation to a function family and minimise some divergence measure, e.g. KL-divergence. The name `variational' derives from calclulus of variations as in computing
-$$
-q^*
-=
-\argmax_{q\in\mathcal{Q}}\mathcal{L}(q)
-$$
-where $\mathcal{L}$ is a functional.
+A separate but related question is to what extent it matters that a model `reasons' in order to arrive at its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. From a purely problem solving point of view, these philosophical debates regarding what constitutes reasoning, understanding and knowing aren't too important in the short term. Regardless, it'd be funny if 50 years from now we're well-taken care of by a fleet of machine learning-powered robots and we still look down on them for not being capable of `real reasoning'.
 
-% % philosophy things
-% \section{Philosophy Things}
-% I don't think about the philosophic aspects of maching learning very often as I'm in the camp of people whose interests lie in solving present problems. I find some topics interesting though.
+\subsection{\TODO The Sufficiency of Internet-Scraped Data}
 
-% % thoughts on reasoning
-% \subsection{Thoughts on reasoning (Summer 2024)}
-
-% At the time of writing, machine learning, as a term, is used almost interchangeably with artificial intelligence (AI). AI isn't particularly well-defined in itself, even in academic settings, so its use in day-to-day things, e.g. in the news, often causes confusion and debate. I'm not sure how I would define AI in a way that'd satisfy most. Maybe the discipline of studying things that can `reason', as a human does, given some agreed upon notion of `reasoning'. A common issue found in discussions surrounding this topic is that a definition of `reasoning' is left out.
-
-% Right now, I'm unaware of any machine learning model that can `reason' by any agreed upon definition of the term. I suspect that while current models can simulate `reasoning' to the extent of being able to effectively solve tasks which require some sort of underlying understanding, they do not `reason' in the human sense, which is grounded in embodied experience. Let's say that an LLM (e.g. GPT-4o) concludes that a continuous real-valued function $f:\R\rightarrow\R$ has a root in some interval $(a, b)$ using the intermediate value theorem (IVT) by noting that $f(a)<0$ and $f(b)>0$. Did the LLM `reason' in its application of the IVT or do we instead brush this off as the LLM having been trained on many examples of the application of the IVT? Does it `understand' what it's concluding? As of right now I'd say that it doesn't. This of course isn't something unique to the IVT — we can construct many such examples. What I think makes the IVT interesting is that we can effectively express what it means to `understand' its correctness as a human. I'd say that the distinction between the LLM's `understanding' and a human's here is that a human knows that if they trace their finger on a piece of paper starting from the bottom half, crossing a horizontal line cutting through the middle of the paper, to the top half of the paper without removing their finger then their finger must have touched the horizontal line at some point (ignore the fact that such a traversal is not necessarily a function, you get the idea). You don't need any mathematical training to know and, more importantly, understand why your finger crosses through the horizontal line on the page. LLMs certainly do not `understand' the correctness of the IVT in this way, or really any way that isn't purely symbolic. Maybe multimodal LLMs will alleviate this.
-
-% A separate but related question is to what extent it matters that a model `reasons' in order to arrive its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. From a purely problem solving point of view, these philosophical debates regarding what constitutes reasoning, understanding and knowing aren't too important in the short term. It'd be funny if 50 years from now we're well-taken care of by a fleet of machine learning-powered robots and we still look down on them for not being capable of true reasoning.
-
-% \subsection{Sufficiency of Internet-Scraped Data}
-% \TODO 
-
-% \subsection{The Principled Measure-Explainability Tradeoff}
-% \TODO 
+\subsection{\TODO The Principled Measure-Explainability Tradeoff}
 
 \end{appendices}
 

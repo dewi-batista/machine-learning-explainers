@@ -35,7 +35,7 @@
 \contentsline {subsubsection}{\numberline {3.4.3}Honourable mention: benchmark overfitting}{34}{subsubsection.3.4.3}%
 \contentsline {section}{\numberline {4}Neural Networks}{34}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Multi-Layer Perceptrons (MLPs)}{34}{subsection.4.1}%
-\contentsline {subsubsection}{\numberline {4.1.1}Universal Function Approximation with MLPs}{38}{subsubsection.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}Universal Function Approximation with MLPs}{39}{subsubsection.4.1.1}%
 \contentsline {subsubsection}{\numberline {4.1.2}Posing classification as a regression problem}{42}{subsubsection.4.1.2}%
 \contentsline {subsection}{\numberline {4.2}Backpropagation for MLPs}{43}{subsection.4.2}%
 \contentsline {subsection}{\numberline {4.3}Convolutional Neural Networks (CNNs)}{46}{subsection.4.3}%
@@ -60,54 +60,29 @@
 \contentsline {subsubsection}{\numberline {5.1.3}\textcolor {red}{\textbf {TODO: }}Tree-width and inference complexity}{54}{subsubsection.5.1.3}%
 \contentsline {subsubsection}{\numberline {5.1.4}Why are Bayesian networks not popular in deep learning?}{55}{subsubsection.5.1.4}%
 \contentsline {subsection}{\numberline {5.2}Variational Autoencoders (VAEs)}{55}{subsection.5.2}%
-\contentsline {subsubsection}{\numberline {5.2.1}Autoencoders: no variation yet!}{55}{subsubsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.1}Autoencoders: no variation yet!}{56}{subsubsection.5.2.1}%
 \contentsline {subsubsection}{\numberline {5.2.2}Motivating VAEs}{57}{subsubsection.5.2.2}%
 \contentsline {subsubsection}{\numberline {5.2.3}Formulating VAEs}{58}{subsubsection.5.2.3}%
 \contentsline {subsubsection}{\numberline {5.2.4}\textcolor {red}{\textbf {TODO: }}Backpropagation for VAEs}{62}{subsubsection.5.2.4}%
 \contentsline {subsubsection}{\numberline {5.2.5}\textcolor {red}{\textbf {TODO: }}Quirks of VAEs}{62}{subsubsection.5.2.5}%
-\contentsline {subsection}{\numberline {5.3}\textcolor {myYellow}{\textbf {IMPROVE: }}Generative Adversarial Networks (GANs)}{62}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.3}\textcolor {myYellow}{\textbf {IMPROVE: }}Generative Adversarial Networks (GANs)}{63}{subsection.5.3}%
 \contentsline {subsubsection}{\numberline {5.3.1}Quirks of GANs}{63}{subsubsection.5.3.1}%
-\contentsline {subsubsection}{\numberline {5.3.2}Flavours of GANs}{64}{subsubsection.5.3.2}%
+\contentsline {subsubsection}{\numberline {5.3.2}Flavours of GANs}{63}{subsubsection.5.3.2}%
 \contentsline {subsection}{\numberline {5.4}\textcolor {red}{\textbf {TODO: }}Normalising Flows}{64}{subsection.5.4}%
 \contentsline {subsection}{\numberline {5.5}Diffusion Models}{64}{subsection.5.5}%
 \contentsline {subsubsection}{\numberline {5.5.1}U-Net denoisers}{65}{subsubsection.5.5.1}%
 \contentsline {subsection}{\numberline {5.6}\textcolor {red}{\textbf {TODO: }}Evaluating Generative Models}{66}{subsection.5.6}%
 \contentsline {section}{Appendices}{67}{section*.44}%
 \setcounter {tocdepth}{0}
-\contentsline {section}{\numberline {A}Probability Theory Things}{67}{appendix.a.A}%
-\contentsline {subsection}{\numberline {A.1}Derivations Related to Common Distributions}{67}{subsection.a.A.1}%
-\contentsline {subsubsection}{\numberline {A.1.1}From Bernoulli to Binomial}{67}{subsubsection.a.A.1.1}%
-\contentsline {subsubsection}{\numberline {A.1.2}From Categorical to Multinomial}{68}{subsubsection.a.A.1.2}%
-\contentsline {subsubsection}{\numberline {A.1.3}Negative Binomial and Geometric}{69}{subsubsection.a.A.1.3}%
-\contentsline {subsubsection}{\numberline {A.1.4}From Binomial to Poisson}{70}{subsubsection.a.A.1.4}%
-\contentsline {subsubsection}{\numberline {A.1.5}From Poisson to Exponential}{70}{subsubsection.a.A.1.5}%
-\contentsline {subsection}{\numberline {A.2}Motivating Variance}{71}{subsection.a.A.2}%
-\contentsline {subsection}{\numberline {A.3}\textcolor {red}{\textbf {TODO: }}Flavours of Convergence of Random Variables}{71}{subsection.a.A.3}%
-\contentsline {subsection}{\numberline {A.4}The Law of Large Numbers}{72}{subsection.a.A.4}%
-\contentsline {subsection}{\numberline {A.5}The (univariate) Central Limit Theorem (CLT)}{73}{subsection.a.A.5}%
-\contentsline {subsection}{\numberline {A.6}Jensen's Inequality}{73}{subsection.a.A.6}%
-\contentsline {subsection}{\numberline {A.7}Entropy and its Friend KL-divergence}{73}{subsection.a.A.7}%
-\contentsline {subsubsection}{\numberline {A.7.1}Kullback-Leibler Divergence (KL-divergence)}{74}{subsubsection.a.A.7.1}%
-\contentsline {subsection}{\numberline {A.8}Pearson Correlation and Mutual Information}{77}{subsection.a.A.8}%
-\contentsline {subsection}{\numberline {A.9}Quality of fit $\approx $ Encoding quality?}{78}{subsection.a.A.9}%
-\contentsline {section}{\numberline {B}Classical Statistics Things}{78}{appendix.a.B}%
-\contentsline {subsection}{\numberline {B.1}Sample Independence}{78}{subsection.a.B.1}%
-\contentsline {subsection}{\numberline {B.2}Estimators}{78}{subsection.a.B.2}%
-\contentsline {subsubsection}{\numberline {B.2.1}(Estimator) Bias}{79}{subsubsection.a.B.2.1}%
-\contentsline {subsubsection}{\numberline {B.2.2}Sampling bias}{80}{subsubsection.a.B.2.2}%
-\contentsline {subsubsection}{\numberline {B.2.3}Efficiency}{80}{subsubsection.a.B.2.3}%
-\contentsline {subsubsection}{\numberline {B.2.4}Consistency}{80}{subsubsection.a.B.2.4}%
-\contentsline {subsubsection}{\numberline {B.2.5}Sufficiency}{81}{subsubsection.a.B.2.5}%
-\contentsline {subsection}{\numberline {B.3}Hypothesis Testing}{81}{subsection.a.B.3}%
-\contentsline {subsection}{\numberline {B.4}Markov Chain Monte Carlo (MCMC) Methods}{81}{subsection.a.B.4}%
-\contentsline {subsubsection}{\numberline {B.4.1}Markov Chains}{81}{subsubsection.a.B.4.1}%
-\contentsline {subsubsection}{\numberline {B.4.2}Metropolis-Hastings}{83}{subsubsection.a.B.4.2}%
-\contentsline {subsubsection}{\numberline {B.4.3}Gibbs sampling}{83}{subsubsection.a.B.4.3}%
-\contentsline {subsection}{\numberline {B.5}Hidden Markov Models (HMMs)}{84}{subsection.a.B.5}%
-\contentsline {subsection}{\numberline {B.6}The Curse of Dimensionality}{84}{subsection.a.B.6}%
-\contentsline {subsubsection}{\numberline {B.6.1}The blessing of non-uniformity}{84}{subsubsection.a.B.6.1}%
-\contentsline {subsection}{\numberline {B.7}The Expectation-Maximisation (EM) Algorithm}{84}{subsection.a.B.7}%
-\contentsline {section}{\numberline {C}Bayesian Persuasion}{86}{appendix.a.C}%
-\contentsline {subsection}{\numberline {C.1}Posetriors Over Parameters}{87}{subsection.a.C.1}%
-\contentsline {subsubsection}{\numberline {C.1.1}Conjugate priors}{88}{subsubsection.a.C.1.1}%
-\contentsline {subsection}{\numberline {C.2}Variational Bayesian inference}{88}{subsection.a.C.2}%
+\contentsline {section}{\numberline {A}Probability Theory \& Statistics Things}{67}{appendix.a.A}%
+\contentsline {subsection}{\numberline {A.1}\textcolor {red}{\textbf {TODO: }}The Curse of Dimensionality}{67}{subsection.a.A.1}%
+\contentsline {subsubsection}{\numberline {A.1.1}The blessing of non-uniformity}{67}{subsubsection.a.A.1.1}%
+\contentsline {subsection}{\numberline {A.2}Jensen's Inequality}{67}{subsection.a.A.2}%
+\contentsline {subsection}{\numberline {A.3}Entropy and its Friend KL-divergence}{68}{subsection.a.A.3}%
+\contentsline {subsubsection}{\numberline {A.3.1}Kullback-Leibler Divergence (KL-divergence)}{69}{subsubsection.a.A.3.1}%
+\contentsline {subsection}{\numberline {A.4}The Expectation-Maximisation (EM) Algorithm}{72}{subsection.a.A.4}%
+\contentsline {subsection}{\numberline {A.5}\textcolor {red}{\textbf {TODO: }}Quality of fit $\approx $ Encoding quality?}{74}{subsection.a.A.5}%
+\contentsline {section}{\numberline {B}Philosophy Things}{74}{appendix.a.B}%
+\contentsline {subsection}{\numberline {B.1}Thoughts on reasoning (Summer 2024)}{74}{subsection.a.B.1}%
+\contentsline {subsection}{\numberline {B.2}\textcolor {red}{\textbf {TODO: }}The Sufficiency of Internet-Scraped Data}{75}{subsection.a.B.2}%
+\contentsline {subsection}{\numberline {B.3}\textcolor {red}{\textbf {TODO: }}The Principled Measure-Explainability Tradeoff}{75}{subsection.a.B.3}%
