@@ -1618,20 +1618,13 @@ where $\textbf{pa}(X_i)$ denotes the random variables which are parents of $X_i$
             \draw[bend left][->] (A) edge (C);
         \end{tikzpicture}
     \end{center}
-    Notice that the choice of $X_1$ as the model variable upon which nothing is conditioned is entirely arbitrary. As a result, for a given decomposition, DAGs are not unique. Here, $\theta=(\theta_1,\theta_2,\theta_3)$.
+    Notice that the choice of $X_1$ as the model variable upon which nothing is conditioned is entirely arbitrary. As a result, for a given decomposition, DAGs are not unique. Here, $\theta=(\theta_1,\theta_2,\theta_3)$ are parameters learned from data.
 \end{example}
 
-\subsubsection{\TODO Learning Structure}
-Unlike the structure of neural network architectures, the structure of a Bayesian network (its DAG) can be motivated in a principled manner via maximum likelihood estimation. In brief, the likelihood of a DAG can be computed, and so a most likely DAG can be computed. For Bayesian networks pertaining to Gaussian distributed variables, scoring can be done using Bayesian metric for Gaussian networks having score equivalence (BGe). For Bayesian networks pertaining to discretely distributed variables, scoring can be done using Bayesian Dirichlet likelihood equivalent (BDe). Each of these employ a prior over graphs and score according to
-$$
-p(\mathcal{G}|D)
-\propto
-p(D|\mathcal{G})p(\mathcal{G})
-$$
-where $D$ is a dataset. It should be made clear that no analytic solution for the MLE for the DAG exists. As a result, methods typically involve exploring the graph space in a heuristic manner, such as hill climbing.
+\subsubsection{Learning structure and parameters}
+Unlike with neural networks, the structure of a Bayesian network (its DAG) can be motivated in a principled manner via maximum likelihood estimation. In brief, the likelihood of a DAG can be computed, and so a most likely DAG can be computed. It should be made clear that no analytic solution for the MLE for the DAG exists. As a result, methods typically involve exploring the graph space in a heuristic manner, such as hill climbing.
 
-\subsubsection{\TODO Learning Parameters}
-\dots
+For parameter learning \dots
 
 \subsubsection{\TODO Tree-width and inference complexity}
 Before considering how to learn a Bayesian network (its DAG and parameters), let's consider how Bayesian networks may be applied to probabilistic inference. As for exact inference, Bayesian networks have a major disadvantage: marginal queries have complexity which is exponential in the tree-width of the Bayesian network. Known algorithms for answering marginal queries are variable elimination and junction trees. For example, variable elimination has complexity $O(n\cdot\exp(w))$ where $n$ is the number of nodes and $w$ is the tree-width of the Bayesian network. To understand this crux, we must first understand tree-width.
