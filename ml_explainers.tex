@@ -1621,13 +1621,13 @@ where $\textbf{pa}(X_i)$ denotes the random variables which are parents of $X_i$
     Notice that the choice of $X_1$ as the model variable upon which nothing is conditioned is entirely arbitrary. As a result, for a given decomposition, DAGs are not unique. Here, $\theta=(\theta_1,\theta_2,\theta_3)$ are parameters learned from data.
 \end{example} 
 
-\subsubsection{Learning structure and parameters}
+\subsubsection{Learning $\mathcal{G}$ and $\theta$ from data}
 Unlike with neural networks, the structure of a Bayesian network (its DAG) can be motivated in a principled manner via maximum likelihood estimation. In brief, the likelihood of a DAG can be computed, and so a most likely DAG can be computed. It should be made clear that no analytic solution for the MLE for the DAG exists. As a result, methods typically involve exploring the graph space in a heuristic manner, such as hill climbing.
 
 For parameter learning \dots
 
-\subsubsection{\TODO Tree-width and inference complexity}
-Before considering how to learn a Bayesian network (its DAG and parameters), let's consider how Bayesian networks may be applied to probabilistic inference. As for exact inference, Bayesian networks have a major disadvantage: marginal queries have complexity which is exponential in the tree-width of the Bayesian network. Known algorithms for answering marginal queries are variable elimination and junction trees. For example, variable elimination has complexity $O(n\cdot\exp(w))$ where $n$ is the number of nodes and $w$ is the tree-width of the Bayesian network. To understand this crux, we must first understand tree-width.
+\subsubsection{\TODO Inference complexity and tree-width}
+Perhaps the most natural question when shown a new generative probabilistic model class is the following: how might it be applied to (exact and approxiamte) probabilistic inference? As for exact inference, Bayesian networks suffer a major pitfall: the complexity of answering marginal queries is exponential in the tree-width of the Bayesian network. Known algorithms for answering marginal queries, which will be discussed shortly, are variable elimination and junction tree-based algorithms. For example, variable elimination has complexity $O(n\cdot\exp(w))$ where $n$ is the number of nodes and $w$ is the tree-width of the Bayesian network. As such, to understand the difficulty of answering marginal queries in this context, an understanding of the tree-width of a Bayesian network is needed.
 
 \subsubsection*{Variable elimination}
 Variable elimination is relatively straightforward, consisting of eliminating marginalised variables one-by-one in an efficient manner. It's best illustrated by a simple example, for which we will consider the following Bayesian network
@@ -1643,16 +1643,18 @@ Variable elimination is relatively straightforward, consisting of eliminating ma
     \end{center}
 
 \subsubsection*{Junction trees}
+\dots
 
 \subsubsection*{Approximate inference: belief propagation}
 As for approximate inference, perhaps the most well known algorithm is loopy belief propagation, developed by Judea Pearl, also known as sum-product message passing. Pearl writes a bunch of interesting things about it in The Book of Why. It's worth noting that belief propagation is exact for tree-shaped Bayesian networks.
 
-\subsubsection{Why are Bayesian networks not popular in deep learning?}
-Learning their structure and parameters for high-dimensional distributions is computationally entirely uneralistic. Regardless of this `weakness', they serve as an important, and often overlooked, step in the evolution of methods of reasoning probabilistically about these horrible high-dimensional distributions.
+\begin{tcolorbox}[title={\centering\textbf{Why aren't Bayesian nets employed in deep learning?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    Learning their structure and parameters for high-dimensional distributions is entirely uneralistic in terms of compute. Regardless of this `weakness', they serve as a significant, and often overlooked, step in the evolution of probabilistic reasoning and, more broadly, generative probabilistic modelling.
+\end{tcolorbox}
 
 % variational autoencoders
 \subsection{Variational Autoencoders (VAEs)}
-In describing variational autoencoders (VAEs), it's natural to first motivate autoencoders and then spice things up with variational inference do generative things.
+In motivating variational autoencoders (VAEs), it's natural to first motivate regular autoencoders, illustrate issues pertaining to intuitive ideas of doing generative things with them and fixing those issues with variational inference.
 
 % autoencoders
 \subsubsection{Autoencoders: no variation yet!}
@@ -1793,7 +1795,7 @@ $$
 $$
 In practice, after choosing a latent dimension $d$, we often take $p(\z)=\mathcal{N}(0,I_d)$, $\mathcal{Q}_d=\mathbb{R}^d\times\mathcal{S}_{++}^d$ and $\mathcal{P}_m=\mathbb{R}^m\times\mathcal{S}_{++}^m$, i.e. Gaussians for the latent and reconstruction distribution families and the standard $d-$dimensional Gaussian for the prior. A benefit of these choices is that it yields a differentiable and easy-to-implement closed form for the KL-divergence term in the ELBO. Additionally, the expectation pertaining to the reconstruction term is typically approximated via a single sample, boiling down to a mean square error term\footnote{\url{https://n8python.github.io/mnistLatentSpace/}}.
 
-\subsubsection{\TODO Backpropagation for VAEs}
+\subsubsection{\TODO Backpropagation for VAEs (the reparameterisation trick)}
 To find suitable parameters of a given VAE architecture using gradient descent, we require that the ELBO is differentiable. With respect to $\theta$, the gradient is approximated according to
 \begin{align*}
     \nabla_{\theta}\text{ELBO}
