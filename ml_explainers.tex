@@ -1619,7 +1619,7 @@ where $\textbf{pa}(X_i)$ denotes the random variables which are parents of $X_i$
         \end{tikzpicture}
     \end{center}
     Notice that the choice of $X_1$ as the model variable upon which nothing is conditioned is entirely arbitrary. As a result, for a given decomposition, DAGs are not unique. Here, $\theta=(\theta_1,\theta_2,\theta_3)$ are parameters learned from data.
-\end{example}
+\end{example} 
 
 \subsubsection{Learning structure and parameters}
 Unlike with neural networks, the structure of a Bayesian network (its DAG) can be motivated in a principled manner via maximum likelihood estimation. In brief, the likelihood of a DAG can be computed, and so a most likely DAG can be computed. It should be made clear that no analytic solution for the MLE for the DAG exists. As a result, methods typically involve exploring the graph space in a heuristic manner, such as hill climbing.
