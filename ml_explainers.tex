@@ -1624,7 +1624,7 @@ where $\textbf{pa}(X_i)$ denotes the random variables which are parents of $X_i$
 \subsubsection{\TODO Learning $\mathcal{G}$ and $\theta$ from data}
 Unlike with neural networks, the structure of a Bayesian network (its DAG) can be motivated in a principled manner via maximum likelihood estimation. In brief, the likelihood of a DAG can be computed, and so a most likely DAG can be computed. It should be made clear that no analytic solution for the MLE for the DAG exists. As a result, methods typically involve exploring the graph space in a heuristic manner, such as hill climbing.
 
-For parameter learning \dots 
+For parameter learning \dots
 
 \subsubsection{\TODO Inference complexity and tree-width}
 Perhaps the most natural question when shown a new generative probabilistic model class is the following: how might it be applied to probabilistic inference, be it exact or approximate? As for exact inference, Bayesian networks suffer a major pitfall due to the complexity of answering marginal queries being exponential in their tree-width, which will be discussed shortly. For example, variable elimination, a widely-used algorithm for answering marginal queries using Bayesian networks, has complexity $O(n\cdot\exp(w))$ where $n$ is the number of nodes and $w$ is the tree-width of the Bayesian network. As such, to appreciate the hardness of answering marginal queries in this context, an understanding of the tree-width of a Bayesian network is needed.
