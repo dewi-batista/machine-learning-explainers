@@ -30,8 +30,6 @@
 % \huge
 % \Huge
 
-%% ==
-
 % title page number not counted
 \thispagestyle{empty}
 \setcounter{page}{0}
@@ -1628,7 +1626,39 @@ For parameter learning \dots
 \subsubsection{\TODO Inference complexity and tree-width}
 Perhaps the most natural question when shown a new generative probabilistic model class is the following: how might it be applied to probabilistic inference, be it exact or approximate? As for exact inference, Bayesian networks suffer a major pitfall due to the complexity of answering marginal queries being exponential in their tree-width, which will be discussed shortly. For example, variable elimination, a widely-used algorithm for answering marginal queries using Bayesian networks, has complexity $O(n\cdot\exp(w))$ where $n$ is the number of nodes and $w$ is the tree-width of the Bayesian network. As such, to appreciate the hardness of answering marginal queries in this context, an understanding of the tree-width of a Bayesian network is needed.
 
-When I first learned about tree-width, it felt like reading definition after definition but the overall intuition was understood easily. We begin with defining tree-decompositions of DAGs.
+When I first learned about tree-width, it felt like reading definition after definition but the overall intuition was understood easily. We begin with defining tree-decompositions of undirected graphs. A tree-decomposition of an undirected graph $\mathcal{G}$ is a tree $T$ in which nodes pertain to subsets of the nodes in $\mathcal{G}$ and the following three conditions are satisfied:
+\begin{enumerate}
+    \item Each node of $\mathcal{G}$ appears in at least one of the subsets pertaining to the nodes of $T$.
+    \item If there is an edge between two nodes of $\mathcal{G}$ then there is at least one node of $T$ which pertains to a subset containing both.
+    \item If a node of $\mathcal{G}$ belongs to the subsets pertaining to two nodes of $T$ then it belongs to all nodes in the path between them.
+\end{enumerate}
+The width of a tree-decomposition is the cardinality of its largest node minus 1. Tree-decompositions and their width are illustrated in \autoref{fig:tree_decomp}. To lay another definition down, the tree-width of an undirected graph is the minimum width of all of its possible tree-decompositions.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{./figures/appendix/tree-decomp.jpeg}
+    \caption{\TODO make own figure}
+    \label{fig:tree_decomp}
+\end{figure}
+
+\begin{tcolorbox}[title={\centering\textbf{Intuition check}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    The motivation for this construct is \dots
+\end{tcolorbox}
+
+Finally, we get to defining the tree-width of a DAG: the tree-width of its moralisation. The moralisation of a DAG $\mathcal{G}$ is the undirected graph whose nodes are that of $\mathcal{G}$ with some directed edges removed. The moralisation has an undirected edge between two nodes if there's an edge between them in $\mathcal{G}$ or if both nodes share a child in $\mathcal{G}$.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{./figures/appendix/DAG-moralisation.png}
+    \caption{\TODO make own figure. also, what is triangulation?}
+    \label{fig:DAG_moralisation}
+\end{figure}
+
+Such a moralisation captrues all dependencies, direct or not, but often loses some conditional independencies illustrated in $\mathcal{G}$.
+
+\begin{example}
+    Consider the Bayesian network below \dots
+\end{example}
 
 \subsubsection*{Variable elimination}
 Variable elimination is relatively straightforward, consisting of eliminating marginalised variables one-by-one in an efficient manner. It's best illustrated by a simple example, for which we will consider the following Bayesian network
@@ -1672,6 +1702,7 @@ An autoencoder $(\Omega_{\X},d,\phi,\theta)$ consists of a sample space $\Omega_
 In intuitive terms, one can see the encoder $\phi$ as a compressor of samples in $\Omega_{\X}$ to their compressed (or latent) representation in $\mathbb{R}^d$ and so one might refer to the image of $\phi$ as the latent space $\Omega_{\Z}$. Similarly, the decoder $\theta$ can be seen as a decompressor of compressed representations $\z\in\Omega_{\Z}$ yielding the original sample $\x$. In line with this notion of an autoencoder as a compressor/decompressor, the latent dimension $d$ is typically taken to be far smaller than the dimension of the distribution of interest, i.e. $d\ll m$. Of course, when $d\ll m$, learning such mappings $\phi$ and $\theta$ typically involves some loss of information if $\Omega_{\X}$ is a manifold whose intrinsic dimension is greater than $d$. That is, autoencoders are typically lossy compressors.
 
 \begin{example}
+    \label{ex:autoencoder}
     Suppose $\Omega_{\X}=\{(a,a,b)\in\mathbb{R}^3:||(a,a,b)||\leq1\}$ and $d=2$. One immediately notices that $\Omega_{\X}$ is a two-dimensional surface embedded in $\mathbb{R}^3$ as it is the intersection of the unit ball and the plane $\{(a,a,b):a,b\in\mathbb{R}\}$. To produce representations of $\x=(a,a,b)\in\Omega_{\X}$ in $\mathbb{R}^2$ (i.e. to compress a sample) one might employ the encoder $\phi_2(x,y,z)=(x,z)$. To reconstruct samples from their latent representation (i.e. to decompress) one might employ the decoder $\theta_2(x,z)=(x,x,z)$. The autoencoder $(\Omega_{\X},2,\phi_2,\theta_2)$ offers lossless compression on the sample space as $(\theta_2\circ\phi_2)(\x)=\x$ for all $\x\in\Omega_{\X}$.
     
     \hspace{15pt} If we instead desire latent representations of $\x=(a,a,b)\in\Omega_{\X}$ in $\mathbb{R}$, i.e. if $d=1$, one might employ the encoder $\phi_1(x,y,z)=x$ and the decoder $\theta_1(x)=(x,x,x)$. The autoencoder $(\Omega_{\X},1,\phi_1,\theta_1)$ offers lossy compression, i.e. some information pertaining to a sample is lost during its compression and decompression as $(\theta_1\circ\phi_1)(a,a,b)=(a,a,a)$ for all $a,b\in\mathbb{R}$.
@@ -1962,12 +1993,17 @@ Here are some probability theory and statistics things relevant to the main body
 
 I wish my understanding of probability theory, measure theory, stochastic processes, statistics (classical, Bayesian and asymptotic) were better. In another life.
 
-\subsection{\TODO The Curse of Dimensionality}
-Dimension goes up, amount of data needed to cover to-be-fit manifold grows exponentially. A nice way to remember the curse of dimensionality is the fact that the ratio of the volumes of the unit $n-$ball (always 1) and $n-$box tends to 0, asymptotically: $n=1$ yields a ratio of 2, $n=2$ yields $\pi/4$, $n=3$ yields $\pi/6$, etc.
+\subsection{\IMPROVE The Curse of Dimensionality}
+Dimension goes up, amount of data needed to cover to-be-fit manifold grows exponentially. A nice way to remember the curse of dimensionality is the fact that the ratio of the volumes of the unit $n-$ball (always 1) and $n-$box tends to 0, asymptotically: $n=1$ yields a ratio of 2, $n=2$ yields $\pi/4$, $n=3$ yields $\pi/6$, and so on.
 
-Due to this, the amount of data required to fit manifolds in high dimensional space, in practice, is absurd. \dots
+Due to this, one might fear that the amount of data required to fit manifolds in these horribly high-dimensional spaces is absurd. This though leads naturally to the instrinsic dimension of such manifolds. Thankfully, this is often not the case for distributions of interest, in practice. Learning said distributions boils down to fitting manifolds embedded in a space whose dimension is far higher than their intrinsic dimension.
 
-\subsubsection{The blessing of non-uniformity}
+\begin{example}
+    Consider the situation illustrated in \autoref{ex:autoencoder} in which the object $\{(a,a,b)\in\R^3:||(a,a,b)||\leq1\}$ is of interest. It's simply the intersection of the unit ball and the plane $\{(a,a,b):a,b\in\R\}$. That is, the intrinsic dimension of the object is 2 while the dimension of the space in which it's embedded is 3.
+
+    Similarly, the distribution pertaining to the MNIST dataset is not truly 784 dimensional despite samples being embedded in $\{0,\dots,255\}^784$. For example, the bottom right pixel in every sample in the training data is black (i.e. pixel value of 0).
+\end{example}
+Pedro Domingos refers to this observation as the blessing of non-uniformity. It turns out that the space between points on the manifold don't blow up as quickly as one would fear in practice. Tons of regularity to be exploited, i.e. not particularly uniform!
 
 \subsection{Jensen's Inequality}
 If $f:\mathbb{R}\to\mathbb{R}$ is convex and $\E[\X]<\infty$ then
