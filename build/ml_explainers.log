@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.6.18)  24 NOV 2025 14:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.6.18)  8 DEC 2025 15:39
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -819,17 +819,17 @@ File: ./figures/neural_nets//NLA_non_lin_transform.png Graphic file (type png)
 Package pdftex.def Info: ./figures/neural_nets//NLA_non_lin_transform.png  used on input line 1527.
 (pdftex.def)             Requested size: 143.9978pt x 139.52213pt.
  [50 <./figures/neural_nets/NLA_circle.png> <./figures/neural_nets//NLA_non_lin_transform.png>] [51] [52{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [53] [54]
-<./figures/appendix/tree-decomp.jpeg, id=1265, 500.87125pt x 264.99pt>
-File: ./figures/appendix/tree-decomp.jpeg Graphic file (type jpg)
-<use ./figures/appendix/tree-decomp.jpeg>
-Package pdftex.def Info: ./figures/appendix/tree-decomp.jpeg  used on input line 1639.
+<./figures/generative_models/tree-decomp.jpeg, id=1265, 500.87125pt x 264.99pt>
+File: ./figures/generative_models/tree-decomp.jpeg Graphic file (type jpg)
+<use ./figures/generative_models/tree-decomp.jpeg>
+Package pdftex.def Info: ./figures/generative_models/tree-decomp.jpeg  used on input line 1639.
 (pdftex.def)             Requested size: 360.0pt x 190.46918pt.
-<./figures/appendix/DAG-moralisation.png, id=1266, 478.78876pt x 302.12875pt>
-File: ./figures/appendix/DAG-moralisation.png Graphic file (type png)
-<use ./figures/appendix/DAG-moralisation.png>
-Package pdftex.def Info: ./figures/appendix/DAG-moralisation.png  used on input line 1652.
+<./figures/generative_models/DAG-moralisation.png, id=1266, 478.78876pt x 302.12875pt>
+File: ./figures/generative_models/DAG-moralisation.png Graphic file (type png)
+<use ./figures/generative_models/DAG-moralisation.png>
+Package pdftex.def Info: ./figures/generative_models/DAG-moralisation.png  used on input line 1652.
 (pdftex.def)             Requested size: 360.0pt x 227.17226pt.
- [55 <./figures/appendix/tree-decomp.jpeg>] [56 <./figures/appendix/DAG-moralisation.png>]
+ [55 <./figures/generative_models/tree-decomp.jpeg>] [56 <./figures/generative_models/DAG-moralisation.png>]
 <./figures/generative_models/AE_autoencoder.pdf, id=1284, 334.67233pt x 232.56184pt>
 File: ./figures/generative_models/AE_autoencoder.pdf Graphic file (type pdf)
 <use ./figures/generative_models/AE_autoencoder.pdf>
@@ -898,7 +898,7 @@ Package rerunfilecheck Info: File `ml_explainers.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  26189 strings out of 474116
- 512602 string characters out of 5743682
+ 512728 string characters out of 5743682
  1944187 words of memory out of 5000000
  47885 multiletter control sequences out of 15000+600000
  572338 words of font info for 92 fonts, out of 8000000 for 9000
@@ -935,7 +935,7 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist,
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
  </Users/dewibatista/Library/texlive/2024/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on build/ml_explainers.pdf (79 pages, 8401169 bytes).
+Output written on build/ml_explainers.pdf (79 pages, 8401162 bytes).
 PDF statistics:
  1830 PDF objects out of 2073 (max. 8388607)
  1235 compressed objects within 13 object streams
