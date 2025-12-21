@@ -636,6 +636,9 @@ I like to imagine fitting a third degree polynomial by polynomials of higher and
 
 There has been a good amount of work investigating the phenomenon and some of the mystery has reduced as a result. The most convincing hand-wavy explanation of the behaviour is that parameter exploration via gradient descent is inherently regulatory. Not only that but the use of explcit regularisation, like SGD and Adam, on top of the self-regularisation bias toward parameters which offer `simpler' representations.
 
+\subsubsection{\TODO Grokking}
+Unrelated to double descent but another strange behaviour observed during training (sometimes). Welch Labs has a great video on the topic: \url{youtu.be/D8GOeCFFby4?si=4dkxyBbxwYh24W8z}.
+
 % parameter exploration and its optimisation
 \section{Parameter Exploration and its Optimisation}
 In fitting a parametric model $f_{\theta}:\Omega_{\X}\to\Omega_{Y}$, the loss induced by a choice of model parameters $\theta$ for a sample $(\x,y)$ is given by $\mathcal{L}\l(y,f_{\theta}(\x)\r)$ for some loss function $\mathcal{L}:\Omega_Y\times\Omega_Y\to\mathbb{R}_{\geq0}$. In line with this, let the empirical risk $R_D$ over a given dataset $D=\{(\x_i,y_i)\}_{i=1}^n$ be given by
@@ -1505,7 +1508,7 @@ Tokens can be thought of as units of information for a given data structure and 
 $$
 \colorbox{purple}{The}\colorbox{green}{chef}\colorbox{brown}{cooked}\colorbox{red}{a}\colorbox{teal}{meal}\colorbox{blue}{for}\colorbox{yellow}{his}\colorbox{orange}{critic}\colorbox{pink}{.}
 $$
-or slicing up the following image: \textcolor{red}{get a pic here.}
+or slicing up the following image: \textcolor{red}{get a pic here.} To play around with one of OpenAI's text tokenisers, consider \url{platform.openai.com/tokenizer}.
 
 The purpose of tokenisation is self-explanatory: we'd like an idea of dependence between different parts of the input as to aid our output prediction.
 
@@ -1528,21 +1531,49 @@ The position of tokens in a given sequence of words is critical to understanding
 $$
 \colorbox{purple}{The}\colorbox{orange}{critic}\colorbox{brown}{cooked}\colorbox{red}{a}\colorbox{green}{chef}\colorbox{blue}{for}\colorbox{yellow}{his}\colorbox{teal}{meal}\colorbox{pink}{.}
 $$
-In the latter sequence, the intended meaning of \colorbox{brown}{cooked} is akin to `criticised', while in the former it is simply meant to convey that the chef literally cooked. So how do transformers go about accounting for the positions of tokens in given input sequences?\footnote{I learned from the following video: \url{www.youtube.com/watch?v=dWkm4nFikgM}.}
+In the latter sequence, the intended meaning of \colorbox{brown}{cooked} is akin to `criticised', while in the former it is simply meant to convey that the chef literally cooked. So how do transformers go about accounting for the positions of tokens in given input sequences?\footnote{Great video about this topic: \url{www.youtube.com/watch?v=dWkm4nFikgM}.}
 
-Unlike RNNs, transformers have no inherent notion of the order of tokens in a given input. Due to this, sprinkling in position-related information to the embedded input is necessary. Before detailing what was proposed in the paper that made transformers famous, it's worth attending to the validity of arguably natural approaches and the ways in which they fall short:
-\begin{itemize}
-    \item \textbf{Why not simply add the index of the token to its embedding?} For long sequences, the index value of later tokens would overpower the value of the presence of the token itself. In line with this, we'd like the positional encoding to be bounded in magnitude.
-    \item \textbf{Ok, then why not add the index divided by the sequence length to ensure getting something in [0,1]?} For sequences of varying length, we'd like the positional information for a given index to be the same. So attributing 0.5 to the third token in a sequence of five would be an issue as it would also be attributed to the 11th token in a sequence of 20.
-\end{itemize}
-To address both issues, the authors of the now famous Attention Is All you Need used sinusoids. Use sinusoids to form a position vector $P_k$ for the $k$th token in an input sequence of length $L$. Add $P_k$ to the word embedding $E_k$ for $k=0,\dots,L-1$ to obtain the input
+Unlike RNNs, transformers have no inherent notion of the order of tokens in a given input. Due to this, sprinkling in position-related information to the embedded input is necessary. Form a position vector $P_k$ for the $k^{\text{th}}$ token in the input sequence of length $L$. Add $P_k$ to the word embedding $E_k$ for $k=0,\dots,L-1$ to obtain the input
 $$
 (E_0+P_0,\dots,E_{L-1}+P_{L-1})
 $$
 fed to the model.
 
+Before detailing what was proposed for positional encoding in the paper that made transformers famous, it's worth attending to the validity of arguably natural approaches and the ways in which they fall short:
+\begin{itemize}
+    \item \textbf{Why not simply add the index of the token to its embedding?} For long sequences, the index value of later tokens would overpower the value of the presence of the token itself. In line with this, we'd like the positional encoding to be bounded in magnitude.
+    \item \textbf{Ok, then why not add the index divided by the sequence length to ensure getting something in [0,1]?} For sequences of varying length, we'd like the positional information for a given index to be the same. So attributing 0.5 to the third token in a sequence of five would be an issue as it would also be attributed to the 11th token in a sequence of 20.
+\end{itemize}
+To address both issues, the authors of the now famous Attention Is All you Need proposed alternating sinusoids. That is, the positional encoding $P_k$ of the $k^{\text{th}}$ token is given by
+$$
+\l(P_k^{(0)},P_k^{(1)},\dots,P_k^{(d_{\text{model}-1})}\r)
+\in
+\R^{d_{\text{model}}}
+$$
+where $d_{\text{model}}$ is the embedding dimension and
+\begin{align*}
+    P_k^{(2i)}
+    &=
+    \sin\l(\frac{k}{10000^{\frac{2i}{d_{\text{model}}}}}\r)\\
+    P_k^{(2i+1)}
+    &=
+    \cos\l(\frac{k}{10000^{\frac{2i}{d_{\text{model}}}}}\r)
+\end{align*}
+for $i=0,\dots,d_{\text{model}}/2-1$. We immdeiately see that $P_k$ is independent of the length $L$ of the input sequence and that the magnitude of $|P_k|$ can be no greater than $d_{\text{model}}$.
+
+Regarding the dynamics of the sinusoid waves, we see that greater indeces $i$ yield the sinusoids of greater period, i.e. lower frequency waves. The importance of this is best understood by example: $P_k^(0)=sin(k)$ has period $2\pi$ and so for $k\in\{1,\dots,L\}$ the first element of $P_k$ varies heavily. At the other extreme, $P_k^(d_{\text{model}}-2)=\sin\l(\frac{k}{10000^{\frac{d_{\text{model}}-2}{d_{\text{model}}}}}\r)\approx\sin(\frac{k}{10000})$. For $k\in\{1,\dots,L\}$, the second to last element of $P_k$ (the final element corresponding to a $\sin$ wave) is practically a straight line. Both are illustrated in \autoref{fig:sin-functions}. As a result, said first element is practically invariant to the token's index $k$.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.40\columnwidth]{./figures/neural_nets/sin-high-freq.png}
+    \hspace{20pt}
+    \includegraphics[width=0.40\columnwidth]{./figures/neural_nets//sin-low-freq.png}
+    \caption{blele}
+    \label{fig:sin-functions}
+\end{figure}
+
 \subsubsection{Attention}
-Has been around as an idea for a long time in less clear terms.
+Attention has been around for a while.
 
 \subsubsection{Transformer blocks}
 \dots
