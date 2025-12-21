@@ -1484,25 +1484,62 @@ Schmidhuber
 
 % transformer models
 \subsection{\TODO Transformers}
-Just another (very effective) architecture for correlation extraction.
+Transformers are a relatively modern architecture and are relatively broad in their applicability. They're found in language models (e.g. GPTs), image models (vision transformers), denoising models (diffusion) and so on. They offer many advantages over earlier competing architectures, e.g. over RNNs by having input sequence length not being a bottleneck.
 
-\subsubsection{Tokens and Embedding}
-Tokenisation is the process of slicing a sample up into tokens. Think of splitting a $512\times512$ image into its four $256\times256$ quadrants or the sentence `The chef cooked a meal for the critic.' into
+The processing of a given input through a transformer block involves the following steps
 $$
-\colorbox{purple}{The}\colorbox{green}{ chef}\colorbox{brown}{ cooked}\colorbox{red}{ a}\colorbox{teal}{ meal}\colorbox{blue}{ for}\colorbox{green}{ the}\colorbox{brown}{ critic}\colorbox{purple}{.}
+\texttt{tokenisation}
+\rightarrow
+\texttt{embedding}
+\rightarrow
+\texttt{position encoding}
+\rightarrow
+\texttt{attention}
+\rightarrow
+\texttt{MLP}
 $$
+each of which will be detailed in this subsection.
+
+\subsubsection{Tokenisation}
+Tokens can be thought of as units of information for a given data structure and tokenisation is simply the process of slicing up a sample into the tokens that make it up. Think of splitting sentence `The chef cooked a meal for the critic.' according to the following colouring
+$$
+\colorbox{purple}{The}\colorbox{green}{chef}\colorbox{brown}{cooked}\colorbox{red}{a}\colorbox{teal}{meal}\colorbox{blue}{for}\colorbox{yellow}{his}\colorbox{orange}{critic}\colorbox{pink}{.}
+$$
+or slicing up the following image: \textcolor{red}{get a pic here.}
+
 The purpose of tokenisation is self-explanatory: we'd like an idea of dependence between different parts of the input as to aid our output prediction.
 
-An embedding function $E:\{1,\dots,|S|\}\to\mathbb{R}^d$, where $d\in\mathbb{N}$ is the embedding dimension, offers high dimensional numeric representations of tokens. What makes token embedding functions interesting is how well they can capture underlying semantics, e.g. of natural language. For example, an embedding function learned on pieces of text might satisfy
+\subsubsection{Embedding}
+An embedding function $E:\{1,\dots,|S|\}\to\mathbb{R}^d$, where $d\in\mathbb{N}$ is the embedding dimension, offers high dimensional numeric representations of tokens. What makes token embedding functions interesting is how well they can capture underlying semantics, e.g. of natural language. An embedding function learned on pieces of text, like Word2Vec, might satisfy
 $$
 E(\text{Germany})+E(\text{fascist})-E(\text{Mussolini})
 \approx
 E(\text{Hitler})
 $$
-for which the tokenisations occur.
+or
+$$
+E(\text{Wales})+E(\text{Cardiff})-E(\text{Italy})
+\approx
+E(\text{Rome}).
+$$
 
 \subsubsection{Positional encoding}
-Use sinusoids to form a position vector $P_k$ for the $k$th token in an input sequence of length $L$. Add $P_k$ to the word embedding $E_k$ for $k=0,\dots,L-1$ to obtain the input $[E_0+P_0,\dots,E_{L-1}+P_{L-1}]$ fed to the model.
+The position of tokens in a given sequence of words is critical to understanding the intended meaning of the sequence. For example, the highlighted sequence above regarding the chef and the critic is distinct from
+$$
+\colorbox{purple}{The}\colorbox{orange}{critic}\colorbox{brown}{cooked}\colorbox{red}{a}\colorbox{green}{chef}\colorbox{blue}{for}\colorbox{yellow}{his}\colorbox{teal}{meal}\colorbox{pink}{.}
+$$
+In the latter sequence, the intended meaning of \colorbox{brown}{cooked} is akin to `criticised', while in the former it is simply meant to convey that the chef literally cooked. So how do transformers go about accounting for the positions of tokens in given input sequences?\footnote{I learned from the following video: \url{www.youtube.com/watch?v=dWkm4nFikgM}.}
+
+Unlike RNNs, transformers have no inherent notion of the order of tokens in a given input. Due to this, sprinkling in position-related information to the embedded input is necessary. Before detailing what was proposed in the paper that made transformers famous, it's worth attending to the validity of arguably natural approaches and the ways in which they fall short:
+\begin{itemize}
+    \item \textbf{Why not simply add the index of the token to its embedding?} For long sequences, the index value of later tokens would overpower the value of the presence of the token itself. In line with this, we'd like the positional encoding to be bounded in magnitude.
+    \item \textbf{Ok, then why not add the index divided by the sequence length to ensure getting something in [0,1]?} For sequences of varying length, we'd like the positional information for a given index to be the same. So attributing 0.5 to the third token in a sequence of five would be an issue as it would also be attributed to the 11th token in a sequence of 20.
+\end{itemize}
+To address both issues, the authors of the now famous Attention Is All you Need used sinusoids. Use sinusoids to form a position vector $P_k$ for the $k$th token in an input sequence of length $L$. Add $P_k$ to the word embedding $E_k$ for $k=0,\dots,L-1$ to obtain the input
+$$
+(E_0+P_0,\dots,E_{L-1}+P_{L-1})
+$$
+fed to the model.
 
 \subsubsection{Attention}
 Has been around as an idea for a long time in less clear terms.

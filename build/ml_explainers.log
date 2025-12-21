@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.6.18)  18 DEC 2025 10:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.6.18)  21 DEC 2025 18:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -807,88 +807,88 @@ File: ./figures/neural_nets/CNN_pooling.pdf Graphic file (type pdf)
 <use ./figures/neural_nets/CNN_pooling.pdf>
 Package pdftex.def Info: ./figures/neural_nets/CNN_pooling.pdf  used on input line 1466.
 (pdftex.def)             Requested size: 360.0pt x 116.90799pt.
- [48 <./figures/neural_nets/CNN_pooling.pdf>] [49]
-<./figures/neural_nets/NLA_circle.png, id=1231, 803.0pt x 803.0pt>
+ [48 <./figures/neural_nets/CNN_pooling.pdf>] [49] [50{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+<./figures/neural_nets/NLA_circle.png, id=1239, 803.0pt x 803.0pt>
 File: ./figures/neural_nets/NLA_circle.png Graphic file (type png)
 <use ./figures/neural_nets/NLA_circle.png>
-Package pdftex.def Info: ./figures/neural_nets/NLA_circle.png  used on input line 1525.
+Package pdftex.def Info: ./figures/neural_nets/NLA_circle.png  used on input line 1562.
 (pdftex.def)             Requested size: 143.9978pt x 143.99464pt.
-<./figures/neural_nets//NLA_non_lin_transform.png, id=1232, 809.0225pt x 783.92876pt>
+<./figures/neural_nets//NLA_non_lin_transform.png, id=1240, 809.0225pt x 783.92876pt>
 File: ./figures/neural_nets//NLA_non_lin_transform.png Graphic file (type png)
 <use ./figures/neural_nets//NLA_non_lin_transform.png>
-Package pdftex.def Info: ./figures/neural_nets//NLA_non_lin_transform.png  used on input line 1527.
+Package pdftex.def Info: ./figures/neural_nets//NLA_non_lin_transform.png  used on input line 1564.
 (pdftex.def)             Requested size: 143.9978pt x 139.52213pt.
- [50 <./figures/neural_nets/NLA_circle.png> <./figures/neural_nets//NLA_non_lin_transform.png>] [51] [52{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [53] [54]
-<./figures/generative_models/tree-decomp.jpeg, id=1265, 500.87125pt x 264.99pt>
+ [51] [52 <./figures/neural_nets/NLA_circle.png> <./figures/neural_nets//NLA_non_lin_transform.png>] [53] [54] [55]
+<./figures/generative_models/tree-decomp.jpeg, id=1273, 500.87125pt x 264.99pt>
 File: ./figures/generative_models/tree-decomp.jpeg Graphic file (type jpg)
 <use ./figures/generative_models/tree-decomp.jpeg>
-Package pdftex.def Info: ./figures/generative_models/tree-decomp.jpeg  used on input line 1639.
+Package pdftex.def Info: ./figures/generative_models/tree-decomp.jpeg  used on input line 1676.
 (pdftex.def)             Requested size: 360.0pt x 190.46918pt.
-<./figures/generative_models/DAG-moralisation.png, id=1266, 478.78876pt x 302.12875pt>
+<./figures/generative_models/DAG-moralisation.png, id=1274, 478.78876pt x 302.12875pt>
 File: ./figures/generative_models/DAG-moralisation.png Graphic file (type png)
 <use ./figures/generative_models/DAG-moralisation.png>
-Package pdftex.def Info: ./figures/generative_models/DAG-moralisation.png  used on input line 1652.
+Package pdftex.def Info: ./figures/generative_models/DAG-moralisation.png  used on input line 1689.
 (pdftex.def)             Requested size: 360.0pt x 227.17226pt.
- [55 <./figures/generative_models/tree-decomp.jpeg>] [56 <./figures/generative_models/DAG-moralisation.png>]
-<./figures/generative_models/AE_autoencoder.pdf, id=1284, 334.67233pt x 232.56184pt>
+ [56] [57 <./figures/generative_models/tree-decomp.jpeg>] [58 <./figures/generative_models/DAG-moralisation.png>]
+<./figures/generative_models/AE_autoencoder.pdf, id=1298, 334.67233pt x 232.56184pt>
 File: ./figures/generative_models/AE_autoencoder.pdf Graphic file (type pdf)
 <use ./figures/generative_models/AE_autoencoder.pdf>
-Package pdftex.def Info: ./figures/generative_models/AE_autoencoder.pdf  used on input line 1697.
+Package pdftex.def Info: ./figures/generative_models/AE_autoencoder.pdf  used on input line 1734.
 (pdftex.def)             Requested size: 360.0pt x 250.17297pt.
- [57] [58 <./figures/generative_models/AE_autoencoder.pdf>]
+ [59 <./figures/generative_models/AE_autoencoder.pdf>]
 
 pdfTeX warning: pdflatex (file ./figures/generative_models/AE_gen_1.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/generative_models/AE_gen_1.pdf, id=1338, 510.40688pt x 326.11836pt>
+<./figures/generative_models/AE_gen_1.pdf, id=1347, 510.40688pt x 326.11836pt>
 File: ./figures/generative_models/AE_gen_1.pdf Graphic file (type pdf)
 <use ./figures/generative_models/AE_gen_1.pdf>
-Package pdftex.def Info: ./figures/generative_models/AE_gen_1.pdf  used on input line 1725.
+Package pdftex.def Info: ./figures/generative_models/AE_gen_1.pdf  used on input line 1762.
 (pdftex.def)             Requested size: 176.40198pt x 112.70999pt.
 
 
 pdfTeX warning: pdflatex (file ./figures/generative_models/AE_gen_2.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/generative_models/AE_gen_2.pdf, id=1339, 510.40688pt x 326.11836pt>
+<./figures/generative_models/AE_gen_2.pdf, id=1348, 510.40688pt x 326.11836pt>
 File: ./figures/generative_models/AE_gen_2.pdf Graphic file (type pdf)
 <use ./figures/generative_models/AE_gen_2.pdf>
-Package pdftex.def Info: ./figures/generative_models/AE_gen_2.pdf  used on input line 1726.
+Package pdftex.def Info: ./figures/generative_models/AE_gen_2.pdf  used on input line 1763.
 (pdftex.def)             Requested size: 176.40198pt x 112.70999pt.
-[59 <./figures/generative_models/AE_gen_1.pdf> <./figures/generative_models/AE_gen_2.pdf>]
-<figures/generative_models/VAE_encoder.pdf, id=1424, 191.41614pt x 192.72803pt>
+[60]
+<figures/generative_models/VAE_encoder.pdf, id=1357, 191.41614pt x 192.72803pt>
 File: figures/generative_models/VAE_encoder.pdf Graphic file (type pdf)
 <use figures/generative_models/VAE_encoder.pdf>
-Package pdftex.def Info: figures/generative_models/VAE_encoder.pdf  used on input line 1738.
+Package pdftex.def Info: figures/generative_models/VAE_encoder.pdf  used on input line 1775.
 (pdftex.def)             Requested size: 165.60242pt x 166.74272pt.
-<figures/generative_models/VAE_decoder.pdf, id=1425, 191.5416pt x 192.72803pt>
+<figures/generative_models/VAE_decoder.pdf, id=1358, 191.5416pt x 192.72803pt>
 File: figures/generative_models/VAE_decoder.pdf Graphic file (type pdf)
 <use figures/generative_models/VAE_decoder.pdf>
-Package pdftex.def Info: figures/generative_models/VAE_decoder.pdf  used on input line 1740.
+Package pdftex.def Info: figures/generative_models/VAE_decoder.pdf  used on input line 1777.
 (pdftex.def)             Requested size: 165.60242pt x 166.63391pt.
- [60 <./figures/generative_models/VAE_encoder.pdf> <./figures/generative_models/VAE_decoder.pdf>] [61] [62] [63] [64]
-<./figures/generative_models/GAN_architecture.png, id=1532, 913.16156pt x 398.23781pt>
+ [61 <./figures/generative_models/AE_gen_1.pdf> <./figures/generative_models/AE_gen_2.pdf>] [62 <./figures/generative_models/VAE_encoder.pdf> <./figures/generative_models/VAE_decoder.pdf>] [63] [64] [65]
+<./figures/generative_models/GAN_architecture.png, id=1540, 913.16156pt x 398.23781pt>
 File: ./figures/generative_models/GAN_architecture.png Graphic file (type png)
 <use ./figures/generative_models/GAN_architecture.png>
-Package pdftex.def Info: ./figures/generative_models/GAN_architecture.png  used on input line 1876.
+Package pdftex.def Info: ./figures/generative_models/GAN_architecture.png  used on input line 1913.
 (pdftex.def)             Requested size: 360.0pt x 156.99533pt.
- [65 <./figures/generative_models/GAN_architecture.png>]
+ [66 <./figures/generative_models/GAN_architecture.png>]
 
 pdfTeX warning: pdflatex (file ./figures/generative_models/diffusion_process.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/generative_models/diffusion_process.pdf, id=1540, 981.96861pt x 251.13824pt>
+<./figures/generative_models/diffusion_process.pdf, id=1548, 981.96861pt x 251.13824pt>
 File: ./figures/generative_models/diffusion_process.pdf Graphic file (type pdf)
 <use ./figures/generative_models/diffusion_process.pdf>
-Package pdftex.def Info: ./figures/generative_models/diffusion_process.pdf  used on input line 1908.
+Package pdftex.def Info: ./figures/generative_models/diffusion_process.pdf  used on input line 1945.
 (pdftex.def)             Requested size: 360.0pt x 92.06897pt.
-[66]
-<./figures/generative_models/unet.png, id=1548, 1405.25pt x 706.64pt>
+[67]
+<./figures/generative_models/unet.png, id=1556, 1405.25pt x 706.64pt>
 File: ./figures/generative_models/unet.png Graphic file (type png)
 <use ./figures/generative_models/unet.png>
-Package pdftex.def Info: ./figures/generative_models/unet.png  used on input line 1928.
+Package pdftex.def Info: ./figures/generative_models/unet.png  used on input line 1965.
 (pdftex.def)             Requested size: 360.0pt x 181.02646pt.
- [67 <./figures/generative_models/diffusion_process.pdf>] [68 <./figures/generative_models/unet.png>] [69] [70] [71] [72]
-<./figures/appendix/poi_geo_plot.pdf, id=1624, 346.85886pt x 198.2617pt>
+ [68 <./figures/generative_models/diffusion_process.pdf>] [69 <./figures/generative_models/unet.png>] [70] [71] [72] [73]
+<./figures/appendix/poi_geo_plot.pdf, id=1632, 346.85886pt x 198.2617pt>
 File: ./figures/appendix/poi_geo_plot.pdf Graphic file (type pdf)
 <use ./figures/appendix/poi_geo_plot.pdf>
-Package pdftex.def Info: ./figures/appendix/poi_geo_plot.pdf  used on input line 2125.
+Package pdftex.def Info: ./figures/appendix/poi_geo_plot.pdf  used on input line 2162.
 (pdftex.def)             Requested size: 360.0pt x 205.77888pt.
- [73 <./figures/appendix/poi_geo_plot.pdf>] [74] [75] [76] [77] [78] (build/ml_explainers.aux)
+ [74 <./figures/appendix/poi_geo_plot.pdf>] [75] [76] [77] [78] [79] (build/ml_explainers.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -897,13 +897,16 @@ Package rerunfilecheck Info: File `ml_explainers.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 26189 strings out of 474116
- 512728 string characters out of 5743682
+ 26195 strings out of 474116
+ 512799 string characters out of 5743682
  1944187 words of memory out of 5000000
- 47885 multiletter control sequences out of 15000+600000
- 572338 words of font info for 92 fonts, out of 8000000 for 9000
+ 47887 multiletter control sequences out of 15000+600000
+ 572674 words of font info for 94 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,16n,96p,1906b,876s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{Hfootnote.11} has been referenced but does not exist, replaced by a fixed one
+
 
 pdfTeX warning (dest): name{Hfootnote.10} has been referenced but does not exist, replaced by a fixed one
 
@@ -935,10 +938,10 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist,
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
  </Users/dewibatista/Library/texlive/2024/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on build/ml_explainers.pdf (79 pages, 8401164 bytes).
+Output written on build/ml_explainers.pdf (80 pages, 8405988 bytes).
 PDF statistics:
- 1830 PDF objects out of 2073 (max. 8388607)
- 1235 compressed objects within 13 object streams
- 238 named destinations out of 1000 (max. 500000)
+ 1839 PDF objects out of 2073 (max. 8388607)
+ 1243 compressed objects within 13 object streams
+ 241 named destinations out of 1000 (max. 500000)
  208 words of extra memory for PDF output out of 10000 (max. 10000000)
 
