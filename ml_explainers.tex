@@ -1489,7 +1489,7 @@ Schmidhuber
 \subsection{\TODO Transformers}
 Transformers are a relatively modern architecture and are relatively broad in their applicability. They're found in language models (e.g. GPTs), image models (vision transformers), denoising models (diffusion) and so on. They offer many advantages over earlier competing architectures, e.g. over RNNs by having input sequence length not being a bottleneck.
 
-The processing of a given input through a transformer block involves the following steps
+The processing of a given input through a transformer made up of a single transformer block involves the following steps
 $$
 \texttt{tokenisation}
 \rightarrow
@@ -1501,7 +1501,14 @@ $$
 \rightarrow
 \texttt{MLP}
 $$
-each of which will be detailed in this subsection.
+each of which will be detailed in this subsection\footnote{For a great visualisation, consider \url{poloclub.github.io/transformer-explainer/}.}.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{./figures/neural_nets/transformer.pdf}
+    \caption{A decoder-only language transformer consisting of $N$ transformer blocks.}
+    \label{fig:transformer-block}
+\end{figure}
 
 \subsubsection{Tokenisation}
 Tokens can be thought of as units of information for a given data structure and tokenisation is simply the process of slicing up a sample into the tokens that make it up. Think of splitting sentence `The chef cooked a meal for the critic.' according to the following colouring
@@ -1526,14 +1533,14 @@ E(\text{Wales})+E(\text{Cardiff})-E(\text{Italy})
 E(\text{Rome}).
 $$
 
-\subsubsection{Positional encoding}
+\subsubsection{Positional encoding (for text)}
 The position of tokens in a given sequence of words is critical to understanding the intended meaning of the sequence. For example, the highlighted sequence above regarding the chef and the critic is distinct from
 $$
 \colorbox{purple}{The}\colorbox{orange}{critic}\colorbox{brown}{cooked}\colorbox{red}{a}\colorbox{green}{chef}\colorbox{blue}{for}\colorbox{yellow}{his}\colorbox{teal}{meal}\colorbox{pink}{.}
 $$
 In the latter sequence, the intended meaning of \colorbox{brown}{cooked} is akin to `criticised', while in the former it is simply meant to convey that the chef literally cooked. So how do transformers go about accounting for the positions of tokens in given input sequences?\footnote{Great video about this topic: \url{www.youtube.com/watch?v=dWkm4nFikgM}.}
 
-Unlike RNNs, transformers have no inherent notion of the order of tokens in a given input. Due to this, sprinkling in position-related information to the embedded input is necessary. Form a position vector $P_k$ for the $k^{\text{th}}$ token in the input sequence of length $L$. Add $P_k$ to the word embedding $E_k$ for $k=0,\dots,L-1$ to obtain the input
+Unlike RNNs, transformers have no inherent notion of the order of tokens in a given input. Due to this, sprinkling in position-related information to the embedded input is necessary. Form a position vector $P_k$ for the $k^{\text{th}}$ token in the input sequence of length $L$. Add $P_k$ to the word embedding $E_k$ for $k=0,\dots,L-1$ to obtain
 $$
 (E_0+P_0,\dots,E_{L-1}+P_{L-1})
 $$
@@ -1543,7 +1550,7 @@ Before detailing what was proposed for positional encoding in the paper that mad
 \begin{itemize}
     \item \textbf{Why not simply add the index of the token to its embedding?} For long sequences, the index value of later tokens would overpower the value of the presence of the token itself. In line with this, we'd like the positional encoding to be bounded in magnitude.
     \item \textbf{Ok, then why not add the index divided by the sequence length to ensure getting something in [0,1]?} For sequences of varying length, we'd like the positional information for a given index to be the same. So attributing 0.5 to the third token in a sequence of five would be an issue as it would also be attributed to the 11th token in a sequence of 20.
-    \item \textbf{Why not encode position via the binary of their index?} Change in positional encoding should be smooth with respect to change in index. Such an encoding would be discrete.
+    \item \textbf{Why not encode via the binary index?} Change in positional encoding should be smooth. We want $||P_{k+1}-P_k||$ to be bounded but for binary encodings it is simply equal to the square root of the number of bit flips: unbounded in $k$.
 \end{itemize}
 To address both issues, the authors of the now famous Attention Is All you Need proposed alternating sinusoids. That is, the positional encoding $P_k$ of the $k^{\text{th}}$ token is given by
 $$
@@ -1570,40 +1577,41 @@ P_k^{(d_{\text{model}}-2)}
 \approx
 \sin\l(\frac{k}{10000}\r).
 $$
-For $k\in\{1,\dots,L\}$, the second to last element of $P_k$ (the final element corresponding to a $\sin$ wave) is practically a straight line whose maximum is close to 0. Both are illustrated in \autoref{fig:sin-functions}. As a result, said first element is practically invariant to the token's index $k$. One sees immediately sees the idea being conveyed: the extent to which the index of the token in the sequence influences each element of the positional encoding vector decreases as the index increases. That is, the variance of $P_k^{(i)}$ in $k\in\{1,\dots,L\}$ decreases with respect to $i\in\{1,\dots,d_{\text{model}}\}$. Due to this, these `earlier' dimensions tend to encode finer local positional differences while `later' dimensions encode more global structure.
+For $k\in\{1,\dots,L\}$, the second to last element of $P_k$ (the final element corresponding to a $\sin$ wave) is practically a straight line whose maximum is close to 0. Both are illustrated in \autoref{fig:bin-and-sin-signals}. As a result, said first element is practically invariant to the token's index $k$. One sees immediately sees the idea being conveyed: the extent to which the index of the token in the sequence influences each element of the positional encoding vector decreases as the index increases. That is, the variance of $P_k^{(i)}$ in $k\in\{1,\dots,L\}$ decreases with respect to $i\in\{1,\dots,d_{\text{model}}\}$. Due to this, these `earlier' dimensions tend to encode finer local positional differences while `later' dimensions encode more global structure.
 
 \begin{table}
     \begin{center}
-        \begin{tabular}{l|lll}
-            0 & 0 & 0 & 0\\
-            1 & 0 & 0 & 1\\
-            2 & 0 & 1 & 0\\
-            3 & 0 & 1 & 1\\
-            4 & 1 & 0 & 0\\
-            5 & 1 & 0 & 1\\
-            6 & 1 & 1 & 0\\
-            7 & 1 & 1 & 1
+        \begin{tabular}{cccccccc|c}
+            0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & period\\
+            \hline
+            0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 2\\
+            0 & 0 & 1 & 1 & 0 & 0 & 1 & 1 & 4\\
+            0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 8\\
         \end{tabular}
     \end{center}
-    \caption{Binary representations of inetegers.}
+    \caption{Bit-reversed binary representations of sequence indeces.}
     \label{tab:binary-encodings}
 \end{table}
 
+\subsubsection*{Continuous analog of binary?}
 For a comparison of sinusoidal positional encoding to binary encoding, consider \autoref{tab:binary-encodings}. We observe a very similar behaviour: one end of the binary representation seems to correspond to something with a period and going in the other direction we see periodic behaviour with a greater period, i.e. lowe frequency. Transitions with respect to integer (or position) are discrete in this case.
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.40\columnwidth]{./figures/neural_nets/sin-high-freq.png}
+    \includegraphics[width=\columnwidth]{./figures/neural_nets/binary-signals.pdf}
     \hspace{20pt}
-    \includegraphics[width=0.40\columnwidth]{./figures/neural_nets//sin-low-freq.png}
-    \caption{blele}
-    \label{fig:sin-functions}
+    \includegraphics[width=\columnwidth]{./figures/neural_nets/sin-signals.pdf}
+    \caption{Binary signals (top) and sin signals (bottom).}
+    \label{fig:bin-and-sin-signals}
 \end{figure}
 
 \subsubsection{Attention}
 Attention has been around for a while.
 
-\subsubsection{Transformer blocks}
+\subsubsection{MLP component and output}
+On top of all detailed so far, transformer blocks consist of an MLP component. The input of said MLP component is the output of the attention component.
+
+\subsubsection{Example transformer with numbers}
 \dots
 
 % misc. questions
