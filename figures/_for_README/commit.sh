@@ -1,1 +1,0 @@
-pdftoppm -f 1 -l 1 build/ml_explainers.pdf first_page -png
