@@ -1533,14 +1533,14 @@ E(\text{Wales})+E(\text{Cardiff})-E(\text{Italy})
 E(\text{Rome}).
 $$
 
-\subsubsection{Positional encoding (for text)}
+\subsubsection{Positional encoding (for text, learned absolute positional)}
 The position of tokens in a given sequence of words is critical to understanding the intended meaning of the sequence. For example, the highlighted sequence above regarding the chef and the critic is distinct from
 $$
 \colorbox{purple}{The}\colorbox{orange}{critic}\colorbox{brown}{cooked}\colorbox{red}{a}\colorbox{green}{chef}\colorbox{blue}{for}\colorbox{yellow}{his}\colorbox{teal}{meal}\colorbox{pink}{.}
 $$
 In the latter sequence, the intended meaning of \colorbox{brown}{cooked} is akin to `criticised', while in the former it is simply meant to convey that the chef literally cooked. So how do transformers go about accounting for the positions of tokens in given input sequences?\footnote{Great video about this topic: \url{www.youtube.com/watch?v=dWkm4nFikgM}.}
 
-Unlike RNNs, transformers have no inherent notion of the order of tokens in a given input. Due to this, sprinkling in position-related information to the embedded input is necessary. Form a position vector $P_k$ for the $k^{\text{th}}$ token in the input sequence of length $L$. Add $P_k$ to the word embedding $E_k$ for $k=0,\dots,L-1$ to obtain
+Unlike RNNs, transformers have no inherent notion of the order of tokens in a given input without this additional positional encoding step. That is because the attention and MLP components are, standalone, independent of position. Due to this, sprinkling in position-related information to the embedded input is necessary. I like to think of positional encoding as a sort of prior regarding which tokens are relevant to others. That is, the prior is relevant but contextual information baked into the text itself will override its inclusion if sufficiently relevant. Form a position vector $P_k$ for the $k^{\text{th}}$ token in the input sequence of length $L$. Add $P_k$ to the word embedding $E_k$ for $k=0,\dots,L-1$ to obtain
 $$
 (E_0+P_0,\dots,E_{L-1}+P_{L-1})
 $$

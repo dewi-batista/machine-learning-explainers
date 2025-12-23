@@ -106,7 +106,7 @@
 \newlabel{fig:transformer-block}{{23}{50}{A decoder-only language transformer consisting of $N$ transformer blocks}{figure.caption.34}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.1}Tokenisation}{50}{subsubsection.4.5.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.2}Embedding}{50}{subsubsection.4.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.3}Positional encoding (for text)}{51}{subsubsection.4.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.3}Positional encoding (for text, learned absolute positional)}{51}{subsubsection.4.5.3}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Bit-reversed binary representations of sequence indeces.}}{53}{table.caption.35}\protected@file@percent }
 \newlabel{tab:binary-encodings}{{1}{53}{Bit-reversed binary representations of sequence indeces}{table.caption.35}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.4}Attention}{53}{subsubsection.4.5.4}\protected@file@percent }
@@ -122,17 +122,17 @@
 \@writefile{toc}{\contentsline {section}{\numberline {5}Generative Models}{56}{section.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}\textcolor {myYellow}{\textbf  {IMPROVE: }}Bayesian networks}{57}{subsection.5.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.1}\textcolor {red}{\textbf  {TODO: }}Learning $\mathcal  {G}$ and $\theta $ from data}{58}{subsubsection.5.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.2}\textcolor {red}{\textbf  {TODO: }}Inference complexity and tree-width}{58}{subsubsection.5.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.2}\textcolor {red}{\textbf  {TODO: }}Inference complexity and tree-width}{59}{subsubsection.5.1.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces \textcolor {red}{\textbf  {TODO: }}make own figure}}{60}{figure.caption.39}\protected@file@percent }
 \newlabel{fig:tree_decomp}{{26}{60}{\TODO make own figure}{figure.caption.39}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces \textcolor {red}{\textbf  {TODO: }}make own figure. also, what is triangulation?}}{61}{figure.caption.40}\protected@file@percent }
 \newlabel{fig:DAG_moralisation}{{27}{61}{\TODO make own figure. also, what is triangulation?}{figure.caption.40}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Variational Autoencoders (VAEs)}{61}{subsection.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Autoencoders: no variation yet!}{61}{subsubsection.5.2.1}\protected@file@percent }
-\newlabel{sec:autoencoders}{{5.2.1}{61}{Autoencoders: no variation yet!}{subsubsection.5.2.1}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {28}{\ignorespaces An autoencoder in which $\phi $ and $\theta $ are fit using multi-layer perceptrons (MLPs).}}{62}{figure.caption.44}\protected@file@percent }
 \newlabel{fig:autoencoder}{{28}{62}{An autoencoder in which $\phi $ and $\theta $ are fit using multi-layer perceptrons (MLPs)}{figure.caption.44}{}}
-\newlabel{ex:autoencoder}{{5.3}{62}{Autoencoders: no variation yet!}{example.5.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Autoencoders: no variation yet!}{62}{subsubsection.5.2.1}\protected@file@percent }
+\newlabel{sec:autoencoders}{{5.2.1}{62}{Autoencoders: no variation yet!}{subsubsection.5.2.1}{}}
+\newlabel{ex:autoencoder}{{5.3}{63}{Autoencoders: no variation yet!}{example.5.3}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Motivating VAEs}{63}{subsubsection.5.2.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {29}{\ignorespaces Intuitive ideas for using an autoencoder as a generative model which fail.}}{64}{figure.caption.45}\protected@file@percent }
 \newlabel{fig:autoencoder_generation}{{29}{64}{Intuitive ideas for using an autoencoder as a generative model which fail}{figure.caption.45}{}}
@@ -142,11 +142,11 @@
 \newlabel{eq:marginal_likelihood}{{1}{67}{Formulating VAEs}{equation.5.1}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.4}\textcolor {red}{\textbf  {TODO: }}Backpropagation for VAEs (the reparameterisation trick)}{68}{subsubsection.5.2.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.5}\textcolor {red}{\textbf  {TODO: }}Quirks of VAEs}{68}{subsubsection.5.2.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}\textcolor {myYellow}{\textbf  {IMPROVE: }}Generative Adversarial Networks (GANs)}{68}{subsection.5.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {31}{\ignorespaces Example GAN architecture.}}{69}{figure.caption.47}\protected@file@percent }
-\newlabel{fig:GAN_architecture}{{31}{69}{Example GAN architecture}{figure.caption.47}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.1}Quirks of GANs}{70}{subsubsection.5.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.2}Flavours of GANs}{70}{subsubsection.5.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}\textcolor {myYellow}{\textbf  {IMPROVE: }}Generative Adversarial Networks (GANs)}{69}{subsection.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.1}Quirks of GANs}{69}{subsubsection.5.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.2}Flavours of GANs}{69}{subsubsection.5.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {31}{\ignorespaces Example GAN architecture.}}{70}{figure.caption.47}\protected@file@percent }
+\newlabel{fig:GAN_architecture}{{31}{70}{Example GAN architecture}{figure.caption.47}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.4}\textcolor {red}{\textbf  {TODO: }}Normalising Flows}{70}{subsection.5.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Diffusion Models}{70}{subsection.5.5}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {32}{\ignorespaces Johann Bernoulli being denoised in line with the backward process of a diffusion model.}}{71}{figure.caption.48}\protected@file@percent }

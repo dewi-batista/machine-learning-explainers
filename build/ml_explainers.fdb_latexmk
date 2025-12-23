@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1766427167.91472 "/Users/dewibatista/Documents/public-github/machine-learning-explainers/ml_explainers.tex" "build/ml_explainers.pdf" "ml_explainers" 1766427169.72006 0
-  "/Users/dewibatista/Documents/public-github/machine-learning-explainers/ml_explainers.tex" 1766427146.37143 168531 3092c84dfd8f6ce835e529dd92b72415 ""
+["pdflatex"] 1766453969.28611 "/Users/dewibatista/Documents/public-github/machine-learning-explainers/ml_explainers.tex" "build/ml_explainers.pdf" "ml_explainers" 1766453971.18633 0
+  "/Users/dewibatista/Documents/public-github/machine-learning-explainers/ml_explainers.tex" 1766453970.47545 168944 5efb01146f30440aad2ae2ccbd3a079e ""
   "/Users/dewibatista/Library/texlive/2024/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk" 1755178945.25807 7808 c82ce01f248e795d39c6854999a6f077 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -221,9 +221,9 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1718735009.84166 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1718734899 8221429 70ab63879ef089a700279eb4c23839b7 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "build/ml_explainers.aux" 1766427169.59944 25171 0aaa8cc47a06c88be6da4e14a5457a99 "pdflatex"
-  "build/ml_explainers.out" 1766427168.51424 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "build/ml_explainers.toc" 1766427169.60168 8869 7c241b7e8b3cf14264d05506b41c792c "pdflatex"
+  "build/ml_explainers.aux" 1766453971.04855 25200 72aae4963da9c0d46398468dedaa213a "pdflatex"
+  "build/ml_explainers.out" 1766453969.89298 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "build/ml_explainers.toc" 1766453971.0508 8898 4aa5c637bad3d010c94a49239b935035 "pdflatex"
   "figures/appendix/poi_geo_plot.pdf" 1755550078.60854 25670 43001ce29415f1ef666ea26293c29dd6 ""
   "figures/generative_models/AE_autoencoder.pdf" 1758646403.46972 75493 5c2998aeae3169fa57a37962d99ff566 ""
   "figures/generative_models/AE_gen_1.pdf" 1758813305.69344 130481 f8aabb6e340c558505296300f4f3cc5f ""
@@ -251,7 +251,7 @@
   "figures/neural_nets/REG_early_stopping.pdf" 1762517541.15205 108588 c2c9503d5b9e961088499ec30d25a2b2 ""
   "figures/neural_nets/binary-signals.pdf" 1766419779.22133 7461 21ffc107a72250d946ea8cac90381900 ""
   "figures/neural_nets/sin-signals.pdf" 1766427164.719 11866 59f0327ebcab58b63818db32e4a546fb ""
-  "figures/neural_nets/transformer.pdf" 1766416487.55248 13813 aa890a260940b6f1a298197f1cfdbd24 ""
+  "figures/neural_nets/transformer.pdf" 1766453959.91868 14490 c4429f483ce44b644c8103fde46f86a0 ""
   "figures/supervised_learning/SVM_hard_margin.pdf" 1749499503.63665 14639 f8dbfb3fd6a3b7f745b75e517127ceec ""
   "figures/supervised_learning/SVM_non_linear.pdf" 1758143326.8094 17730 fc6c5c508d9ac1bb567f2952818e5a09 ""
   "figures/supervised_learning/SVM_soft_margin.pdf" 1749499504.53167 15192 e094051b0f29fb6df18e974d1afff91c ""
@@ -267,7 +267,7 @@
   "figures/supervised_learning/random_forest.pdf" 1755980049.61744 25867 744f6f0f4a7bc34bd52be60abf7b505a ""
   "figures/supervised_learning/regularisation_two_plots_zero_test_error.pdf" 1762517541.1539 86216 f6eb76f08f834a44957016b671a36362 ""
   "header.tex" 1759245096.28466 2059 c2687fa129f2a034fed5cf2f5b78dbb1 ""
-  "ml_explainers.tex" 1766427146.37143 168531 3092c84dfd8f6ce835e529dd92b72415 ""
+  "ml_explainers.tex" 1766453970.47545 168944 5efb01146f30440aad2ae2ccbd3a079e ""
   (generated)
   "build/ml_explainers.aux"
   "build/ml_explainers.log"
