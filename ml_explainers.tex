@@ -1501,7 +1501,7 @@ $$
 \rightarrow
 \texttt{MLP}
 $$
-each of which will be detailed in this subsection\footnote{For a great visualisation, consider \url{poloclub.github.io/transformer-explainer/}.}.
+each of which will be detailed in this subsection\footnote{Great visualisation: \url{www.poloclub.github.io/transformer-explainer/}.}.
 
 \begin{figure}[t]
     \centering
@@ -1517,21 +1517,22 @@ $$
 $$
 or slicing up the following image: \textcolor{red}{get a pic here.} To play around with one of OpenAI's text tokenisers, consider \url{platform.openai.com/tokenizer}.
 
-The purpose of tokenisation is self-explanatory: we'd like an idea of dependence between different parts of the input as to aid our output prediction.
+The purpose of tokenisation is self-explanatory: we'd like an idea of dependence between different parts of the input as to aid our output prediction. Notationally, let $V$ denote the set of all tokens in our model's vocabulary and $T:\Sigma^*\to \{1,\dots,|V|\}^*$ the tokenisation function where $S^*$ is the set of all finite strings whose characters are in $S$. It's often helpful in practice to represent the tokenisation of a sequence in terms of a matrix whose columns are one-hot encodings according to $T(\text{input})$.
 
-\subsubsection{Embedding}
-An embedding function $E:\{1,\dots,|S|\}\to\mathbb{R}^d$, where $d\in\mathbb{N}$ is the embedding dimension, offers high dimensional numeric representations of tokens. What makes token embedding functions interesting is how well they can capture underlying semantics, e.g. of natural language. An embedding function learned on pieces of text, like Word2Vec, might satisfy
+\subsubsection{\TODO Embedding}
+A linear embedding map $L_E:\{1,\dots,|V|\}^*\to\mathbb{R}^d$, where $d\in\mathbb{N}$ is the embedding dimension, offers high dimensional numeric representations of tokens. What makes token embedding functions interesting is how well they can capture underlying semantics, e.g. of natural language. Such an embedding map learned on pieces of text, like Word2Vec, might satisfy
 $$
-E(\text{Germany})+E(\text{fascist})-E(\text{Mussolini})
+L_E(\text{Germany})+L_E(\text{fascist})-L_E(\text{Mussolini})
 \approx
-E(\text{Hitler})
+L_E(\text{Hitler})
 $$
 or
 $$
-E(\text{Wales})+E(\text{Cardiff})-E(\text{Italy})
+L_E(\text{Wales})+L_E(\text{Cardiff})-L_E(\text{Italy})
 \approx
-E(\text{Rome}).
+L_E(\text{Rome}).
 $$
+% Suppose the tokenisation of the input consists of $n$ tokens, so $\text{len}(T(\text{input}))=n$ where the output of $T$ is thought of as a list. With this in mind, the embedding of $T(\text{input})$ can be one-hot encoded to obtain the matrix $I\in\{0,1\}^{n\times |V|}$. From here, to embed 
 
 \subsubsection{Positional encoding (for text, learned absolute positional)}
 The position of tokens in a given sequence of words is critical to understanding the intended meaning of the sequence. For example, the highlighted sequence above regarding the chef and the critic is distinct from
@@ -1608,8 +1609,11 @@ For a comparison of sinusoidal positional encoding to binary encoding, consider 
 \subsubsection{Attention}
 Attention has been around for a while.
 
-\subsubsection{MLP component and output}
+\subsubsection{MLP component}
 On top of all detailed so far, transformer blocks consist of an MLP component. The input of said MLP component is the output of the attention component.
+
+\subsubsection{Final transformer block output}
+\dots
 
 \subsubsection{Example transformer with numbers}
 \dots
