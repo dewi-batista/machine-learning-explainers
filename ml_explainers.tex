@@ -1,3 +1,12 @@
+% TODO:
+% Unsupervised Learning (motivation + connection to generative modelling)
+%   PCA
+%   k-means clustering
+%   Isomap: https://en.wikipedia.org/wiki/Isomap
+%   t-SNE
+%   Autoencoders (already written)
+%   Evaluating Unsupervised Learning Models
+
 \documentclass[11pt]{article}
 \input{header}
 
@@ -1769,6 +1778,7 @@ Such a moralisation captrues all dependencies, direct or not, but often loses so
 \end{example}
 
 \subsubsection*{Variable elimination}
+\url{https://www.cs.upc.edu/~larrosa/MEI-CSI-files/BN/2-BN-VE.pdf}\\
 Variable elimination is relatively straightforward, consisting of eliminating marginalised variables one-by-one in an efficient manner. It's best illustrated by a simple example, for which we will consider the following Bayesian network
 \begin{center}
         \begin{tikzpicture}[node distance=2cm, every node/.style={circle, draw, thick}]
@@ -1793,7 +1803,7 @@ As for approximate inference, perhaps the most well known algorithm is loopy bel
 
 % variational autoencoders
 \subsection{Variational Autoencoders (VAEs)}
-In motivating variational autoencoders (VAEs), it's natural to first motivate regular autoencoders, illustrate issues pertaining to intuitive ideas of doing generative things with them and fixing those issues with variational inference.
+In motivating variational autoencoders (VAEs\footnote{Original paper by Kingma: \url{https://arxiv.org/pdf/1312.6114}}), it's natural to first motivate regular autoencoders, illustrate issues pertaining to intuitive ideas of doing generative things with them and fixing those issues with variational inference.
 
 % autoencoders
 \subsubsection{Autoencoders: no variation yet!}
@@ -1936,6 +1946,7 @@ $$
 In practice, after choosing a latent dimension $d$, we often take $p(\z)=\mathcal{N}(0,I_d)$, $\mathcal{Q}_d=\mathbb{R}^d\times\mathcal{S}_{++}^d$ and $\mathcal{P}_m=\mathbb{R}^m\times\mathcal{S}_{++}^m$, i.e. Gaussians for the latent and reconstruction distribution families and the standard $d-$dimensional Gaussian for the prior. A benefit of these choices is that it yields a differentiable and easy-to-implement closed form for the KL-divergence term in the ELBO. Additionally, the expectation pertaining to the reconstruction term is typically approximated via a single sample, boiling down to a mean square error term\footnote{\url{https://n8python.github.io/mnistLatentSpace/}}.
 
 \subsubsection{\TODO Backpropagation for VAEs (the reparameterisation trick)}
+\url{https://math.stackexchange.com/q/2540170/631229}\\
 To find suitable parameters of a given VAE architecture using gradient descent, we require that the ELBO is differentiable. With respect to $\theta$, the gradient is approximated according to
 \begin{align*}
     \nabla_{\theta}\text{ELBO}
@@ -2102,6 +2113,7 @@ Here are some probability theory and statistics things relevant to the main body
 I wish my understanding of probability theory, measure theory, stochastic processes, statistics (classical, Bayesian and asymptotic) were better. In another life.
 
 \subsection{\IMPROVE The Curse of Dimensionality}
+\url{https://stats.stackexchange.com/q/219373/396940}\\
 Dimension goes up, amount of data needed to cover to-be-fit manifold grows exponentially. A nice way to remember the curse of dimensionality is the fact that the ratio of the volumes of the unit $n-$ball (always 1) and $n-$box tends to 0, asymptotically: $n=1$ yields a ratio of 2, $n=2$ yields $\pi/4$, $n=3$ yields $\pi/6$, and so on.
 
 Due to this, one might fear that the amount of data required to fit manifolds in these horribly high-dimensional spaces is absurd. This though leads naturally to the instrinsic dimension of such manifolds. Thankfully, this is often not the case for distributions of interest, in practice. Learning said distributions boils down to fitting manifolds embedded in a space whose dimension is far higher than their intrinsic dimension.
