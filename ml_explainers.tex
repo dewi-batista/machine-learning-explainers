@@ -954,15 +954,21 @@ Why have a fixed learning rate? Why have the same learning rate for each paramet
 $$
 G_i^{(t)}
 =
-\sum_{\tau=1}^t\l(\nabla_{\theta_i}R_D(\theta_i^{(\tau)})\r)^2
+\sum_{\tau=1}^t\l(\nabla_{\theta_i}R_D\l(\theta_i^{(\tau)}\r)\r)^2
 $$
 and switching the optimisation step to
 $$
 \theta_i^{(t+1)}
 =
-\theta_i^{(t)}-\eta_i\nabla_{\theta_i}^{(t)}R_D(\theta_i^{(t)})
+\theta_i^{(t)}-\eta_i\nabla_{\theta_i}^{(t)}R_D\l(\theta_i^{(t)}\r)
 $$
 where $\eta_i^{(t)}=\frac{\eta}{\sqrt{G_i^{(t)}}+\epsilon}$ is the $i^{\text{th}}$ parameter's learning rate at step $t$. There are more elaborate adaptive learning rate methods than this, e.g. RMSProp and Adam, but AdaGrad conveys the idea sufficiently well.
+
+\subsubsection{Warmup and cosine decay}
+\dots
+
+\subsubsection{Gradient accumulation and clipping}
+\dots
 
 % hyperparam tuning
 \subsection{Hyperparameter Tuning}
