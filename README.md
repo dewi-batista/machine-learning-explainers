@@ -1,4 +1,4 @@
-Up-to-date version found in `build/ml_explainers.pdf`
+Up-to-date version: dewi-batista.github.io/machine-learning-explainers/
 
 **Selected self-made figures:**
 <p align="center">
