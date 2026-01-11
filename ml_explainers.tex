@@ -1692,7 +1692,9 @@ Skip connections help. Architectures which use them are sometimes called residua
 It's worth mentioning that said vanishing behaviour can be observed during forward passes too.
 
 % generative models (any other section name i've come up with has been due to overthinking)
-\section{Generative Models}
+\section{Generative Modelling}
+\textcolor{red}{More broadly, we're interested in modelling some data-generative process so that we may sample from it or reason about the frequency of (incomplete) samples. Easy example is histogram plotting. Where there's frequency-based reasoning there's probabilistic reasoning, hence generative probabilistic modelling.}
+
 With generative probabilistic models, we seek to represent the joint probability function over a set of model variables of interest. Typically, said variables are those which `gave rise' to the data from which the models are learned and, ideally, said models would help to answer probabilistic queries, either exactly or approximately, given new full or partial data.
 
 Put more precisely, what we further refer to as a generative probabilistic model is a tuple $(\X, p_{\Theta})$ consisting of model variables $\X=(X_1,\dots,X_m)$ and a probability function $p_{\Theta}:\Omega_{\X}\rightarrow\mathbb{R}_{\geq0}$ parameterised according to the parameter set $\Theta$. Given a generative probabilistic model, we might hope to answer evidence queries $p_{\Theta}(\x)$, marginal queries $p_{\Theta}(\x')$, where $\x'$ is a realisation of some subset of the model variables, and sampling queries $\hat{\x}\sim p_{\Theta}(\x)$, in which one obtains a `convincing' realisation $\hat{\x}\in\Omega_{\X}$ of the model variables.
@@ -1700,6 +1702,10 @@ Put more precisely, what we further refer to as a generative probabilistic model
 The holy grail of generative probabilistic modelling is to find an exact, efficiently computable and algebraically manipulable representation of the underlying joint probability function of interest. If obtained, one can reason probabilistically with ease but, as we will see, the purpose, limitations and learning of generative probabilistic models varies heavily. To illustrate this, consider probabilistic graphical models (PGMs) which offer human-interpretable representations of conditional (in)dependencies between model variables are expressed in the form of graphs. The most well-known class of PGMs are Bayesian networks.
 
 Note that while this section consists of methods of learning generative models pertaining to image-related distributions, the discussed methods are often applicable to generative modelling in general.
+
+% hop nets and boltz machines
+\subsection{\TODO Hopfield networks and Boltzmann machines}
+\textcolor{red}{Random aside: it's strange how far the name Boltzmann has propagated beyond statistical mechanics. I've seen it in so many contexts, e.g. in Cedric Viliani's book.}
 
 % bayesian nets
 \subsection{\IMPROVE Bayesian networks}
