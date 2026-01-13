@@ -1501,7 +1501,7 @@ Schmidhuber
 \subsubsection{Gated Recurrent Units (GRUs)}
 
 % transformer models
-\subsection{\TODO Transformers}
+\subsection{\IMPROVE Transformers}
 Transformers are a relatively modern architecture and are relatively broad in their applicability. They're found in language models (e.g. GPTs), image models (vision transformers), denoising models (diffusion) and so on. They offer many advantages over earlier competing architectures, e.g. over RNNs by having input sequence length not being a bottleneck.
 
 The processing of a given input through a transformer made up of a single transformer block involves the following steps
@@ -1534,20 +1534,20 @@ or slicing up the following image: \textcolor{red}{get a pic here.} To play arou
 
 The purpose of tokenisation is self-explanatory: we'd like an idea of dependence between different parts of the input as to aid our output prediction. Notationally, let $V$ denote the set of all tokens in our model's vocabulary and $T:\Sigma^*\to \{1,\dots,|V|\}^*$ the tokenisation function where $S^*$ is the set of all finite strings whose characters are in $S$. It's often helpful in practice to represent the tokenisation of a sequence in terms of a matrix whose columns are one-hot encodings according to $T(\text{input})$.
 
-\subsubsection{\TODO Embedding}
-A linear embedding map $L_E:\{1,\dots,|V|\}^*\to\mathbb{R}^d$, where $d\in\mathbb{N}$ is the embedding dimension, offers high dimensional numeric representations of tokens. What makes token embedding functions interesting is how well they can capture underlying semantics, e.g. of natural language. Such an embedding map learned on pieces of text, like Word2Vec, might satisfy
+\subsubsection{\NEXT Embedding}
+A linear embedding map $L_E:\{e_1,\dots,e_{|V|}\}\to\mathbb{R}^d$, where $d\in\mathbb{N}$ is the embedding dimension and $e_i$ denotes the $i^{\text{th}}$ standard basis vector, offers high dimensional numeric representations of tokens. What makes token embedding functions interesting is how well they can capture underlying semantics, e.g. of natural language. Such an embedding map learned on pieces of text, like Word2Vec, might satisfy
 $$
-L_E(\text{Germany})+L_E(\text{fascist})-L_E(\text{Mussolini})
+L_E(\text{``Germany"})+L_E(\text{``fascist"})-L_E(\text{``Mussolini"})
 \approx
-L_E(\text{Hitler})
+L_E(\text{``Hitler"})
 $$
 or
 $$
-L_E(\text{Wales})+L_E(\text{Cardiff})-L_E(\text{Italy})
+L_E(\text{``Wales"})+L_E(\text{``Cardiff"})-L_E(\text{``Italy"})
 \approx
-L_E(\text{Rome}).
+L_E(\text{``Rome"})
 $$
-% Suppose the tokenisation of the input consists of $n$ tokens, so $\text{len}(T(\text{input}))=n$ where the output of $T$ is thought of as a list. With this in mind, the embedding of $T(\text{input})$ can be one-hot encoded to obtain the matrix $I\in\{0,1\}^{n\times |V|}$. From here, to embed 
+where $``\text{word}''$ denotes the basis vector corresponding to the word according to some indexing over the vocabulary, e.g. perhaps $|V|=50,000$ and ``Germany''$=e_{35,629}$. So how is the embedding matrix $E\in\R^{d\times |V|}$ learned?
 
 \subsubsection{Positional encoding (for text, learned absolute positional)}
 The position of tokens in a given sequence of words is critical to understanding the intended meaning of the sequence. For example, the highlighted sequence above regarding the chef and the critic is distinct from
@@ -1568,61 +1568,10 @@ Before detailing what was proposed for positional encoding in the paper that mad
     \item \textbf{Ok, then why not add the index divided by the sequence length to ensure getting something in [0,1]?} For sequences of varying length, we'd like the positional information for a given index to be the same. So attributing 0.5 to the third token in a sequence of five would be an issue as it would also be attributed to the 11th token in a sequence of 20.
     \item \textbf{Why not encode via the binary index?} Change in positional encoding should be smooth. We want $||P_{k+1}-P_k||$ to be bounded but for binary encodings it is simply equal to the square root of the number of bit flips: unbounded in $k$.
 \end{itemize}
-To address both issues, the authors of the now famous Attention Is All you Need proposed alternating sinusoids. That is, the positional encoding $P_k$ of the $k^{\text{th}}$ token is given by
-$$
-\l(P_k^{(0)},P_k^{(1)},\dots,P_k^{(d_{\text{model}-1})}\r)
-\in
-\R^{d_{\text{model}}}
-$$
-where $d_{\text{model}}$ is the embedding dimension and
-\begin{align*}
-    P_k^{(2i)}
-    &=
-    \sin\l(\frac{k}{10000^{\frac{2i}{d_{\text{model}}}}}\r)\\
-    P_k^{(2i+1)}
-    &=
-    \cos\l(\frac{k}{10000^{\frac{2i}{d_{\text{model}}}}}\r)
-\end{align*}
-for $i=0,\dots,d_{\text{model}}/2-1$. We immdeiately see that $P_k$ is independent of the length $L$ of the input sequence and that the magnitude of $|P_k|$ can be no greater than $d_{\text{model}}$.
+To address both issues, the authors of the now famous Attention Is All you Need proposed alternating sinusoids. Sinusoidal positional encoding feels unnatural to me, though it has a nice motivation as a continuous analog of binary encoding. Regardless, far mor intuitive methods of positional encoding exist such as learned positional encoding (used by OpenAI for GPT-2) and the now-popular rotary positional embeddings (RoPE).
 
-Regarding the dynamics of the sinusoid waves, we see that greater indeces $i$ yield the sinusoids of greater period, i.e. lower frequency waves. The importance of this is best understood by example: $P_k^{(0)}=\sin(k)$ has period $2\pi$ and so for $k\in\{1,\dots,L\}$ the first element of $P_k$ varies heavily. At the other extreme
-$$
-P_k^{(d_{\text{model}}-2)}
-=
-\sin\l(\frac{k}{10000^{\frac{d_{\text{model}}-2}{d_{\text{model}}}}}\r)
-\approx
-\sin\l(\frac{k}{10000}\r).
-$$
-For $k\in\{1,\dots,L\}$, the second to last element of $P_k$ (the final element corresponding to a $\sin$ wave) is practically a straight line whose maximum is close to 0. Both are illustrated in \autoref{fig:bin-and-sin-signals}. As a result, said first element is practically invariant to the token's index $k$. One sees immediately sees the idea being conveyed: the extent to which the index of the token in the sequence influences each element of the positional encoding vector decreases as the index increases. That is, the variance of $P_k^{(i)}$ in $k\in\{1,\dots,L\}$ decreases with respect to $i\in\{1,\dots,d_{\text{model}}\}$. Due to this, these `earlier' dimensions tend to encode finer local positional differences while `later' dimensions encode more global structure.
-
-\begin{table}
-    \begin{center}
-        \begin{tabular}{cccccccc|c}
-            0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & period\\
-            \hline
-            0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 2\\
-            0 & 0 & 1 & 1 & 0 & 0 & 1 & 1 & 4\\
-            0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 8\\
-        \end{tabular}
-    \end{center}
-    \caption{Bit-reversed binary representations of sequence indeces.}
-    \label{tab:binary-encodings}
-\end{table}
-
-\subsubsection*{Continuous analog of binary?}
-For a comparison of sinusoidal positional encoding to binary encoding, consider \autoref{tab:binary-encodings}. We observe a very similar behaviour: one end of the binary representation seems to correspond to something with a period and going in the other direction we see periodic behaviour with a greater period, i.e. lowe frequency. Transitions with respect to integer (or position) are discrete in this case.
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{./figures/neural_nets/binary-signals.pdf}
-    \hspace{20pt}
-    \includegraphics[width=\columnwidth]{./figures/neural_nets/sin-signals.pdf}
-    \caption{Binary signals (top) and sin signals (bottom).}
-    \label{fig:bin-and-sin-signals}
-\end{figure}
-
-\subsubsection{Attention}
-Attention has been around for a while.
+\subsubsection{\NEXT Attention}
+Stand at attention!
 
 \subsubsection{MLP component}
 On top of all detailed so far, transformer blocks consist of an MLP component. The input of said MLP component is the output of the attention component.
