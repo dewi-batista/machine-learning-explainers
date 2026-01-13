@@ -2018,6 +2018,8 @@ In the context of denoising, the contraction branch takes a noised image as inpu
 \subsection{\TODO Evaluating Generative Models}
 Since samples are not labeled, how does one evaluate a generative model? What does under/overfitting mean for generative models?
 
+\textcolor{red}{Future note: A nice method for diffusion models (and beyond) is to take a sample at inference, embed it then compute the $k$ nearest neighbours in said embedding space. Then, by eye, compare the inference sample against its nearest neighbours to see if it's simply reproducing training samples.}
+
 % % object detection
 % \section{Object Detection Models}
 
