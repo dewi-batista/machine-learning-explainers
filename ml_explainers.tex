@@ -644,10 +644,6 @@ The phenomenon is illustrated nicely in \autoref{fig:double_descent} and motivat
 I like to imagine fitting a third degree polynomial by polynomials of higher and higher degree. If double descent were observed in this set up, one might expect wild polynomial fits until the polynomial's degree matches the number of training samples. At which point, the model has interoplated the training data perfectly and begins to regulate how it fits what's inbetween.
 
 There has been a good amount of work investigating the phenomenon and some of the mystery has reduced as a result. The most convincing hand-wavy explanation of the behaviour is that parameter exploration via gradient descent is inherently regulatory. Not only that but the use of explcit regularisation, like SGD and Adam, on top of the self-regularisation bias toward parameters which offer `simpler' representations.
-
-\subsubsection{\TODO Grokking}
-Unrelated to double descent but another strange behaviour observed during training (sometimes). Welch Labs has a great video on the topic: \url{youtu.be/D8GOeCFFby4?si=4dkxyBbxwYh24W8z}.
-
 % parameter exploration and its optimisation
 \section{Parameter Exploration and its Optimisation}
 In fitting a parametric model $f_{\theta}:\Omega_{\X}\to\Omega_{Y}$, the loss induced by a choice of model parameters $\theta$ for a sample $(\x,y)$ is given by $\mathcal{L}\l(y,f_{\theta}(\x)\r)$ for some loss function $\mathcal{L}:\Omega_Y\times\Omega_Y\to\mathbb{R}_{\geq0}$. In line with this, let the empirical risk $R_D$ over a given dataset $D=\{(\x_i,y_i)\}_{i=1}^n$ be given by
