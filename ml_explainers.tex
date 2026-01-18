@@ -775,7 +775,7 @@ is viable. This surprised me a ton when I first read about it: I would have thou
     What we call mini-batch gradient here is referred to by some as stochastic gradient descent. Confusing.
 \end{tcolorbox}
 
-\subsubsection{Batch + Layer normalisation}
+\subsubsection{Batch + Layer + RMS normalisation}
 I've only seen these forms of normalisation apply to training neural networks. I'm unaware of them being grounded in theory. They're very widley used so I've included them.
 
 \subsubsection*{1) Batch norm}
@@ -821,6 +821,9 @@ $$
 (\gamma_1\hat{a}_1+\beta_1,\dots,\gamma_d\hat{a}_d+\beta_d)
 $$
 where $\gamma_1,\dots,\gamma_d$ and $\beta_1,\dots,\beta_d$ are learnable parameters. As with batch norm, I honestly don't know the influence layer norm has on training.
+
+\subsubsection*{3) RMS norm}
+\dots
 
 % regularisation
 \subsection{Regularisation}
@@ -1486,31 +1489,41 @@ Pooling operations reduce the spatial dimensions of a given feature map by apply
     Massively improved parameter-efficiency, translation invariance and learning efficiency\footnote{\href{https://ai.stackexchange.com/questions/27407/what-does-statistical-efficiency-mean-in-this-context}{\texttt{ai.stackexchange.com/questions/27407}}} (fewer samples needed to learn distributions to similar degrees of precision). These are in part due to the inductive bias present of their architecture.
 \end{tcolorbox}
 
-\subsubsection{\TODO Backpropagation for CNNs}
+% TODO:
+% \subsubsection{Backpropagation for CNNs}
+% \dots
 
 % recurrent neural networks
 \subsection{\TODO Recurrent Neural Networks (RNNs)}
+Mention Schmidhuber.
 
-\subsubsection{Long Short-Term Memory (LSTMs)}
-Schmidhuber
+% \subsubsection{Long Short-Term Memory (LSTMs)}
 
-\subsubsection{Gated Recurrent Units (GRUs)}
+% \subsubsection{Gated Recurrent Units (GRUs)}
+
+% \subsubsection{Limitations/hard bottlenecks}
 
 % transformer models
-\subsection{\IMPROVE Transformers}
-Transformers are a relatively modern architecture and are relatively broad in their applicability. They're found in language models (e.g. GPTs), image models (vision transformers), denoising models (diffusion) and so on. They offer many advantages over earlier competing architectures, e.g. over RNNs by having input sequence length not being a bottleneck.
+\subsection{\NEXT Transformers}
+Transformers are a relatively modern architecture but they have already been applied very broadly. They're now found in language models (e.g. GPTs), image models (vision transformers), denoising models (diffusion) and so on. They offer many advantages over earlier competing architectures, e.g. RNNs, due to not being bottlenecked by input sequence length.
 
-The processing of a given input through a transformer made up of a single transformer block involves the following steps
+The processing of a given input through a single transformer block involves
 $$
-\texttt{tokenisation}
-\rightarrow
-\texttt{embedding}
-\rightarrow
-\texttt{position encoding}
-\rightarrow
 \texttt{attention}
 \rightarrow
-\texttt{MLP}
+\texttt{MLP}.
+$$
+As such, the full processing through a transformer architecture looks something like
+$$
+\texttt{tokenise}
+\rightarrow
+\texttt{embed}
+\rightarrow
+\texttt{encode position}
+\rightarrow
+\texttt{trf blocks}
+\rightarrow
+\texttt{output proj}
 $$
 each of which will be detailed in this subsection\footnote{Great visualisation: \url{www.poloclub.github.io/transformer-explainer/}.}.
 
@@ -1562,7 +1575,7 @@ Before detailing what was proposed for positional encoding in the paper that mad
 \begin{itemize}
     \item \textbf{Why not simply add the index of the token to its embedding?} For long sequences, the index value of later tokens would overpower the value of the presence of the token itself. In line with this, we'd like the positional encoding to be bounded in magnitude.
     \item \textbf{Ok, then why not add the index divided by the sequence length to ensure getting something in [0,1]?} For sequences of varying length, we'd like the positional information for a given index to be the same. So attributing 0.5 to the third token in a sequence of five would be an issue as it would also be attributed to the 11th token in a sequence of 20.
-    \item \textbf{Why not encode via the binary index?} Change in positional encoding should be smooth. We want $||P_{k+1}-P_k||$ to be bounded but for binary encodings it is simply equal to the square root of the number of bit flips: unbounded in $k$.
+    \item \textbf{Why not encode via the binary of the index?} Change in positional encoding should be smooth. We want $||P_{k+1}-P_k||$ to be bounded but for binary encodings it is simply equal to the square root of the number of bit flips: unbounded in $k$.
 \end{itemize}
 To address both issues, the authors of the now famous Attention Is All you Need proposed alternating sinusoids. Sinusoidal positional encoding feels unnatural to me, though it has a nice motivation as a continuous analog of binary encoding. Regardless, far mor intuitive methods of positional encoding exist such as learned positional encoding (used by OpenAI for GPT-2) and the now-popular rotary positional embeddings (RoPE).
 
@@ -1575,7 +1588,7 @@ On top of all detailed so far, transformer blocks consist of an MLP component. T
 \subsubsection{Final transformer block output}
 \dots
 
-\subsubsection{Example transformer with numbers}
+\subsubsection{Example: GPT-2 small (124M parameters)}
 \dots
 
 % misc. questions
@@ -1638,25 +1651,29 @@ It's worth mentioning that said vanishing behaviour can be observed during forwa
 
 % generative models (any other section name i've come up with has been due to overthinking)
 \section{Generative Modelling}
-\textcolor{red}{More broadly, we're interested in modelling some data-generative process so that we may sample from it or reason about the frequency of (incomplete) samples. Easy example is histogram plotting. Where there's frequency-based reasoning there's probabilistic reasoning, hence generative probabilistic modelling.}
+Broadly speaking, a generative model seeks to offer ways to reason about the data-generative process to which it corresponds. Reasoning here could mean simulating the data-generative process (sampling) or answering questions pertaining to the frequency of certain events. The simplest example of a generative model I can think of with respect to this broad definition is a histogram: a distribution of the frequencies of events, as in \autoref{fig:histogram}. A histogram allows one to see which event is most frequent, the portion of events which satistfy some condition (e.g. exceeding some quantitative threshold) or to simulate the data-generative process. So how do we go from generative models to generative probabilistic models? Well, where frequency-based reasoning goes, probabilistic reasoning follows!
 
-With generative probabilistic models, we seek to represent the joint probability function over a set of model variables of interest. Typically, said variables are those which `gave rise' to the data from which the models are learned and, ideally, said models would help to answer probabilistic queries, either exactly or approximately, given new full or partial data.
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{./figures/generative_models/histogram.pdf}
+    \caption{A histogram pertaining to the frequency of weather states. Corresponding probabilities (post-normalisation) in parentheses.}
+    \label{fig:histogram}
+\end{figure}
 
-Put more precisely, what we further refer to as a generative probabilistic model is a tuple $(\X, p_{\Theta})$ consisting of model variables $\X=(X_1,\dots,X_m)$ and a probability function $p_{\Theta}:\Omega_{\X}\rightarrow\mathbb{R}_{\geq0}$ parameterised according to the parameter set $\Theta$. Given a generative probabilistic model, we might hope to answer evidence queries $p_{\Theta}(\x)$, marginal queries $p_{\Theta}(\x')$, where $\x'$ is a realisation of some subset of the model variables, and sampling queries $\hat{\x}\sim p_{\Theta}(\x)$, in which one obtains a `convincing' realisation $\hat{\x}\in\Omega_{\X}$ of the model variables.
+A generative probabilistic model is a tuple $(\X, p_{\Theta})$ consisting of model variables $\X=(X_1,\dots,X_m)$ and a probability function $p_{\Theta}:\Omega_{\X}\rightarrow\mathbb{R}_{\geq0}$ parameterised according to the parameter set $\Theta$. Given a generative probabilistic model, we might hope to answer evidence queries $p_{\Theta}(\x)$, marginal queries $p_{\Theta}(\x')$, where $\x'$ is a realisation of some subset of the model variables, and sampling queries $\hat{\x}\sim p_{\Theta}(\x)$, in which one simulates the data-generative process in turn producing samples of the underlying distribution.
 
-The holy grail of generative probabilistic modelling is to find an exact, efficiently computable and algebraically manipulable representation of the underlying joint probability function of interest. If obtained, one can reason probabilistically with ease but, as we will see, the purpose, limitations and learning of generative probabilistic models varies heavily. To illustrate this, consider probabilistic graphical models (PGMs) which offer human-interpretable representations of conditional (in)dependencies between model variables are expressed in the form of graphs. The most well-known class of PGMs are Bayesian networks.
+The holy grail of generative probabilistic modelling is to find an exact, efficiently computable and algebraically manipulable representation $p_\Theta$ of the underlying joint probability function of interest. If obtained, one can reason probabilistically with ease but, as we will see, the purpose, limitations and learning of generative probabilistic models from data varies heavily. To illustrate this, consider probabilistic graphical models (PGMs) which offer human-interpretable representations of conditional (in)dependencies between model variables according to a directed acyclic graph (DAG). While PGMs are not employed in deep learning contexts, they act as an important stepping stone in understanding contemporary methods. The most well-known class of PGMs are Bayesian networks.
 
-Note that while this section consists of methods of learning generative models pertaining to image-related distributions, the discussed methods are often applicable to generative modelling in general.
+% TODO:
+% Hopfield networks and Boltzmann machines
+% \subsection{Boltzmann machines}
+% \textcolor{red}{Random aside: it's strange how far the name Boltzmann has propagated beyond statistical mechanics. I've seen it in so many contexts, e.g. in Cedric Viliani's book.}
 
-% hop nets and boltz machines
-\subsection{\TODO Boltzmann machines}
-\textcolor{red}{Random aside: it's strange how far the name Boltzmann has propagated beyond statistical mechanics. I've seen it in so many contexts, e.g. in Cedric Viliani's book.}
-
-\textcolor{red}{Motivated by Hopfield networks which act as an associative memory. Essentially, take a noised training sample and get the unnoised sample, i.e. remembering it from some noisy approximation.}
+% \textcolor{red}{Motivated by Hopfield networks which act as an associative memory. Essentially, take a noised training sample and get the unnoised sample, i.e. remembering it from some noisy approximation.}
 
 % bayesian nets
-\subsection{\IMPROVE Bayesian networks}
-A natural approach to representing the joint probability function of model variables is to decompose it into smaller probability functions which are modelled in conjunction. For example, you might decompose the probability function according to the chain rule of probability as in
+\subsection{Bayesian networks}
+A natural approach to representing the joint probability function of model variables is to decompose it into a product of probability functions over subsets of the model variables. For example, you might decompose the probability function according to the chain rule of probability as in
 \begin{align*}
     p(x_1,\dots,x_m)
     &=
@@ -1674,7 +1691,7 @@ p_{\Theta}(x_1,\dots,x_m)
 $$
 where $\textbf{pa}(X_i)$ denotes the random variables which are parents of $X_i$ in $\mathcal{G}$.
 \begin{example}
-    For model variables $X_1, X_2$ and $X_3$, if $X_3|X_1$ is independent of $X_2$ then their joint probability function may be decomposed as
+    For model variables $\X=(X_1,X_2,X_3)$, if $X_3|X_1$ is independent of $X_2$ then their joint probability function decomposes according to
     $$
     p_{\Theta}(x_1,x_2,x_3)
     =
@@ -1691,73 +1708,36 @@ where $\textbf{pa}(X_i)$ denotes the random variables which are parents of $X_i$
             \draw[bend left][->] (A) edge (C);
         \end{tikzpicture}
     \end{center}
-    Notice that the choice of $X_1$ as the model variable upon which nothing is conditioned is entirely arbitrary. As a result, for a given decomposition, DAGs are not unique. Here, $\theta=(\theta_1,\theta_2,\theta_3)$ are parameters learned from data.
-\end{example} 
-
-\subsubsection{\TODO Learning $\mathcal{G}$ and $\theta$ from data}
-Unlike with neural networks, the structure of a Bayesian network (its DAG) can be motivated in a principled manner via maximum likelihood estimation. In brief, the likelihood of a DAG can be computed, and so a most likely DAG can be computed. It should be made clear that no analytic solution for the MLE for the DAG exists. As a result, methods typically involve exploring the graph space in a heuristic manner, such as hill climbing.
-
-For parameter learning \dots
-
-\subsubsection{\TODO Inference complexity and tree-width}
-Perhaps the most natural question when shown a new generative probabilistic model class is the following: how might it be applied to probabilistic inference, be it exact or approximate? As for exact inference, Bayesian networks suffer a major pitfall due to the complexity of answering marginal queries being exponential in their tree-width, which will be discussed shortly. For example, variable elimination, a widely-used algorithm for answering marginal queries using Bayesian networks, has complexity $O(n\cdot\exp(w))$ where $n$ is the number of nodes and $w$ is the tree-width of the Bayesian network. As such, to appreciate the hardness of answering marginal queries in this context, an understanding of the tree-width of a Bayesian network is needed.
-
-When I first learned about tree-width, it felt like reading definition after definition but the overall intuition was understood easily. We begin with defining tree-decompositions of undirected graphs. A tree-decomposition of an undirected graph $\mathcal{G}$ is a tree $T$ in which nodes pertain to subsets of the nodes in $\mathcal{G}$ and the following three conditions are satisfied:
-\begin{enumerate}
-    \item Each node of $\mathcal{G}$ appears in at least one of the subsets pertaining to the nodes of $T$.
-    \item If there is an edge between two nodes of $\mathcal{G}$ then there is at least one node of $T$ which pertains to a subset containing both.
-    \item If a node of $\mathcal{G}$ belongs to the subsets pertaining to two nodes of $T$ then it belongs to all nodes in the path between them.
-\end{enumerate}
-The width of a tree-decomposition is the cardinality of its largest node minus 1. Tree-decompositions and their width are illustrated in \autoref{fig:tree_decomp}. To lay another definition down, the tree-width of an undirected graph is the minimum width of all of its possible tree-decompositions.
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{./figures/generative_models/tree-decomp.jpeg}
-    \caption{\TODO make own figure}
-    \label{fig:tree_decomp}
-\end{figure}
-
-\begin{tcolorbox}[title={\centering\textbf{Intuition check}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    The motivation for this construct is \dots
-\end{tcolorbox}
-
-Finally, we get to defining the tree-width of a DAG: the tree-width of its moralisation. The moralisation of a DAG $\mathcal{G}$ is the undirected graph whose nodes are that of $\mathcal{G}$ with some directed edges removed. The moralisation has an undirected edge between two nodes if there's an edge between them in $\mathcal{G}$ or if both nodes share a child in $\mathcal{G}$.
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{./figures/generative_models/DAG-moralisation.png}
-    \caption{\TODO make own figure. also, what is triangulation?}
-    \label{fig:DAG_moralisation}
-\end{figure}
-
-Such a moralisation captrues all dependencies, direct or not, but often loses some conditional independencies illustrated in $\mathcal{G}$.
-
-\begin{example}
-    Consider the Bayesian network below \dots
+    Notice that the choice of $X_1$ as the model variable upon which nothing is conditioned is entirely arbitrary in this example. As a result, for a given decomposition, DAGs are not unique. Here, $\theta=(\theta_1,\theta_2,\theta_3)$ are parameters learned from data.
 \end{example}
 
-\subsubsection*{Variable elimination}
-\url{https://www.cs.upc.edu/~larrosa/MEI-CSI-files/BN/2-BN-VE.pdf}\\
-Variable elimination is relatively straightforward, consisting of eliminating marginalised variables one-by-one in an efficient manner. It's best illustrated by a simple example, for which we will consider the following Bayesian network
-\begin{center}
-        \begin{tikzpicture}[node distance=2cm, every node/.style={circle, draw, thick}]
-            \node (A) {$X_1$};
-            \node (B) [right of=A] {$X_2$};
-            \node (C) [right of=B] {$X_3$};
+\subsubsection{Learning $\mathcal{G}$ and $\theta$ from data}
+I won't go into particular detail regarding how one learns a Bayesian network (its graph $\mathcal{G}$ and parameter set $\theta$) from data as the nitty gritty details aren't relevant to the generative models relevant to deep learning. That said, there are some interesting takeways, especially from methods of learning a Bayesian network's structure $\mathcal{G}$ as they contrast the almost entirely-heuristic approaches taken in deep learning contexts.
 
-            \draw[->] (A) -- (B);
-            \draw[->] (B) -- (C);
-        \end{tikzpicture}
-    \end{center}
+Unlike with neural network architectures, both the parameter set $\theta$ and the structure $\mathcal{G}$ of a Bayesian network can be motivated in a principled manner via maximum likelihood estimation. In brief, the likelihood of a given parameter set and DAG can be computed separately, and so in learning a Bayesian network from a dataset $D=\{\x_1,\dots,\x_n\}\overset{\text{i.i.d.}}{\sim}p(\x)^{\otimes n}$ one might hope to compute
+\begin{align*}
+    \argmax_{\mathcal{G}}\l[\text{Score}(\mathcal{G})\r]
+    =&\argmax_{\mathcal{G}}\l[\argmax_{\theta}\l[\log\l(p_{(\mathcal{G}, \theta)}(D)\r)\r]-\text{penalty}(\mathcal{G})\r]\\
+    =&\argmax_{\mathcal{G}}\l[\argmax_{\theta}\l[\sum_{i=1}^n\log\l(p_{(\mathcal{G}, \theta)}(\x_i)\r)\r]-\text{penalty}(\mathcal{G})\r]
+\end{align*}
+where the penalty term has a regularisation-like intention, For example, we might seek to penalise the complexity of $\mathcal{G}$ in the form of its number of edges according to its Bayesian information criterion (BIC). The reason that this is computationally feasible is precisely due to the decomposition of
+$$
+p_{(\mathcal{G},\theta)}(\x)
+=
+\prod_{i=1}^m p_{\theta_i}(x_i|\textbf{pa}(X_i))
+$$
+according to the local dependencies present in $\mathcal{G}$.
 
-\subsubsection*{Junction trees}
-\dots
+A natural approach to compute the graph which maximises the relevant score is the greedy approach: start with an empty graph and repeat the following steps:
+\begin{enumerate}
+    \item Compute the scores of all graphs which add or remove an edge from the current graph (or reverse an edge).
+    \item Edit the graph according to whichever addition, removal or reversal furthest increases the score.
+    \item No change in score? Stop, return $\mathcal{G}$ and recover $\theta$ accordingly.
+\end{enumerate}
+With this approach in mind, the purpose of the penalty term becomes immediately clear: without it, the graph would continue to grow until the chain rule graph described earlier would be realised, which is undesirable.
 
-\subsubsection*{Approximate inference: belief propagation}
-As for approximate inference, perhaps the most well known algorithm is loopy belief propagation, developed by Judea Pearl, also known as sum-product message passing. Pearl writes a bunch of interesting things about it in The Book of Why. It's worth noting that belief propagation is exact for tree-shaped Bayesian networks.
-
-\begin{tcolorbox}[title={\centering\textbf{Why aren't Bayesian nets employed in deep learning?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Learning their structure and parameters for high-dimensional distributions is entirely uneralistic in terms of compute. Regardless of this `weakness', they serve as a significant, and often overlooked, step in the evolution of probabilistic reasoning and, more broadly, generative probabilistic modelling.
+\begin{tcolorbox}[title={\centering\textbf{Why aren't Bayesian networks employed in deep learning?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    Learning their structure and parameters for high-dimensional distributions becomes quickly computationally infeasible (say from $\sim100$). Regardless of this `weakness', they serve as a significant, and often overlooked, step in the evolution of probabilistic reasoning and, more broadly, generative probabilistic modelling.
 \end{tcolorbox}
 
 % variational autoencoders
@@ -1904,38 +1884,41 @@ $$
 $$
 In practice, after choosing a latent dimension $d$, we often take $p(\z)=\mathcal{N}(0,I_d)$, $\mathcal{Q}_d=\mathbb{R}^d\times\mathcal{S}_{++}^d$ and $\mathcal{P}_m=\mathbb{R}^m\times\mathcal{S}_{++}^m$, i.e. Gaussians for the latent and reconstruction distribution families and the standard $d-$dimensional Gaussian for the prior. A benefit of these choices is that it yields a differentiable and easy-to-implement closed form for the KL-divergence term in the ELBO. Additionally, the expectation pertaining to the reconstruction term is typically approximated via a single sample, boiling down to a mean square error term\footnote{\url{https://n8python.github.io/mnistLatentSpace/}}.
 
-\subsubsection{\TODO Backpropagation for VAEs (the reparameterisation trick)}
-\url{https://math.stackexchange.com/q/2540170/631229}\\
-To find suitable parameters of a given VAE architecture using gradient descent, we require that the ELBO is differentiable. With respect to $\theta$, the gradient is approximated according to
-\begin{align*}
-    \nabla_{\theta}\text{ELBO}
-    &=
-    \E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x|\Z))\r]\\
-    &=
-    \frac{1}{k}\sum_{j=1}^k \nabla_{\theta}\log(p_{\theta}(\x|\z_j))
-\end{align*}
-which is no issue when the decoder's architecture is backpro-compatible. However, with respect to $\phi$, the gradient of the ELBO is less friendly.
+% \subsubsection{\TODO Backpropagation for VAEs (the reparameterisation trick)}
+% \url{https://math.stackexchange.com/q/2540170/631229}\\
+% To find suitable parameters of a given VAE architecture using gradient descent, we require that the ELBO is differentiable. With respect to $\theta$, the gradient is approximated according to
+% \begin{align*}
+%     \nabla_{\theta}\text{ELBO}
+%     &=
+%     \E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x|\Z))\r]\\
+%     &=
+%     \frac{1}{k}\sum_{j=1}^k \nabla_{\theta}\log(p_{\theta}(\x|\z_j))
+% \end{align*}
+% which is no issue when the decoder's architecture is backpro-compatible. However, with respect to $\phi$, the gradient of the ELBO is less friendly.
 
-% In practice, the expectation term in the ELBO is often approximated as in
-% $$
-% \E_{\Z\sim q_{\phi}(\z|\x_i)}\l[\log(p_{\theta}(\x_i|\Z))\r]
-% \approx
-% \frac{1}{k}\sum_{j=1}^k\log\l(p_{\theta}(\x_i|\z_j)\r)
-% $$
-% which requires sampling $\z_1,\dots,\z_k$ according to $q_{\phi}(\z|\x)$. Sampling, as a function, is not differentiable: reparameterisation trick to the rescue! Instead, independently sample $\epsilon_1,\dots,\epsilon_k$ according to $\mathcal{N}(0, I)$ and approximate the expectation by
-% $$
-% \frac{1}{k}\sum_{j=1}^k\log\l(p_{\theta}(\x_i|\mu_{\phi}(\x_i)+\sigma_{\phi}(\x_i)\odot\epsilon_j)\r)
-% $$
-% where $\odot$ denotes element-wise multiplication.
+% % In practice, the expectation term in the ELBO is often approximated as in
+% % $$
+% % \E_{\Z\sim q_{\phi}(\z|\x_i)}\l[\log(p_{\theta}(\x_i|\Z))\r]
+% % \approx
+% % \frac{1}{k}\sum_{j=1}^k\log\l(p_{\theta}(\x_i|\z_j)\r)
+% % $$
+% % which requires sampling $\z_1,\dots,\z_k$ according to $q_{\phi}(\z|\x)$. Sampling, as a function, is not differentiable: reparameterisation trick to the rescue! Instead, independently sample $\epsilon_1,\dots,\epsilon_k$ according to $\mathcal{N}(0, I)$ and approximate the expectation by
+% % $$
+% % \frac{1}{k}\sum_{j=1}^k\log\l(p_{\theta}(\x_i|\mu_{\phi}(\x_i)+\sigma_{\phi}(\x_i)\odot\epsilon_j)\r)
+% % $$
+% % where $\odot$ denotes element-wise multiplication.
 
-\subsubsection{\TODO Quirks of VAEs}
-Blur outside of central object.
+\subsubsection{\NEXT Quirks of VAEs}
+\begin{itemize}
+    \item[--] Blur is often observed outside of the central object, i.e. the model is learning the foreground but not the background of training samples.
+    \item[--] \dots
+\end{itemize}
 
 % general adversarial networks
-\subsection{\IMPROVE Generative Adversarial Networks (GANs)}
-To motivate generative adversarial networks (GANs), first consider what we want a generative model to do: produce convincing samples. As such, if there is some method of distinguishing real samples from those produced by a generative model, a perfect model would be able to fool the method. That is, the decisions made by the discriminative model should be akin to random guessing if the generative model is particularly good. This idea was realised by Ian Goodfellow while at a bar (the story is detailed in Genius Makers). From what I recall, there are disputes over whether or not the idea should be attributed to someone else. I'll look into it at some point.
+\subsection{Generative Adversarial Networks (GANs)}
+To motivate generative adversarial networks (GANs), first consider what we want a generative model to do: produce convincing samples. As such, if there is some (imperfect but decent) method of distinguishing real samples from those produced by a generative model, a perfect generative model would be able to fool the discriminative method. That is, the decisions made by the discriminative model should be akin to random guessing if the generative model is perfect. This idea was realised by Ian Goodfellow while at a bar (the story is detailed in Genius Makers).
 
-This is precisely the idea that motivates GANs with inspiration taken from game theory. A GAN consists of a generative component $G:\Omega_{\Z}\to\Omega_{\X}$ and a discriminative component $D:\Omega_{\X}\to\{0,1\}$, which are trained in parallel. That is, $G$ produces a new sample given a latent $\z\in\Omega_{\Z}$ while $D$ learns to distinguish between training samples and outputs of $G$. Essentially, the models compete. In terms of loss functions, the discriminator employs binary cross entropy, as in
+This is precisely the idea that motivates GANs with inspiration taken from game theory. A GAN consists of a generative component $G:\Omega_{\Z}\to\Omega_{\X}$ and a discriminative component $D:\Omega_{\X}\to\{0,1\}$, which are trained alternately in the style of a minmax game. That is, $G$ produces a new sample given a latent $\z\in\Omega_{\Z}$ while $D$ learns to distinguish between training samples and outputs of $G$. Essentially, the models compete. In terms of loss functions, the discriminator employs binary cross entropy, as in
 $$
 \mathcal{L}_D
 =
@@ -1947,7 +1930,7 @@ $$
 =
 -\E_{\Z}\l[\log(D(G(\Z)))\r].
 $$
-As for architectures, the usual choices are natural: the disrciminator is fit using a CNN and the generator is fit using a deconvolutional CNN. So, as with other image generative models, to generate a new sample, we sample Gaussian noise and run it through the deconvolution process.
+As for architectures, the usual choices are natural: the disrciminator is fit using a CNN and the generator is fit using a transposed CNN. So, as with other image generative models, to generate a new sample, we sample Gaussian noise and run it through the transposed CNN.
 
 \begin{figure}[t]
     \centering
@@ -1956,16 +1939,16 @@ As for architectures, the usual choices are natural: the disrciminator is fit us
     \label{fig:GAN_architecture}
 \end{figure}
 
+\subsubsection{\NEXT Flavours of GANs}
+A major contribution of GANs is not only their game theory-like training paradigm but the many flavours in which they come: conditional GANs, cycle GANs, multiple player GANs, style GANs, etc.
+
 \subsubsection{Quirks of GANs}
-
 \begin{itemize}
-    \item[--] Training them is a fucking headache. Constant model collapse.
-    \item[--] GANs for non-image generation are hard to train.
-    \item[--] Bluriness
+    \item[--] Training them is often a headache, e.g. the discriminator can quickly overfit making the generative side of things diffcult. This necessitates a lot of data.
+    \item[--] Mode collapse, in which the diversity of samples at inference, is low.
+    \item[--] No approximate likelihood computations according to a GAN so evaluation is difficult.
+    \item[--] Training stability is very architecture-dependent, interestingly.
 \end{itemize}
-
-\subsubsection{Flavours of GANs}
-Perhaps the most important contribution of GAN-related things is not the vanilla generative model itself but the many flavours in which it comes: conditional GANs, cycle GANs, multiple player GANs, style GANs, etc.
 
 % normalising flow models
 \subsection{\TODO Normalising Flows}
@@ -2010,58 +1993,16 @@ Despite not being the choice of denoiser made in the seminal paper introducing d
 
 In the context of denoising, the contraction branch takes a noised image as input and iteratively completes a series of convolution operations followed by max pooling until reaching the bottleneck layer. At the bottleneck, the model has heavily reduced the spatial dimension of the input image while extracting varying levels of feature abstractions. For example, after the first iteration of convolution and max pooling, the spatial dimension of the input image may be reduced from $1024\times1024$ to $512\times512$ but edges and textures within the original image may be encoded in the feature maps at this stage. Then, during expansion, the model looks to upscale from the bottleneck in a way that retains the underlying image while removing noise. This is done by iteratively completing a series of deconvolutions, which correspond to upscaling, and using skip connections from its corresponding component in the contraction branch, seen in \autoref{fig:u_net_arch}, in order to retain the underlying image. With this in mind, it is clear why U-Net has been the go to choice of denoiser when developing a diffusion model.
 
+\subsubsection{\NEXT Quirks of diffusion models}
+\begin{itemize}
+    \item[--] \dots
+\end{itemize}
+
 % model evaluation
 \subsection{\TODO Evaluating Generative Models}
 Since samples are not labeled, how does one evaluate a generative model? What does under/overfitting mean for generative models?
 
 \textcolor{red}{Future note: A nice method for diffusion models (and beyond) is to take a sample at inference, embed it then compute the $k$ nearest neighbours in said embedding space. Then, by eye, compare the inference sample against its nearest neighbours to see if it's simply reproducing training samples.}
-
-% % object detection
-% \section{Object Detection Models}
-
-% Object detection is the task of localisation and classification within an image or video. Before the era of deep learning, it was typically solved using Haar-like filters\dots As of August 2025, there are three flavours of object detection models: R-CNN, YOLO and DETR.
-
-% % R-CNN
-% \subsection{\TODO (Fast/Faster) R-CNN}
-% R-CNN models has evolved significantly since its proposal in 2013 with three evolutions worthy of a new name: R-CNN (the original), Fast R-CNN and Faster R-CNN. R-CNN stands for \textit{Regions with CNN features}. Roughly put, R-CNN model consist of two steps:
-% \begin{enumerate}
-%     \item Proposing regions of interest within the image
-%     \item Classifying what is in each region (if there is something in the region)
-% \end{enumerate}
-
-% % YOLO
-% \subsection{\TODO YOLO}
-
-% % DETR
-% \subsection{\TODO DETR}
-
-% % future sections
-% \section{To-be-included sections, one day}
-% I'll get around to including these sections one day.
-
-% % unsupervised learning
-% \subsection{Unsupervised Learning}
-% ain't no labels available to do supervised learning
-
-% \subsubsection{Principal Component Analysis}
-% bunch of linear algebra
-
-% \subsubsection{$k$-means Clustering}
-% what i think of when i think of clustering, easy example of latent variable
-
-% \subsubsection{Autoencoders}
-% already written in the variational autoencoder subsection
-
-% % self-supervised learning
-% \subsection{Self-supervised Learning}
-% some labelled some ain't
-
-% % nlp
-% \subsection{Natural Language Processing (NLP)}
-% blelele distributional semantics
-% \begin{quote}
-%     ``You shall know a word by the company it keeps." - some linguist
-% \end{quote}
 
 % appendices
 \newpage
@@ -2073,7 +2014,7 @@ Here are some probability theory and statistics things relevant to the main body
 
 I wish my understanding of probability theory, measure theory, stochastic processes, statistics (classical, Bayesian and asymptotic) were better. In another life.
 
-\subsection{\IMPROVE The Curse of Dimensionality}
+\subsection{\NEXT The Curse of Dimensionality}
 \url{https://stats.stackexchange.com/q/219373/396940}\\
 Dimension goes up, amount of data needed to cover to-be-fit manifold grows exponentially. A nice way to remember the curse of dimensionality is the fact that the ratio of the volumes of the unit $n-$ball (always 1) and $n-$box tends to 0, asymptotically: $n=1$ yields a ratio of 2, $n=2$ yields $\pi/4$, $n=3$ yields $\pi/6$, and so on.
 
@@ -2321,8 +2262,9 @@ q_t(\z)=p_{\theta^{(t)}}(\z|\x)
 \text{ELBO}\l(q_t,\theta^{(t)}\r)=\log(p_{\theta^{(t)}}(\x)).
 $$
 
-\subsection{\TODO Quality of fit $\approx$ Encoding quality?}
-Perhaps worthy of its own subsection in the main body, unsure
+% TODO:
+% \subsection{Quality of fit $\approx$ Encoding quality?}
+% Perhaps worthy of its own subsection in the main body, unsure
 
 % philosophy things
 \section{Philosophy Things}
@@ -2337,9 +2279,12 @@ Right now, I'm unaware of any machine learning model that can `reason' by any ag
 
 A separate but related question is to what extent it matters that a model `reasons' in order to arrive at its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. From a purely problem solving point of view, these philosophical debates regarding what constitutes reasoning, understanding and knowing aren't too important in the short term. Regardless, it'd be funny if 50 years from now we're well-taken care of by a fleet of machine learning-powered robots and we still look down on them for not being capable of `real reasoning'.
 
-\subsection{\TODO The Sufficiency of Internet-Scraped Data}
+\subsection{\TODO Backwards-compatible definition of AI}
+Intent is key
 
-\subsection{\TODO The Principled Measure-Explainability Tradeoff}
+\subsection{\TODO The sufficiency of internet-scraped data}
+
+\subsection{\TODO The principled measure-explainability tradeoff}
 
 \end{appendices}
 
