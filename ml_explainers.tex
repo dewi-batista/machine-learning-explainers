@@ -79,12 +79,12 @@ are the feature values of the $i^{\text{th}}$ sample and $y_i\in \Omega_{Y}\subs
 where $\theta=(\theta_0,\theta_1\dots,\theta_m)\in\R^{m+1}$ are the model parameters, i.e. the values we can tweak to our heart's content until testing error is sufficiently low. Some people refer to the paramter $\theta_0$, which dictates the elevation of the hyperplane corresponding to $f_{\theta}(\x)=0$, as the bias of the model which I find very confusing as there are a bunch of other intended meanings of the term `bias' in statistics and machine learning. I prefer to refer to it as the elevation. Anyway, once such a linear function has been fit, given feature values $\x\in\Omega_{\X}$ our model predict the corresponding output as $y=f_{\theta}(\x)$.
 
 \begin{tcolorbox}[title={\centering\textbf{What does the `linear' in linear regression actually refer to?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Casella Berger, as well as other pieces of literature, define linear regression models as being linear in their parameters. By such a definition, linear regression, as a term, encompasses polynomial regression models and other regression models with non-linear basis functions. This previously confused me because, in my experience, `linear regression' is most often intended to mean models that fit a hyperplane to $\Omega_{\X}\times\Omega_Y$, but it's a fine definition.
+    Casella Berger, as well as other pieces of literature, define linear regression models as being linear in their parameters. By such a definition, linear regression, as a term, encompasses polynomial regression models and other regression models with non-linear basis functions. This previously confused me because, in my experience, `linear regression' is most often intended to mean models that fit a hyperplane to $\Omega_{\X}\times\Omega_Y$.
     
     \hspace{14.52pt} The first paragraph of the Wikipedia page\footnote{\url{https://en.wikipedia.org/wiki/Polynomial_regression}} for polynomial regression reiterates this potential confusion.
 \end{tcolorbox}
 
-An intuitive approach to finding the `optimal' parameters for a linear regression model, which we denote by $\theta^{*}$, is to split $D$ into training and testing datasets $D_{\text{train}}$ and $D_{\text{test}}$ (each consisting of $n$ sample in our case) and minimising some pre-determined loss function of said parameters over $D_{\text{train}}$. Essentially, minimising something like
+An intuitive approach to finding the `optimal' parameters of a linear regression model, which we denote by $\theta^{*}$, is to split $D$ into training and testing datasets $D_{\text{train}}$ and $D_{\text{test}}$ (each consisting of $n$ sample in our case) and minimising some pre-determined loss function of said parameters over $D_{\text{train}}$. Essentially, minimising something like
 $$
 \mathcal{L}(\theta)
 =
@@ -235,7 +235,7 @@ R^2
 =
 1-\frac{s_e^2}{s_Y^2}
 $$
-where $s_e^2$ and $s_Y^2$ denote the sample variances of the residuals and $Y$ respectively. I prefer the ratio of explained variance to underlying model variance. I find it more intuitive, especially its motviation as it doesn't feel like it just comes out of nowhere.
+where $s_e^2$ and $s_Y^2$ denote the sample variances of the residuals and $Y$ respectively. I find the representation of $R^2$ as the ratio of explained variance to response variance to be more intuitive and feel less like it just comes out of nowhere.
 
 This notion of the portion of explained variance can be extended to logistic regression but the details are a bit much for this document.
 
@@ -244,11 +244,11 @@ This notion of the portion of explained variance can be extended to logistic reg
 \end{tcolorbox}
 
 \subsubsection{Why call it `regression'?}
-Nowadays, regression models refer to those which predict a value belonging to some continuous space, but where does the term come from? In 1886, Francis Galton authored ``Regression Towards Mediocrity in Hereditary Stature'' which is where the `regression towards the mean' term comes from. Loosely speaking, Galton noticed that tall fathers tend to have sons which are taller than average but shorter than them, short fathers tend to have sons which are shorter than average but taller than them and average height fathers tend to have average height sons. Taken from a Stack Exchange comment:
+Nowadays, regression models refer to those which predict a value belonging to some continuous space, but where does the term come from? In 1886, Francis Galton authored ``Regression Towards Mediocrity in Hereditary Stature'' which is where the `regression towards the mean' phrase comes from. Loosely speaking, Galton noticed that tall fathers tend to have sons which are taller than average but shorter than them, short fathers tend to have sons which are shorter than average but taller than them and average height fathers tend to have average height sons. Taken from a Stack Exchange comment:
 \begin{quotation}
     Galton derived a linear approximation to estimate a son's height from the father's height in that paper. His equation was fitted so an average height father would have an average height son, but a taller than average father would have a son that is taller than average by 2/3 the amount his father is. Same with shorter than average. This could be argued to be a simple linear regression.
 \end{quotation}
-Put mathematically, suppose random variables $X$ and $Y$ are related via $Y=\alpha+\beta X+\epsilon$ where $\alpha,\beta\in\R$ are regression coefficients and $\epsilon$ is noise with mean $0$. Then $\E[Y|X]=\alpha+\beta X$, so if $X$ and $Y$ are centred then $\E[Y|X]=\rho X$ where $\rho$ is the correlation coefficient between $X$ and $Y$. Since $|\rho|\leq1$ we know that the expected value of $Y$ is closer to the mean than $X$ unless $\rho=1$. So extreme values of $X$ tend to correspond to values of $Y$ that are closer to the mean, i.e. regression towards the mean is observed.
+Put mathematically, suppose random variables $X$ and $Y$ are related via $Y=\alpha+\beta X+\epsilon$ where $\alpha,\beta\in\R$ are regression coefficients and $\epsilon$ is noise with mean $0$. Then $\E[Y|X]=\alpha+\beta X$, so if $X$ and $Y$ are centred then $\E[Y|X]=\rho X$ where $\rho$ is the correlation coefficient between $X$ and $Y$. Since $|\rho|\leq1$ we know that the expected value of $Y$ is closer to the mean than $X$ unless $\rho=1$. So extreme values of $X$ tend to correspond to values of $Y$ that are closer to the mean, i.e. $Y|X$ regresses towards the mean.
 
 % logistic regression
 \subsection{Logistic Regression}
@@ -1505,15 +1505,9 @@ Mention Schmidhuber.
 
 % transformer models
 \subsection{\NEXT Transformers}
-Transformers are a relatively modern architecture but they have already been applied very broadly. They're now found in language models (e.g. GPTs), image models (vision transformers), denoising models (diffusion) and so on. They offer many advantages over earlier competing architectures, e.g. RNNs, due to not being bottlenecked by input sequence length.
+Transformers are a relatively modern architecture but their applications are already broad. They're now found in language models (e.g. GPTs), image models (vision transformers), denoising models (diffusion) and so on. They offer many advantages over earlier competing architectures, e.g. RNNs, due to not being bottlenecked by input sequence length.
 
-The processing of a given input through a single transformer block involves
-$$
-\texttt{attention}
-\rightarrow
-\texttt{MLP}.
-$$
-As such, the full processing through a transformer architecture looks something like
+The journey of a given input sequence through a transformer architecture looks something like
 $$
 \texttt{tokenise}
 \rightarrow
@@ -1525,26 +1519,41 @@ $$
 \rightarrow
 \texttt{output proj}
 $$
-each of which will be detailed in this subsection\footnote{Great visualisation: \url{www.poloclub.github.io/transformer-explainer/}.}.
+as illustrated in \autoref{fig:transformer-architecture}, Each step be detailed in this subsection\footnote{Great visualisation: \url{www.poloclub.github.io/transformer-explainer/}.}.
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=\columnwidth]{./figures/neural_nets/transformer.pdf}
     \caption{A decoder-only language transformer consisting of $N$ transformer blocks.}
-    \label{fig:transformer-block}
+    \label{fig:transformer-architecture}
 \end{figure}
 
 \subsubsection{Tokenisation}
-Tokens can be thought of as units of information for a given data structure and tokenisation is simply the process of slicing up a sample into the tokens that make it up. Think of splitting sentence `The chef cooked a meal for the critic.' according to the following colouring
+Tokens can be thought of as the units of information of a data structure, e.g. sequences of text. The tokenisation of a sequence is simply the process of slicing it up into its token make-up. Think of splitting the sentence `The chef cooked a meal for the critic.' according to the following colouring (or tokenisation)
 $$
 \colorbox{purple}{The}\colorbox{green}{chef}\colorbox{brown}{cooked}\colorbox{red}{a}\colorbox{teal}{meal}\colorbox{blue}{for}\colorbox{yellow}{his}\colorbox{orange}{critic}\colorbox{pink}{.}
 $$
-or slicing up the following image: \textcolor{red}{get a pic here.} To play around with one of OpenAI's text tokenisers, consider \url{platform.openai.com/tokenizer}.
+or splitting up an image as in \autoref{fig:image-tokenisation}. To play around with one of OpenAI's text tokenisers, consider \url{platform.openai.com/tokenizer}.
 
-The purpose of tokenisation is self-explanatory: we'd like an idea of dependence between different parts of the input as to aid our output prediction. Notationally, let $V$ denote the set of all tokens in our model's vocabulary and $T:\Sigma^*\to \{1,\dots,|V|\}^*$ the tokenisation function where $S^*$ is the set of all finite strings whose characters are in $S$. It's often helpful in practice to represent the tokenisation of a sequence in terms of a matrix whose columns are one-hot encodings according to $T(\text{input})$.
+\begin{figure}[t]
+    \centering
+    \includegraphics[height=6.825cm, keepaspectratio]{./figures/neural_nets/augusto.png}
+    \includegraphics[height=7cm, keepaspectratio]{./figures/neural_nets/augusto-patchified.pdf}
+    \caption{The tokenisation (or patchification) of Augusto.}
+    \label{fig:image-tokenisation}
+\end{figure}
 
-\subsubsection{\NEXT Embedding}
-A linear embedding map $L_E:\{e_1,\dots,e_{|V|}\}\to\mathbb{R}^d$, where $d\in\mathbb{N}$ is the embedding dimension and $e_i$ denotes the $i^{\text{th}}$ standard basis vector, offers high dimensional numeric representations of tokens. What makes token embedding functions interesting is how well they can capture underlying semantics, e.g. of natural language. Such an embedding map learned on pieces of text, like Word2Vec, might satisfy
+The purpose of tokenisation is self-explanatory: we'd like an idea of dependence between different parts of the input as to aid our output prediction. As such, being able to break a sequence into chunks, as opposed to processing it in its entirety, is desirable.  Notationally, let $V$ denote the set of all tokens in our model's vocabulary and $T:\Sigma^*\to \{1,\dots,|V|\}^*$ the tokenisation function where $S^*$ is the set of all finite strings whose characters are in $S$.
+
+For text data, the tokeniser $T$ is often learned according to byte pair encoding (BPE). Roughly put, start with a vocabulary $V$ consisting of the first 256 UTF-8 encoding characters. Then, until the vocabulary size reaches some threshold, say $50,000$, repeat the following for $i=0,\dots,V_{\text{max}}-1$:
+\begin{enumerate}
+    \item Tokenise the text according to the tokeniser
+    \item Compute the most frequent token pair in the corpus and append it to the tokensier with index $256+i$.
+\end{enumerate}
+The result is an ordered list of merge rules. For example, the most frequent character pair in English text 
+
+\subsubsection{Embedding}
+A linear embedding map $L_E:\{e_1,\dots,e_{|V|}\}\to\mathbb{R}^d$, where $d\in\mathbb{N}$ is the embedding dimension and $e_i$ denotes the $i^{\text{th}}$ standard basis vector, offers high dimensional numeric representations of tokens belonging to the vocabulary $V$. What makes token embedding functions interesting is how well they capture underlying semantics, e.g. of natural language. Such an embedding map learned on pieces of text, like Word2Vec, might satisfy
 $$
 L_E(\text{``Germany"})+L_E(\text{``fascist"})-L_E(\text{``Mussolini"})
 \approx
@@ -1556,9 +1565,17 @@ L_E(\text{``Wales"})+L_E(\text{``Cardiff"})-L_E(\text{``Italy"})
 \approx
 L_E(\text{``Rome"})
 $$
-where $``\text{word}''$ denotes the basis vector corresponding to the word according to some indexing over the vocabulary, e.g. perhaps $|V|=50,000$ and ``Germany''$=e_{35,629}$. So how is the embedding matrix $E\in\R^{d\times |V|}$ learned?
+where ``word'' denotes the basis vector corresponding to the word according to some indexing over the vocabulary, e.g. perhaps $|V|=50,000$ and ``Germany''$=e_{35,629}$. The prupose of taking the domain of $L_E$ to be this set of standard basis vectors is that then it can be seen as a look-up table of the rows of $E\in\R^{d\times|V|}$.
 
-\subsubsection{Positional encoding (for text, learned absolute positional)}
+So how is the embedding matrix $E\in\R^{d\times |V|}$ learned? In the context of embedding maps like Word2Vec, where the embedding map is learned in isolation (not in conjunction with a larger architecture), it is learned by repeatedly sampling a center word from the dataset (a large corpus of text in our example), a context word which lies near the center word in the text and $l$ negative-context words which do not lie near the center word. The loss function used to learn the parameters (the elements of our linear embedding map) intends to reward the alignment of the context word and the center word while punishing the alignment of the center word and the $l$ negative-context words. In maths notation, the loss looks something like
+$$
+-\sigma(w_{\text{cent}}, w_{\text{cont}}) + \sum_{i=1}^l\sigma\l(w_{\text{cent}}, w_{\text{neg}}^{(i)}\r)
+$$
+where $\sigma$ denotes the sigmoid function.
+
+Embedding maps are less interesting when learned in conjunction with a larger architecture, e.g. GPT architectures, as they are learned according to backpropagation like any other parameter. If the loss is not such that alignments of token embeddings in $\R^d$ mean anything, some of the nice properties discussed earlier are less likely to be observed.
+
+\subsubsection{\NEXT Positional encoding}
 The position of tokens in a given sequence of words is critical to understanding the intended meaning of the sequence. For example, the highlighted sequence above regarding the chef and the critic is distinct from
 $$
 \colorbox{purple}{The}\colorbox{orange}{critic}\colorbox{brown}{cooked}\colorbox{red}{a}\colorbox{green}{chef}\colorbox{blue}{for}\colorbox{yellow}{his}\colorbox{teal}{meal}\colorbox{pink}{.}
@@ -1574,21 +1591,20 @@ fed to the model.
 Before detailing what was proposed for positional encoding in the paper that made transformers famous, it's worth attending to the validity of arguably natural approaches and the ways in which they fall short:
 \begin{itemize}
     \item \textbf{Why not simply add the index of the token to its embedding?} For long sequences, the index value of later tokens would overpower the value of the presence of the token itself. In line with this, we'd like the positional encoding to be bounded in magnitude.
-    \item \textbf{Ok, then why not add the index divided by the sequence length to ensure getting something in [0,1]?} For sequences of varying length, we'd like the positional information for a given index to be the same. So attributing 0.5 to the third token in a sequence of five would be an issue as it would also be attributed to the 11th token in a sequence of 20.
+    \item \textbf{Why not add the index divided by the sequence length to ensure getting something in [0,1]?} For sequences of varying length, we'd like the positional information for a given index to be the same. So attributing 0.5 to the third token in a sequence of five would be an issue as it would also be attributed to the 11th token in a sequence of 20.
     \item \textbf{Why not encode via the binary of the index?} Change in positional encoding should be smooth. We want $||P_{k+1}-P_k||$ to be bounded but for binary encodings it is simply equal to the square root of the number of bit flips: unbounded in $k$.
 \end{itemize}
-To address both issues, the authors of the now famous Attention Is All you Need proposed alternating sinusoids. Sinusoidal positional encoding feels unnatural to me, though it has a nice motivation as a continuous analog of binary encoding. Regardless, far mor intuitive methods of positional encoding exist such as learned positional encoding (used by OpenAI for GPT-2) and the now-popular rotary positional embeddings (RoPE).
+To address both issues, the authors of the now famous Attention Is All you Need proposed alternating sinusoids. Sinusoidal positional encoding feels unnatural to me, though it has a nice motivation as a continuous analog of binary encoding. Regardless, far more intuitive methods of positional encoding exist such as learned positional encoding (used by OpenAI for GPT-2) and the now-popular rotary positional embeddings (RoPE).
 
-\subsubsection{\NEXT Attention}
+Learned positional encoding is just as the name suggests: the positional embedding map is learned according to backpropagation like any other parameter. RoPE is bit more involved, relying on the linearity of rotations in $\R^d$.
+
+\subsubsection{Attention}
 Stand at attention!
 
-\subsubsection{MLP component}
+\subsubsection{MLP component and final block output}
 On top of all detailed so far, transformer blocks consist of an MLP component. The input of said MLP component is the output of the attention component.
 
-\subsubsection{Final transformer block output}
-\dots
-
-\subsubsection{Example: GPT-2 small (124M parameters)}
+\subsubsection{Example: GPT-2 small ($\sim$124M parameters)}
 \dots
 
 % misc. questions
