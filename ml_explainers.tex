@@ -1537,8 +1537,8 @@ or splitting up an image as in \autoref{fig:image-tokenisation}. To play around 
 
 \begin{figure}[t]
     \centering
-    \includegraphics[height=6.825cm, keepaspectratio]{./figures/neural_nets/augusto.png}
-    \includegraphics[height=7cm, keepaspectratio]{./figures/neural_nets/augusto-patchified.pdf}
+    % \includegraphics[height=6.825cm, keepaspectratio]{./figures/neural_nets/augusto.png}
+    % \includegraphics[height=7cm, keepaspectratio]{./figures/neural_nets/augusto-patchified.pdf}
     \caption{The tokenisation (or patchification) of Augusto.}
     \label{fig:image-tokenisation}
 \end{figure}
@@ -2024,6 +2024,37 @@ Since samples are not labeled, how does one evaluate a generative model? What do
 \newpage
 \begin{appendices}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+
+% TODO: move to selected-topics-explainers
+\section{Applying the Chinese Remainder Theorem}
+Given a system of integer congruences
+\begin{align*}
+    k & \equiv k_{j_1}\phantom{1}(\mathrm{mod}\phantom{1}j_1)\\
+      & \vdots\\
+    k & \equiv k_{j_l}\phantom{1}(\mathrm{mod}\phantom{1}j_l)
+\end{align*}
+in which $j_1,\dots,j_l$ are pairwise coprime (i.e. $\gcd(j_r,j_s)=1$ for $r\neq s$), it is of interest to recover $k$.
+
+Note that by the CRT, solutions of such integer congruence systems are unique up to congruence modulo $J:=j_1\cdots j_l$. That is, if $x_1$ and $x_2$ satisfy all congruences then $x_1\equiv x_2\phantom{1}(\mathrm{mod}\phantom{1}J)$. With this in mind, if we can construct some $k'$ such that all congruences are satisfied then we have that $k'\equiv k\phantom{1}(\mathrm{mod}\phantom{1}J)$, i.e. we will have recovered the remainder of $k$ modulo $J$. This application of the CRT is important to solving the discrete logarithm problem over elliptic curve groups. A natural question here is how one constructs $k'$.
+
+Consider $k'=\sum_{i=1}^l k_{j_i}e_{j_i}$ where $e_{j_i}$ satisifies
+\begin{align*}
+    e_{j_i} & \equiv 1\phantom{1}(\mathrm{mod}\phantom{1}j_i)\\
+    e_{j_i} & \equiv 0\phantom{1}(\mathrm{mod}\phantom{1}j_s) \text{ for }s\neq i
+\end{align*}
+for $i=1,\dots,l$. With such a construction, one has $k'\equiv k_{j_i}\phantom{1}(\mathrm{mod}\phantom{1}j_i)$ for $i=1,\dots,l$ and so the CRT yields
+$$
+k
+\equiv
+\sum_{i=1}^l k_{j_i}e_{j_i}\phantom{1}(\mathrm{mod}\phantom{1}J)
+$$
+where $J=j_1\cdots j_l$. Then the difficulty of constructing $k'$ comes down to constructing $e_{j_1},\dots,e_{j_l}$ which turns out not to be too difficult: take $e_{j_i}=J_iy_i$ where $J_i=J/j_i$ and $y_i$ is the remained of $J_i^{-1}$ modulo $j_i$. Note that the existance of $y_i$ is guaranteed due to $\gcd(j_i,J_i)=1$. Bam, done, simply take
+$$
+k'
+=
+\sum_{i=1}^l k_{j_i}J_iy_i.
+$$
+So finding the remainder of $k$ modulo $J$ boils down to computing the $l$ remainders $y_1,\dots,y_l$ of $J_1^{-1},\dots,J_l^{-1}$ modulo $j_1,\dots,j_l$ respectively.
 
 \section{Probability Theory \& Statistics Things}
 Here are some probability theory and statistics things relevant to the main body, e.g. brief statements, long derivations, and so on, which are more appendix-appropriate.

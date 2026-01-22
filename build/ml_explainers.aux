@@ -109,60 +109,61 @@
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.3}\textcolor {myYellow}{\textbf  {NEXT: }}Positional encoding}{52}{subsubsection.4.5.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.4}Attention}{53}{subsubsection.4.5.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.5}MLP component and final block output}{53}{subsubsection.4.5.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.6}Example: GPT-2 small ($\sim $124M parameters)}{53}{subsubsection.4.5.6}\protected@file@percent }
+\@writefile{toc}{\setcounter {tocdepth}{1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Misc. questions}{53}{subsection.4.6}\protected@file@percent }
+\@writefile{toc}{\setcounter {tocdepth}{2}}
 \@writefile{lof}{\contentsline {figure}{\numberline {25}{\ignorespaces Non-linearly separable data (left) and its image under a non-linear transformation (right).}}{54}{figure.caption.37}\protected@file@percent }
 \newlabel{fig:non_linearly_separable}{{25}{54}{Non-linearly separable data (left) and its image under a non-linear transformation (right)}{figure.caption.37}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.6}Example: GPT-2 small ($\sim $124M parameters)}{54}{subsubsection.4.5.6}\protected@file@percent }
-\@writefile{toc}{\setcounter {tocdepth}{1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Misc. questions}{54}{subsection.4.6}\protected@file@percent }
-\@writefile{toc}{\setcounter {tocdepth}{2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces A histogram pertaining to the frequency of weather states. Corresponding probabilities (post-normalisation) in parentheses.}}{56}{figure.caption.38}\protected@file@percent }
+\newlabel{fig:histogram}{{26}{56}{A histogram pertaining to the frequency of weather states. Corresponding probabilities (post-normalisation) in parentheses}{figure.caption.38}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Generative Modelling}{56}{section.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces A histogram pertaining to the frequency of weather states. Corresponding probabilities (post-normalisation) in parentheses.}}{57}{figure.caption.38}\protected@file@percent }
-\newlabel{fig:histogram}{{26}{57}{A histogram pertaining to the frequency of weather states. Corresponding probabilities (post-normalisation) in parentheses}{figure.caption.38}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Bayesian networks}{57}{subsection.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.1}Learning $\mathcal  {G}$ and $\theta $ from data}{59}{subsubsection.5.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Variational Autoencoders (VAEs)}{60}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.1}Learning $\mathcal  {G}$ and $\theta $ from data}{58}{subsubsection.5.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Variational Autoencoders (VAEs)}{59}{subsection.5.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces An autoencoder in which $\phi $ and $\theta $ are fit using multi-layer perceptrons (MLPs).}}{60}{figure.caption.39}\protected@file@percent }
+\newlabel{fig:autoencoder}{{27}{60}{An autoencoder in which $\phi $ and $\theta $ are fit using multi-layer perceptrons (MLPs)}{figure.caption.39}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Autoencoders: no variation yet!}{60}{subsubsection.5.2.1}\protected@file@percent }
 \newlabel{sec:autoencoders}{{5.2.1}{60}{Autoencoders: no variation yet!}{subsubsection.5.2.1}{}}
-\newlabel{ex:autoencoder}{{5.2}{60}{Autoencoders: no variation yet!}{example.5.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces An autoencoder in which $\phi $ and $\theta $ are fit using multi-layer perceptrons (MLPs).}}{61}{figure.caption.39}\protected@file@percent }
-\newlabel{fig:autoencoder}{{27}{61}{An autoencoder in which $\phi $ and $\theta $ are fit using multi-layer perceptrons (MLPs)}{figure.caption.39}{}}
+\newlabel{ex:autoencoder}{{5.2}{61}{Autoencoders: no variation yet!}{example.5.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Motivating VAEs}{61}{subsubsection.5.2.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {28}{\ignorespaces Intuitive ideas for using an autoencoder as a generative model which fail.}}{62}{figure.caption.40}\protected@file@percent }
 \newlabel{fig:autoencoder_generation}{{28}{62}{Intuitive ideas for using an autoencoder as a generative model which fail}{figure.caption.40}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Motivating VAEs}{62}{subsubsection.5.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.3}Formulating VAEs}{62}{subsubsection.5.2.3}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {29}{\ignorespaces Left: an encoder which outputs parameters of the latent distribution $q_{\phi }(\mathbf  {z}|\mathbf  {x})=\mathcal  {N}(\mu _{\phi },\Sigma _{\phi })$. Right: a decoder which outputs parameters of the reconstruction distribution $p_{\theta }(\mathbf  {x}|\mathbf  {z}')=\mathcal  {N}(\mu _{\theta },\Sigma _{\theta })$ in which $\mathbf  {z}'\sim q_{\phi }(\mathbf  {z}|\mathbf  {x})$.}}{63}{figure.caption.41}\protected@file@percent }
 \newlabel{fig:VAE_architecture}{{29}{63}{Left: an encoder which outputs parameters of the latent distribution $q_{\phi }(\z |\x )=\mathcal {N}(\mu _{\phi },\Sigma _{\phi })$. Right: a decoder which outputs parameters of the reconstruction distribution $p_{\theta }(\x |\z ')=\mathcal {N}(\mu _{\theta },\Sigma _{\theta })$ in which $\z '\sim q_{\phi }(\z |\x )$}{figure.caption.41}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.3}Formulating VAEs}{63}{subsubsection.5.2.3}\protected@file@percent }
 \newlabel{eq:marginal_likelihood}{{1}{65}{Formulating VAEs}{equation.5.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.4}\textcolor {myYellow}{\textbf  {NEXT: }}Quirks of VAEs}{67}{subsubsection.5.2.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Generative Adversarial Networks (GANs)}{67}{subsection.5.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {30}{\ignorespaces Example GAN architecture.}}{68}{figure.caption.42}\protected@file@percent }
-\newlabel{fig:GAN_architecture}{{30}{68}{Example GAN architecture}{figure.caption.42}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.1}\textcolor {myYellow}{\textbf  {NEXT: }}Flavours of GANs}{68}{subsubsection.5.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.4}\textcolor {myYellow}{\textbf  {NEXT: }}Quirks of VAEs}{66}{subsubsection.5.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Generative Adversarial Networks (GANs)}{66}{subsection.5.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {30}{\ignorespaces Example GAN architecture.}}{67}{figure.caption.42}\protected@file@percent }
+\newlabel{fig:GAN_architecture}{{30}{67}{Example GAN architecture}{figure.caption.42}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.1}\textcolor {myYellow}{\textbf  {NEXT: }}Flavours of GANs}{67}{subsubsection.5.3.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.2}Quirks of GANs}{68}{subsubsection.5.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}\textcolor {red}{\textbf  {TODO: }}Normalising Flows}{68}{subsection.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Diffusion Models}{68}{subsection.5.5}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {31}{\ignorespaces Johann Bernoulli being denoised in line with the backward process of a diffusion model.}}{69}{figure.caption.43}\protected@file@percent }
 \newlabel{fig:diffusion_process}{{31}{69}{Johann Bernoulli being denoised in line with the backward process of a diffusion model}{figure.caption.43}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}\textcolor {red}{\textbf  {TODO: }}Normalising Flows}{69}{subsection.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Diffusion Models}{69}{subsection.5.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.1}U-Net denoisers}{70}{subsubsection.5.5.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {32}{\ignorespaces Example U-Net architecture.}}{71}{figure.caption.44}\protected@file@percent }
-\newlabel{fig:u_net_arch}{{32}{71}{Example U-Net architecture}{figure.caption.44}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.2}\textcolor {myYellow}{\textbf  {NEXT: }}Quirks of diffusion models}{71}{subsubsection.5.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.1}U-Net denoisers}{69}{subsubsection.5.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {32}{\ignorespaces Example U-Net architecture.}}{70}{figure.caption.44}\protected@file@percent }
+\newlabel{fig:u_net_arch}{{32}{70}{Example U-Net architecture}{figure.caption.44}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.2}\textcolor {myYellow}{\textbf  {NEXT: }}Quirks of diffusion models}{70}{subsubsection.5.5.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.6}\textcolor {red}{\textbf  {TODO: }}Evaluating Generative Models}{71}{subsection.5.6}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{Appendices}{72}{section*.45}\protected@file@percent }
 \@writefile{toc}{\setcounter {tocdepth}{0}}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Probability Theory \& Statistics Things}{72}{appendix.a.A}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}\textcolor {myYellow}{\textbf  {NEXT: }}The Curse of Dimensionality}{72}{subsection.a.A.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Jensen's Inequality}{73}{subsection.a.A.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Entropy and its Friend KL-divergence}{73}{subsection.a.A.3}\protected@file@percent }
-\newlabel{app:entropy}{{A.3}{73}{Entropy and its Friend KL-divergence}{subsection.a.A.3}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {A.3.1}Kullback-Leibler Divergence (KL-divergence)}{74}{subsubsection.a.A.3.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {33}{\ignorespaces Our geometric distribution $p$ and Poisson fit $q$.}}{76}{figure.caption.47}\protected@file@percent }
-\newlabel{fig:poi_geo_plot}{{33}{76}{Our geometric distribution $p$ and Poisson fit $q$}{figure.caption.47}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.4}The Expectation-Maximisation (EM) Algorithm}{77}{subsection.a.A.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {B}Philosophy Things}{79}{appendix.a.B}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.1}Thoughts on reasoning (Summer 2024)}{80}{subsection.a.B.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.2}\textcolor {red}{\textbf  {TODO: }}Backwards-compatible definition of AI}{81}{subsection.a.B.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.3}\textcolor {red}{\textbf  {TODO: }}The sufficiency of internet-scraped data}{81}{subsection.a.B.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.4}\textcolor {red}{\textbf  {TODO: }}The principled measure-explainability tradeoff}{81}{subsection.a.B.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {A}Applying the Chinese Remainder Theorem}{72}{appendix.a.A}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B}Probability Theory \& Statistics Things}{73}{appendix.a.B}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.1}\textcolor {myYellow}{\textbf  {NEXT: }}The Curse of Dimensionality}{73}{subsection.a.B.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.2}Jensen's Inequality}{74}{subsection.a.B.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.3}Entropy and its Friend KL-divergence}{74}{subsection.a.B.3}\protected@file@percent }
+\newlabel{app:entropy}{{B.3}{74}{Entropy and its Friend KL-divergence}{subsection.a.B.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {B.3.1}Kullback-Leibler Divergence (KL-divergence)}{75}{subsubsection.a.B.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {33}{\ignorespaces Our geometric distribution $p$ and Poisson fit $q$.}}{77}{figure.caption.47}\protected@file@percent }
+\newlabel{fig:poi_geo_plot}{{33}{77}{Our geometric distribution $p$ and Poisson fit $q$}{figure.caption.47}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.4}The Expectation-Maximisation (EM) Algorithm}{78}{subsection.a.B.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {C}Philosophy Things}{80}{appendix.a.C}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.1}Thoughts on reasoning (Summer 2024)}{81}{subsection.a.C.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.2}\textcolor {red}{\textbf  {TODO: }}Backwards-compatible definition of AI}{82}{subsection.a.C.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.3}\textcolor {red}{\textbf  {TODO: }}The sufficiency of internet-scraped data}{82}{subsection.a.C.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.4}\textcolor {red}{\textbf  {TODO: }}The principled measure-explainability tradeoff}{82}{subsection.a.C.4}\protected@file@percent }
 \gdef\svg@ink@ver@settings{{\m@ne }{inkscape}{\m@ne }}
-\gdef \@abspage@last{82}
+\gdef \@abspage@last{83}
