@@ -1853,40 +1853,63 @@ Note that one's choice of $\mathcal{Q}_d$ and $\mathcal{P}_m$ should take into a
 
 At this point, a natural question arises: for which tasks is learning a VAE more appropriate than learning an autoencoder? The answer lies in the purpose of VAEs which is two-fold: 1) to perform sufficiently-accurate compression/decompression and 2) to produce a sufficiently regularised approximation of the latent space $\Omega_{\Z}$. The latter is ensured by how one learns a VAE from data, which we soon consider. In brief, when learning an autoencoder one never imposes restrictions on the latent space beyond encouraging the model to yield sufficiently-accurate reconstructions. As a result, the latent space of an autoencoder is not well-structured. For example, for latent samples $\z_1,\z_2\in\Omega_{\Z}$ which are `close' in the latent space, their reconstructions are not necessarily `close' in $\mathbb{R}^m$. VAEs seek to remedy this.
 
-To learn a VAE from data, we look to maximise the evidence lower bound (ELBO) over some dataset $D=\{\x_1,\dots,\x_n\}\subset\Omega_{\X}$. Over a single sample $\x\in\Omega_{\X}$, the ELBO is a tight lower bound of $\log(p(\x))$. As such, maximising the ELBO over $D$ can be seen as performing approximate maximum-likelihood estimation over $D$ (sometimes referred to as evidence maximisation). To derive the ELBO, first note that given a decoder $\theta$ (which parameterises the reconstruction distribution $p_{\theta}(\x|\z)$), we may express the marginal distribution $p(\x)$ using $p_{\theta}(\x|\z)$ as
+To learn a VAE from data, we look to maximise the evidence lower bound (ELBO) over some dataset $D=\{\x_1,\dots,\x_n\}\subset\Omega_{\X}$. Over a single sample $\x\in\Omega_{\X}$, the ELBO is a tight lower bound of $\log(p(\x))$. As such, maximising the ELBO over $D$ can be seen as performing approximate maximum-likelihood estimation over $D$ (sometimes referred to as evidence maximisation). To derive the ELBO, first note that given a decoder $\theta$ (which parameterises the reconstruction distribution $p_{\theta}(\x|\z)$ and by extension the marginal distribution $p_{\theta}(\x)$), we may express the marginal distribution $p_{\theta}(\x)$ as
 \begin{equation}
 \label{eq:marginal_likelihood}
-p(\x)
+p_{\theta}(\x)
 =
-\int p(\x,\z)d\z
+\int p_{\theta}(\x,\z)d\z
 =
-\int p(\x|\z)p(\z)d\z
+\int p_{\theta}(\x|\z)p_{\theta}(\z)d\z
 =
-\int p_{\theta}(\x|\z)p(\z)d\z.
+\int p_{\theta}(\x|\z)p_{\theta}(\z)d\z.
 \end{equation}
 Using \autoref{eq:marginal_likelihood}, along with the encoder $\phi$ (which parameterises the latent distribution $q_{\phi}(\z|\x)$) we derive the ELBO over a single sample $\x\in\Omega_{\X}$:
 \begin{align*}
-    \log(p(\x))
+    \log(p_{\theta}(\x))
     &=
-    \log\l(\int p_{\theta}(\x|\z)p(\z)d\z\r)\\
+    \log\l(\int p_{\theta}(\x|\z)p_{\theta}(\z)d\z\r)\\
     &=
-    \log\l(\int q_{\phi}(\z|\x)\frac{p_{\theta}(\x|\z)p(\z)}{q_{\phi}(\z|\x)}d\z\r)\\
+    \log\l(\int q_{\phi}(\z|\x)\frac{p_{\theta}(\x|\z)p_{\theta}(\z)}{q_{\phi}(\z|\x)}d\z\r)\\
     &=
-    \log\l(\E_{\Z\sim q_{\phi}(\z|\x)}\l[\frac{p_{\theta}(\x|\Z)p(\Z)}{q_{\phi}(\Z|\x)}\r]\r)\\
+    \log\l(\E_{\Z\sim q_{\phi}(\z|\x)}\l[\frac{p_{\theta}(\x|\Z)p_{\theta}(\Z)}{q_{\phi}(\Z|\x)}\r]\r)\\
     &\geq
-    \E_{\Z\sim q_{\phi}(\z|\x)}\l[\log\l(\frac{p_{\theta}(\x|\Z)p(\Z)}{q_{\phi}(\Z|\x)}\r)\r]\\
+    \E_{\Z\sim q_{\phi}(\z|\x)}\l[\log\l(\frac{p_{\theta}(\x|\Z)p_{\theta}(\Z)}{q_{\phi}(\Z|\x)}\r)\r]\\
     &=
-    \E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x|\Z))\r]-\E_{\Z\sim q_{\phi}(\z|\x)}\l[\log\l(\frac{q_{\phi}(\Z|\x)}{p(\Z)}\r)\r]\\
+    \E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x|\Z))\r]-\E_{\Z\sim q_{\phi}(\z|\x)}\l[\log\l(\frac{q_{\phi}(\Z|\x)}{p_{\theta}(\Z)}\r)\r]\\
     &=
-    \E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x|\Z))\r]-D_{\text{KL}}(q_{\phi}(\Z|\x)||p(\Z))\\
+    \E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x|\Z))\r]-D_{\text{KL}}(q_{\phi}(\Z|\x)||p_{\theta}(\Z))\\
     &=:
     \text{ELBO}
 \end{align*}
-in which the inequality arises due to Jensen's inequality, as in $\E[\log(f(\Z))]\leq\log(\E[f(\Z)])$, and $D_\text{KL}(Q||P)$ denotes the KL-divergence between distributions $Q$ and $P$, which is detailed in the appendix. The effect of maximising
+in which the inequality arises due to Jensen's inequality, as in $\E[\log(f(\Z))]\leq\log(\E[f(\Z)])$, and $D_\text{KL}(Q||P)$ denotes the KL-divergence between distributions $Q$ and $P$, which is detailed in the appendix. It's worth noting that equivalent but different-looking representations of the ELBO exist and are common in literature, as in
+\begin{align*}
+    \text{ELBO}
+    &=
+    \E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x|\Z))\r]-\E_{\Z\sim q_{\phi}(\z|\x)}\l[\log\l(\frac{q_{\phi}(\Z|\x)}{p_{\theta}(\Z)}\r)\r]\\
+    &=
+    \E_{\Z\sim q_{\phi}(\z|\x)}\l[\log\l(\frac{p_{\theta}(\x,\Z)}{p_{\theta}(\Z)}\r)-\log\l(\frac{q_{\phi}(\Z|\x)}{p_{\theta}(\Z)}\r)\r]\\
+    &=
+    \E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x,\Z))-\log(q_{\phi}(\Z|\x))\r]
+\end{align*}
+or
+\begin{align*}
+    \text{ELBO}
+    &=
+    \E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x,\Z))-\log(q_{\phi}(\Z|\x))\r]\\
+    &=
+    \E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\Z|\x)p_{\theta}(\x))-\log(q_{\phi}(\Z|\x))\r]\\
+    &=
+    \E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x))-\log\l(\frac{q_{\phi}(\Z|\x)}{p_{\theta}(\Z|\x)}\r)\r]\\
+    &=
+    p_{\theta}(\x)-D_{\text{KL}}\l(q_{\phi}(\Z|\x)||p_{\theta}(\Z|\x)\r).
+\end{align*}
+
+The effect of maximising
 $$
 \text{ELBO}
 =
-\E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x|\Z))\r]-D_{\text{KL}}(q_{\phi}(\Z|\x)||p(\Z))
+\E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x|\Z))\r]-D_{\text{KL}}(q_{\phi}(\Z|\x)||p_{\theta}(\Z))
 $$
 over a dataset is often explained term-by-term. The first term is a principled measure of the VAE's ability to reconstruct latent representations, as with autoencoders. The second term is a principled measure of the similarity of the latent distribution $q_{\phi}(\z|\x)$ and the prior $p(\z)$. The prior is chosen before training and the most common choice is a $d-$dimensional standard Gaussian, i.e. $p(\z)=\mathcal{N}(0,I_d)$. As such, minimising the negative KL-divergence between the latent distribution and said prior is often interpreted as encouraging the learning of the encoder such that latent representations are distributed according to the prior. This is particularly useful in the case that one is learning a VAE to generate new samples from $\Omega_{\X}$: post-training, sample $\z'\sim p(\z)$, compute the parameters $\theta(\z')$ of the reconstruction distribution $p_{\theta}(\x|\z')$ via the decoder and sample from it. Note that using a VAE for generative purposes does not invoke the use of the encoder, only the decoder is required post-training.
 
