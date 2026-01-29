@@ -1882,7 +1882,7 @@ Using \autoref{eq:marginal_likelihood}, along with the encoder $\phi$ (which par
     &=:
     \text{ELBO}
 \end{align*}
-in which the inequality arises due to Jensen's inequality, as in $\E[\log(f(\Z))]\leq\log(\E[f(\Z)])$, and $D_\text{KL}(Q||P)$ denotes the KL-divergence between distributions $Q$ and $P$, which is detailed in the appendix. It's worth noting that equivalent but different-looking representations of the ELBO exist and are common in literature, as in
+in which the inequality arises due to Jensen's inequality, as in $\E[\log(f(\Z))]\leq\log(\E[f(\Z)])$, and $D_\text{KL}(Q||P)$ denotes the KL-divergence between distributions $Q$ and $P$, which is detailed in the appendix. It's worth noting that equivalent representations of the ELBO exist and are useful in motivating VAEs, as in
 \begin{align*}
     \text{ELBO}
     &=
@@ -1903,49 +1903,61 @@ or
     \E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x))-\log\l(\frac{q_{\phi}(\Z|\x)}{p_{\theta}(\Z|\x)}\r)\r]\\
     &=
     p_{\theta}(\x)-D_{\text{KL}}\l(q_{\phi}(\Z|\x)||p_{\theta}(\Z|\x)\r).
+    \label{eq:vae-elbo-3}
 \end{align*}
-
-The effect of maximising
+The effect of maximising the ELBO can be motivated in a number of ways. Its statement directly above makes it immediately clear that its maximisation corresponds to maximum likelihood and the minimisation of the KL-divergence between the model posterior $q_{\phi}(\Z|\x)$ and the induced posterior $p_{\theta}(\Z|\x)$. That said, $p_{\theta}(\Z|\x)$ is intractable (which is why we learn the model posterior $q_{\phi}(\Z|\x)$), and so I prefer to motivate the maximisation of the ELBO term-by-term with respect to the following form
 $$
 \text{ELBO}
 =
-\E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x|\Z))\r]-D_{\text{KL}}(q_{\phi}(\Z|\x)||p_{\theta}(\Z))
+\E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x|\Z))\r]-D_{\text{KL}}(q_{\phi}(\Z|\x)||p_{\theta}(\Z)).
 $$
-over a dataset is often explained term-by-term. The first term is a principled measure of the VAE's ability to reconstruct latent representations, as with autoencoders. The second term is a principled measure of the similarity of the latent distribution $q_{\phi}(\z|\x)$ and the prior $p(\z)$. The prior is chosen before training and the most common choice is a $d-$dimensional standard Gaussian, i.e. $p(\z)=\mathcal{N}(0,I_d)$. As such, minimising the negative KL-divergence between the latent distribution and said prior is often interpreted as encouraging the learning of the encoder such that latent representations are distributed according to the prior. This is particularly useful in the case that one is learning a VAE to generate new samples from $\Omega_{\X}$: post-training, sample $\z'\sim p(\z)$, compute the parameters $\theta(\z')$ of the reconstruction distribution $p_{\theta}(\x|\z')$ via the decoder and sample from it. Note that using a VAE for generative purposes does not invoke the use of the encoder, only the decoder is required post-training.
+The first term is a principled measure of the VAE's ability to reconstruct latent representations, as with autoencoders. The second term is a principled measure of the similarity of the latent distribution $q_{\phi}(\z|\x)$ and the prior $p(\z)$. The prior is chosen before training and the most common choice is a $d-$dimensional standard Gaussian, i.e. $p(\z)=\mathcal{N}(0,I_d)$. As such, minimising the negative KL-divergence between the latent distribution and said prior is often interpreted as encouraging the learning of the encoder such that latent representations are distributed according to the prior. This is particularly useful in the case that one is learning a VAE to generate new samples from $\Omega_{\X}$: post-training, sample $\z'\sim p(\z)$, compute the parameters $\theta(\z')$ of the reconstruction distribution $p_{\theta}(\x|\z')$ via the decoder and sample from it. Note that using a VAE for generative purposes does not invoke the use of the encoder, only the decoder is required post-training.
 
 Given a dataset $D=\{\x_1,\dots,\x_n\}\subset\Omega_{\X}$, we learn a VAE by choosing function classes $\Phi$ and $\Theta$ (e.g. MLPs as in \autoref{fig:VAE_architecture}) and computing
 $$
 \argmax_{(\phi,\theta)\in\Phi\times\Theta}
 \l[
 \sum_{i=1}^n
-\E_{\Z\sim q_{\phi}(\z|\x_i)}\l[\log(p_{\theta}(\x_i|\Z))\r]-D_{\text{KL}}(q_{\phi}(\Z|\x_i)||p(\Z))
+\E_{\Z\sim q_{\phi}(\z|\x_i)}\l[\log(p_{\theta}(\x_i|\Z))\r]-D_{\text{KL}}(q_{\phi}(\Z|\x_i)||p_{\theta}(\Z))
 \r].
 $$
 In practice, after choosing a latent dimension $d$, we often take $p(\z)=\mathcal{N}(0,I_d)$, $\mathcal{Q}_d=\mathbb{R}^d\times\mathcal{S}_{++}^d$ and $\mathcal{P}_m=\mathbb{R}^m\times\mathcal{S}_{++}^m$, i.e. Gaussians for the latent and reconstruction distribution families and the standard $d-$dimensional Gaussian for the prior. A benefit of these choices is that it yields a differentiable and easy-to-implement closed form for the KL-divergence term in the ELBO. Additionally, the expectation pertaining to the reconstruction term is typically approximated via a single sample, boiling down to a mean square error term\footnote{\url{https://n8python.github.io/mnistLatentSpace/}}.
 
-% \subsubsection{\TODO Backpropagation for VAEs (the reparameterisation trick)}
-% \url{https://math.stackexchange.com/q/2540170/631229}\\
-% To find suitable parameters of a given VAE architecture using gradient descent, we require that the ELBO is differentiable. With respect to $\theta$, the gradient is approximated according to
+% % \url{https://math.stackexchange.com/q/2540170/631229}
+% \subsubsection{Backpropagation for VAEs (the reparameterisation trick)}
+% To find suitable parameters using gradient descent, we require estimates of $\nabla_{\theta}\text{ELBO}$ and $\nabla_{\phi}\text{ELBO}$. The former is straightforwardly estimated using a Monte Carlo estimate as in
 % \begin{align*}
 %     \nabla_{\theta}\text{ELBO}
 %     &=
-%     \E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x|\Z))\r]\\
+%     \nabla_{\theta}\E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x|\Z))\r]\\
 %     &=
-%     \frac{1}{k}\sum_{j=1}^k \nabla_{\theta}\log(p_{\theta}(\x|\z_j))
+%     \E_{\Z\sim q_{\phi}(\z|\x)}\l[\nabla_{\theta}\log(p_{\theta}(\x|\Z))\r]\\
+%     &\approx
+%     \frac{1}{k}\sum_{j=1}^k \nabla_{\theta}\log(p_{\theta}(\x|\z_j)).
 % \end{align*}
-% which is no issue when the decoder's architecture is backpro-compatible. However, with respect to $\phi$, the gradient of the ELBO is less friendly.
+% where $\z_1,\dots,\z_k\sim p(\z)$. Note that this is due to the choice of a prior $p_{\theta}(\z)$ which is independent of $\theta$, e.g. an isotropic Gaussian.
 
-% % In practice, the expectation term in the ELBO is often approximated as in
-% % $$
-% % \E_{\Z\sim q_{\phi}(\z|\x_i)}\l[\log(p_{\theta}(\x_i|\Z))\r]
-% % \approx
-% % \frac{1}{k}\sum_{j=1}^k\log\l(p_{\theta}(\x_i|\z_j)\r)
-% % $$
-% % which requires sampling $\z_1,\dots,\z_k$ according to $q_{\phi}(\z|\x)$. Sampling, as a function, is not differentiable: reparameterisation trick to the rescue! Instead, independently sample $\epsilon_1,\dots,\epsilon_k$ according to $\mathcal{N}(0, I)$ and approximate the expectation by
-% % $$
-% % \frac{1}{k}\sum_{j=1}^k\log\l(p_{\theta}(\x_i|\mu_{\phi}(\x_i)+\sigma_{\phi}(\x_i)\odot\epsilon_j)\r)
-% % $$
-% % where $\odot$ denotes element-wise multiplication.
+% Estimating $\nabla_{\phi}\text{ELBO}$, however, is tricky. The expectation itself is with respect to $q_{\phi}(\z|\x)$ which explicitly depends on $\phi$ and so the gradient $\nabla_{\phi}$ can not be brought inside. That is,
+% \begin{align*}
+%     \nabla_{\phi}\text{ELBO}
+%     &=
+%     \nabla_{\phi}\E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x,\Z))-\log(q_{\phi}(\Z|\x))\r]\\
+%     &\neq
+%     \E_{\Z\sim q_{\phi}(\z|\x)}\l[\nabla_{\phi}(\log(p_{\theta}(\x,\Z))-\log(q_{\phi}(\Z|\x)))\r].
+% \end{align*}
+% So how might we get an unbiased estimate of $\nabla_{\phi}\text{ELBO}$? One might hope that we could switch up the distribution with which the expectation is taken. If the stochasticity of sampling latents in constructing a Monte Carlo estimate was due to something independent of $\phi$ then all good. To make this happen, if one can instead sample latents according to independent random noise $\epsilon\sim\mathcal{N}(0, I)$ through $\Z=g(\epsilon, \phi, \x)$ then we have
+% \begin{align*}
+%     \nabla_{\phi}\text{ELBO}
+%     &=
+%     \nabla_{\phi}\E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x,\Z))-\log(q_{\phi}(\Z|\x))\r]\\
+%     &=
+%     \nabla_{\phi}\E_{p(\epsilon)}\l[\log(p_{\theta}(\x,\Z))-\log(q_{\phi}(\Z|\x))\r]\\
+%     &=
+%     \E_{p(\epsilon)}\l[\nabla_{\phi}(\log(p_{\theta}(\x,\Z))-\log(q_{\phi}(\Z|\x)))\r]\\
+%     &\approx
+%     \frac{1}{k}\sum_{i=1}^k\nabla_{\phi}(\log(p_{\theta}(\x,\z_i))-\log(q_{\phi}(\z_i|\x)))
+% \end{align*}
+% where $\z_i=g(\epsilon_i, \phi,\x)$ and $\epsilon_1,\dots,\epsilon_k\sim p(\epsilon)$ (ignore the abuse of notation).
 
 \subsubsection{\NEXT Quirks of VAEs}
 \begin{itemize}
@@ -2048,36 +2060,36 @@ Since samples are not labeled, how does one evaluate a generative model? What do
 \begin{appendices}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
 
-% TODO: move to selected-topics-explainers
-\section{Applying the Chinese Remainder Theorem}
-Given a system of integer congruences
-\begin{align*}
-    k & \equiv k_{j_1}\phantom{1}(\mathrm{mod}\phantom{1}j_1)\\
-      & \vdots\\
-    k & \equiv k_{j_l}\phantom{1}(\mathrm{mod}\phantom{1}j_l)
-\end{align*}
-in which $j_1,\dots,j_l$ are pairwise coprime (i.e. $\gcd(j_r,j_s)=1$ for $r\neq s$), it is of interest to recover $k$.
+% % TODO: move to selected-topics-explainers
+% \section{Applying the Chinese Remainder Theorem}
+% Given a system of integer congruences
+% \begin{align*}
+%     k & \equiv k_{j_1}\phantom{1}(\mathrm{mod}\phantom{1}j_1)\\
+%       & \vdots\\
+%     k & \equiv k_{j_l}\phantom{1}(\mathrm{mod}\phantom{1}j_l)
+% \end{align*}
+% in which $j_1,\dots,j_l$ are pairwise coprime (i.e. $\gcd(j_r,j_s)=1$ for $r\neq s$), it is of interest to recover $k$.
 
-Note that by the CRT, solutions of such integer congruence systems are unique up to congruence modulo $J:=j_1\cdots j_l$. That is, if $x_1$ and $x_2$ satisfy all congruences then $x_1\equiv x_2\phantom{1}(\mathrm{mod}\phantom{1}J)$. With this in mind, if we can construct some $k'$ such that all congruences are satisfied then we have that $k'\equiv k\phantom{1}(\mathrm{mod}\phantom{1}J)$, i.e. we will have recovered the remainder of $k$ modulo $J$. This application of the CRT is important to solving the discrete logarithm problem over elliptic curve groups. A natural question here is how one constructs $k'$.
+% Note that by the CRT, solutions of such integer congruence systems are unique up to congruence modulo $J:=j_1\cdots j_l$. That is, if $x_1$ and $x_2$ satisfy all congruences then $x_1\equiv x_2\phantom{1}(\mathrm{mod}\phantom{1}J)$. With this in mind, if we can construct some $k'$ such that all congruences are satisfied then we have that $k'\equiv k\phantom{1}(\mathrm{mod}\phantom{1}J)$, i.e. we will have recovered the remainder of $k$ modulo $J$. This application of the CRT is important to solving the discrete logarithm problem over elliptic curve groups. A natural question here is how one constructs $k'$.
 
-Consider $k'=\sum_{i=1}^l k_{j_i}e_{j_i}$ where $e_{j_i}$ satisifies
-\begin{align*}
-    e_{j_i} & \equiv 1\phantom{1}(\mathrm{mod}\phantom{1}j_i)\\
-    e_{j_i} & \equiv 0\phantom{1}(\mathrm{mod}\phantom{1}j_s) \text{ for }s\neq i
-\end{align*}
-for $i=1,\dots,l$. With such a construction, one has $k'\equiv k_{j_i}\phantom{1}(\mathrm{mod}\phantom{1}j_i)$ for $i=1,\dots,l$ and so the CRT yields
-$$
-k
-\equiv
-\sum_{i=1}^l k_{j_i}e_{j_i}\phantom{1}(\mathrm{mod}\phantom{1}J)
-$$
-where $J=j_1\cdots j_l$. Then the difficulty of constructing $k'$ comes down to constructing $e_{j_1},\dots,e_{j_l}$ which turns out not to be too difficult: take $e_{j_i}=J_iy_i$ where $J_i=J/j_i$ and $y_i$ is the remained of $J_i^{-1}$ modulo $j_i$. Note that the existance of $y_i$ is guaranteed due to $\gcd(j_i,J_i)=1$. Bam, done, simply take
-$$
-k'
-=
-\sum_{i=1}^l k_{j_i}J_iy_i.
-$$
-So finding the remainder of $k$ modulo $J$ boils down to computing the $l$ remainders $y_1,\dots,y_l$ of $J_1^{-1},\dots,J_l^{-1}$ modulo $j_1,\dots,j_l$ respectively.
+% Consider $k'=\sum_{i=1}^l k_{j_i}e_{j_i}$ where $e_{j_i}$ satisifies
+% \begin{align*}
+%     e_{j_i} & \equiv 1\phantom{1}(\mathrm{mod}\phantom{1}j_i)\\
+%     e_{j_i} & \equiv 0\phantom{1}(\mathrm{mod}\phantom{1}j_s) \text{ for }s\neq i
+% \end{align*}
+% for $i=1,\dots,l$. With such a construction, one has $k'\equiv k_{j_i}\phantom{1}(\mathrm{mod}\phantom{1}j_i)$ for $i=1,\dots,l$ and so the CRT yields
+% $$
+% k
+% \equiv
+% \sum_{i=1}^l k_{j_i}e_{j_i}\phantom{1}(\mathrm{mod}\phantom{1}J)
+% $$
+% where $J=j_1\cdots j_l$. Then the difficulty of constructing $k'$ comes down to constructing $e_{j_1},\dots,e_{j_l}$ which turns out not to be too difficult: take $e_{j_i}=J_iy_i$ where $J_i=J/j_i$ and $y_i$ is the remained of $J_i^{-1}$ modulo $j_i$. Note that the existance of $y_i$ is guaranteed due to $\gcd(j_i,J_i)=1$. Bam, done, simply take
+% $$
+% k'
+% =
+% \sum_{i=1}^l k_{j_i}J_iy_i.
+% $$
+% So finding the remainder of $k$ modulo $J$ boils down to computing the $l$ remainders $y_1,\dots,y_l$ of $J_1^{-1},\dots,J_l^{-1}$ modulo $j_1,\dots,j_l$ respectively.
 
 \section{Probability Theory \& Statistics Things}
 Here are some probability theory and statistics things relevant to the main body, e.g. brief statements, long derivations, and so on, which are more appendix-appropriate.
