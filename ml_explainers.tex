@@ -1805,6 +1805,7 @@ Disaster strikes and we begin to see just how unstructured the latent space of a
 
 An intuitive second idea is to feed the decoder points in the latent space which are close to the encoding of a given training sample, as in \autoref{fig:autoencoder_generation}. The outputs of the decoder should be a sample of the class of said encoding's sample, right? No. Distaster strikes again. For meaningful decodings using this idea, one must take points in the latent space which are ridiculously close to this chosen sample's latent embedding. So close that you'd be practically reconstructing the original training sample each time — certainly not what we mean when we say that we'd like to generate new samples. So how do we do autoencoder-like things in a way that yields well-structured latent spaces? Variational autoencoders (VAEs) to the rescue!
 
+% \url{https://arxiv.org/pdf/1906.02691}
 \subsubsection{Formulating VAEs}
 \begin{figure}[t]
     \centering % these widths are specific
@@ -1959,11 +1960,29 @@ In practice, after choosing a latent dimension $d$, we often take $p(\z)=\mathca
 % \end{align*}
 % where $\z_i=g(\epsilon_i, \phi,\x)$ and $\epsilon_1,\dots,\epsilon_k\sim p(\epsilon)$ (ignore the abuse of notation).
 
-\subsubsection{\NEXT Quirks of VAEs}
-\begin{itemize}
-    \item[--] Blur is often observed outside of the central object, i.e. the model is learning the foreground but not the background of training samples.
-    \item[--] \dots
-\end{itemize}
+\subsubsection{Blurry reconstructions}
+Blur is often observed in reconstructions via the decoder of VAEs. Its presence can be motivated by noting that the maximisation of the ELBO is equivalent to the minimisation of
+$$
+D_{\text{KL}}(q_{D,\phi}(\X,\Z)||p_{\theta}(\X,\Z))
+=
+\E_{(\X,\Z)\sim q_{D,\phi}(\x,\z)}\l[\log\l(\frac{q_{D,\phi}(\X,\Z)}{p_{\theta}(\X,\Z)}\r)\r]
+$$
+where $q_{D,\phi}(\x,\z)$ is induced by $q_{\phi}(\z|\x)$ and the empirical data distribution $q_D(\x)$. The KL-divergence clearly illustrates that
+\begin{enumerate}
+    \item If $(\x,\z)$ is unlikely according to $q_{D,\phi}$ then the KL-divergence (which corresponds to the loss) is relatively low regardless of how likely it is under $p_{\theta}$.
+    \item If $(\x,\z)$ is likely according to $q_{D,\phi}$ but unlikely according to $p_{\theta}$ then the KL-divergence blows up massively.
+\end{enumerate}
+As such, the model is encouraged to ensure that $p_{\theta}(\x,\z)$ is never small near observed data. This boils down to ensuring that the reconstruction likelihood $p_{\theta}(\x|\z)$ is not small (since $q_{\phi}(\z|\x)$ is regularised toward $p_{\theta}(\z)$, sampled latents typically lie in reasonably high prior-density regions). With a unimodal likelihood (e.g. Gaussian with fixed variance), the safest fit when distinct $\x$ share similar $\z$ is to place the conditional mean between them which results in blur. Note also that, even though the model is not penalised for what $p_{\theta}(\x|\z)$ does for $(\x,\z)$ such that $q_{D,\phi}(\x,\z)\approx0$, $p_{\theta}$ is still subject to normalising to 1 under its support. Due to this, $p_{\theta}$ can't get too wild in interpolating between the data.
+
+As illustration, suppose two samples $\x_1$ and $\x_2$ map to the same latent under the encoder. That is, suppose $\z_1\approx\z_2$ for $\z_1\sim q_{\phi}(\z|\x_1)$ and $\z_2\sim q_{\phi}(\z|\x_2)$. Denote both by $\z_0$. Note that this is entirely plausible as the maximisation of the ELBO encourages the encoder to resemble the simple prior, e.g. the standard multivariate Gaussian with low latent dimension, and so it may be the case that there simply isn't enough room in the latent space to assign unique latents to distinct samples. In such a case, if $p_{\theta}(\x|\z_0)$ is unimodal, e.g. a Gaussian (which is often the case for vanilla VAEs), then where should its mean lie? That is, which of the samples which are sent to it by the encoder should it favour for reconstruction? If $\X|\z\sim\mathcal{N}(\mu_{\theta}(\z), \sigma^2I)$ then maximising the reconstruction term in the ELBO requires us to compute
+\begin{align*}
+    \argmax_{\theta}\l[\sum_{i=1}^2\log(p_{\theta}(\x_i|\z_0))\r]
+    &=
+    \argmax_{\theta}\l[-\frac{1}{2\sigma^2}\sum_{i=1}^2||\x_i-\mu_{\theta}(\z_0)||^2\r]\\
+    &=
+    \argmin_{\theta}\l(||\x_1-\mu_{\theta}(\z_0)||^2+||\x_2-\mu_{\theta}(\z_0)||^2\r)
+\end{align*}
+which corresponds to $\mu_{\theta}(\z_0)=\argmin_{\mu}\sum_{i=1}^2||\x_i-\mu||^2=(\x_1+\x_2)/2$.
 
 % general adversarial networks
 \subsection{Generative Adversarial Networks (GANs)}

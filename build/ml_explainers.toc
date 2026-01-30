@@ -61,25 +61,25 @@
 \contentsline {subsubsection}{\numberline {5.2.1}Autoencoders: no variation yet!}{60}{subsubsection.5.2.1}%
 \contentsline {subsubsection}{\numberline {5.2.2}Motivating VAEs}{61}{subsubsection.5.2.2}%
 \contentsline {subsubsection}{\numberline {5.2.3}Formulating VAEs}{62}{subsubsection.5.2.3}%
-\contentsline {subsubsection}{\numberline {5.2.4}\textcolor {myYellow}{\textbf {NEXT: }}Quirks of VAEs}{67}{subsubsection.5.2.4}%
-\contentsline {subsection}{\numberline {5.3}Generative Adversarial Networks (GANs)}{67}{subsection.5.3}%
-\contentsline {subsubsection}{\numberline {5.3.1}\textcolor {myYellow}{\textbf {NEXT: }}Flavours of GANs}{68}{subsubsection.5.3.1}%
-\contentsline {subsubsection}{\numberline {5.3.2}Quirks of GANs}{68}{subsubsection.5.3.2}%
-\contentsline {subsection}{\numberline {5.4}\textcolor {red}{\textbf {TODO: }}Normalising Flows}{68}{subsection.5.4}%
-\contentsline {subsection}{\numberline {5.5}Diffusion Models}{69}{subsection.5.5}%
-\contentsline {subsubsection}{\numberline {5.5.1}U-Net denoisers}{70}{subsubsection.5.5.1}%
-\contentsline {subsubsection}{\numberline {5.5.2}\textcolor {myYellow}{\textbf {NEXT: }}Quirks of diffusion models}{71}{subsubsection.5.5.2}%
-\contentsline {subsection}{\numberline {5.6}\textcolor {red}{\textbf {TODO: }}Evaluating Generative Models}{71}{subsection.5.6}%
-\contentsline {section}{Appendices}{72}{section*.45}%
+\contentsline {subsubsection}{\numberline {5.2.4}Blurry reconstructions}{67}{subsubsection.5.2.4}%
+\contentsline {subsection}{\numberline {5.3}Generative Adversarial Networks (GANs)}{68}{subsection.5.3}%
+\contentsline {subsubsection}{\numberline {5.3.1}\textcolor {myYellow}{\textbf {NEXT: }}Flavours of GANs}{69}{subsubsection.5.3.1}%
+\contentsline {subsubsection}{\numberline {5.3.2}Quirks of GANs}{69}{subsubsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.4}\textcolor {red}{\textbf {TODO: }}Normalising Flows}{69}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Diffusion Models}{70}{subsection.5.5}%
+\contentsline {subsubsection}{\numberline {5.5.1}U-Net denoisers}{71}{subsubsection.5.5.1}%
+\contentsline {subsubsection}{\numberline {5.5.2}\textcolor {myYellow}{\textbf {NEXT: }}Quirks of diffusion models}{72}{subsubsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.6}\textcolor {red}{\textbf {TODO: }}Evaluating Generative Models}{72}{subsection.5.6}%
+\contentsline {section}{Appendices}{73}{section*.45}%
 \setcounter {tocdepth}{0}
-\contentsline {section}{\numberline {A}Probability Theory \& Statistics Things}{72}{appendix.a.A}%
-\contentsline {subsection}{\numberline {A.1}\textcolor {myYellow}{\textbf {NEXT: }}The Curse of Dimensionality}{72}{subsection.a.A.1}%
-\contentsline {subsection}{\numberline {A.2}Jensen's Inequality}{73}{subsection.a.A.2}%
-\contentsline {subsection}{\numberline {A.3}Entropy and its Friend KL-divergence}{73}{subsection.a.A.3}%
-\contentsline {subsubsection}{\numberline {A.3.1}Kullback-Leibler Divergence (KL-divergence)}{74}{subsubsection.a.A.3.1}%
-\contentsline {subsection}{\numberline {A.4}The Expectation-Maximisation (EM) Algorithm}{77}{subsection.a.A.4}%
-\contentsline {section}{\numberline {B}Philosophy Things}{79}{appendix.a.B}%
-\contentsline {subsection}{\numberline {B.1}Thoughts on reasoning (Summer 2024)}{80}{subsection.a.B.1}%
-\contentsline {subsection}{\numberline {B.2}\textcolor {red}{\textbf {TODO: }}Backwards-compatible definition of AI}{81}{subsection.a.B.2}%
-\contentsline {subsection}{\numberline {B.3}\textcolor {red}{\textbf {TODO: }}The sufficiency of internet-scraped data}{81}{subsection.a.B.3}%
-\contentsline {subsection}{\numberline {B.4}\textcolor {red}{\textbf {TODO: }}The principled measure-explainability tradeoff}{81}{subsection.a.B.4}%
+\contentsline {section}{\numberline {A}Probability Theory \& Statistics Things}{73}{appendix.a.A}%
+\contentsline {subsection}{\numberline {A.1}\textcolor {myYellow}{\textbf {NEXT: }}The Curse of Dimensionality}{73}{subsection.a.A.1}%
+\contentsline {subsection}{\numberline {A.2}Jensen's Inequality}{74}{subsection.a.A.2}%
+\contentsline {subsection}{\numberline {A.3}Entropy and its Friend KL-divergence}{74}{subsection.a.A.3}%
+\contentsline {subsubsection}{\numberline {A.3.1}Kullback-Leibler Divergence (KL-divergence)}{75}{subsubsection.a.A.3.1}%
+\contentsline {subsection}{\numberline {A.4}The Expectation-Maximisation (EM) Algorithm}{78}{subsection.a.A.4}%
+\contentsline {section}{\numberline {B}Philosophy Things}{80}{appendix.a.B}%
+\contentsline {subsection}{\numberline {B.1}Thoughts on reasoning (Summer 2024)}{81}{subsection.a.B.1}%
+\contentsline {subsection}{\numberline {B.2}\textcolor {red}{\textbf {TODO: }}Backwards-compatible definition of AI}{82}{subsection.a.B.2}%
+\contentsline {subsection}{\numberline {B.3}\textcolor {red}{\textbf {TODO: }}The sufficiency of internet-scraped data}{82}{subsection.a.B.3}%
+\contentsline {subsection}{\numberline {B.4}\textcolor {red}{\textbf {TODO: }}The principled measure-explainability tradeoff}{82}{subsection.a.B.4}%

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.6.18)  29 JAN 2026 00:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.6.18)  30 JAN 2026 02:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -859,40 +859,40 @@ Package pdftex.def Info: ./figures/generative_models/AE_gen_2.pdf  used on input
 <figures/generative_models/VAE_encoder.pdf, id=1439, 191.41614pt x 192.72803pt>
 File: figures/generative_models/VAE_encoder.pdf Graphic file (type pdf)
 <use figures/generative_models/VAE_encoder.pdf>
-Package pdftex.def Info: figures/generative_models/VAE_encoder.pdf  used on input line 1811.
+Package pdftex.def Info: figures/generative_models/VAE_encoder.pdf  used on input line 1812.
 (pdftex.def)             Requested size: 165.60242pt x 166.74272pt.
 <figures/generative_models/VAE_decoder.pdf, id=1440, 191.5416pt x 192.72803pt>
 File: figures/generative_models/VAE_decoder.pdf Graphic file (type pdf)
 <use figures/generative_models/VAE_decoder.pdf>
-Package pdftex.def Info: figures/generative_models/VAE_decoder.pdf  used on input line 1813.
+Package pdftex.def Info: figures/generative_models/VAE_decoder.pdf  used on input line 1814.
 (pdftex.def)             Requested size: 165.60242pt x 166.63391pt.
- [62 <./figures/generative_models/AE_gen_1.pdf> <./figures/generative_models/AE_gen_2.pdf>] [63 <./figures/generative_models/VAE_encoder.pdf> <./figures/generative_models/VAE_decoder.pdf>] [64] [65] [66]
-<./figures/generative_models/GAN_architecture.png, id=1621, 913.16156pt x 398.23781pt>
+ [62 <./figures/generative_models/AE_gen_1.pdf> <./figures/generative_models/AE_gen_2.pdf>] [63 <./figures/generative_models/VAE_encoder.pdf> <./figures/generative_models/VAE_decoder.pdf>] [64] [65] [66] [67]
+<./figures/generative_models/GAN_architecture.png, id=1629, 913.16156pt x 398.23781pt>
 File: ./figures/generative_models/GAN_architecture.png Graphic file (type png)
 <use ./figures/generative_models/GAN_architecture.png>
-Package pdftex.def Info: ./figures/generative_models/GAN_architecture.png  used on input line 1988.
+Package pdftex.def Info: ./figures/generative_models/GAN_architecture.png  used on input line 2007.
 (pdftex.def)             Requested size: 360.0pt x 156.99533pt.
- [67] [68 <./figures/generative_models/GAN_architecture.png>]
+ [68] [69 <./figures/generative_models/GAN_architecture.png>]
 
 pdfTeX warning: pdflatex (file ./figures/generative_models/diffusion_process.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/generative_models/diffusion_process.pdf, id=1636, 981.96861pt x 251.13824pt>
+<./figures/generative_models/diffusion_process.pdf, id=1642, 981.96861pt x 251.13824pt>
 File: ./figures/generative_models/diffusion_process.pdf Graphic file (type pdf)
 <use ./figures/generative_models/diffusion_process.pdf>
-Package pdftex.def Info: ./figures/generative_models/diffusion_process.pdf  used on input line 2020.
+Package pdftex.def Info: ./figures/generative_models/diffusion_process.pdf  used on input line 2039.
 (pdftex.def)             Requested size: 360.0pt x 92.06897pt.
-[69 <./figures/generative_models/diffusion_process.pdf>]
-<./figures/generative_models/unet.png, id=1674, 1405.25pt x 706.64pt>
+[70 <./figures/generative_models/diffusion_process.pdf>]
+<./figures/generative_models/unet.png, id=1680, 1405.25pt x 706.64pt>
 File: ./figures/generative_models/unet.png Graphic file (type png)
 <use ./figures/generative_models/unet.png>
-Package pdftex.def Info: ./figures/generative_models/unet.png  used on input line 2040.
+Package pdftex.def Info: ./figures/generative_models/unet.png  used on input line 2059.
 (pdftex.def)             Requested size: 360.0pt x 181.02646pt.
- [70 <./figures/generative_models/unet.png>] [71] [72] [73] [74] [75]
-<./figures/appendix/poi_geo_plot.pdf, id=1719, 346.85886pt x 198.2617pt>
+ [71 <./figures/generative_models/unet.png>] [72] [73] [74] [75] [76]
+<./figures/appendix/poi_geo_plot.pdf, id=1725, 346.85886pt x 198.2617pt>
 File: ./figures/appendix/poi_geo_plot.pdf Graphic file (type pdf)
 <use ./figures/appendix/poi_geo_plot.pdf>
-Package pdftex.def Info: ./figures/appendix/poi_geo_plot.pdf  used on input line 2229.
+Package pdftex.def Info: ./figures/appendix/poi_geo_plot.pdf  used on input line 2248.
 (pdftex.def)             Requested size: 360.0pt x 205.77888pt.
- [76 <./figures/appendix/poi_geo_plot.pdf>] [77] [78] [79] [80] [81] (build/ml_explainers.aux)
+ [77 <./figures/appendix/poi_geo_plot.pdf>] [78] [79] [80] [81] [82] (build/ml_explainers.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -901,8 +901,8 @@ Package rerunfilecheck Info: File `ml_explainers.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 26189 strings out of 474116
- 512679 string characters out of 5743682
+ 26192 strings out of 474116
+ 512700 string characters out of 5743682
  1943187 words of memory out of 5000000
  47880 multiletter control sequences out of 15000+600000
  571296 words of font info for 88 fonts, out of 8000000 for 9000
@@ -948,10 +948,10 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist,
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
  </Users/dewibatista/Library/texlive/2024/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on build/ml_explainers.pdf (82 pages, 8235491 bytes).
+Output written on build/ml_explainers.pdf (83 pages, 8239715 bytes).
 PDF statistics:
- 1927 PDF objects out of 2073 (max. 8388607)
- 1304 compressed objects within 14 object streams
- 244 named destinations out of 1000 (max. 500000)
+ 1934 PDF objects out of 2073 (max. 8388607)
+ 1310 compressed objects within 14 object streams
+ 247 named destinations out of 1000 (max. 500000)
  208 words of extra memory for PDF output out of 10000 (max. 10000000)
 
