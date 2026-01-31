@@ -1727,7 +1727,7 @@ where $\textbf{pa}(X_i)$ denotes the random variables which are parents of $X_i$
     Notice that the choice of $X_1$ as the model variable upon which nothing is conditioned is entirely arbitrary in this example. As a result, for a given decomposition, DAGs are not unique. Here, $\theta=(\theta_1,\theta_2,\theta_3)$ are parameters learned from data.
 \end{example}
 
-\subsubsection{Learning $\mathcal{G}$ and $\theta$ from data}
+\subsubsection{Learning them from data}
 I won't go into particular detail regarding how one learns a Bayesian network (its graph $\mathcal{G}$ and parameter set $\theta$) from data as the nitty gritty details aren't relevant to the generative models relevant to deep learning. That said, there are some interesting takeways, especially from methods of learning a Bayesian network's structure $\mathcal{G}$ as they contrast the almost entirely-heuristic approaches taken in deep learning contexts.
 
 Unlike with neural network architectures, both the parameter set $\theta$ and the structure $\mathcal{G}$ of a Bayesian network can be motivated in a principled manner via maximum likelihood estimation. In brief, the likelihood of a given parameter set and DAG can be computed separately, and so in learning a Bayesian network from a dataset $D=\{\x_1,\dots,\x_n\}\overset{\text{i.i.d.}}{\sim}p(\x)^{\otimes n}$ one might hope to compute
@@ -1752,13 +1752,16 @@ A natural approach to compute the graph which maximises the relevant score is th
 \end{enumerate}
 With this approach in mind, the purpose of the penalty term becomes immediately clear: without it, the graph would continue to grow until the chain rule graph described earlier would be realised, which is undesirable.
 
-\begin{tcolorbox}[title={\centering\textbf{Why aren't Bayesian networks employed in deep learning?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Learning their structure and parameters for high-dimensional distributions becomes quickly computationally infeasible (say from $\sim100$). Regardless of this `weakness', they serve as a significant, and often overlooked, step in the evolution of probabilistic reasoning and, more broadly, generative probabilistic modelling.
-\end{tcolorbox}
+\subsubsection{Why aren't they employed in deep learning?}
+Learning their structure and parameters for high-dimensional distributions becomes quickly computationally infeasible (say from $\sim100$). Regardless of this `weakness', they serve as a significant, and often overlooked, step in the evolution of probabilistic reasoning and, more broadly, generative probabilistic modelling.
+
+Another important note is that inference is exponential in the tree-width of the Bayesian network. Without going into a lot of detail, a Bayesian network's tree-width can be thought of as the number of dependencies among model variables. As a result, when fitting a high-dimensional Bayesian network in which the number of dependencies is high, inference is computationally infeasible. Unfortunate.
 
 % variational autoencoders
 \subsection{Variational Autoencoders (VAEs)}
-In motivating variational autoencoders (VAEs\footnote{Original paper by Kingma: \url{https://arxiv.org/pdf/1312.6114}}), it's natural to first motivate regular autoencoders, illustrate issues pertaining to intuitive ideas of doing generative things with them and fixing those issues with variational inference.
+In motivating variational autoencoders (VAEs), it's natural to first motivate regular autoencoders, illustrate issues pertaining to intuitive ideas of doing generative things with them and fixing those issues with variational inference.
+
+Note that VAEs can be motivated in a ton of other ways, e.g. Kingma (their creator) himself describes them in terms of Bayesian networks and latent variable models. Such a motivation can be found in \url{https://arxiv.org/pdf/1312.6114} which acts as a great source for learning about VAEs.
 
 % autoencoders
 \subsubsection{Autoencoders: no variation yet!}
@@ -1924,41 +1927,87 @@ $$
 $$
 In practice, after choosing a latent dimension $d$, we often take $p(\z)=\mathcal{N}(0,I_d)$, $\mathcal{Q}_d=\mathbb{R}^d\times\mathcal{S}_{++}^d$ and $\mathcal{P}_m=\mathbb{R}^m\times\mathcal{S}_{++}^m$, i.e. Gaussians for the latent and reconstruction distribution families and the standard $d-$dimensional Gaussian for the prior. A benefit of these choices is that it yields a differentiable and easy-to-implement closed form for the KL-divergence term in the ELBO. Additionally, the expectation pertaining to the reconstruction term is typically approximated via a single sample, boiling down to a mean square error term\footnote{\url{https://n8python.github.io/mnistLatentSpace/}}.
 
-% % \url{https://math.stackexchange.com/q/2540170/631229}
-% \subsubsection{Backpropagation for VAEs (the reparameterisation trick)}
-% To find suitable parameters using gradient descent, we require estimates of $\nabla_{\theta}\text{ELBO}$ and $\nabla_{\phi}\text{ELBO}$. The former is straightforwardly estimated using a Monte Carlo estimate as in
-% \begin{align*}
-%     \nabla_{\theta}\text{ELBO}
-%     &=
-%     \nabla_{\theta}\E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x|\Z))\r]\\
-%     &=
-%     \E_{\Z\sim q_{\phi}(\z|\x)}\l[\nabla_{\theta}\log(p_{\theta}(\x|\Z))\r]\\
-%     &\approx
-%     \frac{1}{k}\sum_{j=1}^k \nabla_{\theta}\log(p_{\theta}(\x|\z_j)).
-% \end{align*}
-% where $\z_1,\dots,\z_k\sim p(\z)$. Note that this is due to the choice of a prior $p_{\theta}(\z)$ which is independent of $\theta$, e.g. an isotropic Gaussian.
+\subsubsection{Backpropagation for VAEs (the reparameterisation trick)}
+To find suitable parameters using gradient descent, we require estimates of $\nabla_{\theta}\text{ELBO}$ and $\nabla_{\phi}\text{ELBO}$. The former is straightforwardly estimated using Monte Carlo estimation as in
+\begin{align*}
+    \nabla_{\theta}\text{ELBO}
+    &=
+    \nabla_{\theta}\E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x|\Z))\r]\\
+    &=
+    \E_{\Z\sim q_{\phi}(\z|\x)}\l[\nabla_{\theta}\log(p_{\theta}(\x|\Z))\r]\\
+    &\approx
+    \frac{1}{k}\sum_{j=1}^k \nabla_{\theta}\log(p_{\theta}(\x|\z_j)).
+\end{align*}
+where $\z_1,\dots,\z_k\sim q_{\phi}(\z|\x)$. A closed form is often obtained by taking convenient distributions, e.g. $p_{\theta}(\x|\z)=\mathcal{N}(\x;\mu_{\theta}(\z),\sigma_{\theta}(\z)I)$.
 
-% Estimating $\nabla_{\phi}\text{ELBO}$, however, is tricky. The expectation itself is with respect to $q_{\phi}(\z|\x)$ which explicitly depends on $\phi$ and so the gradient $\nabla_{\phi}$ can not be brought inside. That is,
-% \begin{align*}
-%     \nabla_{\phi}\text{ELBO}
-%     &=
-%     \nabla_{\phi}\E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x,\Z))-\log(q_{\phi}(\Z|\x))\r]\\
-%     &\neq
-%     \E_{\Z\sim q_{\phi}(\z|\x)}\l[\nabla_{\phi}(\log(p_{\theta}(\x,\Z))-\log(q_{\phi}(\Z|\x)))\r].
-% \end{align*}
-% So how might we get an unbiased estimate of $\nabla_{\phi}\text{ELBO}$? One might hope that we could switch up the distribution with which the expectation is taken. If the stochasticity of sampling latents in constructing a Monte Carlo estimate was due to something independent of $\phi$ then all good. To make this happen, if one can instead sample latents according to independent random noise $\epsilon\sim\mathcal{N}(0, I)$ through $\Z=g(\epsilon, \phi, \x)$ then we have
-% \begin{align*}
-%     \nabla_{\phi}\text{ELBO}
-%     &=
-%     \nabla_{\phi}\E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x,\Z))-\log(q_{\phi}(\Z|\x))\r]\\
-%     &=
-%     \nabla_{\phi}\E_{p(\epsilon)}\l[\log(p_{\theta}(\x,\Z))-\log(q_{\phi}(\Z|\x))\r]\\
-%     &=
-%     \E_{p(\epsilon)}\l[\nabla_{\phi}(\log(p_{\theta}(\x,\Z))-\log(q_{\phi}(\Z|\x)))\r]\\
-%     &\approx
-%     \frac{1}{k}\sum_{i=1}^k\nabla_{\phi}(\log(p_{\theta}(\x,\z_i))-\log(q_{\phi}(\z_i|\x)))
-% \end{align*}
-% where $\z_i=g(\epsilon_i, \phi,\x)$ and $\epsilon_1,\dots,\epsilon_k\sim p(\epsilon)$ (ignore the abuse of notation).
+Estimating $\nabla_{\phi}\text{ELBO}$, however, is tricky. The expectation itself is with respect to $q_{\phi}(\z|\x)$ which explicitly depends on $\phi$ and so the gradient $\nabla_{\phi}$ can not be brought inside. That is,
+$$
+\nabla_{\phi}\E_{\Z\sim q_{\phi}(\z|\x)}[f(\Z)]
+\neq
+\E_{\Z\sim q_{\phi}(\z|\x)}[\nabla_{\phi}f(\Z)].
+$$
+Before we proceed by describing the reparameterisation trick, it's worth noting that tehre is a closed form for $\nabla_{\phi}\E_{\Z\sim q_{\phi}(\z|\x)}[f(\Z)]$ referred to as the score function estimator given by
+$$
+\nabla_{\phi}\E_{\Z\sim q_{\phi}(\z|\x)}[f(\Z)]
+=
+\E_{q_{\phi}(\z|\x)}[f(\Z)\nabla_{\phi}\log\l(q_{\phi}(\Z|\x)\r)]
+$$
+which can be MC-estimated. The reason that this estimator is not used is its variance being very high. A lot of research has been made into reducing the variance of the estimator but, ultimately, the estimate used in practice makes use of the reparameterisation trick.
+
+Suppose instead that you MC-estimated $\nabla_{\phi}\E_{\Z\sim q_{\phi}(\z|\x)}[f(\Z)]$. The issue here is that you would then have to compute the gradient through the process that yielded the samples $\z_1,\dots,\z_k$ contributing to your estimate. For example, if
+$$
+\z_i
+=
+F_{\phi}^{-1}(u_i)
+$$
+where $u_1,\dots,u_k$ are i.i.d. samples from $U(0,1)$ then the process by which our latents are obtained is not deterministic but explicitly depends on $\phi$. How then does one backpropagate through this process? Auto-differentation isn't a fan. The idea of the reparameterisation trick is very natural: entirely separate the stochasticity obtaining said samples from the parameters $\phi$. This can be done by taking $\Z|\x=g(\epsilon; \phi, \x)$ for invertible $g$ in which $\epsilon\sim\mathcal{N}(0, I)$ is the only stochastic component of sampling. With such a function $Z=g(\epsilon;\phi,\x)$ we have (via the law of the unconscious statistician)
+\begin{align*}
+    \nabla_{\phi}\E_{\Z\sim q_{\phi}(\z|\x)}[f(\Z)]
+    &=
+    \nabla_{\phi}\E_{p(\epsilon)}[f(\Z)]\\
+    &=
+    \E_{p(\epsilon)}[\nabla_{\phi}f(\Z)]
+\end{align*}
+and so relevant estimate is given by
+\begin{align*}
+    \nabla_{\phi}\text{ELBO}
+    &=
+    \nabla_{\phi}\E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x|\Z))+\log(p_{\theta}(\Z))-\log(q_{\phi}(\Z|\x))\r]\\
+    &=
+    \nabla_{\phi}\E_{p(\epsilon)}\l[\log(p_{\theta}(\x|\Z))+\log(p_{\theta}(\Z))-\log(q_{\phi}(\Z|\x))\r]\\
+    &=
+    \E_{p(\epsilon)}\l[\nabla_{\phi}\l(\log(p_{\theta}(\x|\Z))+\log(p_{\theta}(\Z))-\log(q_{\phi}(\Z|\x))\r)\r]\\
+    &\approx
+    \frac{1}{k}\sum_{i=1}^k\nabla_{\phi}\l(\log(p_{\theta}(\x|\z_i))+\log(p_{\theta}(\z_i))-\log(q_{\phi}(\z_i|\x))\r)
+\end{align*}
+where $\z_i=g(\epsilon_i;\phi,\x)$ and $\epsilon_1,\dots,\epsilon_k\sim\mathcal{N}(\epsilon;0,I_d)$. Ignore my abuse of notation of conflating the random variable $\epsilon\sim\mathcal{N}(0,I_d)$ with corresponding samples. This estimator is unbiased and all that good stuff. For an illustration of how the reparameterisation helps alleviate the earlier issue with backpropagation, consider \autoref{fig:reparameterisation_trick}.
+
+An explicit example of such a reparameterisation is when the posterior is a facorised Gaussian. That is, $q_{\phi}(\z|\x)=\mathcal{N}(\z;\mu_{\phi}(\x), \text{diag}(\sigma_{\phi}^2(\x)))$. In this case, take $g(\epsilon;\phi,\x)=\mu_{\phi}(\x)+\sigma_{\phi}(\x)\odot\epsilon$ where $\epsilon\sim\mathcal{N}(\epsilon;0,I_d)$ and $\odot$ denotes element-wise multiplication. Typically, the prior $p_{\theta}(\z)$ and the likelihood $p_{\theta}(\x|\z)$ are also taken such that their logarithm is nice to compute and backproppable.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\textwidth]{./figures/generative_models/diffusion_process.pdf}
+    \caption{Backpropagation before and after applying the reparameterisation trick.}
+    \label{fig:reparameterisation_trick}
+\end{figure}
+
+\begin{tcolorbox}[title={\centering\textbf{Computing} $\log(q_{\phi}(\z|\x))$}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    Though nice distributions are often attributed to the posterior, it's worth noting that there's a convenient manner of computing $\log(q_{\phi}(\z|\x))$ which relies on the invertibility of $g(\epsilon;\phi,\x)$. Note that
+    \begin{align*}
+        \log(q_{\phi}(\z|\x))
+        &=
+        \log\l(p(\epsilon)\l|\det\l(\frac{\partial \z}{\partial\epsilon}\r)\r|^{-1}\r)\\
+        &=
+        \log(p(\epsilon))-\log\l(\l|\det\l(
+        \begin{bmatrix}
+            \frac{\partial z_1}{\partial\epsilon_1} & \cdots & \frac{\partial z_1}{\partial\epsilon_d}\\
+            \vdots & \ddots & \vdots\\
+            \frac{\partial z_d}{\partial\epsilon_1} & \cdots & \frac{\partial z_d}{\partial\epsilon_d}
+        \end{bmatrix}
+        \r)\r|\r)
+    \end{align*}
+    where $\epsilon=(\epsilon_1,\dots,\epsilon_d)$. This ``speed-up'' is particularly useful for complicated-looking choices of the posterior.
+\end{tcolorbox}
 
 \subsubsection{Blurry reconstructions}
 Blur is often observed in reconstructions via the decoder of VAEs. Its presence can be motivated by noting that the maximisation of the ELBO is equivalent to the minimisation of
