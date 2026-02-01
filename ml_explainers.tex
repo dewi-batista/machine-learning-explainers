@@ -466,10 +466,10 @@ I find decision trees and random forests so boring that I'm not going to write a
     \label{fig:random_forest}
 \end{figure}
 
-Despite my disinterest in them, learning about decision trees encourages you to understand entropy which is good. There are other topics which encourage the same thing though, e.g. Variational Autoencoders, through the use of KL-divergences. Also, random forests are a nice introduction to ensemble methods which nicely demonstrate how to prevent overfitting by reducing variance — directly illustrating the importance of the bias-variance tradeoff! Oh, and bootstrapping. One day I'll write this subsection properly.
+Despite my disinterest in them, learning about decision trees encourages you to understand entropy which is good. There are other topics which encourage the same thing though, e.g. Variational Autoencoders, through the use of KL-divergences. Also, random forests are a nice introduction to ensemble methods which nicely demonstrate how to prevent overfitting by reducing variance — directly illustrating the importance of the bias-variance tradeoff! Oh, and bootstrapping. One day I'll do them justice and write this subsection properly.
 
 \begin{tcolorbox}[title={\centering\textbf{Logistic regression $>$ SVM/RF when?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    This is a pretty natural question once shown more sophisticated methods which deal with linearly separable and non-linearly separable data. The largest benefit of logistic regression is that it allows for statistical significance tests on parameters. It also helps that its implementation and interpretation are straightforward.
+    This is a pretty natural question once shown more sophisticated methods which deal with linearly separable and non-linearly separable data. A significant benefit of logistic regression is that it allows for statistical significance tests on parameters. It also helps that its implementation and interpretation are straightforward.
 \end{tcolorbox}
 
 % the bias-variance tradeoff
@@ -1495,13 +1495,7 @@ Pooling operations reduce the spatial dimensions of a given feature map by apply
 
 % recurrent neural networks
 \subsection{\TODO Recurrent Neural Networks (RNNs)}
-Mention Schmidhuber.
-
-% \subsubsection{Long Short-Term Memory (LSTMs)}
-
-% \subsubsection{Gated Recurrent Units (GRUs)}
-
-% \subsubsection{Limitations/hard bottlenecks}
+Schmidhuber!
 
 % transformer models
 \subsection{\NEXT Transformers}
@@ -1537,9 +1531,10 @@ or splitting up an image as in \autoref{fig:image-tokenisation}. To play around 
 
 \begin{figure}[t]
     \centering
-    % \includegraphics[height=6.825cm, keepaspectratio]{./figures/neural_nets/augusto.png}
-    % \includegraphics[height=7cm, keepaspectratio]{./figures/neural_nets/augusto-patchified.pdf}
-    \caption{The tokenisation (or patchification) of Augusto.}
+    \includegraphics[height=7cm, keepaspectratio]{./figures/neural_nets/augusto.jpg}
+    \hfill
+    \includegraphics[height=7cm, keepaspectratio]{./figures/neural_nets/augusto-tokenised.png}
+    \caption{The tokenisation (or patchification) of a sleeping Augusto.}
     \label{fig:image-tokenisation}
 \end{figure}
 
@@ -1665,8 +1660,8 @@ Skip connections help. Architectures which use them are sometimes called residua
 \end{itemize}
 It's worth mentioning that said vanishing behaviour can be observed during forward passes too.
 
-% generative models (any other section name i've come up with has been due to overthinking)
-\section{Generative Modelling}
+% (deep) generative models (all other section names i've come up with were overthought)
+\section{Deep Generative Modelling}
 Broadly speaking, a generative model seeks to offer ways to reason about the data-generative process to which it corresponds. Reasoning here could mean simulating the data-generative process (sampling) or answering questions pertaining to the frequency of certain events. The simplest example of a generative model I can think of with respect to this broad definition is a histogram: a distribution of the frequencies of events, as in \autoref{fig:histogram}. A histogram allows one to see which event is most frequent, the portion of events which satistfy some condition (e.g. exceeding some quantitative threshold) or to simulate the data-generative process. So how do we go from generative models to generative probabilistic models? Well, where frequency-based reasoning goes, probabilistic reasoning follows!
 
 \begin{figure}[t]
@@ -1960,13 +1955,13 @@ $$
 =
 F_{\phi}^{-1}(u_i)
 $$
-where $u_1,\dots,u_k$ are i.i.d. samples from $U(0,1)$ then the process by which our latents are obtained is not deterministic but explicitly depends on $\phi$. How then does one backpropagate through this process? Auto-differentation isn't a fan. The idea of the reparameterisation trick is very natural: entirely separate the stochasticity obtaining said samples from the parameters $\phi$. This can be done by taking $\Z|\x=g(\epsilon; \phi, \x)$ for invertible $g$ in which $\epsilon\sim\mathcal{N}(0, I)$ is the only stochastic component of sampling. With such a function $Z=g(\epsilon;\phi,\x)$ we have (via the law of the unconscious statistician)
+where $u_1,\dots,u_k\sim\text{Unif}(u;0,1)$ then the process by which our latents are obtained is not deterministic but explicitly depends on $\phi$. How then does one backpropagate through this process? Auto-differentation isn't a fan. The idea of the reparameterisation trick is very natural: entirely separate the stochasticity obtaining said samples from the parameters $\phi$. This can be done by taking $\Z|\x=g(\bm{\epsilon}; \phi, \x)$ for invertible $g$ in which $\bm{\epsilon}\sim\mathcal{N}(0, I_d)$ is the only stochastic component of sampling. With such a function $\Z=g(\bm{\epsilon};\phi,\x)$ we have (via the law of the unconscious statistician)
 \begin{align*}
     \nabla_{\phi}\E_{\Z\sim q_{\phi}(\z|\x)}[f(\Z)]
     &=
-    \nabla_{\phi}\E_{p(\epsilon)}[f(\Z)]\\
+    \nabla_{\phi}\E_{p(\bm{\epsilon})}[f(\Z)]\\
     &=
-    \E_{p(\epsilon)}[\nabla_{\phi}f(\Z)]
+    \E_{p(\bm{\epsilon})}[\nabla_{\phi}f(\Z)]
 \end{align*}
 and so relevant estimate is given by
 \begin{align*}
@@ -1974,31 +1969,33 @@ and so relevant estimate is given by
     &=
     \nabla_{\phi}\E_{\Z\sim q_{\phi}(\z|\x)}\l[\log(p_{\theta}(\x|\Z))+\log(p_{\theta}(\Z))-\log(q_{\phi}(\Z|\x))\r]\\
     &=
-    \nabla_{\phi}\E_{p(\epsilon)}\l[\log(p_{\theta}(\x|\Z))+\log(p_{\theta}(\Z))-\log(q_{\phi}(\Z|\x))\r]\\
+    \nabla_{\phi}\E_{p(\bm{\epsilon})}\l[\log(p_{\theta}(\x|\Z))+\log(p_{\theta}(\Z))-\log(q_{\phi}(\Z|\x))\r]\\
     &=
-    \E_{p(\epsilon)}\l[\nabla_{\phi}\l(\log(p_{\theta}(\x|\Z))+\log(p_{\theta}(\Z))-\log(q_{\phi}(\Z|\x))\r)\r]\\
+    \E_{p(\bm{\epsilon})}\l[\nabla_{\phi}\l(\log(p_{\theta}(\x|\Z))+\log(p_{\theta}(\Z))-\log(q_{\phi}(\Z|\x))\r)\r]\\
     &\approx
     \frac{1}{k}\sum_{i=1}^k\nabla_{\phi}\l(\log(p_{\theta}(\x|\z_i))+\log(p_{\theta}(\z_i))-\log(q_{\phi}(\z_i|\x))\r)
 \end{align*}
-where $\z_i=g(\epsilon_i;\phi,\x)$ and $\epsilon_1,\dots,\epsilon_k\sim\mathcal{N}(\epsilon;0,I_d)$. Ignore my abuse of notation of conflating the random variable $\epsilon\sim\mathcal{N}(0,I_d)$ with corresponding samples. This estimator is unbiased and all that good stuff. For an illustration of how the reparameterisation helps alleviate the earlier issue with backpropagation, consider \autoref{fig:reparameterisation_trick}.
+where $\z_i=g(\bm{\epsilon}_i;\phi,\x)$ and $\bm{\epsilon}_1,\dots,\bm{\epsilon}_k\sim\mathcal{N}(\bm{\epsilon};0,I_d)$. Ignore my abuse of notation of conflating the random variable $\bm{\epsilon}\sim\mathcal{N}(0,I_d)$ with corresponding samples. This estimator is unbiased and all that good stuff. For an illustration of how the reparameterisation helps alleviate the earlier issue with backpropagation, consider \autoref{fig:reparameterisation_trick}.
 
-An explicit example of such a reparameterisation is when the posterior is a facorised Gaussian. That is, $q_{\phi}(\z|\x)=\mathcal{N}(\z;\mu_{\phi}(\x), \text{diag}(\sigma_{\phi}^2(\x)))$. In this case, take $g(\epsilon;\phi,\x)=\mu_{\phi}(\x)+\sigma_{\phi}(\x)\odot\epsilon$ where $\epsilon\sim\mathcal{N}(\epsilon;0,I_d)$ and $\odot$ denotes element-wise multiplication. Typically, the prior $p_{\theta}(\z)$ and the likelihood $p_{\theta}(\x|\z)$ are also taken such that their logarithm is nice to compute and backproppable.
+An explicit example of such a reparameterisation is when the posterior is a facorised Gaussian. That is, $q_{\phi}(\z|\x)=\mathcal{N}(\z;\mu_{\phi}(\x), \text{diag}(\sigma_{\phi}^2(\x)))$. In this case, take $g(\bm{\epsilon};\phi,\x)=\mu_{\phi}(\x)+\sigma_{\phi}(\x)\odot\bm{\epsilon}$ where $\bm{\epsilon}\sim\mathcal{N}(\bm{\epsilon};0,I_d)$ and $\odot$ denotes element-wise multiplication. Typically, the prior $p_{\theta}(\z)$ and the likelihood $p_{\theta}(\x|\z)$ are also taken such that their logarithm is nice to compute and backproppable.
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\textwidth]{./figures/generative_models/diffusion_process.pdf}
-    \caption{Backpropagation before and after applying the reparameterisation trick.}
+    \includegraphics[width=0.49\columnwidth,height=4cm,keepaspectratio]{./figures/generative_models/reparameterisation.pdf}
+    \hfill
+    \includegraphics[width=0.49\columnwidth,height=4cm,keepaspectratio]{./figures/generative_models/reparameterisation-backprop.pdf}
+    \caption{Backpropagation before and after applying the reparameterisation trick. Deterministic nods in blue and stochastic nodes in red.}
     \label{fig:reparameterisation_trick}
 \end{figure}
 
 \begin{tcolorbox}[title={\centering\textbf{Computing} $\log(q_{\phi}(\z|\x))$}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Though nice distributions are often attributed to the posterior, it's worth noting that there's a convenient manner of computing $\log(q_{\phi}(\z|\x))$ which relies on the invertibility of $g(\epsilon;\phi,\x)$. Note that
+    Though nice distributions are often attributed to the posterior, it's worth noting that there's a convenient manner of computing $\log(q_{\phi}(\z|\x))$ which relies on the invertibility of $\Z=g(\bm{\epsilon};\phi,\x)$. Note that
     \begin{align*}
         \log(q_{\phi}(\z|\x))
         &=
-        \log\l(p(\epsilon)\l|\det\l(\frac{\partial \z}{\partial\epsilon}\r)\r|^{-1}\r)\\
+        \log\l(p(\bm{\epsilon})\l|\det\l(\frac{\partial \z}{\partial\bm{\epsilon}}\r)\r|^{-1}\r)\\
         &=
-        \log(p(\epsilon))-\log\l(\l|\det\l(
+        \log(p(\bm{\epsilon}))-\log\l(\l|\det\l(
         \begin{bmatrix}
             \frac{\partial z_1}{\partial\epsilon_1} & \cdots & \frac{\partial z_1}{\partial\epsilon_d}\\
             \vdots & \ddots & \vdots\\
@@ -2006,7 +2003,7 @@ An explicit example of such a reparameterisation is when the posterior is a faco
         \end{bmatrix}
         \r)\r|\r)
     \end{align*}
-    where $\epsilon=(\epsilon_1,\dots,\epsilon_d)$. This ``speed-up'' is particularly useful for complicated-looking choices of the posterior.
+    where $\bm{\epsilon}=(\epsilon_1,\dots,\epsilon_d)$. This choice is particularly useful for complicated-looking choices of the posterior.
 \end{tcolorbox}
 
 \subsubsection{Blurry reconstructions}
@@ -2112,16 +2109,11 @@ Despite not being the choice of denoiser made in the seminal paper introducing d
 
 In the context of denoising, the contraction branch takes a noised image as input and iteratively completes a series of convolution operations followed by max pooling until reaching the bottleneck layer. At the bottleneck, the model has heavily reduced the spatial dimension of the input image while extracting varying levels of feature abstractions. For example, after the first iteration of convolution and max pooling, the spatial dimension of the input image may be reduced from $1024\times1024$ to $512\times512$ but edges and textures within the original image may be encoded in the feature maps at this stage. Then, during expansion, the model looks to upscale from the bottleneck in a way that retains the underlying image while removing noise. This is done by iteratively completing a series of deconvolutions, which correspond to upscaling, and using skip connections from its corresponding component in the contraction branch, seen in \autoref{fig:u_net_arch}, in order to retain the underlying image. With this in mind, it is clear why U-Net has been the go to choice of denoiser when developing a diffusion model.
 
-\subsubsection{\NEXT Quirks of diffusion models}
-\begin{itemize}
-    \item[--] \dots
-\end{itemize}
-
 % model evaluation
 \subsection{\TODO Evaluating Generative Models}
-Since samples are not labeled, how does one evaluate a generative model? What does under/overfitting mean for generative models?
+Since generated samples are not labeled, how does one evaluate generative models? % What does under/overfitting mean for generative models?
 
-\textcolor{red}{Future note: A nice method for diffusion models (and beyond) is to take a sample at inference, embed it then compute the $k$ nearest neighbours in said embedding space. Then, by eye, compare the inference sample against its nearest neighbours to see if it's simply reproducing training samples.}
+% \textcolor{red}{Future note: A nice method for diffusion models (and beyond) is to take a sample at inference, embed it then compute the $k$ nearest neighbours in said embedding space. Then, by eye, compare the inference sample against its nearest neighbours to see if it's simply reproducing training samples.}
 
 % appendices
 \newpage
