@@ -1,11 +1,12 @@
-% TODO:
-% Unsupervised Learning (motivation + connection to generative modelling)
-%   PCA
-%   k-means clustering
-%   Isomap: https://en.wikipedia.org/wiki/Isomap
-%   t-SNE
-%   Autoencoders (already written)
-%   Evaluating Unsupervised Learning Models
+% 1. Write unsupervised learning section:
+%  PCA
+%  k-means clustering
+%  Isomap: https://en.wikipedia.org/wiki/Isomap
+%  t-SNE
+%  Autoencoders (already written)
+%  Evaluating Unsupervised Learning Models
+
+% 2. Include Hopfield networks and Boltzmann machines in generative models section
 
 \documentclass[11pt]{article}
 \input{header}
@@ -46,12 +47,12 @@
 
 % intro
 \section{What is Machine Learning?}
-I think of machine learning as the broad discipline of studying methods of fitting models to data — like statistics, as a discipline, with less rigour but more fun. For a description of machine learning which helps to clarify why it's difficult to define as a term, consider the following excerpt from Herbert Jaeger's lecture notes for his machine learning course at the University of Groningen during the academic year 2023/24:
+I think of machine learning as the broad discipline of studying methods of fitting models to data — like statistics, as a discipline, with less rigour but more creative ideas. For a description of machine learning which helps to clarify why it's difficult to define as a term, consider the following excerpt from Herbert Jaeger's lecture notes for his machine learning course at the University of Groningen during the academic year 2023/24:
 \begin{quotation}
     ML as a ﬁeld, which perceives itself as a ﬁeld under this name, is relatively young, say, about 40 years (related research was called “pattern recognition” earlier). It is interdisciplinary and has historical and methodological connections to neuroscience, cognitive science, linguistics, mathematical statistics, AI, signal processing and control; it uses mathematical methods from statistics (of course), information theory, signal processing and control, dynamical systems theory, mathematical logic and numerical mathematics; and it has a very wide span of applications. This diversity in traditions, methods and applications makes it diﬃcult to study ``Machine Learning". Any given textbook, even if it is very thick, will reﬂect the author's individual view and knowledge of the ﬁeld and will be partially blind to other perspectives. This is quite diﬀerent from other areas in computer science, say for example formal languages/theory of computation/computational complexity where a widely shared repertoire of standard themes and methods cleanly deﬁne the ﬁeld.
 \end{quotation}
 
-My interests in machine learning lie in its rapid development since the era of deep learning began in 2012 and the mysteries of why its methods are so effective. At their core, many methods in machine learning are statistically-principled, corresponding to maximum likelihood estimation. The fact that something as simple as maximum likelihood estimation can be used to fit very complex distributions to at least a small extent isn't too surprising. What fascinates me is the notable extent to which it does so in practice. It performs so well that we are able to produce models which take natural language as input and output entirely realistic corresponding images/videos. What right does maximum likelihood estimation have to facilitate such effective fitting of complex distributions in practice? Why are deep learning architectures able to encode such rich function classes? We only have partial answers to the many natural questions like these and so our understanding is far from complete. What an interesting time to be alive. :)
+My interests in machine learning lie in its rapid development since the era of deep learning began in 2012 and the mysteries of why its methods are so effective. At their core, many methods in machine learning are statistically-principled, relying on maximum likelihood estimation. The fact that something as simple as maximum likelihood estimation can be used to fit very complex distributions to at least a small extent isn't too surprising. What fascinates me is the notable extent to which it does so in practice. It performs so well that we are able to produce models which take natural language as input and output entirely realistic corresponding images/videos. What right does maximum likelihood estimation have to facilitate such effective fitting of complex distributions in practice? Why are deep learning architectures able to encode such rich function classes? We only have partial answers to the many natural questions like these and so our understanding is far from complete. What an interesting time to be alive. :)
 
 % supervised learning
 \section{Supervised Learning}
@@ -963,10 +964,10 @@ $$
 $$
 where $\eta_i^{(t)}=\frac{\eta}{\sqrt{G_i^{(t)}}+\epsilon}$ is the $i^{\text{th}}$ parameter's learning rate at step $t$. There are more elaborate adaptive learning rate methods than this, e.g. RMSProp and Adam, but AdaGrad conveys the idea sufficiently well.
 
-\subsubsection{Warmup and cosine decay}
+\subsubsection{Warmup + decay}
 \dots
 
-\subsubsection{Gradient accumulation and clipping}
+\subsubsection{Gradient accumulation + clipping}
 \dots
 
 % hyperparam tuning
@@ -987,7 +988,7 @@ Suppose research groups A and B independently publish results on nearly identica
 In both cases, the test error becomes a biased (optimistic) estimate of generalisation. If this process repeats across the community, the field as a whole is implicitly tuning to the test set. This phenomenon is called benchmark overfitting, and it underlines the need for practices like shuffling data in the pipeline and, more importantly, evolving benchmarks over time.
 
 % neural nets
-\section{Neural Networks}
+\section{Neural Network Architectures}
 It's often the case that someone's intended meaning when stating `neural networks' is more precisely multi-layer perceptrons (MLPs), perhaps the simplest class of neural networks beyond single-layer perceptrons. Rigorously formulating MLPs is one of those things that's useful to do at least once; consistent notation is 90\% of the effort.
 
 % neural networks
@@ -1269,13 +1270,281 @@ The $2-$probability simpelx coloured according to argmax is illustrated in \auto
 \end{figure}
 From the figure, it is clear how argmax can be computed by splitting the $2$-probability simplex via two planes, e.g. the intersection of $x>y$ and $x>z$ on the simplex yield the red region. As such, neural nets used for classification can be seen as performing regression on the $2-$probability simplex.
 
+% convolutional neural networks
+\subsection{Convolutional Neural Networks (CNNs)}
+\label{subsec:conv_neural_networks}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=1\textwidth]{./figures/neural_nets/CNN_frog.pdf}
+    \caption{A binary classification CNN processing an image of a frog.}
+    \label{fig:CNN_frog}
+\end{figure}
+
+Convolutional neural networks (CNNs) were initially designed to process image and, by extension, video data. Over time, they have been applied to processing far richer forms of data. A forward pass through a CNN designed for image processing is illustrated in \autoref{fig:CNN_frog}, in which we see that their architecture can be described on a high level as consisting of two parts. The first part performs feature extraction through convolution and pooling operations. The second part employs an MLP to produce the overall model's output given the earlier-extracted features, e.g. the probability that an input image is of a given class.
+
+Before deep learning architectures became mainstream, researchers used handcrafted features (SIFT, HOG, SURF, etc.) for feature extraction and fed extracted features to a given model, e.g. an SVM for classification. That is, feature extraction wasn't learned, nor was it entwined with the inference component of their models. For image processing tasks, humans turn out to be far worse than deep learning architectures at knowing which features are most informative of what is being predicted. Hence, CNNs are now the go-to architecture for image and video processing. There's something to be said here about vision transformers and the extent to which they are competitive with CNNs but this can wait. Relevant interactive visualisation: \href{https://adamharley.com/nn_vis/cnn/3d.html}{\texttt{adamharley.com/nn\_vis/cnn/3d.html}}.
+
+\subsubsection{Convolutions}
+Convolution operations involve using a (typically square) matrix to, in some sense, summarise the information embedded in parts of the object over which it traverses. This matrix is referred to as a filter or a kernel — I prefer using filter as the term kernel has so many meanings elsewhere in maths. You can think of convolution operations as a sort of dot product between the given filter and the grid of pixel values over which lies during its traversal. For a simple illustration of this idea, consider \autoref{fig:convolution_operation}. Since CNNs consists of multiple convolution layers, the output of a convolution layer is often referred to as a feature map.
+
+\begin{figure}[t]
+    \centering
+    \begin{minipage}{0.63\linewidth}
+        \includegraphics[width=\textwidth]{./figures/neural_nets/CNN_convolution.pdf}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.35\linewidth}
+        \caption{Convolution with a vertical edge detection filter with 0 bias.}
+        \label{fig:convolution_operation}
+    \end{minipage}
+\end{figure}
+
+More formally, given a feature map $I\in\mathbb{R}^{C\times W\times H}$ and a filter $K\in\mathbb{R}^{C\times k\times k}$ with $k<W$ and $k<H$, the feature map $F=K*I\in\mathbb{R}^{W'\times H'}$ is the convolution of $K$ over $I$ is as in
+$$
+F_{i,j}
+=
+\sum_{c=1}^C\sum_{x=1}^{k}\sum_{y=1}^{k}K_{c,x,y}\cdot I_{c,x+i,y+j}+b_c
+$$
+where $b_c$ is the filter's bias in channel $c$. Nowadays, $k=3$ is a very popular choice. Note that this notation is intended to illustrate what a convolution looks like algebraically. As it stands, what's written above does not account for padding, stride, etc.
+
+Generally, earlier filters in a CNN architecture extract lower-level features, like edges and textures, while later convolutions extract higher-level features like entire components of object, e.g. wheels. This is illustrated in \autoref{fig:filter_levels}.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\textwidth]{./figures/neural_nets/CNN_feature_levels.pdf}
+    \caption{The level of abstraction of a CNN's learned filters. Earlier layers pertain to low-level features like edges or textures. Later layers pertain to higher-level features like faces or wheels.}
+    \label{fig:filter_levels}
+\end{figure}
+
+\subsubsection*{Post-convolution spatial dimensions}
+Given a feature map $F\in\mathbb{R}^{W\times H}$, suppose we compute the convolution $O\in\mathbb{R}^{W'\times H'}$ of the filter $K\in\mathbb{R}^{k\times k}$ over $F$ with uniform padding $P$ and stride $S$. The precise dimensions $W'$ and $H'$ of the new feature map $O$ are given by
+$$
+W'
+=
+\l\lfloor\frac{W+2P-k}{S}\right\rfloor+1
+$$
+and
+$$
+H'
+=
+\l\lfloor\frac{H+2P-k}{S}\right\rfloor+1.
+$$
+It's not too tricky to derive these. It's the kinda thing you do once and never again.
+
+\subsubsection{Pooling}
+Pooling operations reduce the spatial dimensions of a given feature map by applying relatively straightforward transformations: max pooling, min pooling, mean pooling, etc. There's not much point to expressing them rigorously. Instead, consider \autoref{fig:pooling}. Benefits of pooling are improved translation-invariance and reduced required compute.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{./figures/neural_nets/CNN_pooling.pdf}
+    \caption{Common flavours of pooling.}
+    \label{fig:pooling}
+\end{figure}
+
+\begin{tcolorbox}[title={\centering\textbf{Why use a CNN over an MLP?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    Massively improved parameter-efficiency, translation invariance and learning efficiency\footnote{\href{https://ai.stackexchange.com/questions/27407/what-does-statistical-efficiency-mean-in-this-context}{\texttt{ai.stackexchange.com/questions/27407}}} (fewer samples needed to learn distributions to similar degrees of precision). These are in part due to the inductive bias present of their architecture.
+\end{tcolorbox}
+
+% recurrent neural networks
+\subsection{\TODO Recurrent Neural Networks (RNNs)}
+Schmidhuber!
+
+% transformer models
+\subsection{\NEXT Transformers}
+Transformers are a relatively modern architecture but their applications are already broad. They're now found in language models (e.g. GPTs), image models (vision transformers), denoising models (diffusion) and so on. They offer many advantages over earlier competing architectures, e.g. RNNs, due to not being bottlenecked by input sequence length.
+
+The journey of a given input sequence through a transformer looks something like
+$$
+\texttt{tokenise}
+\rightarrow
+\texttt{embed}
+\rightarrow
+\texttt{encode position}
+\rightarrow
+\texttt{trf blocks}
+\rightarrow
+\texttt{output proj}
+$$
+as illustrated in \autoref{fig:transformer-architecture}. Each step is detailed in this subsection.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{./figures/neural_nets/transformer.pdf}
+    \caption{A decoder-only language transformer consisting of $N$ transformer blocks.}
+    \label{fig:transformer-architecture}
+\end{figure}
+
+\subsubsection{Tokenisation}
+Tokens can be thought of as the units of information of a data structure, e.g. sequences of text. The tokenisation of a sequence is simply the process of slicing it up into its token make-up. Think of splitting the sentence `The chef cooked a meal for the critic.' according to the following colouring (or tokenisation)
+$$
+\colorbox{purple}{The}\colorbox{green}{chef}\colorbox{brown}{cooked}\colorbox{red}{a}\colorbox{teal}{meal}\colorbox{blue}{for}\colorbox{yellow}{his}\colorbox{orange}{critic}\colorbox{pink}{.}
+$$
+or splitting up an image as in \autoref{fig:image-tokenisation}. To play around with one of OpenAI's text tokenisers, consider \url{platform.openai.com/tokenizer}.
+
+The purpose of tokenisation is self-explanatory: we'd like an idea of dependence between different parts of the input as to aid our output prediction. As such, being able to break a sequence into chunks, as opposed to processing it in its entirety, is desirable.  Notationally, let $V$ denote the set of all tokens in our model's vocabulary and $T:\Sigma^*\to \{1,\dots,|V|\}^*$ the tokenisation function where $S^*$ is the set of all finite strings whose characters are in $S$.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[height=7cm, keepaspectratio]{./figures/neural_nets/augusto.jpg}
+    \hfill
+    \includegraphics[height=7cm, keepaspectratio]{./figures/neural_nets/augusto-tokenised.png}
+    \caption{The tokenisation (or patchification) of a sleeping Augusto.}
+    \label{fig:image-tokenisation}
+\end{figure}
+
+For text data, the tokeniser $T$ is often learned according to byte pair encoding (BPE). Roughly put, start with a vocabulary $V$ consisting of the first 256 UTF-8 encoding characters. Then, until the vocabulary size reaches some threshold, say $50,000$, repeat the following for $i=0,\dots,V_{\text{max}}-1$:
+\begin{enumerate}
+    \item Tokenise the text according to the tokeniser
+    \item Compute the most frequent token pair in the corpus and append it to the tokensier with index $256+i$.
+\end{enumerate}
+The result is an ordered list of merge rules. For example, the most frequent character pair in English text 
+
+\subsubsection{Embedding}
+A linear embedding map $L_E:\{e_1,\dots,e_{|V|}\}\to\mathbb{R}^d$, where $d\in\mathbb{N}$ is the embedding dimension and $e_i$ denotes the $i^{\text{th}}$ standard basis vector, offers high dimensional numeric representations of tokens belonging to the vocabulary $V$. What makes token embedding functions interesting is how well they capture underlying semantics, e.g. of natural language. Such an embedding map learned on pieces of text, like Word2Vec, might satisfy
+$$
+L_E(\text{``Germany"})+L_E(\text{``fascist"})-L_E(\text{``Mussolini"})
+\approx
+L_E(\text{``Hitler"})
+$$
+or
+$$
+L_E(\text{``Wales"})+L_E(\text{``Cardiff"})-L_E(\text{``Italy"})
+\approx
+L_E(\text{``Rome"})
+$$
+where ``word'' denotes the basis vector corresponding to the word according to some indexing over the vocabulary, e.g. perhaps $|V|=50,000$ and ``Germany''$=e_{35,629}$. The prupose of taking the domain of $L_E$ to be this set of standard basis vectors is that then it can be seen as a look-up table of the rows of $E\in\R^{d\times|V|}$.
+
+So how is the embedding matrix $E\in\R^{d\times |V|}$ learned? In the context of embedding maps like Word2Vec, where the embedding map is learned in isolation (not in conjunction with a larger architecture), it is learned by repeatedly sampling a center word from the dataset (a large corpus of text in our example), a context word which lies near the center word in the text and $l$ negative-context words which do not lie near the center word. The loss function used to learn the parameters (the elements of our linear embedding map) intends to reward the alignment of the context word and the center word while punishing the alignment of the center word and the $l$ negative-context words. In maths notation, the loss looks something like
+$$
+-\sigma(w_{\text{cent}}, w_{\text{cont}}) + \sum_{i=1}^l\sigma\l(w_{\text{cent}}, w_{\text{neg}}^{(i)}\r)
+$$
+where $\sigma$ denotes the sigmoid function.
+
+Embedding maps are less interesting when learned in conjunction with a larger architecture, e.g. GPT architectures, as they are learned according to backpropagation like any other parameter. If the loss is not such that alignments of token embeddings in $\R^d$ mean anything, some of the nice properties discussed earlier are less likely to be observed.
+
+\subsubsection{\NEXT Positional encoding}
+The position of tokens in a given sequence of words is critical to understanding the intended meaning of the sequence. For example, the highlighted sequence above regarding the chef and the critic is distinct from
+$$
+\colorbox{purple}{The}\colorbox{orange}{critic}\colorbox{brown}{cooked}\colorbox{red}{a}\colorbox{green}{chef}\colorbox{blue}{for}\colorbox{yellow}{his}\colorbox{teal}{meal}\colorbox{pink}{.}
+$$
+In the latter sequence, the intended meaning of \colorbox{brown}{cooked} is akin to `criticised', while in the former it is simply meant to convey that the chef literally cooked. So how do transformers go about accounting for the positions of tokens in given input sequences?\footnote{Great video about this topic: \url{www.youtube.com/watch?v=dWkm4nFikgM}.}
+
+Unlike RNNs, transformers have no inherent notion of the order of tokens in a given input without this additional positional encoding step. That is because the attention and MLP components are, standalone, independent of position. Due to this, sprinkling in position-related information to the embedded input is necessary. I like to think of positional encoding as a sort of prior regarding which tokens are relevant to others. That is, the prior is relevant but contextual information baked into the text itself will override its inclusion if sufficiently relevant. Form a position vector $P_k$ for the $k^{\text{th}}$ token in the input sequence of length $L$. Add $P_k$ to the word embedding $E_k$ for $k=0,\dots,L-1$ to obtain
+$$
+(E_0+P_0,\dots,E_{L-1}+P_{L-1})
+$$
+fed to the model.
+
+Before detailing what was proposed for positional encoding in the paper that made transformers famous, it's worth attending to the validity of arguably natural approaches and the ways in which they fall short:
+\begin{itemize}
+    \item \textbf{Why not simply add the index of the token to its embedding?} For long sequences, the index value of later tokens would overpower the value of the presence of the token itself. In line with this, we'd like the positional encoding to be bounded in magnitude.
+    \item \textbf{Why not add the index divided by the sequence length to ensure getting something in [0,1]?} For sequences of varying length, we'd like the positional information for a given index to be the same. So attributing 0.5 to the third token in a sequence of five would be an issue as it would also be attributed to the 11th token in a sequence of 20.
+    \item \textbf{Why not encode via the binary of the index?} Change in positional encoding should be smooth. We want $||P_{k+1}-P_k||$ to be bounded but for binary encodings it is simply equal to the square root of the number of bit flips: unbounded in $k$.
+\end{itemize}
+To address both issues, the authors of the now famous Attention Is All you Need proposed alternating sinusoids. Sinusoidal positional encoding feels unnatural to me, though it has a nice motivation as a continuous analog of binary encoding. Regardless, far more intuitive methods of positional encoding exist such as learned positional encoding (used by OpenAI for GPT-2) and the now-popular rotary positional embeddings (RoPE).
+
+Learned positional encoding is just as the name suggests: the positional embedding map is learned according to backpropagation like any other parameter. RoPE is bit more involved, relying on the linearity of rotations in $\R^d$.
+
+\subsubsection{Attention}
+Stand at attention!
+
+\subsubsection{MLP component and final block output}
+On top of all detailed so far, transformer blocks consist of an MLP component. The input of said MLP component is the output of the attention component.
+
+\subsubsection{Example: GPT-2 small ($\sim$124M parameters)}
+\dots
+
 % backprop
-\subsection{Backpropagation for MLPs}
-\label{subsec:backprop}
+\subsection{Backpropagation}
+So we have all of these fancy neural network architectures, which can be seen loosely as arbitrary function approximators with powerful inductive biases, but how might one compute their gradient in order to undergo gradient descent? Backpropagation (reverse-mode auto-differentiation) is a method of computing the gradient of a scalar function represented as a computational directed acyclic graph (DAG). The motivation of obtaining gradients in this fashion in deep learning contexts is clear: for finding suitable parameters via gradient descent. It relies heavily on the chain rule of calculus.
 
-Backpropagation is a method of computing the gradient of a loss function pertaining to an MLP (or more generally some neural network) with respect to its weights and biases. Said gradients are used to learn suitable MLP parameters via gradient descent. We'll soon see why it's called backpropagation: it computes the gradients of interest in a way that requires going forwards through the MLP and then backwards. As with formulating MLPs, it's good to rigorously derive backpropagation at least once. It's sort of strange that I haven't done that yet (August 2025 is time of writing) and have just trusted that it holds up.
+The following explanation will distinguish between partial derivatives and total derivatives. The total derivative is intended to account for the dependence arguments of a function may have with respect to a variable while partial derivatives are such that all arguments are taken as constant except for the one with which we are computing the derivative. To illustrate the point, consider the following computational DAG representing the function $L(\theta_1,\theta_2;x_1,x_2,x_3)=\theta_2+x_3+\theta_1x_1x_2$
+\begin{center}
+\begin{tikzpicture}[every node/.style={circle, draw, thick}]
+    \node (v1) at (0,1) {$v_1$};
+    \node (v2) at (0,-1) {$v_2$};
 
-Onto the derivation, which makes use of the notation introduced earlier. Recall that a loss function is of the form
+    \node (v3) at (2,0) {$v_3$};
+
+    \node (v4) at (4,1) {$v_4$};
+    \node (v5) at (4,-1) {$v_5$};
+
+    \draw[->] (v1) -- (v3);
+    \draw[->] (v2) -- (v3);
+
+    \draw[->] (v3) -- (v5);
+    \draw[->] (v4) -- (v5);
+\end{tikzpicture}
+\end{center}
+with $v_1=x_1$, $v_2=x_2$, $v_4=x_3$, $v_3=\theta_1v_1v_2$ and $v_5=\theta_2+v_3+v_4$. In this representation, each node is a primitive function of its parents and the parameters. As such, we have $\frac{\partial v_5}{\partial \theta_1}=0$ but $\frac{dv_5}{d\theta_1}=v_1v_2$. This distinction between partial and total derivatives is important for our formulation of reverse-mode auto-differentiation, i.e. backpropagation.
+
+\subsubsection{Backpropagation (reverse-mode auto-differentiation)}
+First, suppose the loss function we wish to compute gradients with is represented as a  computational DAG whose nodes $v_1,\dots,v_N$ are topologically ordered. That is, $v_N=L(\theta_1,\dots,\theta_m)$ and we wish to compute
+$$
+\nabla_{\theta}v_N
+=
+\l(\frac{d}{d\theta_1}v_N,\dots,\frac{d}{d\theta_m}v_N\r).
+$$
+So how might we compute these individual total derivatives for a given configuration of the input nodes? If each node is represented in terms of its parent nodes and the parameters then applying the chain rule yields
+$$
+\frac{d}{d\theta_i}v_N
+=
+\sum_{k=1}^N\frac{dv_N}{dv_k}\frac{\partial v_k}{\partial\theta_i}
+$$
+with
+$$
+\frac{d}{dv_k}v_N
+=
+\sum_{v_c\in\textbf{Ch}(v_k)}\frac{dv_N}{dv_c}\frac{\partial v_c}{\partial v_k}
+$$
+where $\textbf{Ch}(v)$ denotes the set of children of the node $v$ in the computational DAG. As a result, if $\partial v_c/\partial v_k$ and $\partial v_k/\partial\theta_i$ have closed forms for all $v_c\in\textbf{Ch}(v_k)$ and $k\in\{1,\dots,N\}$ then the desired total derivatives can be computed by simply computing $dv_N/dv_k$ for $k=N-1,\dots,1$ (in said reversed order) and plugging them in to the equation above. This makes it immediately clear why it is named reverse-mode auto-differentation or backpropagation.
+
+As an explicit example, consider the DAG with $v_1,\dots,v_5$ above. After some algebra, we obtain
+$$
+\frac{dv_5}{dv_4}=\frac{\partial v_5}{\partial v_4} \hspace{20pt}
+\frac{dv_5}{dv_3}=\frac{\partial v_5}{\partial v_3} \hspace{20pt}
+\frac{dv_5}{dv_2}=\frac{\partial v_5}{\partial v_3}\frac{\partial v_3}{\partial v_2} \hspace{20pt}
+\frac{dv_5}{dv_1}=\frac{\partial v_5}{\partial v_3}\frac{\partial v_3}{\partial v_1}
+$$
+and the only non-zero partial derivatives with respect to parameters are
+$$
+\frac{\partial v_3}{\partial\theta_1}=v_1v_2
+\hspace{10pt}\text{and}\hspace{10pt}
+\frac{\partial v_5}{\partial\theta_2}=1.
+$$
+From these, we obtain closed forms of the desired total derivatives
+\begin{align*}
+    \frac{dv_5}{d\theta_i}
+    =
+    \sum_{k=1}^5\frac{dv_5}{dv_k}\frac{\partial v_k}{\partial\theta_i}
+    =
+    \frac{\partial v_3}{\partial\theta_i}+\frac{\partial v_5}{\partial\theta_i}
+\end{align*}
+which yields $dv_5/d\theta_1=v_1v_2$ and $dv_5/d\theta_2=1$. Noting that
+$$
+v_5
+=
+\theta_2+v_4+\theta_1v_1v_2,
+$$
+we see that these total derivatives are correct. This example helps to illustrate the need for closed forms of the partial derivatives $\partial v_k/\partial\theta_i$ and $\partial v_c/\partial v_k$ for all $v_c\in\textbf{Ch}(v_k)$ and $k\in\{1,\dots,N\}$. Due to this, backpropagation relies on each node being a primitive function of its inputs and parameters. A non-exhaustive list of such primitives often-used in deep learning is as follows:
+\begin{itemize}[label=--, itemsep=0pt, topsep=2pt]
+    \item Linear layers
+    \item Non-linear activation functions
+    \item Normalisations
+    \item Reduction operations, e.g. sum, mean, etc.
+    \item Dropout
+    \item Losses
+    \item Convolutions/pooling
+    \item Indexing and reshaping
+    \item Attention-related operations
+\end{itemize}
+Computing closed forms of the relevant partial derivatives can be fun. There are simple ones, e.g. if $v_2=\sigma(v_1)$ where $\sigma$ is the sigmoid activation function then $\partial v_2/\partial v_1=\sigma'(v_1)$ has a simple closed form. For an example of the parameters, consider a simple linear layer as in $v_2=\theta_1v_1+\theta_2$ where $\theta_1$ and $\theta_2$ are scalar parameters. In this case, $\partial v_2/\partial\theta_1=v_1$. Simple enough.
+
+\subsubsection{Backpropagation for MLPs}
+As with formulating MLPs, it's good to rigorously derive backpropagation for them at least once\footnote{I wrote the following before writing about reverse-mode auto-differentiation above and so the notation here is in line with the formulation of MLPs.}. It's sort of strange that I haven't done that yet (August 2025 is time of writing) and have just trusted that it holds up.
+
+Recall that a loss function is of the form
 $$
 \mathcal{L}:\Omega_{Y}\times\Omega_{Y}\to\R_{\geq0}
 $$
@@ -1413,193 +1682,13 @@ $$
 \delta_l^{(j)}a_i^{(j-1)}.
 $$
 
-% convolutional neural networks
-\subsection{Convolutional Neural Networks (CNNs)}
-\label{subsec:conv_neural_networks}
+\subsubsection{Backpropagation for CNNs}
+\dots
 
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=1\textwidth]{./figures/neural_nets/CNN_frog.pdf}
-    \caption{A binary classification CNN processing an image of a frog.}
-    \label{fig:CNN_frog}
-\end{figure}
+\subsubsection{Backpropagation for RNNs}
+\dots
 
-Convolutional neural networks (CNNs) were initially designed to process image and, by extension, video data. Over time, they have been applied to processing far richer forms of data. A forward pass through a CNN designed for image processing is illustrated in \autoref{fig:CNN_frog}, in which we see that their architecture can be described on a high level as consisting of two parts. The first part performs feature extraction through convolution and pooling operations. The second part employs an MLP to produce the overall model's output given the earlier-extracted features, e.g. the probability that an input image is of a given class.
-
-Before deep learning architectures became mainstream, researchers used handcrafted features (SIFT, HOG, SURF, etc.) for feature extraction and fed extracted features to a given model, e.g. an SVM for classification. That is, feature extraction wasn't learned, nor was it entwined with the inference component of their models. For image processing tasks, humans turn out to be far worse than deep learning architectures at knowing which features are most informative of what is being predicted. Hence, CNNs are now the go-to architecture for image and video processing. There's something to be said here about vision transformers and the extent to which they are competitive with CNNs but this can wait. Relevant interactive visualisation: \href{https://adamharley.com/nn_vis/cnn/3d.html}{\texttt{adamharley.com/nn\_vis/cnn/3d.html}}.
-
-\subsubsection{Convolutions}
-Convolution operations involve using a (typically square) matrix to, in some sense, summarise the information embedded in parts of the object over which it traverses. This matrix is referred to as a filter or a kernel — I prefer using filter as the term kernel has so many meanings elsewhere in maths. You can think of convolution operations as a sort of dot product between the given filter and the grid of pixel values over which lies during its traversal. For a simple illustration of this idea, consider \autoref{fig:convolution_operation}. Since CNNs consists of multiple convolution layers, the output of a convolution layer is often referred to as a feature map.
-
-\begin{figure}[t]
-    \centering
-    \begin{minipage}{0.63\linewidth}
-        \includegraphics[width=\textwidth]{./figures/neural_nets/CNN_convolution.pdf}
-    \end{minipage}%
-    \hfill
-    \begin{minipage}{0.35\linewidth}
-        \caption{Convolution with a vertical edge detection filter with 0 bias.}
-        \label{fig:convolution_operation}
-    \end{minipage}
-\end{figure}
-
-More formally, given a feature map $I\in\mathbb{R}^{C\times W\times H}$ and a filter $K\in\mathbb{R}^{C\times k\times k}$ with $k<W$ and $k<H$, the feature map $F=K*I\in\mathbb{R}^{W'\times H'}$ is the convolution of $K$ over $I$ is as in
-$$
-F_{i,j}
-=
-\sum_{c=1}^C\sum_{x=1}^{k}\sum_{y=1}^{k}K_{c,x,y}\cdot I_{c,x+i,y+j}+b_c
-$$
-where $b_c$ is the filter's bias in channel $c$. Nowadays, $k=3$ is a very popular choice. Note that this notation is intended to illustrate what a convolution looks like algebraically. As it stands, what's written above does not account for padding, stride, etc.
-
-Generally, earlier filters in a CNN architecture extract lower-level features, like edges and textures, while later convolutions extract higher-level features like entire components of object, e.g. wheels. This is illustrated in \autoref{fig:filter_levels}.
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\textwidth]{./figures/neural_nets/CNN_feature_levels.pdf}
-    \caption{The level of abstraction of a CNN's learned filters. Earlier layers pertain to low-level features like edges or textures. Later layers pertain to higher-level features like faces or wheels.}
-    \label{fig:filter_levels}
-\end{figure}
-
-\subsubsection*{Post-convolution spatial dimensions}
-Given a feature map $F\in\mathbb{R}^{W\times H}$, suppose we compute the convolution $O\in\mathbb{R}^{W'\times H'}$ of the filter $K\in\mathbb{R}^{k\times k}$ over $F$ with uniform padding $P$ and stride $S$. The precise dimensions $W'$ and $H'$ of the new feature map $O$ are given by
-$$
-W'
-=
-\l\lfloor\frac{W+2P-k}{S}\right\rfloor+1
-$$
-and
-$$
-H'
-=
-\l\lfloor\frac{H+2P-k}{S}\right\rfloor+1.
-$$
-It's not too tricky to derive these. It's the kinda thing you do once and never again.
-
-\subsubsection{Pooling}
-Pooling operations reduce the spatial dimensions of a given feature map by applying relatively straightforward transformations: max pooling, min pooling, mean pooling, etc. There's not much point to expressing them rigorously. Instead, consider \autoref{fig:pooling}. Benefits of pooling are improved translation-invariance and reduced required compute.
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=\textwidth]{./figures/neural_nets/CNN_pooling.pdf}
-    \caption{Common flavours of pooling.}
-    \label{fig:pooling}
-\end{figure}
-
-\begin{tcolorbox}[title={\centering\textbf{Why use a CNN over an MLP?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
-    Massively improved parameter-efficiency, translation invariance and learning efficiency\footnote{\href{https://ai.stackexchange.com/questions/27407/what-does-statistical-efficiency-mean-in-this-context}{\texttt{ai.stackexchange.com/questions/27407}}} (fewer samples needed to learn distributions to similar degrees of precision). These are in part due to the inductive bias present of their architecture.
-\end{tcolorbox}
-
-% TODO:
-% \subsubsection{Backpropagation for CNNs}
-% \dots
-
-% recurrent neural networks
-\subsection{\TODO Recurrent Neural Networks (RNNs)}
-Schmidhuber!
-
-% transformer models
-\subsection{\NEXT Transformers}
-Transformers are a relatively modern architecture but their applications are already broad. They're now found in language models (e.g. GPTs), image models (vision transformers), denoising models (diffusion) and so on. They offer many advantages over earlier competing architectures, e.g. RNNs, due to not being bottlenecked by input sequence length.
-
-The journey of a given input sequence through a transformer architecture looks something like
-$$
-\texttt{tokenise}
-\rightarrow
-\texttt{embed}
-\rightarrow
-\texttt{encode position}
-\rightarrow
-\texttt{trf blocks}
-\rightarrow
-\texttt{output proj}
-$$
-as illustrated in \autoref{fig:transformer-architecture}, Each step be detailed in this subsection\footnote{Great visualisation: \url{www.poloclub.github.io/transformer-explainer/}.}.
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{./figures/neural_nets/transformer.pdf}
-    \caption{A decoder-only language transformer consisting of $N$ transformer blocks.}
-    \label{fig:transformer-architecture}
-\end{figure}
-
-\subsubsection{Tokenisation}
-Tokens can be thought of as the units of information of a data structure, e.g. sequences of text. The tokenisation of a sequence is simply the process of slicing it up into its token make-up. Think of splitting the sentence `The chef cooked a meal for the critic.' according to the following colouring (or tokenisation)
-$$
-\colorbox{purple}{The}\colorbox{green}{chef}\colorbox{brown}{cooked}\colorbox{red}{a}\colorbox{teal}{meal}\colorbox{blue}{for}\colorbox{yellow}{his}\colorbox{orange}{critic}\colorbox{pink}{.}
-$$
-or splitting up an image as in \autoref{fig:image-tokenisation}. To play around with one of OpenAI's text tokenisers, consider \url{platform.openai.com/tokenizer}.
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[height=7cm, keepaspectratio]{./figures/neural_nets/augusto.jpg}
-    \hfill
-    \includegraphics[height=7cm, keepaspectratio]{./figures/neural_nets/augusto-tokenised.png}
-    \caption{The tokenisation (or patchification) of a sleeping Augusto.}
-    \label{fig:image-tokenisation}
-\end{figure}
-
-The purpose of tokenisation is self-explanatory: we'd like an idea of dependence between different parts of the input as to aid our output prediction. As such, being able to break a sequence into chunks, as opposed to processing it in its entirety, is desirable.  Notationally, let $V$ denote the set of all tokens in our model's vocabulary and $T:\Sigma^*\to \{1,\dots,|V|\}^*$ the tokenisation function where $S^*$ is the set of all finite strings whose characters are in $S$.
-
-For text data, the tokeniser $T$ is often learned according to byte pair encoding (BPE). Roughly put, start with a vocabulary $V$ consisting of the first 256 UTF-8 encoding characters. Then, until the vocabulary size reaches some threshold, say $50,000$, repeat the following for $i=0,\dots,V_{\text{max}}-1$:
-\begin{enumerate}
-    \item Tokenise the text according to the tokeniser
-    \item Compute the most frequent token pair in the corpus and append it to the tokensier with index $256+i$.
-\end{enumerate}
-The result is an ordered list of merge rules. For example, the most frequent character pair in English text 
-
-\subsubsection{Embedding}
-A linear embedding map $L_E:\{e_1,\dots,e_{|V|}\}\to\mathbb{R}^d$, where $d\in\mathbb{N}$ is the embedding dimension and $e_i$ denotes the $i^{\text{th}}$ standard basis vector, offers high dimensional numeric representations of tokens belonging to the vocabulary $V$. What makes token embedding functions interesting is how well they capture underlying semantics, e.g. of natural language. Such an embedding map learned on pieces of text, like Word2Vec, might satisfy
-$$
-L_E(\text{``Germany"})+L_E(\text{``fascist"})-L_E(\text{``Mussolini"})
-\approx
-L_E(\text{``Hitler"})
-$$
-or
-$$
-L_E(\text{``Wales"})+L_E(\text{``Cardiff"})-L_E(\text{``Italy"})
-\approx
-L_E(\text{``Rome"})
-$$
-where ``word'' denotes the basis vector corresponding to the word according to some indexing over the vocabulary, e.g. perhaps $|V|=50,000$ and ``Germany''$=e_{35,629}$. The prupose of taking the domain of $L_E$ to be this set of standard basis vectors is that then it can be seen as a look-up table of the rows of $E\in\R^{d\times|V|}$.
-
-So how is the embedding matrix $E\in\R^{d\times |V|}$ learned? In the context of embedding maps like Word2Vec, where the embedding map is learned in isolation (not in conjunction with a larger architecture), it is learned by repeatedly sampling a center word from the dataset (a large corpus of text in our example), a context word which lies near the center word in the text and $l$ negative-context words which do not lie near the center word. The loss function used to learn the parameters (the elements of our linear embedding map) intends to reward the alignment of the context word and the center word while punishing the alignment of the center word and the $l$ negative-context words. In maths notation, the loss looks something like
-$$
--\sigma(w_{\text{cent}}, w_{\text{cont}}) + \sum_{i=1}^l\sigma\l(w_{\text{cent}}, w_{\text{neg}}^{(i)}\r)
-$$
-where $\sigma$ denotes the sigmoid function.
-
-Embedding maps are less interesting when learned in conjunction with a larger architecture, e.g. GPT architectures, as they are learned according to backpropagation like any other parameter. If the loss is not such that alignments of token embeddings in $\R^d$ mean anything, some of the nice properties discussed earlier are less likely to be observed.
-
-\subsubsection{\NEXT Positional encoding}
-The position of tokens in a given sequence of words is critical to understanding the intended meaning of the sequence. For example, the highlighted sequence above regarding the chef and the critic is distinct from
-$$
-\colorbox{purple}{The}\colorbox{orange}{critic}\colorbox{brown}{cooked}\colorbox{red}{a}\colorbox{green}{chef}\colorbox{blue}{for}\colorbox{yellow}{his}\colorbox{teal}{meal}\colorbox{pink}{.}
-$$
-In the latter sequence, the intended meaning of \colorbox{brown}{cooked} is akin to `criticised', while in the former it is simply meant to convey that the chef literally cooked. So how do transformers go about accounting for the positions of tokens in given input sequences?\footnote{Great video about this topic: \url{www.youtube.com/watch?v=dWkm4nFikgM}.}
-
-Unlike RNNs, transformers have no inherent notion of the order of tokens in a given input without this additional positional encoding step. That is because the attention and MLP components are, standalone, independent of position. Due to this, sprinkling in position-related information to the embedded input is necessary. I like to think of positional encoding as a sort of prior regarding which tokens are relevant to others. That is, the prior is relevant but contextual information baked into the text itself will override its inclusion if sufficiently relevant. Form a position vector $P_k$ for the $k^{\text{th}}$ token in the input sequence of length $L$. Add $P_k$ to the word embedding $E_k$ for $k=0,\dots,L-1$ to obtain
-$$
-(E_0+P_0,\dots,E_{L-1}+P_{L-1})
-$$
-fed to the model.
-
-Before detailing what was proposed for positional encoding in the paper that made transformers famous, it's worth attending to the validity of arguably natural approaches and the ways in which they fall short:
-\begin{itemize}
-    \item \textbf{Why not simply add the index of the token to its embedding?} For long sequences, the index value of later tokens would overpower the value of the presence of the token itself. In line with this, we'd like the positional encoding to be bounded in magnitude.
-    \item \textbf{Why not add the index divided by the sequence length to ensure getting something in [0,1]?} For sequences of varying length, we'd like the positional information for a given index to be the same. So attributing 0.5 to the third token in a sequence of five would be an issue as it would also be attributed to the 11th token in a sequence of 20.
-    \item \textbf{Why not encode via the binary of the index?} Change in positional encoding should be smooth. We want $||P_{k+1}-P_k||$ to be bounded but for binary encodings it is simply equal to the square root of the number of bit flips: unbounded in $k$.
-\end{itemize}
-To address both issues, the authors of the now famous Attention Is All you Need proposed alternating sinusoids. Sinusoidal positional encoding feels unnatural to me, though it has a nice motivation as a continuous analog of binary encoding. Regardless, far more intuitive methods of positional encoding exist such as learned positional encoding (used by OpenAI for GPT-2) and the now-popular rotary positional embeddings (RoPE).
-
-Learned positional encoding is just as the name suggests: the positional embedding map is learned according to backpropagation like any other parameter. RoPE is bit more involved, relying on the linearity of rotations in $\R^d$.
-
-\subsubsection{Attention}
-Stand at attention!
-
-\subsubsection{MLP component and final block output}
-On top of all detailed so far, transformer blocks consist of an MLP component. The input of said MLP component is the output of the attention component.
-
-\subsubsection{Example: GPT-2 small ($\sim$124M parameters)}
+\subsubsection{Backpropagation for Transformers}
 \dots
 
 % misc. questions
@@ -1674,13 +1763,6 @@ Broadly speaking, a generative model seeks to offer ways to reason about the dat
 A generative probabilistic model is a tuple $(\X, p_{\Theta})$ consisting of model variables $\X=(X_1,\dots,X_m)$ and a probability function $p_{\Theta}:\Omega_{\X}\rightarrow\mathbb{R}_{\geq0}$ parameterised according to the parameter set $\Theta$. Given a generative probabilistic model, we might hope to answer evidence queries $p_{\Theta}(\x)$, marginal queries $p_{\Theta}(\x')$, where $\x'$ is a realisation of some subset of the model variables, and sampling queries $\hat{\x}\sim p_{\Theta}(\x)$, in which one simulates the data-generative process in turn producing samples of the underlying distribution.
 
 The holy grail of generative probabilistic modelling is to find an exact, efficiently computable and algebraically manipulable representation $p_\Theta$ of the underlying joint probability function of interest. If obtained, one can reason probabilistically with ease but, as we will see, the purpose, limitations and learning of generative probabilistic models from data varies heavily. To illustrate this, consider probabilistic graphical models (PGMs) which offer human-interpretable representations of conditional (in)dependencies between model variables according to a directed acyclic graph (DAG). While PGMs are not employed in deep learning contexts, they act as an important stepping stone in understanding contemporary methods. The most well-known class of PGMs are Bayesian networks.
-
-% TODO:
-% Hopfield networks and Boltzmann machines
-% \subsection{Boltzmann machines}
-% \textcolor{red}{Random aside: it's strange how far the name Boltzmann has propagated beyond statistical mechanics. I've seen it in so many contexts, e.g. in Cedric Viliani's book.}
-
-% \textcolor{red}{Motivated by Hopfield networks which act as an associative memory. Essentially, take a noised training sample and get the unnoised sample, i.e. remembering it from some noisy approximation.}
 
 % bayesian nets
 \subsection{Bayesian networks}
@@ -1955,7 +2037,7 @@ $$
 =
 F_{\phi}^{-1}(u_i)
 $$
-where $u_1,\dots,u_k\sim\text{Unif}(u;0,1)$ then the process by which our latents are obtained is not deterministic but explicitly depends on $\phi$. How then does one backpropagate through this process? Auto-differentation isn't a fan. The idea of the reparameterisation trick is very natural: entirely separate the stochasticity obtaining said samples from the parameters $\phi$. This can be done by taking $\Z|\x=g(\bm{\epsilon}; \phi, \x)$ for invertible $g$ in which $\bm{\epsilon}\sim\mathcal{N}(0, I_d)$ is the only stochastic component of sampling. With such a function $\Z=g(\bm{\epsilon};\phi,\x)$ we have (via the law of the unconscious statistician)
+where $u_1,\dots,u_k\sim\text{Unif}(u;0,1)$ then the process by which our latents are obtained is not deterministic but explicitly depends on $\phi$. How then does one backpropagate through this process? Auto-differentiation isn't a fan. The idea of the reparameterisation trick is very natural: entirely separate the stochasticity obtaining said samples from the parameters $\phi$. This can be done by taking $\Z|\x=g(\bm{\epsilon}; \phi, \x)$ for invertible $g$ in which $\bm{\epsilon}\sim\mathcal{N}(0, I_d)$ is the only stochastic component of sampling. With such a function $\Z=g(\bm{\epsilon};\phi,\x)$ we have (via the law of the unconscious statistician)
 \begin{align*}
     \nabla_{\phi}\E_{\Z\sim q_{\phi}(\z|\x)}[f(\Z)]
     &=

@@ -29,58 +29,63 @@
 \contentsline {subsection}{\numberline {3.3}Momentum + Adaptive Learning Rates}{32}{subsection.3.3}%
 \contentsline {subsubsection}{\numberline {3.3.1}Momentum}{32}{subsubsection.3.3.1}%
 \contentsline {subsubsection}{\numberline {3.3.2}Adaptive learning rates}{33}{subsubsection.3.3.2}%
-\contentsline {subsubsection}{\numberline {3.3.3}Warmup and cosine decay}{33}{subsubsection.3.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.4}Gradient accumulation and clipping}{33}{subsubsection.3.3.4}%
+\contentsline {subsubsection}{\numberline {3.3.3}Warmup + decay}{33}{subsubsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.4}Gradient accumulation + clipping}{33}{subsubsection.3.3.4}%
 \contentsline {subsection}{\numberline {3.4}Hyperparameter Tuning}{33}{subsection.3.4}%
 \contentsline {subsubsection}{\numberline {3.4.1}Random search}{34}{subsubsection.3.4.1}%
 \contentsline {subsubsection}{\numberline {3.4.2}$k-$fold cross-validation}{34}{subsubsection.3.4.2}%
 \contentsline {subsubsection}{\numberline {3.4.3}Honourable mention: benchmark overfitting}{34}{subsubsection.3.4.3}%
-\contentsline {section}{\numberline {4}Neural Networks}{35}{section.4}%
+\contentsline {section}{\numberline {4}Neural Network Architectures}{35}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Multi-Layer Perceptrons (MLPs)}{35}{subsection.4.1}%
 \contentsline {subsubsection}{\numberline {4.1.1}Universal Function Approximation with MLPs}{39}{subsubsection.4.1.1}%
 \contentsline {subsubsection}{\numberline {4.1.2}Posing classification as a regression problem}{42}{subsubsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.2}Backpropagation for MLPs}{43}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Convolutional Neural Networks (CNNs)}{46}{subsection.4.3}%
-\contentsline {subsubsection}{\numberline {4.3.1}Convolutions}{47}{subsubsection.4.3.1}%
-\contentsline {subsubsection}{\numberline {4.3.2}Pooling}{48}{subsubsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.4}\textcolor {red}{\textbf {TODO: }}Recurrent Neural Networks (RNNs)}{49}{subsection.4.4}%
-\contentsline {subsection}{\numberline {4.5}\textcolor {myYellow}{\textbf {NEXT: }}Transformers}{49}{subsection.4.5}%
-\contentsline {subsubsection}{\numberline {4.5.1}Tokenisation}{50}{subsubsection.4.5.1}%
-\contentsline {subsubsection}{\numberline {4.5.2}Embedding}{51}{subsubsection.4.5.2}%
-\contentsline {subsubsection}{\numberline {4.5.3}\textcolor {myYellow}{\textbf {NEXT: }}Positional encoding}{52}{subsubsection.4.5.3}%
-\contentsline {subsubsection}{\numberline {4.5.4}Attention}{53}{subsubsection.4.5.4}%
-\contentsline {subsubsection}{\numberline {4.5.5}MLP component and final block output}{53}{subsubsection.4.5.5}%
-\contentsline {subsubsection}{\numberline {4.5.6}Example: GPT-2 small ($\sim $124M parameters)}{54}{subsubsection.4.5.6}%
+\contentsline {subsection}{\numberline {4.2}Convolutional Neural Networks (CNNs)}{43}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Convolutions}{44}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}Pooling}{45}{subsubsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.3}\textcolor {red}{\textbf {TODO: }}Recurrent Neural Networks (RNNs)}{46}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}\textcolor {myYellow}{\textbf {NEXT: }}Transformers}{46}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Tokenisation}{47}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}Embedding}{48}{subsubsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.3}\textcolor {myYellow}{\textbf {NEXT: }}Positional encoding}{49}{subsubsection.4.4.3}%
+\contentsline {subsubsection}{\numberline {4.4.4}Attention}{50}{subsubsection.4.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.5}MLP component and final block output}{50}{subsubsection.4.4.5}%
+\contentsline {subsubsection}{\numberline {4.4.6}Example: GPT-2 small ($\sim $124M parameters)}{51}{subsubsection.4.4.6}%
+\contentsline {subsection}{\numberline {4.5}Backpropagation}{51}{subsection.4.5}%
+\contentsline {subsubsection}{\numberline {4.5.1}Backpropagation (reverse-mode auto-differentiation)}{51}{subsubsection.4.5.1}%
+\contentsline {subsubsection}{\numberline {4.5.2}Backpropagation for MLPs}{53}{subsubsection.4.5.2}%
+\contentsline {subsubsection}{\numberline {4.5.3}Backpropagation for CNNs}{56}{subsubsection.4.5.3}%
+\contentsline {subsubsection}{\numberline {4.5.4}Backpropagation for RNNs}{56}{subsubsection.4.5.4}%
+\contentsline {subsubsection}{\numberline {4.5.5}Backpropagation for Transformers}{56}{subsubsection.4.5.5}%
 \setcounter {tocdepth}{1}
-\contentsline {subsection}{\numberline {4.6}Misc. questions}{54}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.6}Misc. questions}{56}{subsection.4.6}%
 \setcounter {tocdepth}{2}
-\contentsline {section}{\numberline {5}Deep Generative Modelling}{56}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Bayesian networks}{57}{subsection.5.1}%
-\contentsline {subsubsection}{\numberline {5.1.1}Learning them from data}{59}{subsubsection.5.1.1}%
-\contentsline {subsubsection}{\numberline {5.1.2}Why aren't they employed in deep learning?}{60}{subsubsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.2}Variational Autoencoders (VAEs)}{60}{subsection.5.2}%
-\contentsline {subsubsection}{\numberline {5.2.1}Autoencoders: no variation yet!}{60}{subsubsection.5.2.1}%
-\contentsline {subsubsection}{\numberline {5.2.2}Motivating VAEs}{62}{subsubsection.5.2.2}%
-\contentsline {subsubsection}{\numberline {5.2.3}Formulating VAEs}{63}{subsubsection.5.2.3}%
-\contentsline {subsubsection}{\numberline {5.2.4}Backpropagation for VAEs (the reparameterisation trick)}{67}{subsubsection.5.2.4}%
-\contentsline {subsubsection}{\numberline {5.2.5}Blurry reconstructions}{70}{subsubsection.5.2.5}%
-\contentsline {subsection}{\numberline {5.3}Generative Adversarial Networks (GANs)}{71}{subsection.5.3}%
-\contentsline {subsubsection}{\numberline {5.3.1}\textcolor {myYellow}{\textbf {NEXT: }}Flavours of GANs}{72}{subsubsection.5.3.1}%
-\contentsline {subsubsection}{\numberline {5.3.2}Quirks of GANs}{72}{subsubsection.5.3.2}%
-\contentsline {subsection}{\numberline {5.4}\textcolor {red}{\textbf {TODO: }}Normalising Flows}{73}{subsection.5.4}%
-\contentsline {subsection}{\numberline {5.5}Diffusion Models}{73}{subsection.5.5}%
-\contentsline {subsubsection}{\numberline {5.5.1}U-Net denoisers}{74}{subsubsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.6}\textcolor {red}{\textbf {TODO: }}Evaluating Generative Models}{75}{subsection.5.6}%
-\contentsline {section}{Appendices}{76}{section*.46}%
+\contentsline {section}{\numberline {5}Deep Generative Modelling}{59}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Bayesian networks}{60}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Learning them from data}{61}{subsubsection.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.2}Why aren't they employed in deep learning?}{62}{subsubsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.2}Variational Autoencoders (VAEs)}{62}{subsection.5.2}%
+\contentsline {subsubsection}{\numberline {5.2.1}Autoencoders: no variation yet!}{63}{subsubsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.2}Motivating VAEs}{64}{subsubsection.5.2.2}%
+\contentsline {subsubsection}{\numberline {5.2.3}Formulating VAEs}{65}{subsubsection.5.2.3}%
+\contentsline {subsubsection}{\numberline {5.2.4}Backpropagation for VAEs (the reparameterisation trick)}{70}{subsubsection.5.2.4}%
+\contentsline {subsubsection}{\numberline {5.2.5}Blurry reconstructions}{72}{subsubsection.5.2.5}%
+\contentsline {subsection}{\numberline {5.3}Generative Adversarial Networks (GANs)}{74}{subsection.5.3}%
+\contentsline {subsubsection}{\numberline {5.3.1}\textcolor {myYellow}{\textbf {NEXT: }}Flavours of GANs}{74}{subsubsection.5.3.1}%
+\contentsline {subsubsection}{\numberline {5.3.2}Quirks of GANs}{74}{subsubsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.4}\textcolor {red}{\textbf {TODO: }}Normalising Flows}{75}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Diffusion Models}{75}{subsection.5.5}%
+\contentsline {subsubsection}{\numberline {5.5.1}U-Net denoisers}{77}{subsubsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.6}\textcolor {red}{\textbf {TODO: }}Evaluating Generative Models}{78}{subsection.5.6}%
+\contentsline {section}{Appendices}{79}{section*.46}%
 \setcounter {tocdepth}{0}
-\contentsline {section}{\numberline {A}Probability Theory \& Statistics Things}{76}{appendix.a.A}%
-\contentsline {subsection}{\numberline {A.1}\textcolor {myYellow}{\textbf {NEXT: }}The Curse of Dimensionality}{76}{subsection.a.A.1}%
-\contentsline {subsection}{\numberline {A.2}Jensen's Inequality}{77}{subsection.a.A.2}%
-\contentsline {subsection}{\numberline {A.3}Entropy and its Friend KL-divergence}{77}{subsection.a.A.3}%
-\contentsline {subsubsection}{\numberline {A.3.1}Kullback-Leibler Divergence (KL-divergence)}{78}{subsubsection.a.A.3.1}%
-\contentsline {subsection}{\numberline {A.4}The Expectation-Maximisation (EM) Algorithm}{81}{subsection.a.A.4}%
-\contentsline {section}{\numberline {B}Philosophy Things}{83}{appendix.a.B}%
-\contentsline {subsection}{\numberline {B.1}Thoughts on reasoning (Summer 2024)}{84}{subsection.a.B.1}%
-\contentsline {subsection}{\numberline {B.2}\textcolor {red}{\textbf {TODO: }}Backwards-compatible definition of AI}{85}{subsection.a.B.2}%
-\contentsline {subsection}{\numberline {B.3}\textcolor {red}{\textbf {TODO: }}The sufficiency of internet-scraped data}{85}{subsection.a.B.3}%
-\contentsline {subsection}{\numberline {B.4}\textcolor {red}{\textbf {TODO: }}The principled measure-explainability tradeoff}{85}{subsection.a.B.4}%
+\contentsline {section}{\numberline {A}Probability Theory \& Statistics Things}{79}{appendix.a.A}%
+\contentsline {subsection}{\numberline {A.1}\textcolor {myYellow}{\textbf {NEXT: }}The Curse of Dimensionality}{79}{subsection.a.A.1}%
+\contentsline {subsection}{\numberline {A.2}Jensen's Inequality}{80}{subsection.a.A.2}%
+\contentsline {subsection}{\numberline {A.3}Entropy and its Friend KL-divergence}{80}{subsection.a.A.3}%
+\contentsline {subsubsection}{\numberline {A.3.1}Kullback-Leibler Divergence (KL-divergence)}{81}{subsubsection.a.A.3.1}%
+\contentsline {subsection}{\numberline {A.4}The Expectation-Maximisation (EM) Algorithm}{84}{subsection.a.A.4}%
+\contentsline {section}{\numberline {B}Philosophy Things}{86}{appendix.a.B}%
+\contentsline {subsection}{\numberline {B.1}Thoughts on reasoning (Summer 2024)}{87}{subsection.a.B.1}%
+\contentsline {subsection}{\numberline {B.2}\textcolor {red}{\textbf {TODO: }}Backwards-compatible definition of AI}{88}{subsection.a.B.2}%
+\contentsline {subsection}{\numberline {B.3}\textcolor {red}{\textbf {TODO: }}The sufficiency of internet-scraped data}{88}{subsection.a.B.3}%
+\contentsline {subsection}{\numberline {B.4}\textcolor {red}{\textbf {TODO: }}The principled measure-explainability tradeoff}{88}{subsection.a.B.4}%
