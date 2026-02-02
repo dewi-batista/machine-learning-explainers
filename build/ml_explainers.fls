@@ -566,6 +566,14 @@ INPUT ./figures/appendix/poi_geo_plot.pdf
 INPUT ./figures/appendix/poi_geo_plot.pdf
 INPUT ./figures/appendix/poi_geo_plot.pdf
 INPUT ./figures/appendix/poi_geo_plot.pdf
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmmib10.tfm
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmbsy10.tfm
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/bbm/bbm12.tfm
 INPUT build/ml_explainers.aux
 INPUT build/ml_explainers.out
 INPUT build/ml_explainers.out

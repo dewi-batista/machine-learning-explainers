@@ -824,7 +824,17 @@ $$
 where $\gamma_1,\dots,\gamma_d$ and $\beta_1,\dots,\beta_d$ are learnable parameters. As with batch norm, I honestly don't know the influence layer norm has on training.
 
 \subsubsection*{3) RMS norm}
-\dots
+RMS norm is a slight simplification of layer norm in which the root mean square is used to normalise activations rather the standard deviation, i.e. we do not subtract the mean. As a result, the normalised activations don't need to have mean $0$. Given activation values $a_1,\dots,a_d$, RMS norm normalises as in
+\begin{align*}
+    (\hat{a}_1,\dots,\hat{a}_d)
+    &=
+    \l(\frac{a_1}{\sqrt{\frac{1}{d}\sum_{j=1}^da_j^2+\epsilon}},\dots,\frac{a_d}{\sqrt{\frac{1}{d}\sum_{j=1}^da_j^2+\epsilon}}\r)
+\end{align*}
+where $\epsilon>0$ is small for computational stability. Finally, as before, we scale (typically without an additive shift) to obtain
+$$
+(\gamma_1\hat{a}_1,\dots,\gamma_d\hat{a}_d)
+$$
+where $\gamma_1,\dots,\gamma_d$ are learnable parameters. I also don't really know why this works as well as it does, but empirically it seems to behave similarly to layer norm while being a bit cheaper. I first came accross RMS norm in reading about OpenAI's open weight GPT-OSS models. Seems they favour RMS norm in more modern architectures over layer norm.
 
 % regularisation
 \subsection{Regularisation}
@@ -837,7 +847,7 @@ Overfitting is a pain. How might we regulate the learning procedure in a way tha
     \end{minipage}%
     \hfill
     \begin{minipage}{0.55\linewidth}
-        \caption{Motivating regularisation. Two fits, both with 0 test error.}
+        \caption{Motivating regularisation. Two fits, both with 0 error on selected datapoints.}
         \label{fig:regularisation_two_plots}
     \end{minipage}
 \end{figure}
@@ -846,7 +856,7 @@ The most well known methods of regularisation are L1 and L2 regularisation. Both
 \begin{align*}
     \argmax_{\theta\in\R^{m+1}}\log(p(\theta|D))
     &=
-    \argmax_{\theta\in\R^{m+1}}\l[\log(p(D|\theta))+\log(p(\theta))\r]\\
+    \argmax_{\theta\in\R^{m+1}}\Big[\log(p(D|\theta))+\log(p(\theta))\Big]\\
     &=
     \argmin_{\theta\in\R^{m+1}}\l[-\sum_{i=1}^n\log(p(y_i|\x_i,\theta))-\sum_{j=1}^m\log(p(\theta_j))\r].
 \end{align*}
@@ -964,7 +974,7 @@ $$
 $$
 where $\eta_i^{(t)}=\frac{\eta}{\sqrt{G_i^{(t)}}+\epsilon}$ is the $i^{\text{th}}$ parameter's learning rate at step $t$. There are more elaborate adaptive learning rate methods than this, e.g. RMSProp and Adam, but AdaGrad conveys the idea sufficiently well.
 
-\subsubsection{Warmup + decay}
+\subsubsection{\NEXT Warmup + decay}
 \dots
 
 \subsubsection{Gradient accumulation + clipping}
@@ -983,9 +993,9 @@ Each hyperparameter may take on a set of values, i.e. the $m$ hyperparameters $h
 For a better idea of how a configuration of hyperparameters will help generalise post-training, consider partitioning the training data into $k$ disjoint subsets (or folds) $D_1,\dots,D_k$. Then, for $i=1,\dots,k$, train on $D\backslash D_i$ and validate on $D_i$. Take the mean of the $k$ validation losses. Choose whichever hyperparameter configuration yields the lowest mean validation loss.
 
 \subsubsection{Honourable mention: benchmark overfitting}
-Suppose research groups A and B independently publish results on nearly identical single hidden layer MLPs for the same task. The only difference is the number of neurons in the hidden layer — 99 for A, 100 for B. Their training setup is otherwise identical: same data, same splits, same optimisation. Group A's model achieves lower test error, and so a company adopts their architecture. How is this fundamentally different from a single group training both 99- and 100-neuron models and then choosing based on test loss? More broadly, how is it different from tuning hyperparameters directly on the test set?
+Suppose research groups A and B independently publish results on nearly identical single hidden layer MLPs for the same task. The only difference is the number of neurons in the hidden layer: 99 for group A and 100 for group B. Their training setup is otherwise identical: same data, same splits, same optimisation. Group A reports a slightly lower benchmark test error, and so a company independent of either group adopts the architecture of group A. How is this fundamentally different from a single group training both 99- and 100-neuron models and then choosing the one with the lower test loss?
 
-In both cases, the test error becomes a biased (optimistic) estimate of generalisation. If this process repeats across the community, the field as a whole is implicitly tuning to the test set. This phenomenon is called benchmark overfitting, and it underlines the need for practices like shuffling data in the pipeline and, more importantly, evolving benchmarks over time.
+It isn't: once the test set influences which model gets selected, the reported test error for the selected model becomes an optimistically biased estimate of generalisation. Repeated across papers, reviews, and adoption, the field effectively uses the benchmark as a selection signal. That is, an implicit, distributed form of tuning on the test set. This is referred to as benchmark overfitting and it motivates strict separation of validation and test as well as the evolution (or refreshing) of benchmarks over time.
 
 % neural nets
 \section{Neural Network Architectures}
@@ -1748,14 +1758,14 @@ $$
 \delta_l^{(j)}a_i^{(j-1)}.
 $$
 
-\subsubsection{Backpropagation for CNNs}
+\subsubsection{\NEXT Backpropagation for CNNs}
 \dots
 
 \subsubsection{Backpropagation for RNNs}
 \dots
 
 \subsubsection{Backpropagation for Transformers}
-\dots
+There's nothing interesting to be said about backpropagating through vanilla transformer architectures given known methods of backpropagating through MLPs (linear layers and non-linear activation functions) and normalisations.
 
 % misc. questions
 \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
@@ -2190,26 +2200,34 @@ which corresponds to $\mu_{\theta}(\z_0)=\argmin_{\mu}\sum_{i=1}^2||\x_i-\mu||^2
 \subsection{Generative Adversarial Networks (GANs)}
 To motivate generative adversarial networks (GANs), first consider what we want a generative model to do: produce convincing samples. As such, if there is some (imperfect but decent) method of distinguishing real samples from those produced by a generative model, a perfect generative model would be able to fool the discriminative method. That is, the decisions made by the discriminative model should be akin to random guessing if the generative model is perfect. This idea was realised by Ian Goodfellow while at a bar (the story is detailed in Genius Makers).
 
-This is precisely the idea that motivates GANs with inspiration taken from game theory. A GAN consists of a generative component $G:\Omega_{\Z}\to\Omega_{\X}$ and a discriminative component $D:\Omega_{\X}\to\{0,1\}$, which are trained alternately in the style of a minmax game. That is, $G$ produces a new sample given a latent $\z\in\Omega_{\Z}$ while $D$ learns to distinguish between training samples and outputs of $G$. Essentially, the models compete. In terms of loss functions, the discriminator employs binary cross entropy, as in
-$$
-\mathcal{L}_D
-=
--\E_{\X}\l[\log(D(\X))\r]-\E_{\Z}\l[\log\l(1-D(G(\Z))\r)\r]
-$$
-and the generator makes use of
-$$
-\mathcal{L}_G
-=
--\E_{\Z}\l[\log(D(G(\Z)))\r].
-$$
-As for architectures, the usual choices are natural: the disrciminator is fit using a CNN and the generator is fit using a transposed CNN. So, as with other image generative models, to generate a new sample, we sample Gaussian noise and run it through the transposed CNN.
-
 \begin{figure}[t]
     \centering
     \includegraphics[width=\textwidth]{./figures/generative_models/GAN_architecture.png}
     \caption{Example GAN architecture.}
     \label{fig:GAN_architecture}
 \end{figure}
+
+This is precisely the idea that motivates GANs with inspiration taken from game theory. A GAN consists of a generative component $G:\Omega_{\Z}\to\Omega_{\X}$ and a discriminative component $D:\Omega_{\X}\to(0,1)$, which are trained via alternating gradient updates in the style of a minimax game. That is, $G$ produces a new sample given a latent $\z\in\Omega_{\Z}$ while $D$ learns to distinguish between training samples and outputs of $G$. Essentially, the models compete. In terms of loss functions, the discriminator employs binary cross entropy, as in
+\begin{align*}    
+    \mathcal{L}_D
+    &=
+    -\E_{\X\sim p}\l[\log(D_{\phi}(\X))\r]-\E_{\Z\sim\mathcal{N}(0,I)}\l[\log\l(1-D_{\phi}(G_{\theta}(\Z))\r)\r]\\
+    &\approx
+    -\frac{1}{k}\sum_{i=1}^k\Big[\log(D_{\phi}(\x_i))+\log(1-D_{\phi}(G_{\theta}(\z_i)))\Big]\\
+    &=
+    -\frac{1}{k}\sum_{i=1}^k\log(D_{\phi}(\x_i)(1-D_{\phi}(G_{\theta}(\z_i)))),
+\end{align*}
+for samples $\x_1,\dots,\x_k$ and sampled noise $\z_1,\dots,\z_k\sim\mathcal{N}(\z;0,I)$, while the generator makes use of
+\begin{align*}
+    \mathcal{L}_G
+    &=
+    -\E_{\Z\sim\mathcal{N}(0,I)}\l[\log(D_{\phi}(G_{\theta}(\Z)))\r]\\
+    &=\approx
+    -\frac{1}{k}\sum_{i=1}^k\log(D_{\phi}(G_{\theta}(\z_i)))
+\end{align*}
+for sampled noise $\z_1,\dots,\z_k\sim\mathcal{N}(\z;0,I)$.
+
+As for explicit architectures, the usual choices are natural: the discriminator is fit using a CNN and the generator is fit using a transposed convolutional network. So, as with other image generative models, to generate a new sample, we sample Gaussian noise and run it through the transposed convolutional network.
 
 \subsubsection{\NEXT Flavours of GANs}
 A major contribution of GANs is not only their game theory-like training paradigm but the many flavours in which they come: conditional GANs, cycle GANs, multiple player GANs, style GANs, etc.
@@ -2279,7 +2297,7 @@ Since generated samples are not labeled, how does one evaluate generative models
 \section{Probability Theory \& Statistics Things}
 Here are some probability theory and statistics things relevant to the main body, e.g. brief statements, long derivations, and so on, which are more appendix-appropriate.
 
-I wish my understanding of probability theory, measure theory, stochastic processes, statistics (classical, Bayesian and asymptotic) were better. In another life.
+I wish my understanding of probability theory, measure theory, stochastic processes and (classical/Bayesian/asymptotic) statistics were better. In another life.
 
 \subsection{Jensen's Inequality}
 If $f:\mathbb{R}\to\mathbb{R}$ is convex and $\E[\X]<\infty$ then
@@ -2516,9 +2534,8 @@ q_t(\z)=p_{\theta^{(t)}}(\z|\x)
 \text{ELBO}\l(q_t,\theta^{(t)}\r)=\log(p_{\theta^{(t)}}(\x)).
 $$
 
-% TODO:
-% \subsection{Quality of fit $\approx$ Encoding quality?}
-% Perhaps worthy of its own subsection in the main body, unsure
+\subsection{\NEXT Quality of fit $\approx$ Encoding quality?}
+\dots
 
 % misc. thoughts
 \section{Miscellaneous Thoughts}
