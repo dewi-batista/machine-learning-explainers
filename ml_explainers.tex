@@ -997,9 +997,12 @@ Suppose research groups A and B independently publish results on nearly identica
 
 It isn't: once the test set influences which model gets selected, the reported test error for the selected model becomes an optimistically biased estimate of generalisation. Repeated across papers, reviews, and adoption, the field effectively uses the benchmark as a selection signal. That is, an implicit, distributed form of tuning on the test set. This is referred to as benchmark overfitting and it motivates strict separation of validation and test as well as the evolution (or refreshing) of benchmarks over time.
 
+\subsection{\TODO Quantisation}
+\dots
+
 % neural nets
 \section{Neural Network Architectures}
-It's often the case that someone's intended meaning when stating `neural networks' is more precisely multi-layer perceptrons (MLPs), perhaps the simplest class of neural networks beyond single-layer perceptrons. Rigorously formulating MLPs is one of those things that's useful to do at least once; consistent notation is 90\% of the effort.
+Perhaps the simplest class of a neural network architecture, beyond a single-layer perceptron, is a multi-layer perceptron (MLP). Rigorously formulating MLPs is one of those things that's useful to do once and never again; consistent notation is 90\% of the effort.
 
 % neural networks
 \subsection{Multi-Layer Perceptrons (MLPs)}
@@ -1478,7 +1481,7 @@ The intended purpose of attention is to obtain some representation of how much p
 $$
 A
 =
-\text{SoftMax}\l(\frac{QK^T}{\sqrt{d}}+M\r)
+\text{Softmax}\l(\frac{QK^T}{\sqrt{d}}+M\r)
 $$
 where the causal matrix $M\in\R^{?\times ?}$ is zeros except for above the diagonal which are filled with representations of $-\infty$ in the relevant framework (e.g. PyTorch).
 
@@ -1555,7 +1558,7 @@ The following explanation will distinguish between partial derivatives and total
 \end{center}
 with $v_1=x_1$, $v_2=x_2$, $v_4=x_3$, $v_3=\theta_1v_1v_2$ and $v_5=\theta_2+v_3+v_4$. In this representation, each node is a primitive function of its parents and the parameters. As such, we have $\frac{\partial v_5}{\partial \theta_1}=0$ but $\frac{dv_5}{d\theta_1}=v_1v_2$. This distinction between partial and total derivatives is important for our formulation of reverse-mode auto-differentiation, i.e. backpropagation.
 
-\subsubsection{Backpropagation (reverse-mode auto-differentiation)}
+\subsubsection{Reverse-mode auto-differentiation (backprop)}
 First, suppose the loss function we wish to compute gradients with is represented as a  computational DAG whose nodes $v_1,\dots,v_N$ are topologically ordered. That is, $v_N=L(\theta_1,\dots,\theta_m)$ and we wish to compute
 $$
 \nabla_{\theta}v_N
@@ -1603,7 +1606,9 @@ v_5
 =
 \theta_2+v_4+\theta_1v_1v_2,
 $$
-we see that these total derivatives are correct. This example helps to illustrate the need for closed forms of the partial derivatives $\partial v_k/\partial\theta_i$ and $\partial v_c/\partial v_k$ for all $v_c\in\textbf{Ch}(v_k)$ and $k\in\{1,\dots,N\}$. Due to this, backpropagation relies on each node being a primitive function of its inputs and parameters. A non-exhaustive list of such primitives often-used in deep learning is as follows:
+we see that these total derivatives are correct. This example helps to illustrate the need for closed forms of the partial derivatives $\partial v_k/\partial\theta_i$ and $\partial v_c/\partial v_k$ for all $v_c\in\textbf{Ch}(v_k)$ and $k\in\{1,\dots,N\}$. Due to this, backpropagation relies on each node being a primitive function of its inputs and parameters.
+
+A non-exhaustive list of such primitives often-used in deep learning is as follows:
 \begin{itemize}[label=--, itemsep=0pt, topsep=2pt]
     \item Linear layers
     \item Non-linear activation functions
@@ -1616,6 +1621,12 @@ we see that these total derivatives are correct. This example helps to illustrat
     \item Attention-related operations
 \end{itemize}
 Computing closed forms of the relevant partial derivatives can be fun. There are simple ones, e.g. if $v_2=\sigma(v_1)$ where $\sigma$ is the sigmoid activation function then $\partial v_2/\partial v_1=\sigma'(v_1)$ has a simple closed form. For an example of the parameters, consider a simple linear layer as in $v_2=\theta_1v_1+\theta_2$ where $\theta_1$ and $\theta_2$ are scalar parameters. In this case, $\partial v_2/\partial\theta_1=v_1$. Simple enough.
+
+\begin{tcolorbox}[title={\centering\textbf{Why not forward-mode auto-differentiation?}}, colback=myLightBlue, colbacktitle=myDarkBlue, colframe=myDarkBlue, coltitle=white]
+    Forward-mode auto-differentiation is a similar idea with the relevant derivatives computed from the input nodes to the output nodes. For $f:\R^n\to\R^m$, computing the full Jacobian using forward-mode auto-differentiation requires $O(n)$ memory and $O(n\#\text{DAG})$ time. For comparison, backpropagation requires $O(\#\text{DAG})$ memory and $O(m\#\text{DAG})$ time. It's immediately clear that in machine learning contexts, where $n$ far exceeds $m=1$, backpropagation is massively favourable if you have sufficient memory.
+
+    \hspace{14.5pt}Other methods exist, e.g. numerical differentiation and symbolic differentiation. The former suffers for many reasons, like instability due to high-precision requirements, and the latter suffers due to the massive blow up of function representations.
+\end{tcolorbox}
 
 \subsubsection{Backpropagation for MLPs}
 As with formulating MLPs, it's good to rigorously derive backpropagation for them at least once\footnote{I wrote the following before writing about reverse-mode auto-differentiation above and so the notation here is in line with the formulation of MLPs.}. It's sort of strange that I haven't done that yet (August 2025 is time of writing) and have just trusted that it holds up.
@@ -2274,11 +2285,23 @@ Despite not being the choice of denoiser made in the seminal paper introducing d
 
 In the context of denoising, the contraction branch takes a noised image as input and iteratively completes a series of convolution operations followed by max pooling until reaching the bottleneck layer. At the bottleneck, the model has heavily reduced the spatial dimension of the input image while extracting varying levels of feature abstractions. For example, after the first iteration of convolution and max pooling, the spatial dimension of the input image may be reduced from $1024\times1024$ to $512\times512$ but edges and textures within the original image may be encoded in the feature maps at this stage. Then, during expansion, the model looks to upscale from the bottleneck in a way that retains the underlying image while removing noise. This is done by iteratively completing a series of deconvolutions, which correspond to upscaling, and using skip connections from its corresponding component in the contraction branch, seen in \autoref{fig:u_net_arch}, in order to retain the underlying image. With this in mind, it is clear why U-Net has been the go to choice of denoiser when developing a diffusion model.
 
+% equivalence with compression
+\subsection{\TODO Generative Modelling $\approx$ Compression?}
+\dots
+
 % model evaluation
 \subsection{\NEXT Evaluating Generative Models}
-Since generated samples are not labeled, how does one evaluate generative models? % What does under/overfitting mean for generative models?
+Evaluating a supervised learning model is simple enough: leave aside a validation/test set and see how well prediction is done by the model. For generative models, evaluation is a lot less straightforward, e.g. generated samples are not labeled, \dots? Also, what might under/overfitting mean for a generative model? Is the distribution of classes of samples representative of the underlying distribution or do they concentrate on an over-represented subset of classes?
 
+\subsubsection{Density estimation}
+May correspond to evaluations of the learned joint probability function $p_{\Theta}(\x)$.
+
+\subsubsection{Sampled images}
+\dots
 % \textcolor{red}{Future note: A nice method for diffusion models (and beyond) is to take a sample at inference, embed it then compute the $k$ nearest neighbours in said embedding space. Then, by eye, compare the inference sample against its nearest neighbours to see if it's simply reproducing training samples.}
+
+\subsubsection{Sampled text}
+\dots
 
 % appendices
 \newpage
@@ -2524,9 +2547,6 @@ q_t(\z)=p_{\theta^{(t)}}(\z|\x)
 \implies
 \text{ELBO}\l(q_t,\theta^{(t)}\r)=\log(p_{\theta^{(t)}}(\x)).
 $$
-
-\subsection{\NEXT Quality of fit $\approx$ Encoding quality?}
-\dots
 
 % misc. thoughts
 \section{Miscellaneous Thoughts}
