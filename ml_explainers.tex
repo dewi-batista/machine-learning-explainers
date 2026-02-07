@@ -997,8 +997,8 @@ Suppose research groups A and B independently publish results on nearly identica
 
 It isn't: once the test set influences which model gets selected, the reported test error for the selected model becomes an optimistically biased estimate of generalisation. Repeated across papers, reviews, and adoption, the field effectively uses the benchmark as a selection signal. That is, an implicit, distributed form of tuning on the test set. This is referred to as benchmark overfitting and it motivates strict separation of validation and test as well as the evolution (or refreshing) of benchmarks over time.
 
-\subsection{\TODO Quantisation}
-\dots
+% \subsection{\TODO Quantisation}
+% \dots
 
 % neural nets
 \section{Neural Network Architectures}
@@ -1475,21 +1475,22 @@ To address both issues, the authors of the now famous Attention Is All you Need 
 Learned positional encoding is just as the name suggests: the positional embedding map $P\in\R^{n\times d}$ is set up as a matrix of parameters which are learned according via gradient descent in conjunction with all other model parameters. RoPE is bit more involved than learned positional encoding as it's applied during the attention mechanism and not between embedding and feeding the input to the first transformer block. Despite this complication, RoPE is quite elegant, relying on the linearity of rotation transformations in $\R^d$. I'll detail them here at some point but, for now, knowing just that positional embedding is a core component of transformer architectures is sufficient.
 
 \subsubsection{\NEXT Attention + MLP component}
-Denote the input to a transformer block by $X$, e.g. in the learned positional encoding scenario this is post-tokenisation, post-embedding and post-positional encoding. Each transformer block first applies its attention mechanism to $X$\footnote{Strictly speaking, the first transformation applied to the input might be some form of normalisation, e.g. layer normalisation. This is ignored for the sake of simplicity.}.
+% Denote the input to a transformer block by $X$, e.g. in the learned positional encoding scenario this is post-tokenisation, post-embedding and post-positional encoding. Each transformer block first applies its attention mechanism to $X$\footnote{Strictly speaking, the first transformation applied to the input might be some form of normalisation, e.g. layer normalisation. This is ignored for the sake of simplicity.}.
 
-The intended purpose of attention is to obtain some representation of how much past tokens contribute to the intended meaning of the current token. For example, \dots. Using linear transformations, \dots
-$$
-A
-=
-\text{Softmax}\l(\frac{QK^T}{\sqrt{d}}+M\r)
-$$
-where the causal matrix $M\in\R^{?\times ?}$ is zeros except for above the diagonal which are filled with representations of $-\infty$ in the relevant framework (e.g. PyTorch).
+% The intended purpose of attention is to obtain some representation of how much past tokens contribute to the intended meaning of the current token. For example, \dots. Using linear transformations, \dots
+% $$
+% A
+% =
+% \text{Softmax}\l(\frac{QK^T}{\sqrt{d}}+M\r)
+% $$
+% where the causal matrix $M\in\R^{?\times ?}$ is zeros except for above the diagonal which are filled with representations of $-\infty$ in the relevant framework (e.g. PyTorch).
 
-Note that due to the computational expense of attention, a ton of effort is put into developing attention-like methods whose computational complexities are less harsh, e.g. $O(n\log(n))$ or $O(n)$. In fact, 2025 was quite the year for such developments. Since this bottleneck is what dictates the allowed context length, it's perhaps one of the more interesting parts of LLM architecture developments.
+% Note that due to the computational expense of attention, a ton of effort is put into developing attention-like methods whose computational complexities are less harsh, e.g. $O(n\log(n))$ or $O(n)$. In fact, 2025 was quite the year for such developments. Since this bottleneck is what dictates the allowed context length, it's perhaps one of the more interesting parts of LLM architecture developments.
+\dots
 
 \subsubsection{Example: GPT-2 small ($\sim$123M parameters)}
 GPT-2 small acts as a great introduction to how a decoder-only language transformer may look and the distribution of parameter counts over different components in their architecture. Its architecture is illustrated in \autoref{fig:transformer-architecture} and its hyperparameters are given in \autoref{tab:GPT-2-small-hyperparams}
-\begin{table}[h]
+\begin{table}[ht]
     \centering
     \begin{tabular}{c|c}
         \textbf{Hyperparameter} & \textbf{Value}\\
@@ -1509,7 +1510,7 @@ GPT-2 small acts as a great introduction to how a decoder-only language transfor
     \label{tab:GPT-2-small-hyperparams}
 \end{table}
 From the hyperparameters and the GPT-2-small's architecture, we can compute the total number of parameters of the model as in \autoref{tab:GPT-2-small-parameter-count}.
-\begin{table}[h]
+\begin{table}[ht]
     \centering
     \begin{tabular}{c|c}
         \textbf{Parameter} & \textbf{Count (in millions)}\\
@@ -2285,9 +2286,9 @@ Despite not being the choice of denoiser made in the seminal paper introducing d
 
 In the context of denoising, the contraction branch takes a noised image as input and iteratively completes a series of convolution operations followed by max pooling until reaching the bottleneck layer. At the bottleneck, the model has heavily reduced the spatial dimension of the input image while extracting varying levels of feature abstractions. For example, after the first iteration of convolution and max pooling, the spatial dimension of the input image may be reduced from $1024\times1024$ to $512\times512$ but edges and textures within the original image may be encoded in the feature maps at this stage. Then, during expansion, the model looks to upscale from the bottleneck in a way that retains the underlying image while removing noise. This is done by iteratively completing a series of deconvolutions, which correspond to upscaling, and using skip connections from its corresponding component in the contraction branch, seen in \autoref{fig:u_net_arch}, in order to retain the underlying image. With this in mind, it is clear why U-Net has been the go to choice of denoiser when developing a diffusion model.
 
-% equivalence with compression
-\subsection{\TODO Generative Modelling $\approx$ Compression?}
-\dots
+% % equivalence with compression
+% \subsection{\TODO Generative Modelling $\approx$ Compression?}
+% \dots
 
 % model evaluation
 \subsection{\NEXT Evaluating Generative Models}
@@ -2548,30 +2549,30 @@ q_t(\z)=p_{\theta^{(t)}}(\z|\x)
 \text{ELBO}\l(q_t,\theta^{(t)}\r)=\log(p_{\theta^{(t)}}(\x)).
 $$
 
-% misc. thoughts
-\section{Miscellaneous Thoughts}
-Here are some thoughts on non-technical things relevant to machine learning. Mostly things I vaguely thought about every now and again but had never put together in writing. The ethics of machine learning is somewhat relevant to some of these but I try to avoid its inclusion. RIP Elaine Herzberg.
+% % misc. thoughts
+% \section{Miscellaneous Thoughts}
+% Here are some thoughts on non-technical things relevant to machine learning. Mostly things I vaguely thought about every now and again but had never put together in writing. The ethics of machine learning is somewhat relevant to some of these but I try to avoid its inclusion. RIP Elaine Herzberg.
 
-% reasoning
-\subsection{LLM reasoning [Summer 2024]}
+% % reasoning
+% \subsection{LLM reasoning [Summer 2024]}
 
-At the time of writing, machine learning, as a term, is used almost interchangeably with artificial intelligence (AI). AI isn't particularly well-defined in itself, even in academic settings, so its use in day-to-day things, e.g. in the news, often causes confusion and debate. I'm not sure how I would define AI in a way that'd satisfy most. Maybe the discipline of studying things that can `reason', as a human does, given some agreed upon notion of `reasoning'. A common issue found in discussions surrounding this topic is that a definition of `reasoning' is left out.
+% At the time of writing, machine learning, as a term, is used almost interchangeably with artificial intelligence (AI). AI isn't particularly well-defined in itself, even in academic settings, so its use in day-to-day things, e.g. in the news, often causes confusion and debate. I'm not sure how I would define AI in a way that'd satisfy most. Maybe the discipline of studying things that can `reason', as a human does, given some agreed upon notion of `reasoning'. A common issue found in discussions surrounding this topic is that a definition of `reasoning' is left out.
 
-Right now, I'm unaware of any machine learning model that can `reason' by any agreed upon definition of the term. I suspect that while current models can simulate `reasoning' to the extent of being able to effectively solve tasks which require some sort of underlying understanding, they do not `reason' in the human sense, which is grounded in embodied experience. Let's say that an LLM (e.g. GPT-4o) concludes that a continuous real-valued function $f:\R\rightarrow\R$ has a root in some interval $(a, b)$ using the intermediate value theorem (IVT) by noting that $f(a)<0$ and $f(b)>0$. Did the LLM `reason' in its application of the IVT or do we instead brush this off as the LLM having been trained on many examples of the application of the IVT? Does it `understand' what it's concluding? As of right now I'd say that it doesn't. This of course isn't something unique to the IVT — we can construct many such examples. What I think makes the IVT interesting is that we can effectively express what it means to `understand' its correctness according to our embodied experience. I'd say that the distinction between the LLM's `understanding' and a human's here is that a human knows that if they trace their finger on a piece of paper starting from the bottom half, crossing a horizontal line cutting through the middle of the paper, to the top half of the paper without removing their finger then their finger must have touched the horizontal line at some point. No mathematical training is needed to know \textit{that} and, more importantly, understand \textit{why} your finger crosses through the horizontal line on the page. LLMs certainly do not `understand' the correctness of the IVT in this way, or really any way that isn't purely symbolic. Maybe multimodal LLMs will alleviate this.
+% Right now, I'm unaware of any machine learning model that can `reason' by any agreed upon definition of the term. I suspect that while current models can simulate `reasoning' to the extent of being able to effectively solve tasks which require some sort of underlying understanding, they do not `reason' in the human sense, which is grounded in embodied experience. Let's say that an LLM (e.g. GPT-4o) concludes that a continuous real-valued function $f:\R\rightarrow\R$ has a root in some interval $(a, b)$ using the intermediate value theorem (IVT) by noting that $f(a)<0$ and $f(b)>0$. Did the LLM `reason' in its application of the IVT or do we instead brush this off as the LLM having been trained on many examples of the application of the IVT? Does it `understand' what it's concluding? As of right now I'd say that it doesn't. This of course isn't something unique to the IVT — we can construct many such examples. What I think makes the IVT interesting is that we can effectively express what it means to `understand' its correctness according to our embodied experience. I'd say that the distinction between the LLM's `understanding' and a human's here is that a human knows that if they trace their finger on a piece of paper starting from the bottom half, crossing a horizontal line cutting through the middle of the paper, to the top half of the paper without removing their finger then their finger must have touched the horizontal line at some point. No mathematical training is needed to know \textit{that} and, more importantly, understand \textit{why} your finger crosses through the horizontal line on the page. LLMs certainly do not `understand' the correctness of the IVT in this way, or really any way that isn't purely symbolic. Maybe multimodal LLMs will alleviate this.
 
-A separate but related question is to what extent it matters that a model `reasons' in order to arrive at its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. From a purely problem solving point of view, these philosophical debates regarding what constitutes reasoning, understanding and knowing aren't too important in the short term. Regardless, it'd be funny if 50 years from now we're well-taken care of by a fleet of machine learning-powered robots and we still look down on them for not being capable of `real reasoning'.
+% A separate but related question is to what extent it matters that a model `reasons' in order to arrive at its conclusions. Somewhat in the same way that it doesn't matter that a calculator has no inherent idea of why it outputs 6 when you input $3\cdot2$. From a purely problem solving point of view, these philosophical debates regarding what constitutes reasoning, understanding and knowing aren't too important in the short term. Regardless, it'd be funny if 50 years from now we're well-taken care of by a fleet of machine learning-powered robots and we still look down on them for not being capable of `real reasoning'.
 
-\subsection{Backwards-compatible definition of AI [Winter 2026]}
-As a term, AI has been thrown around so much that I'm unsure what's meant by it. As of now, early 2026, its intended meaning in most cases is something aking to one of: deep learning, deep generative modelling or LLM-related things. This is somewhat of a shame as its use as a synonym for any of these discludes decades of work which was once referred to as AI. Going all the way back to 1955 when John McCarthy\footnote{John McCarthy was one of the godfathers of AI along with Marvin Minsky, Alan Turing, Allen Newell and Herbert Simon. I'm sure many would argue for the inclusion of others in this list. Also, side note, referring to Geoffrey Hinton as one of the godfathers of AI seems outright wrong. I think it's better to instead refer to Hinton as one of the godfathers of deep learning.} wrote a proposal for the funding of a summer school to be held in 1956 at Dartmouth college. In the proposal he coined the term artificial intelligence to encompass the work of him and his colleagues. Said work was intent on immitating human (or more broadly living) intelligence.
+% \subsection{Backwards-compatible definition of AI [Winter 2026]}
+% As a term, AI has been thrown around so much that I'm unsure what's meant by it. As of now, early 2026, its intended meaning in most cases is something aking to one of: deep learning, deep generative modelling or LLM-related things. This is somewhat of a shame as its use as a synonym for any of these discludes decades of work which was once referred to as AI. Going all the way back to 1955 when John McCarthy\footnote{John McCarthy was one of the godfathers of AI along with Marvin Minsky, Alan Turing, Allen Newell and Herbert Simon. I'm sure many would argue for the inclusion of others in this list. Also, side note, referring to Geoffrey Hinton as one of the godfathers of AI seems outright wrong. I think it's better to instead refer to Hinton as one of the godfathers of deep learning.} wrote a proposal for the funding of a summer school to be held in 1956 at Dartmouth college. In the proposal he coined the term artificial intelligence to encompass the work of him and his colleagues. Said work was intent on immitating human (or more broadly living) intelligence.
 
-Since 1956, the methods developed and applied with the intention of such immitation have changed drastically, from hard-encoding rules to letting data speaking for itself and allowing models to learn their own rules from data. Regardless, both have been developed and applied with the intention of said immitation, and both, during their time, were understandly referred to as methods belonging to the discipline of artificial intelligence. On this note, I think a definition of AI, as a discipline, which I think can be broadly agreed upon is one which ties it to the intention of immitating the intelligence of the living. The key of this definition is the inclusion of intent. For example, linear programming would not be referred to as an AI approach nowadays but many decades ago there were cases where it certainly was. I believe that a way to distinguish between cases where it should come under the AI umbrella is whether or not the intent of its application was immitating living intelligence.
+% Since 1956, the methods developed and applied with the intention of such immitation have changed drastically, from hard-encoding rules to letting data speaking for itself and allowing models to learn their own rules from data. Regardless, both have been developed and applied with the intention of said immitation, and both, during their time, were understandly referred to as methods belonging to the discipline of artificial intelligence. On this note, I think a definition of AI, as a discipline, which I think can be broadly agreed upon is one which ties it to the intention of immitating the intelligence of the living. The key of this definition is the inclusion of intent. For example, linear programming would not be referred to as an AI approach nowadays but many decades ago there were cases where it certainly was. I believe that a way to distinguish between cases where it should come under the AI umbrella is whether or not the intent of its application was immitating living intelligence.
 
-This definition isn't particularly catchy, so I wouldn't expect it to catch on, but I like that it doesn't disregard a ton of the work done in AI from 1956 to now.
+% This definition isn't particularly catchy, so I wouldn't expect it to catch on, but I like that it doesn't disregard a ton of the work done in AI from 1956 to now.
 
-\subsection{\NEXT The principled measure-explainability tradeoff}
+% \subsection{\NEXT The principled measure-explainability tradeoff}
 
-\subsection{\TODO The sufficiency of internet-scraped data}
-After playing around with large language modelling, e.g. training a $\sim750$ million parameter LLM, and seeing them work (to an extent), a natural question is why on earth internet-scraped text data is sufficient in learning such models.
+% \subsection{\TODO The sufficiency of internet-scraped data}
+% After playing around with large language modelling, e.g. training a $\sim750$ million parameter LLM, and seeing them work (to an extent), a natural question is why on earth internet-scraped text data is sufficient in learning such models.
 
 \end{appendices}
 
