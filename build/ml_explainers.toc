@@ -83,7 +83,7 @@
 \contentsline {subsubsection}{\numberline {A.2.1}Kullback-Leibler Divergence (KL-divergence)}{82}{subsubsection.a.A.2.1}%
 \contentsline {subsection}{\numberline {A.3}The Expectation-Maximisation (EM) Algorithm}{85}{subsection.a.A.3}%
 \contentsline {section}{\numberline {B}Miscellaneous Thoughts}{87}{appendix.a.B}%
-\contentsline {subsection}{\numberline {B.1}LLM reasoning [Summer 2024]}{88}{subsection.a.B.1}%
-\contentsline {subsection}{\numberline {B.2}Backwards-compatible definition of AI [Winter 2026]}{89}{subsection.a.B.2}%
-\contentsline {subsection}{\numberline {B.3}\textcolor {myYellow}{\textbf {NEXT: }}The principled measure-explainability tradeoff}{90}{subsection.a.B.3}%
-\contentsline {subsection}{\numberline {B.4}\textcolor {red}{\textbf {TODO: }}The sufficiency of internet-scraped data}{90}{subsection.a.B.4}%
+\contentsline {subsection}{\numberline {B.1}LLM reasoning (Summer '24)}{88}{subsection.a.B.1}%
+\contentsline {subsection}{\numberline {B.2}Backwards-compatible definition of AI (Winter '26)}{89}{subsection.a.B.2}%
+\contentsline {subsection}{\numberline {B.3}The principled measure-explainability tradeoff}{90}{subsection.a.B.3}%
+\contentsline {subsection}{\numberline {B.4}The sufficiency of internet-scraped data (Summer '26)}{90}{subsection.a.B.4}%
