@@ -48,7 +48,7 @@
 \contentsline {subsubsection}{\numberline {4.4.2}Embedding}{48}{subsubsection.4.4.2}%
 \contentsline {subsubsection}{\numberline {4.4.3}Positional encoding/embedding}{49}{subsubsection.4.4.3}%
 \contentsline {subsubsection}{\numberline {4.4.4}\textcolor {myYellow}{\textbf {NEXT: }}Attention + MLP component}{51}{subsubsection.4.4.4}%
-\contentsline {subsubsection}{\numberline {4.4.5}Example: GPT-2 small ($\sim $123M parameters)}{51}{subsubsection.4.4.5}%
+\contentsline {subsubsection}{\numberline {4.4.5}Example: GPT-2 small ($\sim 123$M parameters)}{51}{subsubsection.4.4.5}%
 \contentsline {subsection}{\numberline {4.5}Backpropagation}{52}{subsection.4.5}%
 \contentsline {subsubsection}{\numberline {4.5.1}Reverse-mode auto-differentiation (backprop)}{53}{subsubsection.4.5.1}%
 \contentsline {subsubsection}{\numberline {4.5.2}Backpropagation for MLPs}{55}{subsubsection.4.5.2}%
